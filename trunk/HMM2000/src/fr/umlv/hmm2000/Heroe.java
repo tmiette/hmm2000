@@ -9,11 +9,9 @@ public class Heroe extends MovableElement {
 	public Heroe(String name) {
 		this.name = name;
 	}
-
-	@Override
-	public Event isSelected() {
-		System.out.println(this.name);
-		return null;
+	
+	public String getName() {
+		return this.name;
 	}
 
 	@Override
@@ -22,14 +20,8 @@ public class Heroe extends MovableElement {
 	}
 
 	@Override
-	public void move() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public int getStepCount() {
-		return 2;
+		return 5;
 	}
 
 }

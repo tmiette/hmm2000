@@ -1,11 +1,9 @@
 package fr.umlv.hmm2000.gui;
 
-import java.util.List;
-
-import fr.umlv.hmm2000.manager.MoveDisplayEvent;
 import fr.umlv.hmm2000.manager.MoveEvent;
 import fr.umlv.hmm2000.manager.SelectionEvent;
 import fr.umlv.hmm2000.manager.UIEventManager;
+import fr.umlv.hmm2000.manager.MoveEvent.Step;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.lawrence.DefaultGridModel;
 
@@ -17,23 +15,10 @@ public class LawrenceEventManager implements UIEventManager {
 		this.model = model;
 	}
 
-	public void displayPath(MoveDisplayEvent event) {
-		List<Location> locations = event.getLocations();
-		int count = event.getSource().getStepCount();
-		boolean firstLocation = true;
-		for (Location l : locations) {
-			if (!firstLocation) {
-				if (count != 0) {
-					this.model
-							.addDeffered(l.getY(), l.getX(), Sprite.RECHEABLE);
-					count--;
-				} else {
-					this.model.addDeffered(l.getY(), l.getX(),
-							Sprite.UNRECHEABLE);
-				}
-			}
-			firstLocation = false;
-		}
+	public void performSelection(SelectionEvent event) {
+		Location location = event.getLocation();
+		this.model.addDeffered(location.getY(), location.getX(),
+				Sprite.SELECTION);
 		this.model.swap();
 	}
 
@@ -44,7 +29,30 @@ public class LawrenceEventManager implements UIEventManager {
 		this.model.swap();
 	}
 
-	public void performMove(MoveEvent event) {
+	public void displayMove(MoveEvent event) {
+
+		for (Step move : event.getMoves()) {
+			Location l = move.getEnd();
+			if (move.isRecheable()) {
+				this.model.addDeffered(l.getY(), l.getX(), Sprite.RECHEABLE);
+			} else {
+				this.model.addDeffered(l.getY(), l.getX(), Sprite.UNRECHEABLE);
+			}
+		}
+		this.model.swap();
+	}
+
+	public void removeMove(MoveEvent event) {
+
+		for (Step move : event.getMoves()) {
+			Location l = move.getEnd();
+			this.model.removeDeffered(l.getY(), l.getX(), Sprite.RECHEABLE);
+			this.model.removeDeffered(l.getY(), l.getX(), Sprite.UNRECHEABLE);
+		}
+		this.model.swap();
+	}
+
+	public void performStep(Step event) {
 		Location start = event.getStart();
 		Location end = event.getEnd();
 		this.model.removeDeffered(start.getY(), start.getX(), event.getSource()
@@ -57,22 +65,7 @@ public class LawrenceEventManager implements UIEventManager {
 			// TODO a changer
 			Thread.sleep(250);
 		} catch (InterruptedException e) {
-		}
-		this.model.swap();
-	}
-
-	public void performSelection(SelectionEvent event) {
-		Location location = event.getLocation();
-		this.model.addDeffered(location.getY(), location.getX(),
-				Sprite.SELECTION);
-		this.model.swap();
-	}
-
-	public void removePath(MoveDisplayEvent event) {
-		List<Location> locations = event.getLocations();
-		for (Location l : locations) {
-			this.model.removeDeffered(l.getY(), l.getX(), Sprite.RECHEABLE);
-			this.model.removeDeffered(l.getY(), l.getX(), Sprite.UNRECHEABLE);
+			//nothing
 		}
 		this.model.swap();
 	}

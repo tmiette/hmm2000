@@ -1,16 +1,21 @@
 package fr.umlv.hmm2000.manager;
 
-import fr.umlv.hmm2000.Event;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.MapForegroundElement;
 
-public class SelectionEvent extends Event {
+public class SelectionEvent {
+	
+	private final MapForegroundElement source;
 
 	private final Location location;
-	
+
 	public SelectionEvent(MapForegroundElement source, Location location) {
-		super(source);
+		this.source = source;
 		this.location = location;
+	}
+	
+	public MapForegroundElement getSource() {
+		return this.source;
 	}
 
 	public Location getLocation() {

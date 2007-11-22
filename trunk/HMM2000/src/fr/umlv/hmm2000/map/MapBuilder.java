@@ -43,6 +43,8 @@ public class MapBuilder {
 			return MapBackgroundEnum.PLAIN;
 		case 'T':
 			return MapBackgroundEnum.TREE;
+		case 'W':
+			return MapBackgroundEnum.WATER;
 		default:
 			return null;
 		}

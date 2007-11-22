@@ -9,15 +9,15 @@ public class Engine {
 
 	private final UIEventManager uiManager;
 
-	private final MovementsDisplayManager movementsManager;
+	private final MoveManager movementsManager;
 
 	private final SelectionManager selectionManager;
-
+	
 	public Engine(Map map, UIEventManager uiManager) {
 		this.map = map;
 		this.uiManager = uiManager;
 		this.selectionManager = new SelectionManager(this.map, this.uiManager);
-		this.movementsManager = new MovementsDisplayManager(this.map, this.uiManager,
+		this.movementsManager = new MoveManager(this.map, this.uiManager,
 				this.selectionManager);
 	}
 
@@ -25,7 +25,7 @@ public class Engine {
 		Location l = new Location(x, y);
 
 		if (button == 1) {
-			this.movementsManager.removeCurrentPath();
+			this.movementsManager.clearCurrentMoveEvent();
 			this.selectionManager.perform(l);
 		} else if (button == 3) {
 			this.movementsManager.perform(l);
