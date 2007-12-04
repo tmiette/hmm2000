@@ -1,5 +1,6 @@
-package fr.umlv.hmm2000;
+package fr.umlv.hmm2000.characters.heroes;
 
+import fr.umlv.hmm2000.MovableElement;
 import fr.umlv.hmm2000.gui.Sprite;
 
 public class Heroe extends MovableElement {

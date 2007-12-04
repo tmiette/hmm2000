@@ -2,7 +2,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import fr.umlv.hmm2000.GoldResource;
-import fr.umlv.hmm2000.Heroe;
+import fr.umlv.hmm2000.characters.heroes.Heroe;
 import fr.umlv.hmm2000.gui.GameBoard;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.Map;
