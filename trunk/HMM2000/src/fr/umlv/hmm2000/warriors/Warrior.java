@@ -3,6 +3,7 @@ package fr.umlv.hmm2000.warriors;
 import java.util.ArrayList;
 
 import fr.umlv.hmm2000.MovableElement;
+import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.warriors.attacks.Attack;
 
@@ -16,8 +17,9 @@ public abstract class Warrior extends MovableElement {
 
 	private Position position;
 
-	public Warrior() {
+	public Warrior(Player player) {
 
+		super(player);
 		this.health = initHealth();
 		this.stepCount = initStepCount();
 		this.position = Position.NONE;
