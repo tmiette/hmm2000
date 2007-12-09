@@ -11,9 +11,9 @@ public class LordOfWar extends Heroe {
 
 	
 
-	public LordOfWar(Player player) {
+	public LordOfWar(Player player, String name) {
 
-		super(player);
+		super(player, name);
 	}
 
 	@Override

@@ -10,9 +10,9 @@ import fr.umlv.hmm2000.warriors.profils.ProfilHeroes;
 
 public class Sorcerer extends Heroe {
 
-	public Sorcerer(Player player) {
+	public Sorcerer(Player player, String name) {
 
-		super(player);
+		super(player, name);
 		// TODO Auto-generated constructor stub
 	}
 

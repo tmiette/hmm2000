@@ -11,10 +11,13 @@ public abstract class Heroe extends Warrior {
 	private final ArrayList<Warrior> troop;
 	
 	public static final int MAX_TROOP_SIZE = 12;
+	
+	private final String name;
 
-	public Heroe(Player player) {
+	public Heroe(Player player, String name) {
 
 		super(player);
+		this.name = name;
 		this.troop = new ArrayList<Warrior>(MAX_TROOP_SIZE);
 	}
 

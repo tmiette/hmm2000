@@ -8,9 +8,9 @@ import fr.umlv.hmm2000.warriors.profils.ProfilHeroes;
 
 public class Archer extends Heroe {
 
-	public Archer(Player player) {
+	public Archer(Player player, String name) {
 
-		super(player);
+		super(player, name);
 		// TODO Auto-generated constructor stub
 	}
 
