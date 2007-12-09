@@ -2,6 +2,7 @@ package fr.umlv.hmm2000.warriors.heroes;
 
 import java.util.ArrayList;
 
+import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.warriors.Warrior;
 import fr.umlv.hmm2000.warriors.heroes.exceptions.maxNumberOfTroopsReached;
 
@@ -11,9 +12,9 @@ public abstract class Heroe extends Warrior {
 	
 	public static final int MAX_TROOP_SIZE = 12;
 
-	public Heroe() {
+	public Heroe(Player player) {
 
-		super();
+		super(player);
 		this.troop = new ArrayList<Warrior>(MAX_TROOP_SIZE);
 	}
 

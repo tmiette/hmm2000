@@ -2,6 +2,7 @@ package fr.umlv.hmm2000.warriors.heroes;
 
 import java.util.ArrayList;
 
+import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.warriors.attacks.Attack;
 import fr.umlv.hmm2000.warriors.profils.ProfilHeroes;
 
@@ -10,9 +11,9 @@ public class LordOfWar extends Heroe {
 
 	
 
-	public LordOfWar() {
+	public LordOfWar(Player player) {
 
-		super();
+		super(player);
 	}
 
 	@Override
