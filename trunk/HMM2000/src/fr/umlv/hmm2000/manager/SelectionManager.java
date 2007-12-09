@@ -26,6 +26,7 @@ public class SelectionManager {
 				this.selectedLocation = null;
 			}
 			this.uiManager.performSelection(new SelectionEvent(element, l));
+			element.accept(this.uiManager.displayingVisitor());
 			this.selectedLocation = l;
 		}
 	}

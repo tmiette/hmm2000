@@ -21,7 +21,7 @@ public class CheckerboardVertex {
 	 */
 	private final int yCoordinate;
 
-	private final MapBackgroundElement backgroundElement;
+	private MapBackgroundElement backgroundElement;
 
 	public CheckerboardVertex(int x, int y,
 			MapBackgroundElement backgroundlElement) {
@@ -32,6 +32,10 @@ public class CheckerboardVertex {
 
 	public MapBackgroundElement getMapBackgroundElement() {
 		return this.backgroundElement;
+	}
+
+	public void setMapBackgroundElement(MapBackgroundElement element) {
+		this.backgroundElement = element;
 	}
 
 	/**

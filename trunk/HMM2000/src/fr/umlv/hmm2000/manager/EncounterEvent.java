@@ -10,12 +10,17 @@ public class EncounterEvent {
 
 	private final MapForegroundElement recipient;
 
-	private final Location location;
-	
-	public EncounterEvent(MovableElement sender, MapForegroundElement recipient, Location location) {
+	private final Location senderLocation;
+
+	private final Location recipientLocation;
+
+	public EncounterEvent(MovableElement sender,
+			MapForegroundElement recipient, Location senderLocation,
+			Location recipientLocation) {
 		this.sender = sender;
 		this.recipient = recipient;
-		this.location = location;
+		this.senderLocation = senderLocation;
+		this.recipientLocation = recipientLocation;
 	}
 
 	public MapForegroundElement getRecipient() {
@@ -26,8 +31,12 @@ public class EncounterEvent {
 		return this.sender;
 	}
 	
-	public Location getLocation() {
-		return this.location;
+	public Location getSenderLocation() {
+		return this.senderLocation;
 	}
-	
+
+	public Location getRecipientLocation() {
+		return this.recipientLocation;
+	}
+
 }

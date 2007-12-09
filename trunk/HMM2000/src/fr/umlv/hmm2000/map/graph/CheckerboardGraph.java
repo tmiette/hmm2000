@@ -50,6 +50,14 @@ public class CheckerboardGraph implements Graph<CheckerboardVertex> {
 		return null;
 	}
 
+	public void changeMapBackgroundElement(int x, int y,
+			MapBackgroundElement element) {
+		if (isCorrectCoordinates(x, y)) {
+			this.getCheckerboardVertex(x, y).setMapBackgroundElement(element);
+			this.successorsLists.clear();
+		}
+	}
+
 	/**
 	 * Returns the checkboard vertex with the specified coordinates, or null if
 	 * the coordinates are away from the checkboard.

@@ -39,7 +39,7 @@ public class GameBoard {
 		this.registerImages();
 		this.pane = new GridPane<Sprite>(this.model, this.provider, 50, 50);
 		this.pane.addInputListener(this.inputListener);
-		this.pointerLocation = new fr.umlv.lawrence.Location(0,0);
+		this.pointerLocation = new fr.umlv.lawrence.Location(0, 0);
 		this.pane.addCursorListener(this.pointerCursorListener);
 		this.engine = new Engine(this.map, new LawrenceEventManager(this.model));
 		this.initGrid();
@@ -110,7 +110,8 @@ public class GameBoard {
 		}
 
 		public void mouseEntered(int x, int y) {
-			fr.umlv.lawrence.Location location = new fr.umlv.lawrence.Location(x, y);
+			fr.umlv.lawrence.Location location = new fr.umlv.lawrence.Location(
+					x, y);
 			GameBoard.this.setPointer(location);
 		}
 	};

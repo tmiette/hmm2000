@@ -35,7 +35,7 @@ public class MoveManager {
 		this.uiManager = uiManager;
 		this.selectionManager = selectionManager;
 		this.heuristic = new CheckboardEuclideanAStarHeuristic();
-		this.encounterManager = new EncounterManager();
+		this.encounterManager = new EncounterManager(map, uiManager);
 	}
 
 	public void perform(Location location) {
@@ -96,15 +96,15 @@ public class MoveManager {
 				MapForegroundElement element = this.map.getElementAtLocation(l);
 				if (element != null) {
 					EncounterEvent event = new EncounterEvent(
-							this.currentSource, element, l);
-					this.encounterManager.perform(event);
-					break;
-					//TODO gestion rencontre
-				} else {
-					this.map.moveElement(move.getStart(), move.getEnd());
-					this.uiManager.performStep(move);
-					this.selectionManager.perform(move.getEnd());
+							this.currentSource, element, move.getStart(), l);
+					if (!this.encounterManager.perform(event)) {
+						break;
+					}
 				}
+				this.map.moveMapForegroundElement(move.getStart(), move
+						.getEnd());
+				this.uiManager.performStep(move);
+				this.selectionManager.perform(move.getEnd());
 			}
 		}
 	}
