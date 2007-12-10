@@ -100,4 +100,11 @@ public class Warrior extends MovableElement implements ProfilWarrior {
 		this.container = c;
 	}
 
+	@Override
+	public int getStepCount() {
+
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
