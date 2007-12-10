@@ -2,8 +2,8 @@ package fr.umlv.hmm2000.warriors.attacks;
 
 public interface Attack {
 
-	public double getDamageCount();
+	public double getDamage();
 
-	public double getResistanceCount();
+	public double getResistance();
 
 }
