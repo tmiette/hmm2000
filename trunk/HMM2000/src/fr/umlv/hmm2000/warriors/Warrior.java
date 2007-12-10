@@ -6,87 +6,38 @@ import fr.umlv.hmm2000.MovableElement;
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.warriors.attacks.Attack;
+import fr.umlv.hmm2000.warriors.profils.ProfilWarrior;
 
-public abstract class Warrior extends MovableElement {
+public class Warrior extends MovableElement implements ProfilWarrior {
 
 	private double health;
 
-	private int stepCount;
+	private int speed;
 
-	private final ArrayList<Attack> listOfAttacks;
+	// List of attacks he can execute
+	private ArrayList<Attack> listOfAttacks;
 
-	private Position position;
+	// Container that contains him (heroe, castle)
+	private Container container;
 
-	public Warrior(Player player) {
+	private Sprite sprite;
+
+	private double defenseValue;
+
+	private double attackValue;
+
+	Warrior(Player player, double health, int speed,
+			ArrayList<Attack> listOfAttacks, Container container, Sprite sprite,
+			double defenseValue, double attackValue) {
 
 		super(player);
-		this.health = initHealth();
-		this.stepCount = initStepCount();
-		this.position = Position.NONE;
-		this.listOfAttacks = initListOfAttacks();
-	}
-
-	public abstract ArrayList<Attack> initListOfAttacks();
-	
-	public abstract double initHealth();
-	
-	public abstract int initStepCount();
-
-	public void attack(Warrior warrior, ArrayList<Attack> attacks) {
-
-		double damage = 0;
-		double defenseCount = 0;
-		for (Attack attack : attacks) {
-			if (attack.isPhysical()) {
-				damage += attack.getDamageCount();
-				defenseCount += attack.getResistanceCount();
-			}
-			else {
-				damage += (attack.getDamageCount()
-						* ((100 - attack.getResistanceCount()) / 100));
-			}
-		}
-		damage = damage - defenseCount;
-		warrior.setDamage(damage);
-
-		System.out.println("Damage caused : " + damage);
-		
-		if (warrior.health <= 0) {
-			System.out.println("Warrior : " + warrior + " is dead.");
-		}
-	}
-
-	private void setDamage(double damage) {
-
-		this.health -= damage;
-	}
-
-	public double getHealth() {
-
-		return health;
-	}
-
-	@Override
-	public int getStepCount() {
-
-		return this.stepCount;
-	}
-
-	public void setStepCount(int stepCount) {
-
-		this.stepCount = stepCount;
-	}
-
-	@Override
-	public Sprite getSprite() {
-
-		// TODO
-		return null;
-	}
-
-	public ArrayList<Attack> getListOfAttacks() {
-	
-		return this.listOfAttacks;
+		this.health = health;
+		this.speed = speed;
+		this.listOfAttacks = listOfAttacks;
+		this.container = container;
+		this.sprite = sprite;
+		this.defenseValue = defenseValue;
+		this.attackValue = attackValue;
 	}
 
 	@Override
@@ -96,13 +47,57 @@ public abstract class Warrior extends MovableElement {
 		sb.append("Warrior : \n(Health = ");
 		sb.append(this.health);
 		sb.append(",StepCount = ");
-		sb.append(this.stepCount);
+		sb.append(this.speed);
 		sb.append(",Attacks = ");
 		sb.append(this.listOfAttacks.toString());
-		sb.append(",Position = ");
-		sb.append(this.position);
 		sb.append(")");
 		return sb.toString();
+	}
+
+	@Override
+	public Sprite getSprite() {
+
+		return this.sprite;
+	}
+
+	@Override
+	public double getAttackValue() {
+
+		return this.attackValue;
+	}
+
+	@Override
+	public double getDefenseValue() {
+
+		return this.defenseValue;
+	}
+
+	@Override
+	public double getHealth() {
+
+		return this.health;
+	}
+
+	@Override
+	public ArrayList<Attack> getListOfAttacks() {
+
+		return this.listOfAttacks;
+	}
+
+	@Override
+	public int getSpeed() {
+
+		return this.speed;
+	}
+
+	public void setSpeed(int speed) {
+
+		this.speed = speed;
+	}
+
+	public void setContainer(Container c) {
+
+		this.container = c;
 	}
 
 }
