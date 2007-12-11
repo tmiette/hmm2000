@@ -8,6 +8,8 @@ import fr.umlv.hmm2000.Resource;
 import fr.umlv.hmm2000.Spell;
 import fr.umlv.hmm2000.Resource.Kind;
 import fr.umlv.hmm2000.gui.GameBoard;
+import fr.umlv.hmm2000.manager.Engine;
+import fr.umlv.hmm2000.manager.UIEngine;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.Map;
 import fr.umlv.hmm2000.map.MapBuilder;
@@ -30,8 +32,10 @@ public class Hmm2000 {
 		m.addSpell(Spell.TELEPORTATION, 2);
 		m.addSpell(Spell.OBSTACLE_DESTRUCTION, 1);
 		map2.addMapForegroundElement(m, new Location(2, 2));
-		final GameBoard board = new GameBoard(map2);
-		board.display();
+
+		UIEngine board = new GameBoard(map2);
+		Engine.createEngine(map2, board.uiEventManager());
+		board.start();
 
 	}
 
