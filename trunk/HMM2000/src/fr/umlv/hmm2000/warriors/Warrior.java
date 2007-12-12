@@ -103,16 +103,18 @@ public class Warrior extends MovableElement implements ProfilWarrior {
 		return this.elements;
 	}
 
-  @Override
-  public void accept(UIDisplayingVisitor visitor) {
-    // TODO Auto-generated method stub
-    
-  }
+	@Override
+	public void accept(UIDisplayingVisitor visitor) {
 
-  @Override
-  public boolean encounter(EncounterEvent event) {
-    // TODO Auto-generated method stub
-    return false;
-  }
+		visitor.visit(this);
+
+	}
+
+	@Override
+	public boolean encounter(EncounterEvent event) {
+
+		System.err.println("Combat");
+		return false;
+	}
 
 }
