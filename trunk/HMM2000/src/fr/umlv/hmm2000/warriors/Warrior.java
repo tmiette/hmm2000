@@ -1,0 +1,120 @@
+package fr.umlv.hmm2000.warriors;
+
+import java.util.HashMap;
+
+import fr.umlv.hmm2000.Player;
+import fr.umlv.hmm2000.engine.event.EncounterEvent;
+import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
+import fr.umlv.hmm2000.gui.Sprite;
+import fr.umlv.hmm2000.map.MovableElement;
+import fr.umlv.hmm2000.warriors.elements.Element;
+import fr.umlv.hmm2000.warriors.elements.ElementEnum;
+import fr.umlv.hmm2000.warriors.profils.ProfilWarrior;
+
+public class Warrior extends MovableElement implements ProfilWarrior {
+
+	private double health;
+
+	private int speed;
+
+	private Sprite sprite;
+
+	private double defenseValue;
+
+	private double attackValue;
+
+	private HashMap<ElementEnum, Element> elements;
+
+	Warrior(Player player,
+					double health,
+					int speed,
+					Sprite sprite,
+					double defenseValue,
+					double attackValue,
+					HashMap<ElementEnum, Element> elements) {
+
+		super(player);
+		this.health = health;
+		this.speed = speed;
+		this.sprite = sprite;
+		this.defenseValue = defenseValue;
+		this.attackValue = attackValue;
+		this.elements = elements;
+	}
+
+	@Override
+	public String toString() {
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("Warrior : \n(Health = ");
+		sb.append(this.health);
+		sb.append(",StepCount = ");
+		sb.append(this.speed);
+		sb.append(",Attacks = ");
+		sb.append(")");
+		return sb.toString();
+	}
+
+	@Override
+	public Sprite getSprite() {
+
+		return this.sprite;
+	}
+
+	@Override
+	public double getAttackValue() {
+
+		return this.attackValue;
+	}
+
+	@Override
+	public double getDefenseValue() {
+
+		return this.defenseValue;
+	}
+
+	@Override
+	public double getHealth() {
+
+		return this.health;
+	}
+
+	@Override
+	public int getSpeed() {
+
+		return this.speed;
+	}
+
+	public void setSpeed(int speed) {
+
+		this.speed = speed;
+	}
+
+	@Override
+	public int getStepCount() {
+
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public HashMap<ElementEnum, Element> getElements() {
+
+		return this.elements;
+	}
+
+	@Override
+	public void accept(UIDisplayingVisitor visitor) {
+
+		visitor.visit(this);
+
+	}
+
+	@Override
+	public boolean encounter(EncounterEvent event) {
+
+		System.err.println("Combat");
+		return false;
+	}
+
+}
