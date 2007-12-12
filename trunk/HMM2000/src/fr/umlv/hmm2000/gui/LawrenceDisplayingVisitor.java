@@ -4,6 +4,7 @@ import fr.umlv.hmm2000.HeroeToDelete;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.resource.Resource;
 import fr.umlv.hmm2000.salesentity.SalesEntity;
+import fr.umlv.hmm2000.warriors.Warrior;
 
 public class LawrenceDisplayingVisitor implements UIDisplayingVisitor {
 
@@ -23,5 +24,11 @@ public class LawrenceDisplayingVisitor implements UIDisplayingVisitor {
   public void visit(SalesEntity salesEntity) {
     System.out.println("Caserne");
     System.out.println(salesEntity.getItems());
+  }
+
+  @Override
+  public void visit(Warrior warrior) {
+    System.out.println("warrior");
+
   }
 }
