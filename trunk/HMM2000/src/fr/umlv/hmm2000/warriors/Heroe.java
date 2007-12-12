@@ -24,7 +24,6 @@ public class Heroe extends Warrior implements Container {
 				double defenseValue,
 				double attackValue,
 				HashMap<ElementEnum, Element> elements,
-				ArrayList<Warrior> troop,
 				String name) {
 
 		super(player,
@@ -35,14 +34,6 @@ public class Heroe extends Warrior implements Container {
 					attackValue,
 					elements);
 
-		try {
-			for (Warrior warrior : troop) {
-				this.addWarrior(warrior);
-			}
-		}
-		catch (MaxNumberOfTroopsReachedException e) {
-			// Nothing to do
-		}
 		this.name = name;
 	}
 

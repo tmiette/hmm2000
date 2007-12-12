@@ -1,12 +1,8 @@
 package fr.umlv.hmm2000.warriors.profils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import fr.umlv.hmm2000.gui.Sprite;
-import fr.umlv.hmm2000.warriors.Heroe;
-import fr.umlv.hmm2000.warriors.Warrior;
-import fr.umlv.hmm2000.warriors.WarriorFactory;
 import fr.umlv.hmm2000.warriors.elements.Element;
 import fr.umlv.hmm2000.warriors.elements.ElementEnum;
 
@@ -44,9 +40,14 @@ public enum ProfilHeroe implements ProfilWarrior {
 
 	private Sprite sprite;
 
-	private ArrayList<Warrior> troop;
-	
 	private HashMap<ElementEnum, Element> elements;
+	
+	private ProfilWarrior[] profilWarrior;
+	
+	public ProfilWarrior[] getProfilWarrior() {
+	
+		return this.profilWarrior;
+	}
 
 	private ProfilHeroe(double attackValue,
 											double defenseValue,
@@ -61,17 +62,7 @@ public enum ProfilHeroe implements ProfilWarrior {
 		this.health = health;
 		this.speed = speed;
 		this.sprite = sprite;
-		
-		this.troop = new ArrayList<Warrior>(Heroe.MAX_TROOP_SIZE);
-		int warriors = 0;
-		for (ProfilWarrior profilWarrior : pw) {
-			if (warriors >= Heroe.MAX_TROOP_SIZE) {
-				break;
-			}
-			warriors++;
-			this.troop.add(WarriorFactory.createWarrior(profilWarrior, null));
-		}
-		
+		this.profilWarrior = pw;
 		this.elements = new HashMap<ElementEnum, Element>();
 		for (Element element : ee) {
 			this.elements.put(element.getType(), element);
@@ -106,16 +97,6 @@ public enum ProfilHeroe implements ProfilWarrior {
 	public Sprite getSprite() {
 
 		return this.sprite;
-	}
-
-	public ArrayList<Warrior> getTroop() {
-
-		return this.troop;
-	}
-
-	public void setTroop(ArrayList<Warrior> troop) {
-
-		this.troop = troop;
 	}
 
 	@Override
