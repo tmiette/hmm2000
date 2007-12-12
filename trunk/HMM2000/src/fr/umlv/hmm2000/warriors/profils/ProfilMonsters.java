@@ -1,6 +1,10 @@
 package fr.umlv.hmm2000.warriors.profils;
 
+import java.util.HashMap;
+
 import fr.umlv.hmm2000.gui.Sprite;
+import fr.umlv.hmm2000.warriors.elements.Element;
+import fr.umlv.hmm2000.warriors.elements.ElementEnum;
 
 public enum ProfilMonsters implements ProfilWarrior {
 
@@ -8,17 +12,20 @@ public enum ProfilMonsters implements ProfilWarrior {
 					10,
 					100,
 					20,
-					null),
+					null,
+					new Element[] {}),
 	OGRE(	10,
 				10,
 				100,
 				20,
-				null),
+				null,
+				new Element[] {}),
 	SITH(	10,
 				10,
 				100,
 				20,
-				null);
+				null,
+				new Element[] {});
 
 	private double attackValue;
 
@@ -29,18 +36,25 @@ public enum ProfilMonsters implements ProfilWarrior {
 	private int speed;
 
 	private Sprite sprite;
+	
+	private HashMap<ElementEnum, Element> elements;
 
 	private ProfilMonsters(	double attackValue,
 													double defenseValue,
 													double health,
 													int speed,
-													Sprite sprite) {
+													Sprite sprite,
+													Element[] ee) {
 
 		this.attackValue = attackValue;
 		this.defenseValue = defenseValue;
 		this.health = health;
 		this.speed = speed;
 		this.sprite = sprite;
+		this.elements = new HashMap<ElementEnum, Element>();
+		for (Element element : ee) {
+			this.elements.put(element.getType(), element);
+		}
 	}
 
 	@Override
@@ -71,6 +85,12 @@ public enum ProfilMonsters implements ProfilWarrior {
 	public Sprite getSprite() {
 
 		return this.sprite;
+	}
+
+	@Override
+	public HashMap<ElementEnum, Element> getElements() {
+
+		return this.elements;
 	}
 
 }

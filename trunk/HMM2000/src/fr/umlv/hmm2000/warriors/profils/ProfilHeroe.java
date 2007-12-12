@@ -1,10 +1,14 @@
 package fr.umlv.hmm2000.warriors.profils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import fr.umlv.hmm2000.gui.Sprite;
+import fr.umlv.hmm2000.warriors.Heroe;
 import fr.umlv.hmm2000.warriors.Warrior;
 import fr.umlv.hmm2000.warriors.WarriorFactory;
+import fr.umlv.hmm2000.warriors.elements.Element;
+import fr.umlv.hmm2000.warriors.elements.ElementEnum;
 
 public enum ProfilHeroe implements ProfilWarrior {
 
@@ -13,19 +17,22 @@ public enum ProfilHeroe implements ProfilWarrior {
 					100,
 					20,
 					null,
-					WarriorFactory.createWarriors(ProfilCreatures.GRUNT)),
+					new ProfilWarrior[] { ProfilCreatures.GRUNT },
+					new Element[] {}),
 	LORD_OF_WAR(10,
 							10,
 							100,
 							20,
 							null,
-							WarriorFactory.createWarriors(ProfilCreatures.FLIGHT)),
+							new ProfilWarrior[] { ProfilCreatures.GRUNT },
+							new Element[] {}),
 	SORCERER(	10,
 						10,
 						100,
 						20,
 						null,
-						WarriorFactory.createWarriors(ProfilCreatures.FLIGHT));
+						new ProfilWarrior[] { ProfilCreatures.GRUNT },
+						new Element[] {});
 
 	private double attackValue;
 
@@ -38,20 +45,37 @@ public enum ProfilHeroe implements ProfilWarrior {
 	private Sprite sprite;
 
 	private ArrayList<Warrior> troop;
+	
+	private HashMap<ElementEnum, Element> elements;
 
 	private ProfilHeroe(double attackValue,
 											double defenseValue,
 											double health,
 											int speed,
 											Sprite sprite,
-											ArrayList<Warrior> defaultWarriors) {
+											ProfilWarrior[] pw,
+											Element[] ee) {
 
 		this.attackValue = attackValue;
 		this.defenseValue = defenseValue;
 		this.health = health;
 		this.speed = speed;
 		this.sprite = sprite;
-		this.troop = defaultWarriors;
+		
+		this.troop = new ArrayList<Warrior>(Heroe.MAX_TROOP_SIZE);
+		int warriors = 0;
+		for (ProfilWarrior profilWarrior : pw) {
+			if (warriors >= Heroe.MAX_TROOP_SIZE) {
+				break;
+			}
+			warriors++;
+			this.troop.add(WarriorFactory.createWarrior(profilWarrior));
+		}
+		
+		this.elements = new HashMap<ElementEnum, Element>();
+		for (Element element : ee) {
+			this.elements.put(element.getType(), element);
+		}
 	}
 
 	@Override
@@ -94,5 +118,10 @@ public enum ProfilHeroe implements ProfilWarrior {
 		this.troop = troop;
 	}
 
+	@Override
+	public HashMap<ElementEnum, Element> getElements() {
+
+		return this.elements;
+	}
 
 }
