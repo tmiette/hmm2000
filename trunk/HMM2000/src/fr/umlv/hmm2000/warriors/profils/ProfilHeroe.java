@@ -69,7 +69,7 @@ public enum ProfilHeroe implements ProfilWarrior {
 				break;
 			}
 			warriors++;
-			this.troop.add(WarriorFactory.createWarrior(profilWarrior));
+			this.troop.add(WarriorFactory.createWarrior(profilWarrior, null));
 		}
 		
 		this.elements = new HashMap<ElementEnum, Element>();

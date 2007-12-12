@@ -6,10 +6,8 @@ import fr.umlv.hmm2000.warriors.profils.ProfilWarrior;
 
 public class WarriorFactory {
 
-	public static Warrior createWarrior(ProfilWarrior p) {
+	public static Warrior createWarrior(ProfilWarrior p, Player player) {
 
-		// TODO recuperer le player
-		Player player = null;
 		return new Warrior(	player,
 												p.getHealth(),
 												p.getSpeed(),
