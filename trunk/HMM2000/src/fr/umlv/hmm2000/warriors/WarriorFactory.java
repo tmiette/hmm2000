@@ -19,11 +19,8 @@ public class WarriorFactory {
 												p.getElements());
 	}
 	
-	public static Warrior createWarrior(ProfilHeroe p) {
+	public static Warrior createWarrior(ProfilHeroe p, Player player, String name) {
 
-		// TODO recuperer le player et le nom
-		Player player = null;
-		String name = null;
 		return new Heroe(	player,
 											p.getHealth(),
 											p.getSpeed(),
