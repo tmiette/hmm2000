@@ -9,7 +9,6 @@ import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.map.MovableElement;
 import fr.umlv.hmm2000.warriors.elements.Element;
 import fr.umlv.hmm2000.warriors.elements.ElementEnum;
-import fr.umlv.hmm2000.warriors.elements.ElementImpl;
 import fr.umlv.hmm2000.warriors.profils.ProfilWarrior;
 
 public class Warrior extends MovableElement implements ProfilWarrior {
@@ -31,7 +30,8 @@ public class Warrior extends MovableElement implements ProfilWarrior {
 					int speed,
 					Sprite sprite,
 					double defenseValue,
-					double attackValue) {
+					double attackValue,
+					HashMap<ElementEnum, Element> elements) {
 
 		super(player);
 		this.health = health;
@@ -39,16 +39,7 @@ public class Warrior extends MovableElement implements ProfilWarrior {
 		this.sprite = sprite;
 		this.defenseValue = defenseValue;
 		this.attackValue = attackValue;
-		this.elements = initElements();
-	}
-
-	private HashMap<ElementEnum, Element> initElements() {
-
-		HashMap<ElementEnum, Element> hm = new HashMap<ElementEnum, Element>();
-		for(ElementEnum e : ElementEnum.values()){
-			hm.put(e, new ElementImpl());
-		}
-		return hm;
+		this.elements = elements;
 	}
 
 	@Override
@@ -109,8 +100,7 @@ public class Warrior extends MovableElement implements ProfilWarrior {
 	@Override
 	public HashMap<ElementEnum, Element> getElements() {
 
-		// TODO Auto-generated method stub
-		return null;
+		return this.elements;
 	}
 
   @Override

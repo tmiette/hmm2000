@@ -1,7 +1,5 @@
 package fr.umlv.hmm2000.warriors;
 
-import java.util.ArrayList;
-
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.warriors.profils.ProfilHeroe;
 import fr.umlv.hmm2000.warriors.profils.ProfilWarrior;
@@ -15,12 +13,12 @@ public class WarriorFactory {
 		return new Warrior(	player,
 												p.getHealth(),
 												p.getSpeed(),
-												null,
 												p.getSprite(),
 												p.getDefenseValue(),
-												p.getAttackValue());
+												p.getAttackValue(),
+												p.getElements());
 	}
-
+	
 	public static Warrior createWarrior(ProfilHeroe p) {
 
 		// TODO recuperer le player et le nom
@@ -29,22 +27,12 @@ public class WarriorFactory {
 		return new Heroe(	player,
 											p.getHealth(),
 											p.getSpeed(),
-											null,
 											p.getSprite(),
 											p.getDefenseValue(),
 											p.getAttackValue(),
-											name,
-											p.getTroop());
+											p.getElements(),
+											p.getTroop(),
+											name);
 	}
 
-	public static ArrayList<Warrior> createWarriors(ProfilWarrior... p) {
-
-		ArrayList<Warrior> warriors = new ArrayList<Warrior>();
-		if (p != null) {
-			for (int i = 0; i < p.length; i++) {
-				warriors.add(WarriorFactory.createWarrior(p[i]));
-			}
-		}
-		return warriors;
-	}
 }

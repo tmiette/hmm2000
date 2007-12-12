@@ -6,4 +6,5 @@ public interface Element {
 
 	public double getResistance();
 
+	public ElementEnum getType();
 }

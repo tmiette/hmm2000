@@ -6,14 +6,17 @@ public class ElementImpl implements Element {
 
 	private double resistance;
 	
+	private ElementEnum type;
 	
-	public ElementImpl() {
+	
+	public ElementImpl(ElementEnum type) {
 
+		this.type = type;
 		this.damage = 0;
 		this.resistance = 0;
 	}
 
-	public ElementImpl(double damage, double resistance) {
+	public ElementImpl(ElementEnum type, double damage, double resistance) {
 
 		this.damage = damage;
 		this.resistance = resistance;
@@ -29,6 +32,18 @@ public class ElementImpl implements Element {
 	public double getResistance() {
 
 		return this.resistance;
+	}
+
+	
+	public ElementEnum getType() {
+	
+		return this.type;
+	}
+
+	
+	public void setType(ElementEnum type) {
+	
+		this.type = type;
 	}
 
 }

@@ -1,10 +1,12 @@
 package fr.umlv.hmm2000.warriors;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.warriors.elements.Element;
+import fr.umlv.hmm2000.warriors.elements.ElementEnum;
 import fr.umlv.hmm2000.warriors.exceptions.MaxNumberOfTroopsReachedException;
 
 public class Heroe extends Warrior implements Container {
@@ -15,20 +17,31 @@ public class Heroe extends Warrior implements Container {
 
 	private final String name;
 
-	Heroe(Player player, double health, int speed,
-			ArrayList<Element> listOfAttacks, Container container, Sprite sprite,
-			double defenseValue, double attackValue, String name, ArrayList<Warrior> troop) {
+	Heroe(Player player,
+				double health,
+				int speed,
+				Sprite sprite,
+				double defenseValue,
+				double attackValue,
+				HashMap<ElementEnum, Element> elements,
+				ArrayList<Warrior> troop,
+				String name) {
 
-		super(player, health, speed, listOfAttacks, container, sprite,
-				defenseValue, attackValue);
-		
+		super(player,
+					health,
+					speed,
+					sprite,
+					defenseValue,
+					attackValue,
+					elements);
+
 		try {
 			for (Warrior warrior : troop) {
 				this.addWarrior(warrior);
 			}
 		}
 		catch (MaxNumberOfTroopsReachedException e) {
-			//Nothing to do
+			// Nothing to do
 		}
 		this.name = name;
 	}
@@ -43,8 +56,7 @@ public class Heroe extends Warrior implements Container {
 	public void addWarrior(Warrior w) throws MaxNumberOfTroopsReachedException {
 
 		if (this.troop.size() >= MAX_TROOP_SIZE) {
-			throw new MaxNumberOfTroopsReachedException(
-					"The max number of troops, a heroe can contain, is reached");
+			throw new MaxNumberOfTroopsReachedException("The max number of troops, a heroe can contain, is reached");
 		}
 
 		int stepCount = w.getSpeed();
@@ -53,10 +65,9 @@ public class Heroe extends Warrior implements Container {
 		}
 		this.troop.add(w);
 	};
-	
+
 	public void addWarriors(ArrayList<Warrior> w) {
 
-		
 	}
 
 	@Override
@@ -71,7 +82,8 @@ public class Heroe extends Warrior implements Container {
 
 	public int getMinSpeed() {
 
-		int stepCount = this.troop.get(0).getSpeed();
+		int stepCount = this.troop.get(0)
+															.getSpeed();
 		for (Warrior wit : this.troop) {
 			int sc;
 			if ((sc = (wit.getSpeed())) < stepCount) {
