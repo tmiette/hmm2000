@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import fr.umlv.hmm2000.Player;
+import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.warriors.elements.Element;
 import fr.umlv.hmm2000.warriors.elements.ElementEnum;
@@ -96,6 +97,12 @@ public class Heroe extends Warrior implements Container {
 	public String getName() {
 
 		return this.name;
+	}
+	
+	@Override
+	public void accept(UIDisplayingVisitor visitor) {
+	
+		visitor.visit(this);
 	}
 
 }
