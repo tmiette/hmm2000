@@ -8,7 +8,7 @@ public interface MapForegroundElement extends Spritable {
 	
 	public boolean encounter(EncounterEvent event);
 	
-	public void nextDay();
+	public void nextDay(int day);
 	
 	public void accept(UIDisplayingVisitor visitor);
 }
