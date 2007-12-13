@@ -1,4 +1,4 @@
-package fr.umlv.hmm2000.warriors.elements;
+package fr.umlv.hmm2000.warriors.element;
 
 public enum ElementEnum {
 	FIRE(),

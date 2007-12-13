@@ -3,8 +3,8 @@ package fr.umlv.hmm2000.warriors.profil;
 import java.util.HashMap;
 
 import fr.umlv.hmm2000.gui.Sprite;
-import fr.umlv.hmm2000.warriors.elements.Element;
-import fr.umlv.hmm2000.warriors.elements.ElementEnum;
+import fr.umlv.hmm2000.warriors.element.Element;
+import fr.umlv.hmm2000.warriors.element.ElementEnum;
 
 public enum ProfilHeroe implements ProfilWarrior {
 
