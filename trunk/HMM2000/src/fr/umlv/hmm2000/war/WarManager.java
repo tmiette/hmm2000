@@ -1,6 +1,6 @@
 package fr.umlv.hmm2000.war;
 
-import fr.umlv.hmm2000.warriors.Container;
+import fr.umlv.hmm2000.warrior.Container;
 
 
 public class WarManager {

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
-import fr.umlv.hmm2000.warriors.Warrior;
+import fr.umlv.hmm2000.warrior.Warrior;
 
 public class BattlePositionManager {
 

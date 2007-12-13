@@ -3,8 +3,8 @@ package fr.umlv.hmm2000.war;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.Map;
 import fr.umlv.hmm2000.map.element.MapBackgroundEnum;
-import fr.umlv.hmm2000.warriors.Container;
-import fr.umlv.hmm2000.warriors.Warrior;
+import fr.umlv.hmm2000.warrior.Container;
+import fr.umlv.hmm2000.warrior.Warrior;
 
 public class SebMapBuilder {
 

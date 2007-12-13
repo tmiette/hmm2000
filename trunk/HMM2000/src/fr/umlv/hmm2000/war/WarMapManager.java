@@ -3,7 +3,7 @@ package fr.umlv.hmm2000.war;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import fr.umlv.hmm2000.warriors.Warrior;
+import fr.umlv.hmm2000.warrior.Warrior;
 
 
 public class WarMapManager {
