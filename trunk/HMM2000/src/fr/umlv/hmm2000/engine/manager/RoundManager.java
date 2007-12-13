@@ -41,7 +41,7 @@ public class RoundManager {
       this.currentDay++;
       for (MapForegroundElement element : Engine.currentEngine().map()
           .getMapForegroundElements()) {
-        element.nextDay();
+        element.nextDay(this.currentDay);
       }
     }
     this.currentPlayer = this.players.get(this.currentPlayerIndex);
