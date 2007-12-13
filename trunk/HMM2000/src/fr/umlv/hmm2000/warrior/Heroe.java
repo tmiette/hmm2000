@@ -7,9 +7,9 @@ import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.war.BattlePositionManager;
-import fr.umlv.hmm2000.warriors.element.Element;
-import fr.umlv.hmm2000.warriors.element.ElementEnum;
-import fr.umlv.hmm2000.warriors.exception.MaxNumberOfTroopsReachedException;
+import fr.umlv.hmm2000.warrior.element.Element;
+import fr.umlv.hmm2000.warrior.element.ElementEnum;
+import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
 
 public class Heroe extends Warrior implements Container {
 

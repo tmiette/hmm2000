@@ -3,7 +3,7 @@ package fr.umlv.hmm2000.warrior;
 import java.util.ArrayList;
 
 import fr.umlv.hmm2000.war.BattlePositionManager;
-import fr.umlv.hmm2000.warriors.exception.MaxNumberOfTroopsReachedException;
+import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
 
 public interface Container {
 

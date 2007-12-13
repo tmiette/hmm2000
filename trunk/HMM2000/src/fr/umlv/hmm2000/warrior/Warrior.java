@@ -9,9 +9,9 @@ import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.map.MovableElement;
 import fr.umlv.hmm2000.salesentity.Price;
 import fr.umlv.hmm2000.salesentity.Sellable;
-import fr.umlv.hmm2000.warriors.element.Element;
-import fr.umlv.hmm2000.warriors.element.ElementEnum;
-import fr.umlv.hmm2000.warriors.profil.ProfilWarrior;
+import fr.umlv.hmm2000.warrior.element.Element;
+import fr.umlv.hmm2000.warrior.element.ElementEnum;
+import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
 
 public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 

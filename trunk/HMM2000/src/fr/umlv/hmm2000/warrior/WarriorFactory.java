@@ -1,9 +1,9 @@
 package fr.umlv.hmm2000.warrior;
 
 import fr.umlv.hmm2000.Player;
-import fr.umlv.hmm2000.warriors.exception.MaxNumberOfTroopsReachedException;
-import fr.umlv.hmm2000.warriors.profil.ProfilHeroe;
-import fr.umlv.hmm2000.warriors.profil.ProfilWarrior;
+import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
+import fr.umlv.hmm2000.warrior.profil.ProfilHeroe;
+import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
 
 public class WarriorFactory {
 
