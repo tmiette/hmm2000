@@ -2,7 +2,7 @@ package fr.umlv.hmm2000.engine.manager;
 
 import fr.umlv.hmm2000.engine.Engine;
 import fr.umlv.hmm2000.engine.event.SelectionEvent;
-import fr.umlv.hmm2000.engine.guiinterface.UIEngine;
+import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.Map;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
@@ -10,7 +10,7 @@ import fr.umlv.hmm2000.map.element.MapForegroundElement;
 public class SelectionManager {
 
   private final Map map;
-  private final UIEngine uiManager;
+  private final HMMUserInterface uiManager;
 
   private Location selectedLocation;
 

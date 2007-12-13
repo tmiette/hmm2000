@@ -2,12 +2,12 @@ package fr.umlv.hmm2000.engine.manager;
 
 import fr.umlv.hmm2000.engine.Engine;
 import fr.umlv.hmm2000.engine.event.EncounterEvent;
-import fr.umlv.hmm2000.engine.guiinterface.UIEngine;
+import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.map.Map;
 
 public class EncounterManager {
 
-	private final UIEngine uiManager;
+	private final HMMUserInterface uiManager;
 
 	private final Map map;
 

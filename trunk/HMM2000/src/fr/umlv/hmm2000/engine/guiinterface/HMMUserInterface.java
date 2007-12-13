@@ -7,7 +7,7 @@ import fr.umlv.hmm2000.engine.event.SelectionEvent;
 import fr.umlv.hmm2000.engine.event.MoveEvent.Step;
 import fr.umlv.hmm2000.map.Map;
 
-public interface UIEngine {
+public interface HMMUserInterface {
 
   public void drawMap(Map map);
 

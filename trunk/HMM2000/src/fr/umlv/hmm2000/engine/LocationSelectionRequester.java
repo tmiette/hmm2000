@@ -1,6 +1,5 @@
-package fr.umlv.hmm2000.engine.guiinterface;
+package fr.umlv.hmm2000.engine;
 
-import fr.umlv.hmm2000.engine.Engine;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.MovableElement;
 import fr.umlv.hmm2000.map.element.MapBackgroundElement;

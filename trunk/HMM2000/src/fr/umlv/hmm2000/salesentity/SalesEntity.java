@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 import fr.umlv.hmm2000.engine.Engine;
 import fr.umlv.hmm2000.engine.event.EncounterEvent;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
-import fr.umlv.hmm2000.engine.guiinterface.UIEngine;
+import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.gui.Spritable;
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
@@ -44,7 +44,7 @@ public class SalesEntity implements MapForegroundElement {
   @Override
   public boolean encounter(EncounterEvent event) {
 
-    UIEngine uiManager = Engine.currentEngine().uiManager();
+    HMMUserInterface uiManager = Engine.currentEngine().uiManager();
     ArrayList<Pair<Sellable, Integer>> purchases = SalesEntity
         .createItemsList(this.items);
     Sellable item = uiManager.choicesManager().submit(purchases);

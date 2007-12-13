@@ -10,7 +10,7 @@ import fr.umlv.hmm2000.engine.event.SelectionEvent;
 import fr.umlv.hmm2000.engine.event.MoveEvent.Step;
 import fr.umlv.hmm2000.engine.guiinterface.UIChoicesManager;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
-import fr.umlv.hmm2000.engine.guiinterface.UIEngine;
+import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.Map;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
@@ -22,7 +22,7 @@ import fr.umlv.lawrence.InputListener;
 import fr.umlv.lawrence.Key;
 import fr.umlv.lawrence.svg.SVGImageProvider;
 
-public class LawrenceUIEngine implements UIEngine {
+public class LawrenceUIEngine implements HMMUserInterface {
 
   private DefaultGridModel<Sprite> model;
 
@@ -53,7 +53,10 @@ public class LawrenceUIEngine implements UIEngine {
     }
 
     public void keyTyped(int x, int y, Key keyCode) {
-      // TODO
+      if(keyCode == Key.SPACE){
+        Engine.currentEngine().nextDay();
+        System.out.println("next day");
+      }
     }
   };
 

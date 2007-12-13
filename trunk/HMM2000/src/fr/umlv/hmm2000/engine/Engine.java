@@ -4,8 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import fr.umlv.hmm2000.Player;
-import fr.umlv.hmm2000.engine.guiinterface.LocationSelectionRequester;
-import fr.umlv.hmm2000.engine.guiinterface.UIEngine;
+import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.engine.manager.EncounterManager;
 import fr.umlv.hmm2000.engine.manager.MoveManager;
 import fr.umlv.hmm2000.engine.manager.RoundManager;
@@ -22,7 +21,7 @@ public class Engine {
 
   private final Map map;
 
-  private final UIEngine uiManager;
+  private final HMMUserInterface uiManager;
 
   private MoveManager moveManager;
 
@@ -34,7 +33,7 @@ public class Engine {
 
   private LocationSelectionRequester locationRequester;
 
-  public static void startNewEngine(MapLevel level, UIEngine uiEngine,
+  public static void startNewEngine(MapLevel level, HMMUserInterface uiEngine,
       Player... players) throws InvalidPlayersNumberException,
       FileNotFoundException, IOException {
 
@@ -56,7 +55,7 @@ public class Engine {
     return Engine.currentEngine;
   }
 
-  private Engine(Map map, UIEngine uiManager, Player... players)
+  private Engine(Map map, HMMUserInterface uiManager, Player... players)
       throws InvalidPlayersNumberException {
     this.map = map;
     this.uiManager = uiManager;
@@ -87,14 +86,13 @@ public class Engine {
 
   public void nextDay() {
     this.roundManager.nextDay();
-
   }
 
   public Map map() {
     return this.map;
   }
 
-  public UIEngine uiManager() {
+  public HMMUserInterface uiManager() {
     return this.uiManager;
   }
 
