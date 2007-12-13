@@ -7,11 +7,13 @@ import fr.umlv.hmm2000.engine.event.EncounterEvent;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.map.MovableElement;
+import fr.umlv.hmm2000.salesentity.Price;
+import fr.umlv.hmm2000.salesentity.Sellable;
 import fr.umlv.hmm2000.warriors.elements.Element;
 import fr.umlv.hmm2000.warriors.elements.ElementEnum;
 import fr.umlv.hmm2000.warriors.profils.ProfilWarrior;
 
-public class Warrior extends MovableElement implements ProfilWarrior {
+public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 
 	private double health;
 
@@ -24,6 +26,10 @@ public class Warrior extends MovableElement implements ProfilWarrior {
 	private double attackValue;
 
 	private HashMap<ElementEnum, Element> elements;
+	
+	private String label;
+	
+	private Price price;
 
 	Warrior(Player player,
 					double health,
@@ -115,5 +121,31 @@ public class Warrior extends MovableElement implements ProfilWarrior {
 		System.err.println("Combat");
 		return false;
 	}
+
+	@Override
+	public void acquire(EncounterEvent event) {
+
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getLabel() {
+
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Price getPrice() {
+
+		return this.price;
+	}
+	
+	
+	public void setPrice() {
+
+	}
+	
 
 }

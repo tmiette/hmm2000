@@ -5,6 +5,7 @@ import java.util.HashMap;
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.warriors.elements.Element;
 import fr.umlv.hmm2000.warriors.elements.ElementEnum;
+import fr.umlv.hmm2000.warriors.elements.ElementImpl;
 
 public enum ProfilCreatures implements ProfilWarrior {
 
@@ -13,7 +14,7 @@ public enum ProfilCreatures implements ProfilWarrior {
 					100,
 					20,
 					null,
-					new Element[] {}),
+					new Element[] {new ElementImpl(ElementEnum.FIRE, 10, 10)}),
 	GRUNT(10,
 				10,
 				100,
