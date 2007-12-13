@@ -1,4 +1,4 @@
-package fr.umlv.hmm2000.warriors.profils;
+package fr.umlv.hmm2000.warriors.profil;
 
 import java.util.HashMap;
 

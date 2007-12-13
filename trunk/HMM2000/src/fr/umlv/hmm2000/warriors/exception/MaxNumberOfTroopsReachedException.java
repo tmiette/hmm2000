@@ -1,4 +1,4 @@
-package fr.umlv.hmm2000.warriors.exceptions;
+package fr.umlv.hmm2000.warriors.exception;
 
 public class MaxNumberOfTroopsReachedException extends Exception {
 

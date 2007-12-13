@@ -6,9 +6,10 @@ import java.util.HashMap;
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.gui.Sprite;
+import fr.umlv.hmm2000.war.BattlePositionManager;
 import fr.umlv.hmm2000.warriors.elements.Element;
 import fr.umlv.hmm2000.warriors.elements.ElementEnum;
-import fr.umlv.hmm2000.warriors.exceptions.MaxNumberOfTroopsReachedException;
+import fr.umlv.hmm2000.warriors.exception.MaxNumberOfTroopsReachedException;
 
 public class Heroe extends Warrior implements Container {
 
@@ -17,6 +18,9 @@ public class Heroe extends Warrior implements Container {
 	public static final int MAX_TROOP_SIZE = 12;
 
 	private final String name;
+
+	private final BattlePositionManager bpm = new BattlePositionManager(MAX_TROOP_SIZE
+			/ BattlePositionManager.LINE_NUMBER);
 
 	Heroe(Player player,
 				double health,
@@ -85,11 +89,17 @@ public class Heroe extends Warrior implements Container {
 
 		return this.name;
 	}
-	
+
 	@Override
 	public void accept(UIDisplayingVisitor visitor) {
-	
+
 		visitor.visit(this);
+	}
+
+	@Override
+	public BattlePositionManager getBattlePositionManager() {
+	
+		return this.bpm;
 	}
 
 }

@@ -1,4 +1,4 @@
-package fr.umlv.hmm2000.warriors.profils;
+package fr.umlv.hmm2000.warriors.profil;
 
 import java.util.HashMap;
 
@@ -6,26 +6,29 @@ import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.warriors.elements.Element;
 import fr.umlv.hmm2000.warriors.elements.ElementEnum;
 
-public enum ProfilMonsters implements ProfilWarrior {
+public enum ProfilHeroe implements ProfilWarrior {
 
-	GREMLIN(10,
+	ARCHER(	10,
 					10,
 					100,
 					20,
-					null,
+					Sprite.HEROE,
+					new ProfilWarrior[] { ProfilCreatures.GRUNT },
 					new Element[] {}),
-	OGRE(	10,
-				10,
-				100,
-				20,
-				null,
-				new Element[] {}),
-	SITH(	10,
-				10,
-				100,
-				20,
-				null,
-				new Element[] {});
+	LORD_OF_WAR(10,
+							10,
+							100,
+							20,
+							Sprite.HEROE,
+							new ProfilWarrior[] { ProfilCreatures.GRUNT },
+							new Element[] {}),
+	SORCERER(	10,
+						10,
+						100,
+						20,
+						Sprite.HEROE,
+						new ProfilWarrior[] { ProfilCreatures.GRUNT },
+						new Element[] {});
 
 	private double attackValue;
 
@@ -36,24 +39,34 @@ public enum ProfilMonsters implements ProfilWarrior {
 	private int speed;
 
 	private Sprite sprite;
-	
+
 	private HashMap<ElementEnum, Element> elements;
 
-	private ProfilMonsters(	double attackValue,
-													double defenseValue,
-													double health,
-													int speed,
-													Sprite sprite,
-													Element[] ee) {
+	private ProfilWarrior[] profilWarrior;
+
+	public ProfilWarrior[] getProfilWarrior() {
+
+		return this.profilWarrior;
+	}
+
+	private ProfilHeroe(double attackValue,
+											double defenseValue,
+											double health,
+											int speed,
+											Sprite sprite,
+											ProfilWarrior[] pw,
+											Element[] ee) {
 
 		this.attackValue = attackValue;
 		this.defenseValue = defenseValue;
 		this.health = health;
 		this.speed = speed;
 		this.sprite = sprite;
+		this.profilWarrior = pw;
 		this.elements = new HashMap<ElementEnum, Element>();
 		for (Element element : ee) {
-			this.elements.put(element.getType(), element);
+			this.elements.put(element.getType(),
+												element);
 		}
 	}
 

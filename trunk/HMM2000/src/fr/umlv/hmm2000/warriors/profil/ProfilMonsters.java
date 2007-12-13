@@ -1,32 +1,31 @@
-package fr.umlv.hmm2000.warriors.profils;
+package fr.umlv.hmm2000.warriors.profil;
 
 import java.util.HashMap;
 
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.warriors.elements.Element;
 import fr.umlv.hmm2000.warriors.elements.ElementEnum;
-import fr.umlv.hmm2000.warriors.elements.ElementImpl;
 
-public enum ProfilCreatures implements ProfilWarrior {
+public enum ProfilMonsters implements ProfilWarrior {
 
-	FLIGHT(	10,
+	GREMLIN(10,
 					10,
 					100,
 					20,
 					null,
-					new Element[] {new ElementImpl(ElementEnum.FIRE, 10, 10)}),
-	GRUNT(10,
+					new Element[] {}),
+	OGRE(	10,
 				10,
 				100,
 				20,
 				null,
 				new Element[] {}),
-	WIZZARD(10,
-					10,
-					100,
-					20,
-					null,
-					new Element[] {});
+	SITH(	10,
+				10,
+				100,
+				20,
+				null,
+				new Element[] {});
 
 	private double attackValue;
 
@@ -40,7 +39,7 @@ public enum ProfilCreatures implements ProfilWarrior {
 	
 	private HashMap<ElementEnum, Element> elements;
 
-	private ProfilCreatures(double attackValue,
+	private ProfilMonsters(	double attackValue,
 													double defenseValue,
 													double health,
 													int speed,

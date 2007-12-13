@@ -11,7 +11,7 @@ import fr.umlv.hmm2000.salesentity.Price;
 import fr.umlv.hmm2000.salesentity.Sellable;
 import fr.umlv.hmm2000.warriors.elements.Element;
 import fr.umlv.hmm2000.warriors.elements.ElementEnum;
-import fr.umlv.hmm2000.warriors.profils.ProfilWarrior;
+import fr.umlv.hmm2000.warriors.profil.ProfilWarrior;
 
 public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 

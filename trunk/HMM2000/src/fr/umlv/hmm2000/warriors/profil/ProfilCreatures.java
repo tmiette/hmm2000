@@ -1,34 +1,32 @@
-package fr.umlv.hmm2000.warriors.profils;
+package fr.umlv.hmm2000.warriors.profil;
 
 import java.util.HashMap;
 
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.warriors.elements.Element;
 import fr.umlv.hmm2000.warriors.elements.ElementEnum;
+import fr.umlv.hmm2000.warriors.elements.ElementImpl;
 
-public enum ProfilHeroe implements ProfilWarrior {
+public enum ProfilCreatures implements ProfilWarrior {
 
-	ARCHER(	10,
+	FLIGHT(	10,
 					10,
 					100,
 					20,
-					Sprite.HEROE,
-					new ProfilWarrior[] { ProfilCreatures.GRUNT },
-					new Element[] {}),
-	LORD_OF_WAR(10,
-							10,
-							100,
-							20,
-							Sprite.HEROE,
-							new ProfilWarrior[] { ProfilCreatures.GRUNT },
-							new Element[] {}),
-	SORCERER(	10,
-						10,
-						100,
-						20,
-						Sprite.HEROE,
-						new ProfilWarrior[] { ProfilCreatures.GRUNT },
-						new Element[] {});
+					null,
+					new Element[] {new ElementImpl(ElementEnum.FIRE, 10, 10)}),
+	GRUNT(10,
+				10,
+				100,
+				20,
+				null,
+				new Element[] {}),
+	WIZZARD(10,
+					10,
+					100,
+					20,
+					null,
+					new Element[] {});
 
 	private double attackValue;
 
@@ -39,34 +37,24 @@ public enum ProfilHeroe implements ProfilWarrior {
 	private int speed;
 
 	private Sprite sprite;
-
+	
 	private HashMap<ElementEnum, Element> elements;
 
-	private ProfilWarrior[] profilWarrior;
-
-	public ProfilWarrior[] getProfilWarrior() {
-
-		return this.profilWarrior;
-	}
-
-	private ProfilHeroe(double attackValue,
-											double defenseValue,
-											double health,
-											int speed,
-											Sprite sprite,
-											ProfilWarrior[] pw,
-											Element[] ee) {
+	private ProfilCreatures(double attackValue,
+													double defenseValue,
+													double health,
+													int speed,
+													Sprite sprite,
+													Element[] ee) {
 
 		this.attackValue = attackValue;
 		this.defenseValue = defenseValue;
 		this.health = health;
 		this.speed = speed;
 		this.sprite = sprite;
-		this.profilWarrior = pw;
 		this.elements = new HashMap<ElementEnum, Element>();
 		for (Element element : ee) {
-			this.elements.put(element.getType(),
-												element);
+			this.elements.put(element.getType(), element);
 		}
 	}
 
