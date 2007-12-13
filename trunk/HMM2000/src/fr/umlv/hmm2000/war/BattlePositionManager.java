@@ -1,22 +1,28 @@
 package fr.umlv.hmm2000.war;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import fr.umlv.hmm2000.map.Location;
+import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
+import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
 import fr.umlv.hmm2000.warriors.Warrior;
 
 public class BattlePositionManager {
 
 	private final Warrior[][] units;
-
+	
 	public static final int LINE_NUMBER = 2;
 
 	private int freePlaces;
+	
+	private final int nbSlots;
 
 	public BattlePositionManager(int nbSlots) {
 
 		this.units = new Warrior[LINE_NUMBER][nbSlots];
 		this.freePlaces = LINE_NUMBER * nbSlots;
+		this.nbSlots = nbSlots;
 	}
 
 	public void placeUnit(Warrior w, Location location)
@@ -143,5 +149,11 @@ public class BattlePositionManager {
 	public int freePlacesLeft() {
 
 		return this.freePlaces;
+	}
+
+	
+	public int getNbSlots() {
+	
+		return this.nbSlots;
 	}
 }
