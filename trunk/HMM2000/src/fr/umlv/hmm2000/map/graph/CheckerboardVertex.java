@@ -1,6 +1,6 @@
 package fr.umlv.hmm2000.map.graph;
 
-import fr.umlv.hmm2000.map.MapBackgroundElement;
+import fr.umlv.hmm2000.map.element.MapBackgroundElement;
 
 /**
  * Represents a vertex containing in a checkerboard graph.

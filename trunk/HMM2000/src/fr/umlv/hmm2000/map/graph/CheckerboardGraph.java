@@ -3,7 +3,7 @@ package fr.umlv.hmm2000.map.graph;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import fr.umlv.hmm2000.map.MapBackgroundElement;
+import fr.umlv.hmm2000.map.element.MapBackgroundElement;
 
 /**
  * Implementation of a graph representing by a checkerboard.

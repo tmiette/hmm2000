@@ -1,6 +1,6 @@
 package fr.umlv.hmm2000.gui;
 
-import fr.umlv.hmm2000.map.MapBackgroundEnum;
+import fr.umlv.hmm2000.map.element.MapBackgroundEnum;
 import fr.umlv.lawrence.svg.SVGImageProvider;
 
 public enum Sprite {

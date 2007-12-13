@@ -1,7 +1,7 @@
 package fr.umlv.hmm2000.engine.event;
 
 import fr.umlv.hmm2000.map.Location;
-import fr.umlv.hmm2000.map.MapBackgroundElement;
+import fr.umlv.hmm2000.map.element.MapBackgroundElement;
 
 public class MapChangeEvent {
 

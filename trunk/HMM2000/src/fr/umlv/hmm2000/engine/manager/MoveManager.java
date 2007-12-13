@@ -9,17 +9,17 @@ import fr.umlv.hmm2000.engine.Engine;
 import fr.umlv.hmm2000.engine.event.EncounterEvent;
 import fr.umlv.hmm2000.engine.event.MoveEvent;
 import fr.umlv.hmm2000.engine.event.MoveEvent.Step;
-import fr.umlv.hmm2000.engine.guiinterface.UIEventManager;
+import fr.umlv.hmm2000.engine.guiinterface.UIEngine;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.Map;
-import fr.umlv.hmm2000.map.MapForegroundElement;
 import fr.umlv.hmm2000.map.MovableElement;
+import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.map.graph.CheckerboardVertex;
 import fr.umlv.hmm2000.util.Pair;
 
 public class MoveManager {
 
-  private final UIEventManager uiManager;
+  private final UIEngine uiManager;
 
   private final Map map;
 

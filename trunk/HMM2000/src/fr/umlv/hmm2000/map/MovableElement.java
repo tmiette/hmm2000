@@ -1,6 +1,7 @@
 package fr.umlv.hmm2000.map;
 
 import fr.umlv.hmm2000.Player;
+import fr.umlv.hmm2000.map.element.MapForegroundElement;
 
 public abstract class MovableElement implements MapForegroundElement, Movable {
 

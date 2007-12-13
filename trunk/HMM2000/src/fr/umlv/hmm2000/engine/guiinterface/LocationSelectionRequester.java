@@ -2,9 +2,9 @@ package fr.umlv.hmm2000.engine.guiinterface;
 
 import fr.umlv.hmm2000.engine.Engine;
 import fr.umlv.hmm2000.map.Location;
-import fr.umlv.hmm2000.map.MapBackgroundElement;
-import fr.umlv.hmm2000.map.MapForegroundElement;
 import fr.umlv.hmm2000.map.MovableElement;
+import fr.umlv.hmm2000.map.element.MapBackgroundElement;
+import fr.umlv.hmm2000.map.element.MapForegroundElement;
 
 public abstract class LocationSelectionRequester {
 

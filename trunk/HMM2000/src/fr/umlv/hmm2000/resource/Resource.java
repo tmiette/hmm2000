@@ -3,7 +3,7 @@ package fr.umlv.hmm2000.resource;
 import fr.umlv.hmm2000.engine.event.EncounterEvent;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.gui.Sprite;
-import fr.umlv.hmm2000.map.MapForegroundElement;
+import fr.umlv.hmm2000.map.element.MapForegroundElement;
 
 public class Resource implements MapForegroundElement {
 
@@ -93,5 +93,11 @@ public class Resource implements MapForegroundElement {
 		}
 
 	}
+
+  @Override
+  public void nextDay() {
+    // TODO Auto-generated method stub
+    
+  }
 
 }

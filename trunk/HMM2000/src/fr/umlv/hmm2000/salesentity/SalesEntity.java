@@ -7,10 +7,10 @@ import java.util.Map.Entry;
 import fr.umlv.hmm2000.engine.Engine;
 import fr.umlv.hmm2000.engine.event.EncounterEvent;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
-import fr.umlv.hmm2000.engine.guiinterface.UIEventManager;
+import fr.umlv.hmm2000.engine.guiinterface.UIEngine;
 import fr.umlv.hmm2000.gui.Spritable;
 import fr.umlv.hmm2000.gui.Sprite;
-import fr.umlv.hmm2000.map.MapForegroundElement;
+import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.util.Pair;
 
 public class SalesEntity implements MapForegroundElement {
@@ -44,7 +44,7 @@ public class SalesEntity implements MapForegroundElement {
   @Override
   public boolean encounter(EncounterEvent event) {
 
-    UIEventManager uiManager = Engine.currentEngine().uiManager();
+    UIEngine uiManager = Engine.currentEngine().uiManager();
     ArrayList<Pair<Sellable, Integer>> purchases = SalesEntity
         .createItemsList(this.items);
     Sellable item = uiManager.choicesManager().submit(purchases);
@@ -116,5 +116,10 @@ public class SalesEntity implements MapForegroundElement {
     public Sprite getSprite() {
       return this.sprite;
     }
+  }
+
+  @Override
+  public void nextDay() {
+    // do nothing
   }
 }

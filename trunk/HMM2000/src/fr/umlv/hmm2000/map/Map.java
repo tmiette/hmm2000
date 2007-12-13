@@ -2,6 +2,8 @@ package fr.umlv.hmm2000.map;
 
 import java.util.HashMap;
 
+import fr.umlv.hmm2000.map.element.MapBackgroundElement;
+import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.map.graph.CheckerboardGraph;
 
 public class Map {

@@ -1,4 +1,4 @@
-package fr.umlv.hmm2000.map;
+package fr.umlv.hmm2000.map.element;
 
 import fr.umlv.hmm2000.gui.Sprite;
 

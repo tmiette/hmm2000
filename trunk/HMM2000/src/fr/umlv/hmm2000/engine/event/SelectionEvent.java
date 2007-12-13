@@ -1,7 +1,7 @@
 package fr.umlv.hmm2000.engine.event;
 
 import fr.umlv.hmm2000.map.Location;
-import fr.umlv.hmm2000.map.MapForegroundElement;
+import fr.umlv.hmm2000.map.element.MapForegroundElement;
 
 public class SelectionEvent {
 	

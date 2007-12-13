@@ -6,7 +6,7 @@ import fr.umlv.hmm2000.engine.event.MapChangeEvent;
 import fr.umlv.hmm2000.engine.guiinterface.LocationSelectionRequester;
 import fr.umlv.hmm2000.engine.guiinterface.LocationSelectionRequester.LocationSelection;
 import fr.umlv.hmm2000.map.Location;
-import fr.umlv.hmm2000.map.MapBackgroundEnum;
+import fr.umlv.hmm2000.map.element.MapBackgroundEnum;
 
 public class ObstacleDestructionSpellAction implements SpellAction {
 
