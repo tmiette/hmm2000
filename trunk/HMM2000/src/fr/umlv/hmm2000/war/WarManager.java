@@ -18,7 +18,7 @@ public class WarManager {
 		this.defenser = defenser;
 	}
 	
-	public void perform(WarEvent we) {
+	public void perform() {
 
 		
 	}
