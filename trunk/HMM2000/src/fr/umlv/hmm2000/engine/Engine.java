@@ -24,13 +24,13 @@ public class Engine {
 
   private final UIEngine uiManager;
 
-  private final MoveManager moveManager;
+  private MoveManager moveManager;
 
-  private final SelectionManager selectionManager;
+  private SelectionManager selectionManager;
 
-  private final EncounterManager encounterManager;
+  private EncounterManager encounterManager;
 
-  private final RoundManager roundManager;
+  private RoundManager roundManager;
 
   private LocationSelectionRequester locationRequester;
 
@@ -43,9 +43,12 @@ public class Engine {
       throw new InvalidPlayersNumberException(level, players.length);
     }
 
-    //TODO builder
+    // TODO builder
     Map map = MapBuilder.createMapTESTVERSION(level, players[0], players[1]);
-    Engine.currentEngine = new Engine(map, uiEngine, players);
+    Engine engine = new Engine(map, uiEngine, players);
+    Engine.currentEngine = engine;
+    engine.initialize(players);
+
     uiEngine.drawMap(map);
   }
 
@@ -57,6 +60,10 @@ public class Engine {
       throws InvalidPlayersNumberException {
     this.map = map;
     this.uiManager = uiManager;
+
+  }
+
+  private void initialize(Player... players) {
     this.selectionManager = new SelectionManager();
     this.encounterManager = new EncounterManager();
     this.moveManager = new MoveManager();

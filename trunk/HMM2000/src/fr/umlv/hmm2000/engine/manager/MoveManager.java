@@ -60,7 +60,9 @@ public class MoveManager {
     if (start != null) {
       MapForegroundElement element = Engine.currentEngine().selectionManager()
           .getSelectedElement();
-      if (element instanceof MovableElement) {
+      if (element instanceof MovableElement
+          && Engine.currentEngine().roundManager().isCurrentPlayer(
+              ((MovableElement) element).getPlayer())) {
         this.currentSource = (MovableElement) element;
 
         AStarResult<CheckerboardVertex> result = AStar
