@@ -119,7 +119,7 @@ public class SalesEntity implements MapForegroundElement {
   }
 
   @Override
-  public void nextDay() {
+  public void nextDay(int day) {
     // do nothing
   }
 }
