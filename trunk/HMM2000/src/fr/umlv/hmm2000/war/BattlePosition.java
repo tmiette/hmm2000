@@ -1,5 +1,6 @@
 package fr.umlv.hmm2000.war;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.Map.Entry;
@@ -9,7 +10,7 @@ import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
 import fr.umlv.hmm2000.warrior.Warrior;
 
-public class BattlePositionManager {
+public class BattlePosition {
 
 	private final HashMap<Location, Warrior> units;
 
@@ -18,12 +19,34 @@ public class BattlePositionManager {
 	private int freePlaces;
 
 	private final int slots;
+	
+	private final ArrayList<Location> freeLocations;
 
-	public BattlePositionManager(int slots) {
+	public BattlePosition(int slots) {
 
 		this.units = new HashMap<Location, Warrior>(LINE_NUMBER * slots);
+		this.freeLocations = initFreeLocations();
 		this.freePlaces = LINE_NUMBER * slots;
 		this.slots = slots;
+	}
+	
+	private ArrayList<Location> initFreeLocations() {
+
+		ArrayList<Location> l = new ArrayList<Location>(LINE_NUMBER * slots);
+		for (int i = 0; i < LINE_NUMBER; i++) {
+			for (int j = 0; j < this.slots; j++) {
+				l.add(new Location(i, j));
+			}
+		}
+		return l;
+	}
+	
+	public Location getFirstFreeLocation() throws NoPlaceAvailableException {
+
+		if (this.freePlaces == 0) {
+			throw new NoPlaceAvailableException("There is no place free left");
+		}
+		return this.freeLocations.get(0);
 	}
 
 	public void placeWarrior(Warrior w, Location location)
@@ -49,6 +72,7 @@ public class BattlePositionManager {
 			}
 			this.units.put(	location,
 											w);
+			this.freeLocations.remove(location);
 		}
 
 		this.freePlaces--;
@@ -74,6 +98,8 @@ public class BattlePositionManager {
 			this.units.put(	to,
 											this.units.get(from));
 			this.units.remove(from);
+			this.freeLocations.remove(to);
+			this.freeLocations.add(from);
 		}
 	}
 

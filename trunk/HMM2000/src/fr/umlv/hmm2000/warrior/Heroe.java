@@ -6,7 +6,9 @@ import java.util.HashMap;
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.gui.Sprite;
-import fr.umlv.hmm2000.war.BattlePositionManager;
+import fr.umlv.hmm2000.war.BattlePosition;
+import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
+import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
 import fr.umlv.hmm2000.warrior.element.Element;
 import fr.umlv.hmm2000.warrior.element.ElementEnum;
 import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
@@ -19,8 +21,8 @@ public class Heroe extends Warrior implements Container {
 
 	private final String name;
 
-	private final BattlePositionManager bpm = new BattlePositionManager(MAX_TROOP_SIZE
-			/ BattlePositionManager.LINE_NUMBER);
+	private final BattlePosition bpm = new BattlePosition(MAX_TROOP_SIZE
+			/ BattlePosition.LINE_NUMBER);
 
 	Heroe(Player player,
 				double health,
@@ -49,17 +51,30 @@ public class Heroe extends Warrior implements Container {
 	}
 
 	@Override
-	public void addWarrior(Warrior w) throws MaxNumberOfTroopsReachedException {
+	public boolean addWarrior(Warrior w) throws MaxNumberOfTroopsReachedException {
 
 		if (this.troop.size() >= MAX_TROOP_SIZE) {
 			throw new MaxNumberOfTroopsReachedException("The max number of troops, a heroe can contain, is reached");
 		}
 
-		int stepCount = w.getSpeed();
-		if (stepCount < super.getSpeed()) {
-			super.setSpeed(stepCount);
+		int speed = w.getSpeed();
+		if (speed < super.getSpeed()) {
+			super.setSpeed(speed);
 		}
 		this.troop.add(w);
+		try {
+			this.bpm.placeWarrior(w, this.bpm.getFirstFreeLocation());
+		}
+		catch (ArrayIndexOutOfBoundsException e) {
+			return false;
+		}
+		catch (LocationAlreadyOccupedException e) {
+			return false;
+		}
+		catch (NoPlaceAvailableException e) {
+			return false;
+		}
+		return true;
 	};
 
 	@Override
@@ -97,7 +112,7 @@ public class Heroe extends Warrior implements Container {
 	}
 
 	@Override
-	public BattlePositionManager getBattlePositionManager() {
+	public BattlePosition getBattlePositionManager() {
 	
 		return this.bpm;
 	}

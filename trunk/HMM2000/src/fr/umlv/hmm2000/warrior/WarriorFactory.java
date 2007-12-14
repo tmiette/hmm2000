@@ -24,7 +24,7 @@ public class WarriorFactory {
 												p.getElements());
 	}
 
-	public static Warrior createWarrior(ProfilHeroe p, Player player,
+	public static Heroe createHeroe(ProfilHeroe p, Player player,
 			String name, Level level) {
 
 		double ratio = level.getRatio();
@@ -52,7 +52,7 @@ public class WarriorFactory {
 			}
 		}
 
-		return (Warrior) heroe;
+		return heroe;
 
 	}
 
