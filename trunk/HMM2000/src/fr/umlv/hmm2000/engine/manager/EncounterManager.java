@@ -19,8 +19,8 @@ public class EncounterManager {
 	public boolean perform(EncounterEvent event) {
 
 		if (event.getRecipient().encounter(event)) {
-			this.map.removeMapForegroundElement(event.getRecipientLocation());
-			this.uiManager.eraseForegroundElement(event);
+			//this.map.removeMapForegroundElement(event.getRecipientLocation());
+			//this.uiManager.eraseForegroundElement(event);
 			return true;
 		}
 
