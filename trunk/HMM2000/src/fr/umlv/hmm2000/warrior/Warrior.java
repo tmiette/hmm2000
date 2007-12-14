@@ -148,11 +148,10 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 	}
 
 	@Override
-	public void nextDay() {
+	public void nextDay(int day) {
 
 		// TODO Auto-generated method stub
-		//do nothing
-//		this.getPlayer().spend(price); for heroe
+		
 	}
 	
 
