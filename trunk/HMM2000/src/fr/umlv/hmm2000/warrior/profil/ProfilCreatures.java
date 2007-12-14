@@ -19,7 +19,7 @@ public enum ProfilCreatures implements ProfilWarrior {
 				10,
 				100,
 				20,
-				Sprite.MERCHANT,
+				Sprite.HEROE,
 				new Element[] {}),
 	WIZZARD(10,
 					10,
