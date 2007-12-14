@@ -77,7 +77,7 @@ public class BattlePositionManager {
 		}
 	}
 
-	private Location getLocation(Warrior w) {
+	public Location getLocation(Warrior w) {
 
 		for (Entry<Location, Warrior> it : getUnits()) {
 			if (w.equals(it.getValue())) {
