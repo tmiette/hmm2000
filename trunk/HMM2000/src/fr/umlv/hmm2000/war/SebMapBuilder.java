@@ -32,7 +32,7 @@ public class SebMapBuilder {
 		final int minColums = minContainer.getBattlePositionManager()
 																			.getSlots();
 
-		final int lines = BattlePosition.LINE_NUMBER * 2
+		final int lines = BattlePositionMap.LINE_NUMBER * 2
 				+ LINE_BETWEEN_TROOPS;
 
 		MapBackgroundEnum[][] background = new MapBackgroundEnum[lines][maxColumns];
@@ -78,7 +78,7 @@ public class SebMapBuilder {
 		final int columns = c1.getBattlePositionManager()
 													.getSlots();
 
-		final int lines = BattlePosition.LINE_NUMBER;
+		final int lines = BattlePositionMap.LINE_NUMBER;
 
 		MapBackgroundEnum[][] background = new MapBackgroundEnum[lines][columns];
 

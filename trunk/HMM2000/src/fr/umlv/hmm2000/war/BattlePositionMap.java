@@ -6,11 +6,15 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 import fr.umlv.hmm2000.map.Location;
+import fr.umlv.hmm2000.map.Map;
+import fr.umlv.hmm2000.map.element.MapBackgroundElement;
+import fr.umlv.hmm2000.map.element.MapBackgroundEnum;
+import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
 import fr.umlv.hmm2000.warrior.Warrior;
 
-public class BattlePosition {
+public class BattlePositionMap implements Map {
 
 	private final HashMap<Location, Warrior> units;
 
@@ -21,13 +25,26 @@ public class BattlePosition {
 	private final int slots;
 	
 	private final ArrayList<Location> freeLocations;
+	
+	private MapBackgroundElement[][] mbe;
 
-	public BattlePosition(int slots) {
+	public BattlePositionMap(int slots) {
 
 		this.units = new HashMap<Location, Warrior>(LINE_NUMBER * slots);
 		this.freeLocations = initFreeLocations();
 		this.freePlaces = LINE_NUMBER * slots;
 		this.slots = slots;
+		initMatrix();
+	}
+	
+	private void initMatrix() {
+
+		this.mbe = new MapBackgroundEnum[LINE_NUMBER][this.slots];
+		for (int i = 0; i < this.mbe.length; i++) {
+			for (int j = 0; j < this.mbe[0].length; j++) {
+				this.mbe[i][j] = MapBackgroundEnum.PLAIN;
+			}
+		}
 	}
 	
 	private ArrayList<Location> initFreeLocations() {
@@ -121,6 +138,33 @@ public class BattlePosition {
 	
 	public int getSlots() {
 	
+		return this.slots;
+	}
+
+	@Override
+	public int getHeight() {
+
+		return LINE_NUMBER;
+	}
+
+	@Override
+	public MapBackgroundElement getMapBackgroundElementAtLocation(Location l) {
+
+		if (isValid(l)) {
+			return this.mbe[l.getX()][l.getY()];
+		}
+		return null;
+	}
+
+	@Override
+	public MapForegroundElement getMapForegroundElementAtLocation(Location l) {
+
+		return this.units.get(l);
+	}
+
+	@Override
+	public int getWidth() {
+
 		return this.slots;
 	}
 }

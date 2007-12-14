@@ -6,7 +6,7 @@ import java.util.HashMap;
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.gui.Sprite;
-import fr.umlv.hmm2000.war.BattlePosition;
+import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
 import fr.umlv.hmm2000.warrior.element.Element;
@@ -21,8 +21,8 @@ public class Heroe extends Warrior implements Container {
 
 	private final String name;
 
-	private final BattlePosition bpm = new BattlePosition(MAX_TROOP_SIZE
-			/ BattlePosition.LINE_NUMBER);
+	private final BattlePositionMap bpm = new BattlePositionMap(MAX_TROOP_SIZE
+			/ BattlePositionMap.LINE_NUMBER);
 
 	Heroe(Player player,
 				double health,
@@ -112,7 +112,7 @@ public class Heroe extends Warrior implements Container {
 	}
 
 	@Override
-	public BattlePosition getBattlePositionManager() {
+	public BattlePositionMap getBattlePositionManager() {
 	
 		return this.bpm;
 	}

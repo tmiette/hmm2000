@@ -2,7 +2,7 @@ package fr.umlv.hmm2000.warrior;
 
 import java.util.ArrayList;
 
-import fr.umlv.hmm2000.war.BattlePosition;
+import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
 
 public interface Container {
@@ -13,5 +13,5 @@ public interface Container {
 
 	public void removeWarrior(Warrior w);
 	
-	public BattlePosition getBattlePositionManager();
+	public BattlePositionMap getBattlePositionManager();
 }
