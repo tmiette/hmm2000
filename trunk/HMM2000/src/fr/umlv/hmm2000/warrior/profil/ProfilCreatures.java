@@ -13,19 +13,19 @@ public enum ProfilCreatures implements ProfilWarrior {
 					10,
 					100,
 					20,
-					null,
+					Sprite.MERCHANT,
 					new Element[] {new ElementImpl(ElementEnum.FIRE, 10, 10)}),
 	GRUNT(10,
 				10,
 				100,
 				20,
-				null,
+				Sprite.MERCHANT,
 				new Element[] {}),
 	WIZZARD(10,
 					10,
 					100,
 					20,
-					null,
+					Sprite.MERCHANT,
 					new Element[] {});
 
 	private double attackValue;
