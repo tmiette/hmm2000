@@ -1,7 +1,7 @@
 package fr.umlv.hmm2000.war;
 
 import fr.umlv.hmm2000.engine.Engine;
-import fr.umlv.hmm2000.engine.guiinterface.UIEngine;
+import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.map.Map;
 import fr.umlv.hmm2000.warrior.Container;
 
@@ -10,7 +10,7 @@ public class BattleEngine {
 
 	private final Map map;
 	
-  private final UIEngine uiManager;
+  private final HMMUserInterface uiManager;
   
   private final Container c1;
   

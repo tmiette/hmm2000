@@ -91,4 +91,10 @@ public class BattlePositionManager {
 
 		return this.units.entrySet();
 	}
+
+	
+	public int getSlots() {
+	
+		return this.slots;
+	}
 }

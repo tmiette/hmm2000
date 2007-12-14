@@ -15,8 +15,8 @@ public class SebMapBuilder {
 		final Container maxContainer;
 		final Container minContainer;
 		if (c1.getBattlePositionManager()
-					.getNbSlots() >= c2	.getBattlePositionManager()
-															.getNbSlots()) {
+					.getSlots() >= c2	.getBattlePositionManager()
+															.getSlots()) {
 			maxContainer = c1;
 			minContainer = c2;
 		}
@@ -26,9 +26,9 @@ public class SebMapBuilder {
 		}
 
 		final int maxColumns = maxContainer	.getBattlePositionManager()
-																				.getNbSlots();
+																				.getSlots();
 		final int minColums = minContainer.getBattlePositionManager()
-																			.getNbSlots();
+																			.getSlots();
 
 		final int lines = BattlePositionManager.LINE_NUMBER * 2
 				+ LINE_BETWEEN_TROOPS;
