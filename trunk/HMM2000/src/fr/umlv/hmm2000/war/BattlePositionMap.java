@@ -99,7 +99,7 @@ public class BattlePositionMap implements Map {
 
 		final int x = location.getX();
 		final int y = location.getY();
-		return (x < LINE_NUMBER && x >= 0 && y < this.slots && y > 0);
+		return (x < LINE_NUMBER && x >= 0 && y < this.slots && y >= 0);
 	}
 	
 	public Warrior getWarriorAtLocation(Location l) {
