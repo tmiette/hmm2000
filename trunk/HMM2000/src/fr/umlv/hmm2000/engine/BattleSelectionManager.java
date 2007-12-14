@@ -1,22 +1,19 @@
-package fr.umlv.hmm2000.engine.manager;
+package fr.umlv.hmm2000.engine;
 
-import fr.umlv.hmm2000.engine.Engine;
 import fr.umlv.hmm2000.engine.event.SelectionEvent;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.MainMap;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 
-public class SelectionManager {
-
+public class BattleSelectionManager {
   private final MainMap map;
   private final HMMUserInterface uiManager;
-
   private Location selectedLocation;
 
-  public SelectionManager() {
-    this.map = Engine.currentEngine().map();
-    this.uiManager = Engine.currentEngine().uiManager();
+  public BattleSelectionManager(MainMap map, HMMUserInterface uiManager) {
+    this.map = map;
+    this.uiManager = uiManager;
   }
 
   public void perform(Location l) {
@@ -45,5 +42,4 @@ public class SelectionManager {
   public Location getSelectedLocation() {
     return this.selectedLocation;
   }
-
 }

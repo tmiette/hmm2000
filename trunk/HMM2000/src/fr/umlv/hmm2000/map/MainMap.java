@@ -9,13 +9,13 @@ import fr.umlv.hmm2000.map.element.MapBackgroundElement;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.map.graph.CheckerboardGraph;
 
-public class Map {
+public class MainMap implements Map {
 
   private final CheckerboardGraph graph;
 
   private final HashMap<Location, MapForegroundElement> elements;
 
-  public Map(MapBackgroundElement[][] backgroundElements) {
+  public MainMap(MapBackgroundElement[][] backgroundElements) {
     this.graph = new CheckerboardGraph(backgroundElements);
     this.elements = new HashMap<Location, MapForegroundElement>();
   }
@@ -24,6 +24,7 @@ public class Map {
     return this.graph;
   }
 
+  @Override
   public MapBackgroundElement getMapBackgroundElementAtLocation(Location l) {
     return this.graph.getMapBackgroundElement(l.getX(), l.getY());
   }
@@ -41,6 +42,7 @@ public class Map {
     this.graph.changeMapBackgroundElement(l.getX(), l.getY(), element);
   }
 
+  @Override
   public MapForegroundElement getMapForegroundElementAtLocation(Location l) {
     return this.elements.get(l);
   }
@@ -59,5 +61,15 @@ public class Map {
       elements.add(entry.getValue());
     }
     return elements;
+  }
+
+  @Override
+  public int getHeight() {
+    return this.graph.getHeight();
+  }
+
+  @Override
+  public int getWidth() {
+    return this.graph.getWidth();
   }
 }

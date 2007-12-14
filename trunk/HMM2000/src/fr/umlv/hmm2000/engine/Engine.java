@@ -11,7 +11,7 @@ import fr.umlv.hmm2000.engine.manager.RoundManager;
 import fr.umlv.hmm2000.engine.manager.SelectionManager;
 import fr.umlv.hmm2000.map.InvalidPlayersNumberException;
 import fr.umlv.hmm2000.map.Location;
-import fr.umlv.hmm2000.map.Map;
+import fr.umlv.hmm2000.map.MainMap;
 import fr.umlv.hmm2000.map.MapBuilder;
 import fr.umlv.hmm2000.map.MapLevel;
 
@@ -19,7 +19,7 @@ public class Engine {
 
   private static Engine currentEngine;
 
-  private final Map map;
+  private final MainMap map;
 
   private final HMMUserInterface uiManager;
 
@@ -43,7 +43,7 @@ public class Engine {
     }
 
     // TODO builder
-    Map map = MapBuilder.createMapTESTVERSION(level, players[0], players[1]);
+    MainMap map = MapBuilder.createMapTESTVERSION(level, players[0], players[1]);
     Engine engine = new Engine(map, uiEngine, players);
     Engine.currentEngine = engine;
     engine.initialize(players);
@@ -55,7 +55,7 @@ public class Engine {
     return Engine.currentEngine;
   }
 
-  private Engine(Map map, HMMUserInterface uiManager, Player... players)
+  private Engine(MainMap map, HMMUserInterface uiManager, Player... players)
       throws InvalidPlayersNumberException {
     this.map = map;
     this.uiManager = uiManager;
@@ -88,7 +88,7 @@ public class Engine {
     this.roundManager.nextDay();
   }
 
-  public Map map() {
+  public MainMap map() {
     return this.map;
   }
 

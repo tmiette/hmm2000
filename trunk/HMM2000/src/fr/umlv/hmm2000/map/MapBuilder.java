@@ -18,7 +18,7 @@ import fr.umlv.hmm2000.warrior.profil.ProfilHeroe;
 
 public class MapBuilder {
 
-  public static Map createMap(MapLevel level) throws FileNotFoundException,
+  public static MainMap createMap(MapLevel level) throws FileNotFoundException,
       IOException {
 
     LineNumberReader lnr = new LineNumberReader(new FileReader(level
@@ -36,7 +36,7 @@ public class MapBuilder {
       decodeLine(s, background[lnr.getLineNumber() - 3]);
     }
 
-    return new Map(background);
+    return new MainMap(background);
   }
 
   private static void decodeLine(String s, MapBackgroundEnum[] line) {
@@ -62,10 +62,10 @@ public class MapBuilder {
     }
   }
 
-  public static Map createMapTESTVERSION(MapLevel level, Player p1, Player p2)
+  public static MainMap createMapTESTVERSION(MapLevel level, Player p1, Player p2)
       throws FileNotFoundException, IOException {
 
-    Map map = createMap(level);
+    MainMap map = createMap(level);
 
     map.addMapForegroundElement(WarriorFactory.createWarrior(
         ProfilHeroe.ARCHER, p1, "batman", Level.LEVEL_1), new Location(0, 0));

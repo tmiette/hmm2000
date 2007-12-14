@@ -8,9 +8,9 @@ import fr.umlv.hmm2000.engine.event.MapChangeEvent;
 import fr.umlv.hmm2000.engine.event.MoveEvent;
 import fr.umlv.hmm2000.engine.event.SelectionEvent;
 import fr.umlv.hmm2000.engine.event.MoveEvent.Step;
+import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.engine.guiinterface.UIChoicesManager;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
-import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.Map;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
@@ -53,7 +53,7 @@ public class LawrenceUIEngine implements HMMUserInterface {
     }
 
     public void keyTyped(int x, int y, Key keyCode) {
-      if(keyCode == Key.SPACE){
+      if (keyCode == Key.SPACE) {
         Engine.currentEngine().nextDay();
         System.out.println("next day");
       }
@@ -74,8 +74,7 @@ public class LawrenceUIEngine implements HMMUserInterface {
   @Override
   public void drawMap(Map map) {
     this.map = map;
-    this.model = new DefaultGridModel<Sprite>(map.getGraph().getWidth(), map
-        .getGraph().getHeight());
+    this.model = new DefaultGridModel<Sprite>(map.getWidth(), map.getHeight());
     this.provider = new SVGImageProvider<Sprite>();
     this.provider.setDPI(93);
     this.registerImages();
@@ -113,7 +112,10 @@ public class LawrenceUIEngine implements HMMUserInterface {
       int y) {
 
     elements.add(Sprite.BACKGROUND);
-    elements.add(this.map.getGraph().getMapBackgroundElement(y, x).getSprite());
+    elements.add(this.map.getMapBackgroundElementAtLocation(new Location(y, x))
+        .getSprite());
+    // elements.add(this.map.getGraph().getMapBackgroundElement(y,
+    // x).getSprite());
   }
 
   private void setCellMapElements(ArrayList<Sprite> elements, int x, int y) {

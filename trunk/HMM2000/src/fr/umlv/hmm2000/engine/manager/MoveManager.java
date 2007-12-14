@@ -11,7 +11,7 @@ import fr.umlv.hmm2000.engine.event.MoveEvent;
 import fr.umlv.hmm2000.engine.event.MoveEvent.Step;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.map.Location;
-import fr.umlv.hmm2000.map.Map;
+import fr.umlv.hmm2000.map.MainMap;
 import fr.umlv.hmm2000.map.MovableElement;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.map.graph.CheckerboardVertex;
@@ -21,7 +21,7 @@ public class MoveManager {
 
   private final HMMUserInterface uiManager;
 
-  private final Map map;
+  private final MainMap map;
 
   private final CheckerboardEuclideanAStarHeuristic heuristic;
 
