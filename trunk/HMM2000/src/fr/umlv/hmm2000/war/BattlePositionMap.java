@@ -30,10 +30,10 @@ public class BattlePositionMap implements Map {
 
 	public BattlePositionMap(int slots) {
 
+		this.slots = slots;
 		this.units = new HashMap<Location, Warrior>(LINE_NUMBER * slots);
 		this.freeLocations = initFreeLocations();
 		this.freePlaces = LINE_NUMBER * slots;
-		this.slots = slots;
 		initMatrix();
 	}
 	
