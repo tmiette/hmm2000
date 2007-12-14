@@ -77,7 +77,7 @@ public class BattlePositionMap implements Map {
 		Location oldLocation;
 		// warrior is already contained
 		if ((oldLocation = getLocation(w)) != null) {
-			swap(	oldLocation,
+			move(	oldLocation,
 						location);
 		}
 		else {
@@ -101,8 +101,13 @@ public class BattlePositionMap implements Map {
 		final int y = location.getY();
 		return (x < this.slots && x >= 0 && y < LINE_NUMBER && y > 0);
 	}
+	
+	public Warrior getWarriorAtLocation(Location l) {
 
-	private void swap(Location from, Location to) {
+		return this.units.get(l);
+	}
+
+	public void move(Location from, Location to) {
 
 		if (this.units.containsKey(to)) {
 			Warrior w = this.units.get(to);
@@ -119,7 +124,7 @@ public class BattlePositionMap implements Map {
 			this.freeLocations.add(from);
 		}
 	}
-
+	
 	public Location getLocation(Warrior w) {
 
 		for (Entry<Location, Warrior> it : getUnits()) {
@@ -159,7 +164,7 @@ public class BattlePositionMap implements Map {
 	@Override
 	public MapForegroundElement getMapForegroundElementAtLocation(Location l) {
 
-		return this.units.get(l);
+		return this.getWarriorAtLocation(l);
 	}
 
 	@Override
