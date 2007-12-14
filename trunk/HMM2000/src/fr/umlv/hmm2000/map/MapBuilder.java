@@ -12,9 +12,9 @@ import fr.umlv.hmm2000.resource.Resource.Kind;
 import fr.umlv.hmm2000.salesentity.SalesEntity;
 import fr.umlv.hmm2000.salesentity.SalesEntity.SalesEntityEnum;
 import fr.umlv.hmm2000.salesentity.spell.Spell;
-import fr.umlv.hmm2000.warriors.Level;
-import fr.umlv.hmm2000.warriors.WarriorFactory;
-import fr.umlv.hmm2000.warriors.profils.ProfilHeroe;
+import fr.umlv.hmm2000.warrior.Level;
+import fr.umlv.hmm2000.warrior.WarriorFactory;
+import fr.umlv.hmm2000.warrior.profil.ProfilHeroe;
 
 public class MapBuilder {
 

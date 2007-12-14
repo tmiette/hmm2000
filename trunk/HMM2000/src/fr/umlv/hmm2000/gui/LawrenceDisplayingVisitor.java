@@ -3,8 +3,8 @@ package fr.umlv.hmm2000.gui;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.resource.Resource;
 import fr.umlv.hmm2000.salesentity.SalesEntity;
-import fr.umlv.hmm2000.warriors.Heroe;
-import fr.umlv.hmm2000.warriors.Warrior;
+import fr.umlv.hmm2000.warrior.Heroe;
+import fr.umlv.hmm2000.warrior.Warrior;
 
 public class LawrenceDisplayingVisitor implements UIDisplayingVisitor {
 
