@@ -1,5 +1,7 @@
 package fr.umlv.hmm2000.war;
 
+import java.util.Map.Entry;
+
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.Map;
 import fr.umlv.hmm2000.map.element.MapBackgroundEnum;
@@ -16,7 +18,7 @@ public class SebMapBuilder {
 		final Container minContainer;
 		if (c1.getBattlePositionManager()
 					.getSlots() >= c2	.getBattlePositionManager()
-															.getSlots()) {
+														.getSlots()) {
 			maxContainer = c1;
 			minContainer = c2;
 		}
@@ -71,5 +73,30 @@ public class SebMapBuilder {
 		return map;
 	}
 
+	public static Map createMapPosition(Container c1) {
+
+		final int columns = c1.getBattlePositionManager()
+													.getSlots();
+
+		final int lines = BattlePositionManager.LINE_NUMBER;
+
+		MapBackgroundEnum[][] background = new MapBackgroundEnum[lines][columns];
+
+		for (int i = 0; i < background.length; i++) {
+			for (int j = 0; j < background[0].length; j++) {
+				background[i][j] = MapBackgroundEnum.PLAIN;
+			}
+		}
+
+		Map map = new Map(background);
+
+		for (Entry<Location, Warrior> entries : c1.getBattlePositionManager()
+																							.getUnits()) {
+			map.addMapForegroundElement(entries.getValue(),
+																	entries.getKey());
+		}
+
+		return map;
+	}
 
 }
