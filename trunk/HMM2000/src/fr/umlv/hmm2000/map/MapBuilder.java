@@ -72,9 +72,11 @@ public class MapBuilder {
     map.addMapForegroundElement(WarriorFactory.createWarrior(
         ProfilHeroe.LORD_OF_WAR, p2, "spiderman", Level.LEVEL_1), new Location(
         1, 2));
-    map.addMapForegroundElement(new Resource(Kind.GOLD, 10, 100, 1, 5),
-        new Location(2, 0));
-
+    map.addMapForegroundElement(new Resource(Kind.GOLD, 10, 100, 1, 5,
+        Resource.NON_RELOADABLE), new Location(2, 0));
+    map.addMapForegroundElement(new Resource(Kind.GOLD, 30, 1000, 7, 30,
+        Resource.RELOADABLE), new Location(2, 6));
+    
     SalesEntity m = new SalesEntity(SalesEntityEnum.MERCHANT);
     m.addProduct(Spell.TELEPORTATION, 2);
     m.addProduct(Spell.OBSTACLE_DESTRUCTION, 1);

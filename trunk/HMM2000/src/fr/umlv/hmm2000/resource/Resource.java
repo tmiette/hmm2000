@@ -7,21 +7,26 @@ import fr.umlv.hmm2000.map.element.MapForegroundElement;
 
 public class Resource implements MapForegroundElement {
 
+  public static final int RELOADABLE = 0;
+  public static final int NON_RELOADABLE = 1;
+
   private final Kind kind;
   private int currentValue;
   private final int maxValue;
   private final int period;
   private final int addition;
   private int periodCounter;
+  private final int behaviour;
 
   public Resource(Kind kind, int startValue, int maxValue, int period,
-      int addition) {
+      int addition, int behaviour) {
     this.kind = kind;
     this.currentValue = startValue;
     this.maxValue = maxValue > startValue ? maxValue : startValue;
     this.period = period > 0 ? period : 1;
     this.addition = addition > 0 ? addition : maxValue;
     this.periodCounter = 0;
+    this.behaviour = behaviour;
   }
 
   public void fill() {
@@ -62,6 +67,10 @@ public class Resource implements MapForegroundElement {
     return this.periodCounter;
   }
 
+  public int getBehaviour() {
+    return this.behaviour;
+  }
+
   @Override
   public Sprite getSprite() {
     return this.kind.getSprite();
@@ -71,7 +80,11 @@ public class Resource implements MapForegroundElement {
   public boolean encounter(EncounterEvent event) {
     event.getSender().getPlayer().addResource(this.kind, this.currentValue);
     this.drain();
-    return true;
+    if (this.behaviour == Resource.NON_RELOADABLE) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @Override
