@@ -21,8 +21,8 @@ public class SebMapBuilder {
 			minContainer = c2;
 		}
 		else {
-			maxContainer = c1;
-			minContainer = c2;
+			maxContainer = c2;
+			minContainer = c1;
 		}
 
 		final int maxColumns = maxContainer	.getBattlePositionManager()
