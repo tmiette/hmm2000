@@ -96,8 +96,7 @@ public class Resource implements MapForegroundElement {
 
   @Override
   public void nextDay(int day) {
-    // TODO Auto-generated method stub
-
+    this.fill();
   }
 
 }
