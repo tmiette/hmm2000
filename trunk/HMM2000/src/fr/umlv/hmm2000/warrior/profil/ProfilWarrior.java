@@ -24,4 +24,6 @@ public interface ProfilWarrior {
 	public boolean isAttackable(Warrior attacker, Warrior defender);
 	
 	public ProfilWarrior getProfil();
+	
+	public String getLabel();
 }

@@ -21,7 +21,7 @@ public class WarriorFactory {
 																		ratio),
 												applyRatio(	p.getAttackValue(),
 																		ratio),
-												p.getElements(),
+												p.getAttacks(),
 												p.getProfil());
 	}
 
@@ -39,7 +39,7 @@ public class WarriorFactory {
 																				ratio),
 														applyRatio(	p.getAttackValue(),
 																				ratio),
-														p.getElements(),
+														p.getAttacks(),
 														name,
 														p.getProfil());
 

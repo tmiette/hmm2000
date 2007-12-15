@@ -146,5 +146,11 @@ public enum ProfilCreatures implements ProfilWarrior {
 
 		return false;
 	}
+	
+	@Override
+	public String getLabel() {
+	
+		return this.toString();
+	}
 
 }

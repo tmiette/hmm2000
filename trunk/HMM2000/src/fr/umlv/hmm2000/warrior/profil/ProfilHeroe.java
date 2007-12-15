@@ -66,8 +66,8 @@ public enum ProfilHeroe implements ProfilWarrior {
 		this.profilWarrior = pw;
 		this.attacks = new HashMap<ElementaryEnum, Attack>();
 		for (Attack attack : attacks) {
-			this.attacks.put(attack.getType(),
-			                 attack);
+			this.attacks.put(	attack.getType(),
+												attack);
 		}
 	}
 
@@ -120,5 +120,9 @@ public enum ProfilHeroe implements ProfilWarrior {
 		return false;
 	}
 
+	@Override
+	public String getLabel() {
 
+		return this.toString();
+	}
 }
