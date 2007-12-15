@@ -11,31 +11,41 @@ import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
 
 public enum ProfilCreatures implements ProfilWarrior {
 
+	/*
+	 * Enum default values description : TYPE(physicalAttackValue,
+	 * physycalDefenseValue, health, speed, sprite, arrayAttacks)
+	 */
 	FLIGHT(	10,
 					10,
 					100,
 					20,
 					Sprite.MERCHANT,
-					new Attack[] {new Elementary(ElementaryEnum.FIRE, 10, 10)}){
+					new Attack[] { new Elementary(ElementaryEnum.FIRE,
+																				10,
+																				10) }) {
+
 		@Override
 		public boolean isAttackable(Warrior attacker, Warrior defender) {
-		
+
 			return true;
 		}
-		
+
 	},
 	GRUNT(10,
 				10,
 				100,
 				20,
 				Sprite.HEROE,
-				new Attack[] {}){
+				new Attack[] {}) {
+
 		@Override
 		public boolean isAttackable(Warrior attacker, Warrior defender) {
-		
-			BattlePositionMap bpm = defender.getContainer().getBattlePositionManager();
-			return bpm.isInFirstLine(attacker, defender);
-			
+
+			BattlePositionMap bpm = defender.getContainer()
+																			.getBattlePositionManager();
+			return bpm.isInFirstLine(	attacker,
+																defender);
+
 		}
 	},
 	WIZZARD(10,
@@ -43,14 +53,16 @@ public enum ProfilCreatures implements ProfilWarrior {
 					100,
 					20,
 					Sprite.MERCHANT,
-					new Attack[] {}){
+					new Attack[] {}) {
+
 		@Override
 		public boolean isAttackable(Warrior attacker, Warrior defender) {
-		
-			BattlePositionMap bpm = defender.getContainer().getBattlePositionManager();
+
+			BattlePositionMap bpm = defender.getContainer()
+																			.getBattlePositionManager();
 			return bpm.isInFirstLine(defender);
 		}
-		
+
 	};
 
 	private double attackValue;
@@ -62,26 +74,27 @@ public enum ProfilCreatures implements ProfilWarrior {
 	private int speed;
 
 	private Sprite sprite;
-	
-	private HashMap<ElementaryEnum, Attack> elements;
-	
+
+	private HashMap<ElementaryEnum, Attack> attacks;
+
 	private ProfilWarrior profil;
-	
+
 	private ProfilCreatures(double attackValue,
 													double defenseValue,
 													double health,
 													int speed,
 													Sprite sprite,
-													Attack[] ee) {
+													Attack[] attacks) {
 
 		this.attackValue = attackValue;
 		this.defenseValue = defenseValue;
 		this.health = health;
 		this.speed = speed;
 		this.sprite = sprite;
-		this.elements = new HashMap<ElementaryEnum, Attack>();
-		for (Attack element : ee) {
-			this.elements.put(element.getType(), element);
+		this.attacks = new HashMap<ElementaryEnum, Attack>();
+		for (Attack attack : attacks) {
+			this.attacks.put(attack.getType(),
+			                 attack);
 		}
 		this.profil = valueOf(this.name());
 	}
@@ -117,21 +130,21 @@ public enum ProfilCreatures implements ProfilWarrior {
 	}
 
 	@Override
-	public HashMap<ElementaryEnum, Attack> getElements() {
+	public HashMap<ElementaryEnum, Attack> getAttacks() {
 
-		return this.elements;
+		return this.attacks;
 	}
-	
+
 	@Override
 	public ProfilWarrior getProfil() {
-	
+
 		return this.profil;
 	}
-	
+
 	@Override
 	public boolean isAttackable(Warrior attacker, Warrior defender) {
-	
+
 		return false;
 	}
-	
+
 }

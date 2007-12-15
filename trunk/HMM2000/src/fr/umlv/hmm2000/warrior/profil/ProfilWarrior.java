@@ -19,7 +19,7 @@ public interface ProfilWarrior {
 	
 	public Sprite getSprite();
 	
-	public HashMap<ElementaryEnum, Attack> getElements();
+	public HashMap<ElementaryEnum, Attack> getAttacks();
 	
 	public boolean isAttackable(Warrior attacker, Warrior defender);
 	

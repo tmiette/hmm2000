@@ -41,7 +41,7 @@ public enum ProfilHeroe implements ProfilWarrior {
 
 	private Sprite sprite;
 
-	private HashMap<ElementaryEnum, Attack> elements;
+	private HashMap<ElementaryEnum, Attack> attacks;
 
 	private ProfilWarrior[] profilWarrior;
 
@@ -56,7 +56,7 @@ public enum ProfilHeroe implements ProfilWarrior {
 											int speed,
 											Sprite sprite,
 											ProfilWarrior[] pw,
-											Attack[] ee) {
+											Attack[] attacks) {
 
 		this.attackValue = attackValue;
 		this.defenseValue = defenseValue;
@@ -64,10 +64,10 @@ public enum ProfilHeroe implements ProfilWarrior {
 		this.speed = speed;
 		this.sprite = sprite;
 		this.profilWarrior = pw;
-		this.elements = new HashMap<ElementaryEnum, Attack>();
-		for (Attack element : ee) {
-			this.elements.put(element.getType(),
-												element);
+		this.attacks = new HashMap<ElementaryEnum, Attack>();
+		for (Attack attack : attacks) {
+			this.attacks.put(attack.getType(),
+			                 attack);
 		}
 	}
 
@@ -102,16 +102,15 @@ public enum ProfilHeroe implements ProfilWarrior {
 	}
 
 	@Override
-	public HashMap<ElementaryEnum, Attack> getElements() {
+	public HashMap<ElementaryEnum, Attack> getAttacks() {
 
-		return this.elements;
+		return this.attacks;
 	}
 
 	@Override
 	public ProfilWarrior getProfil() {
 
-		// TODO Auto-generated method stub
-		return null;
+		return valueOf(this.name());
 	}
 
 	@Override

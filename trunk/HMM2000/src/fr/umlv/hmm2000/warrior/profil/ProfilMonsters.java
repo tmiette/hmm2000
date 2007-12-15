@@ -107,7 +107,7 @@ public enum ProfilMonsters implements ProfilWarrior {
 	}
 
 	@Override
-	public HashMap<ElementaryEnum, Attack> getElements() {
+	public HashMap<ElementaryEnum, Attack> getAttacks() {
 
 		return this.elements;
 	}
