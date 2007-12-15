@@ -29,6 +29,5 @@ public class LawrenceDisplayingVisitor implements UIDisplayingVisitor {
   @Override
   public void visit(Warrior warrior) {
     System.out.println("warrior");
-
   }
 }

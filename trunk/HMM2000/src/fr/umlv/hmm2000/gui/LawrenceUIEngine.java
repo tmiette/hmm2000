@@ -2,6 +2,7 @@ package fr.umlv.hmm2000.gui;
 
 import java.util.ArrayList;
 
+import fr.umlv.hmm2000.engine.BattlePositionEngine;
 import fr.umlv.hmm2000.engine.Engine;
 import fr.umlv.hmm2000.engine.event.EncounterEvent;
 import fr.umlv.hmm2000.engine.event.MapChangeEvent;
@@ -49,7 +50,8 @@ public class LawrenceUIEngine implements HMMUserInterface {
   private final InputListener inputListener = new InputListener() {
 
     public void mouseClicked(int x, int y, int button) {
-      Engine.currentEngine().locationClicked(y, x, button);
+      // Engine.currentEngine().locationClicked(y, x, button);
+      BattlePositionEngine.currentEngine().locationClicked(y, x, button);
     }
 
     public void keyTyped(int x, int y, Key keyCode) {
@@ -114,14 +116,13 @@ public class LawrenceUIEngine implements HMMUserInterface {
     elements.add(Sprite.BACKGROUND);
     elements.add(this.map.getMapBackgroundElementAtLocation(new Location(y, x))
         .getSprite());
-    // elements.add(this.map.getGraph().getMapBackgroundElement(y,
-    // x).getSprite());
   }
 
   private void setCellMapElements(ArrayList<Sprite> elements, int x, int y) {
     MapForegroundElement element = this.map
         .getMapForegroundElementAtLocation(new Location(y, x));
     if (element != null) {
+      System.out.println(new Location(y, x));
       elements.add(element.getSprite());
     }
   }
@@ -226,6 +227,23 @@ public class LawrenceUIEngine implements HMMUserInterface {
     this.model.addDeffered(l.getY(), l.getX(), event.getNewElement()
         .getSprite());
     this.model.swap();
+  }
+
+  @Override
+  public void swap(Location from, Location to) {
+    MapForegroundElement fromElement = this.map
+        .getMapForegroundElementAtLocation(to);
+    MapForegroundElement toElement = this.map
+        .getMapForegroundElementAtLocation(from);
+    if (toElement != null) {
+      this.model.removeDeffered(to.getY(), to.getX(), toElement.getSprite());
+    }
+    this.model
+        .removeDeffered(from.getY(), from.getX(), fromElement.getSprite());
+    this.model.addDeffered(to.getY(), to.getX(), fromElement.getSprite());
+    if (toElement != null) {
+      this.model.addDeffered(from.getY(), from.getX(), toElement.getSprite());
+    }
   }
 
 }

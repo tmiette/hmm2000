@@ -1,32 +1,41 @@
 package fr.umlv.hmm2000.engine;
 
-import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
-import fr.umlv.hmm2000.engine.manager.EncounterManager;
-import fr.umlv.hmm2000.engine.manager.MoveManager;
-import fr.umlv.hmm2000.engine.manager.RoundManager;
-import fr.umlv.hmm2000.engine.manager.SelectionManager;
 import fr.umlv.hmm2000.map.InvalidPlayersNumberException;
 import fr.umlv.hmm2000.map.Location;
-import fr.umlv.hmm2000.map.MainMap;
+import fr.umlv.hmm2000.war.BattlePositionMap;
 
 public class BattlePositionEngine {
 
-  private final MainMap map;
+  private static BattlePositionEngine currentEngine;
+  private final BattlePositionMap map;
   private final HMMUserInterface uiManager;
-  private BattleSelectionManager selectionManager;
+  private BattlePositionSelectionManager selectionManager;
   private BattlePositionManager2 postionManager;
 
-  private BattlePositionEngine(MainMap map, HMMUserInterface uiManager)
+  public static void createEngine(BattlePositionMap map,
+      HMMUserInterface uiManager) throws InvalidPlayersNumberException {
+    BattlePositionEngine engine = new BattlePositionEngine(map, uiManager);
+    BattlePositionEngine.currentEngine = engine;
+  }
+
+  public static BattlePositionEngine currentEngine() {
+    return BattlePositionEngine.currentEngine;
+  }
+
+  public BattlePositionEngine(BattlePositionMap map, HMMUserInterface uiManager)
       throws InvalidPlayersNumberException {
     this.map = map;
     this.uiManager = uiManager;
     this.initialize();
+    this.uiManager.drawMap(this.map);
   }
 
   private void initialize() {
-    this.selectionManager = new BattleSelectionManager(this.map, this.uiManager);
-    this.postionManager = new BattlePositionManager2(this.map, this.uiManager);
+    this.selectionManager = new BattlePositionSelectionManager(this.map,
+        this.uiManager);
+    this.postionManager = new BattlePositionManager2(this.map, this.uiManager,
+        this.selectionManager);
   }
 
   public void locationClicked(int x, int y, int button) {

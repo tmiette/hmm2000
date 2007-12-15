@@ -3,15 +3,15 @@ package fr.umlv.hmm2000.engine;
 import fr.umlv.hmm2000.engine.event.SelectionEvent;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.map.Location;
-import fr.umlv.hmm2000.map.MainMap;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
+import fr.umlv.hmm2000.war.BattlePositionMap;
 
-public class BattleSelectionManager {
-  private final MainMap map;
+public class BattlePositionSelectionManager {
+  private final BattlePositionMap map;
   private final HMMUserInterface uiManager;
   private Location selectedLocation;
 
-  public BattleSelectionManager(MainMap map, HMMUserInterface uiManager) {
+  public BattlePositionSelectionManager(BattlePositionMap map, HMMUserInterface uiManager) {
     this.map = map;
     this.uiManager = uiManager;
   }
