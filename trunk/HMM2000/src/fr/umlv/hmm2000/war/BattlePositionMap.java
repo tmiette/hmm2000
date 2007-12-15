@@ -23,9 +23,9 @@ public class BattlePositionMap implements Map {
 	private int freePlaces;
 
 	private final int slots;
-	
+
 	private final ArrayList<Location> freeLocations;
-	
+
 	private MapBackgroundElement[][] mbe;
 
 	public BattlePositionMap(int slots) {
@@ -36,22 +36,21 @@ public class BattlePositionMap implements Map {
 		this.freePlaces = LINE_NUMBER * slots;
 		initMatrix();
 	}
-	
+
 	public ArrayList<Warrior> getWarriorsOnLine(int line) {
 
+		ArrayList<Warrior> w = new ArrayList<Warrior>(this.slots);
 		if (line < LINE_NUMBER && line >= 0) {
-			
-			ArrayList<Warrior> w = new ArrayList<Warrior>(this.slots);
 			for (Entry<Location, Warrior> entries : this.getUnits()) {
-				if (entries.getKey().getX() == line) {
+				if (entries	.getKey()
+										.getX() == line) {
 					w.add(entries.getValue());
 				}
 			}
-			return w;
 		}
-		return null;
+		return w;
 	}
-	
+
 	private void initMatrix() {
 
 		this.mbe = new MapBackgroundEnum[LINE_NUMBER][this.slots];
@@ -61,18 +60,19 @@ public class BattlePositionMap implements Map {
 			}
 		}
 	}
-	
+
 	private ArrayList<Location> initFreeLocations() {
 
 		ArrayList<Location> l = new ArrayList<Location>(LINE_NUMBER * slots);
 		for (int i = 0; i < LINE_NUMBER; i++) {
 			for (int j = 0; j < this.slots; j++) {
-				l.add(new Location(i, j));
+				l.add(new Location(	i,
+														j));
 			}
 		}
 		return l;
 	}
-	
+
 	public Location getFirstFreeLocation() throws NoPlaceAvailableException {
 
 		if (this.freePlaces == 0) {
@@ -116,7 +116,7 @@ public class BattlePositionMap implements Map {
 		final int y = location.getY();
 		return (x < LINE_NUMBER && x >= 0 && y < this.slots && y >= 0);
 	}
-	
+
 	public Warrior getWarriorAtLocation(Location l) {
 
 		return this.units.get(l);
@@ -139,7 +139,7 @@ public class BattlePositionMap implements Map {
 			this.freeLocations.add(from);
 		}
 	}
-	
+
 	public Location getLocation(Warrior w) {
 
 		for (Entry<Location, Warrior> it : getUnits()) {
@@ -155,9 +155,8 @@ public class BattlePositionMap implements Map {
 		return this.units.entrySet();
 	}
 
-	
 	public int getSlots() {
-	
+
 		return this.slots;
 	}
 
@@ -186,5 +185,21 @@ public class BattlePositionMap implements Map {
 	public int getWidth() {
 
 		return this.slots;
+	}
+
+	public boolean isInFirstLine(Warrior... warriors) {
+
+		ArrayList<Warrior> lineWarriors = null;
+		boolean b = true;
+
+		for (int line = 0; line < LINE_NUMBER; line++) {
+			if ((lineWarriors = getWarriorsOnLine(line)).size() > 0) {
+				for (int i = 0; i < warriors.length && b; i++) {
+					b = lineWarriors.contains(warriors[i]);
+				}
+				return b;
+			}
+		}
+		return false;
 	}
 }

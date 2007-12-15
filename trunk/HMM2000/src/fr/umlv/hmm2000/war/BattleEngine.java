@@ -21,8 +21,10 @@ public class BattleEngine {
   
   private final SelectionManager selectionManager;
   
-  private final LocationSelectionRequester locationRequester;
+//  private final LocationSelectionRequester locationRequester;
   
+//  private final BattleEvent battleEvent;
+
 	public BattleEngine(Container c1, Container c2) {
 
 		this.c1 = c1;
