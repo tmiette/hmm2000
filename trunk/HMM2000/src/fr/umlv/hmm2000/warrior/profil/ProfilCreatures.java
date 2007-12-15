@@ -4,10 +4,10 @@ import java.util.HashMap;
 
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.warrior.Attack;
+import fr.umlv.hmm2000.warrior.Elementary;
+import fr.umlv.hmm2000.warrior.ElementaryEnum;
 import fr.umlv.hmm2000.warrior.Warrior;
 import fr.umlv.hmm2000.warrior.attack.elementary.Element;
-import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
-import fr.umlv.hmm2000.warrior.attack.elementary.Elementary;
 
 public enum ProfilCreatures implements ProfilWarrior {
 
