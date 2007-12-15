@@ -21,7 +21,8 @@ public class WarriorFactory {
 																		ratio),
 												applyRatio(	p.getAttackValue(),
 																		ratio),
-												p.getElements());
+												p.getElements(),
+												p.getProfil());
 	}
 
 	public static Heroe createHeroe(ProfilHeroe p, Player player, String name,
@@ -39,7 +40,8 @@ public class WarriorFactory {
 														applyRatio(	p.getAttackValue(),
 																				ratio),
 														p.getElements(),
-														name);
+														name,
+														p.getProfil());
 
 		for (ProfilWarrior profilWarrior : p.getProfilWarrior()) {
 			try {

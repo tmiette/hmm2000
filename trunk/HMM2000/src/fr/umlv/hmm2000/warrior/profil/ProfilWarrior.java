@@ -6,7 +6,6 @@ import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.warrior.Attack;
 import fr.umlv.hmm2000.warrior.Warrior;
 import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
-import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 
 public interface ProfilWarrior {
 
@@ -22,5 +21,7 @@ public interface ProfilWarrior {
 	
 	public HashMap<ElementaryEnum, Attack> getElements();
 	
-	public void attack(Warrior warrior, Attack attack) throws WarriorDeadException;
+	public boolean isAttackable(Warrior attacker, Warrior defender);
+	
+	public ProfilWarrior getProfil();
 }

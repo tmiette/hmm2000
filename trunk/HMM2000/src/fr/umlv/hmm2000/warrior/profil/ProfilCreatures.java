@@ -3,11 +3,11 @@ package fr.umlv.hmm2000.warrior.profil;
 import java.util.HashMap;
 
 import fr.umlv.hmm2000.gui.Sprite;
+import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.warrior.Attack;
 import fr.umlv.hmm2000.warrior.Warrior;
 import fr.umlv.hmm2000.warrior.attack.elementary.Elementary;
 import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
-import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 
 public enum ProfilCreatures implements ProfilWarrior {
 
@@ -18,12 +18,11 @@ public enum ProfilCreatures implements ProfilWarrior {
 					Sprite.MERCHANT,
 					new Attack[] {new Elementary(ElementaryEnum.FIRE, 10, 10)}){
 		@Override
-		public void attack(Warrior warrior, Attack attack)
-				throws WarriorDeadException {
+		public boolean isAttackable(Warrior attacker, Warrior defender) {
 		
-			// TODO Auto-generated method stub
-			
+			return true;
 		}
+		
 	},
 	GRUNT(10,
 				10,
@@ -32,10 +31,10 @@ public enum ProfilCreatures implements ProfilWarrior {
 				Sprite.HEROE,
 				new Attack[] {}){
 		@Override
-		public void attack(Warrior warrior, Attack attack)
-				throws WarriorDeadException {
+		public boolean isAttackable(Warrior attacker, Warrior defender) {
 		
-			// TODO Auto-generated method stub
+			BattlePositionMap bpm = defender.getContainer().getBattlePositionManager();
+			return bpm.isInFirstLine(attacker, defender);
 			
 		}
 	},
@@ -46,12 +45,12 @@ public enum ProfilCreatures implements ProfilWarrior {
 					Sprite.MERCHANT,
 					new Attack[] {}){
 		@Override
-		public void attack(Warrior warrior, Attack attack)
-				throws WarriorDeadException {
+		public boolean isAttackable(Warrior attacker, Warrior defender) {
 		
-			// TODO Auto-generated method stub
-			
+			BattlePositionMap bpm = defender.getContainer().getBattlePositionManager();
+			return bpm.isInFirstLine(defender);
 		}
+		
 	};
 
 	private double attackValue;
@@ -65,7 +64,9 @@ public enum ProfilCreatures implements ProfilWarrior {
 	private Sprite sprite;
 	
 	private HashMap<ElementaryEnum, Attack> elements;
-
+	
+	private ProfilWarrior profil;
+	
 	private ProfilCreatures(double attackValue,
 													double defenseValue,
 													double health,
@@ -82,6 +83,7 @@ public enum ProfilCreatures implements ProfilWarrior {
 		for (Attack element : ee) {
 			this.elements.put(element.getType(), element);
 		}
+		this.profil = valueOf(this.name());
 	}
 
 	@Override
@@ -121,10 +123,15 @@ public enum ProfilCreatures implements ProfilWarrior {
 	}
 	
 	@Override
-	public void attack(Warrior warrior, Attack attack)
-			throws WarriorDeadException {
+	public ProfilWarrior getProfil() {
 	
-		// TODO Auto-generated method stub
-		
+		return this.profil;
 	}
+	
+	@Override
+	public boolean isAttackable(Warrior attacker, Warrior defender) {
+	
+		return false;
+	}
+	
 }

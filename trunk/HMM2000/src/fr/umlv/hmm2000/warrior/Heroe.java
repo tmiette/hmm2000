@@ -11,6 +11,7 @@ import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
 import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
 import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
+import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
 
 public class Heroe extends Warrior implements Container {
 
@@ -30,7 +31,8 @@ public class Heroe extends Warrior implements Container {
 				double defenseValue,
 				double attackValue,
 				HashMap<ElementaryEnum, Attack> elements,
-				String name) {
+				String name,
+				ProfilWarrior profil) {
 
 		super(player,
 					health,
@@ -38,7 +40,8 @@ public class Heroe extends Warrior implements Container {
 					sprite,
 					defenseValue,
 					attackValue,
-					elements);
+					elements,
+					profil);
 
 		this.name = name;
 	}

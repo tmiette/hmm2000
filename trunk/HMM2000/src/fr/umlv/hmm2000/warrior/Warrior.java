@@ -11,6 +11,7 @@ import fr.umlv.hmm2000.salesentity.Price;
 import fr.umlv.hmm2000.salesentity.Sellable;
 import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
+import fr.umlv.hmm2000.warrior.exception.WarriorNotReachableException;
 import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
 
 public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
@@ -33,13 +34,16 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 
 	private Container container;
 
+	private ProfilWarrior profil;
+
 	Warrior(Player player,
 					double health,
 					int speed,
 					Sprite sprite,
 					double defenseValue,
 					double attackValue,
-					HashMap<ElementaryEnum, Attack> elements) {
+					HashMap<ElementaryEnum, Attack> elements,
+					ProfilWarrior profil) {
 
 		super(player);
 		this.health = health;
@@ -48,72 +52,20 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 		this.defenseValue = defenseValue;
 		this.attackValue = attackValue;
 		this.elements = elements;
-	}
-
-	@Override
-	public String toString() {
-
-		StringBuilder sb = new StringBuilder();
-		sb.append("Warrior : \n(Health = ");
-		sb.append(this.health);
-		sb.append(",StepCount = ");
-		sb.append(this.speed);
-		sb.append(",Attacks = ");
-		sb.append(")");
-		return sb.toString();
-	}
-
-	@Override
-	public Sprite getSprite() {
-
-		return this.sprite;
-	}
-
-	@Override
-	public double getAttackValue() {
-
-		return this.attackValue;
-	}
-
-	@Override
-	public double getDefenseValue() {
-
-		return this.defenseValue;
-	}
-
-	@Override
-	public double getHealth() {
-
-		return this.health;
-	}
-
-	@Override
-	public int getSpeed() {
-
-		return this.speed;
-	}
-
-	public void setSpeed(int speed) {
-
-		this.speed = speed;
-	}
-
-	@Override
-	public int getStepCount() {
-
-		return getSpeed();
-	}
-
-	@Override
-	public HashMap<ElementaryEnum, Attack> getElements() {
-
-		return this.elements;
+		this.profil = profil;
 	}
 
 	@Override
 	public void accept(UIDisplayingVisitor visitor) {
 
 		visitor.visit(this);
+
+	}
+
+	@Override
+	public void acquire(EncounterEvent event) {
+
+		// TODO Auto-generated method stub
 
 	}
 
@@ -125,10 +77,32 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 	}
 
 	@Override
-	public void acquire(EncounterEvent event) {
+	public double getAttackValue() {
 
-		// TODO Auto-generated method stub
+		return this.attackValue;
+	}
 
+	public Container getContainer() {
+
+		return this.container;
+	}
+
+	@Override
+	public double getDefenseValue() {
+
+		return this.defenseValue;
+	}
+
+	@Override
+	public HashMap<ElementaryEnum, Attack> getElements() {
+
+		return this.elements;
+	}
+
+	@Override
+	public double getHealth() {
+
+		return this.health;
 	}
 
 	@Override
@@ -144,8 +118,35 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 		return this.price;
 	}
 
-	public void setPrice() {
+	@Override
+	public ProfilWarrior getProfil() {
 
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getSpeed() {
+
+		return this.speed;
+	}
+
+	@Override
+	public Sprite getSprite() {
+
+		return this.sprite;
+	}
+
+	@Override
+	public int getStepCount() {
+
+		return getSpeed();
+	}
+
+	@Override
+	public boolean isAttackable(Warrior attacker, Warrior defender) {
+
+		return this.profil.isAttackable(attacker, defender);
 	}
 
 	@Override
@@ -155,23 +156,22 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 
 	}
 
-	public Container getContainer() {
+	public void performAttack(Warrior attacker, Warrior defender, Attack attack)
+			throws WarriorDeadException, WarriorNotReachableException {
 
-		return this.container;
+		if (!profil.isAttackable(	attacker,
+															defender)) {
+			throw new WarriorNotReachableException("This warrior is not reachable");
+		}
+		double damage = ((attacker.getAttackValue() + attack.getDamage()
+				* ((100 - defender.elements	.get(attack.getType())
+																		.getResistance()) / 100)) - defender.getDefenseValue());
+		defender.setHealth(damage);
 	}
 
 	public void setContainer(Container container) {
 
 		this.container = container;
-	}
-
-	@Override
-	public void attack(Warrior warrior, Attack attack) throws WarriorDeadException {
-
-		double damage = ((warrior.getAttackValue() + attack.getDamage()
-				* ((100 - this.elements	.get(attack.getType())
-																.getResistance()) / 100)) - this.getDefenseValue());
-		warrior.setHealth(damage);
 	}
 
 	public void setHealth(double health) throws WarriorDeadException {
@@ -180,6 +180,28 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 		if (this.health <= 0) {
 			throw new WarriorDeadException("Warrior is dead");
 		}
+	}
+
+	public void setPrice() {
+
+	}
+
+	public void setSpeed(int speed) {
+
+		this.speed = speed;
+	}
+
+	@Override
+	public String toString() {
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("Warrior : \n(Health = ");
+		sb.append(this.health);
+		sb.append(",StepCount = ");
+		sb.append(this.speed);
+		sb.append(",Attacks = ");
+		sb.append(")");
+		return sb.toString();
 	}
 
 }

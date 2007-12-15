@@ -6,7 +6,6 @@ import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.warrior.Attack;
 import fr.umlv.hmm2000.warrior.Warrior;
 import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
-import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 
 public enum ProfilMonsters implements ProfilWarrior {
 
@@ -15,19 +14,37 @@ public enum ProfilMonsters implements ProfilWarrior {
 					100,
 					20,
 					null,
-					new Attack[] {}),
+					new Attack[] {}){
+		@Override
+		public boolean isAttackable(Warrior attacker, Warrior defender) {
+
+			return false;
+		}
+	},
 	OGRE(	10,
 				10,
 				100,
 				20,
 				null,
-				new Attack[] {}),
+				new Attack[] {}){
+		@Override
+		public boolean isAttackable(Warrior attacker, Warrior defender) {
+
+			return false;
+		}
+	},
 	SITH(	10,
 				10,
 				100,
 				20,
 				null,
-				new Attack[] {});
+				new Attack[] {}){
+		@Override
+		public boolean isAttackable(Warrior attacker, Warrior defender) {
+
+			return false;
+		}
+	};
 
 	private double attackValue;
 
@@ -96,11 +113,15 @@ public enum ProfilMonsters implements ProfilWarrior {
 	}
 
 	@Override
-	public void attack(Warrior warrior, Attack attack)
-			throws WarriorDeadException {
+	public ProfilWarrior getProfil() {
 
-		// TODO Auto-generated method stub
-		
+		return valueOf(this.name());
+	}
+
+	@Override
+	public boolean isAttackable(Warrior attacker, Warrior defender) {
+
+		return false;
 	}
 
 }
