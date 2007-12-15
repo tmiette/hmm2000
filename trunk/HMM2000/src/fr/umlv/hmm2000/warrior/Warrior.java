@@ -11,10 +11,13 @@ import fr.umlv.hmm2000.salesentity.Price;
 import fr.umlv.hmm2000.salesentity.Sellable;
 import fr.umlv.hmm2000.warrior.element.Element;
 import fr.umlv.hmm2000.warrior.element.ElementEnum;
+import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
 
 public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 
+	
+	
 	private double health;
 
 	private int speed;
@@ -30,6 +33,8 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 	private String label;
 	
 	private Price price;
+	
+	private Container container;
 
 	Warrior(Player player,
 					double health,
@@ -153,6 +158,34 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 		// TODO Auto-generated method stub
 		
 	}
-	
 
+	
+	public Container getContainer() {
+	
+		return this.container;
+	}
+
+	
+	public void setContainer(Container container) {
+	
+		this.container = container;
+	}
+
+	@Override
+	public void attack(Warrior warrior, Element attack) {
+
+		int damage = 
+		
+	}
+
+	
+	public void setHealth(double health) throws WarriorDeadException {
+	
+		this.health = health;
+		if (this.health <= 0) {
+			throw new WarriorDeadException("Warrior is dead");
+		}
+	}
+	
+	
 }

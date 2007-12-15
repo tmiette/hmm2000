@@ -3,9 +3,10 @@ package fr.umlv.hmm2000.warrior.profil;
 import java.util.HashMap;
 
 import fr.umlv.hmm2000.gui.Sprite;
-import fr.umlv.hmm2000.warrior.element.Element;
-import fr.umlv.hmm2000.warrior.element.ElementEnum;
-import fr.umlv.hmm2000.warrior.element.ElementImpl;
+import fr.umlv.hmm2000.warrior.Warrior;
+import fr.umlv.hmm2000.warrior.attack.elementary.Element;
+import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
+import fr.umlv.hmm2000.warrior.attack.elementary.Elementary;
 
 public enum ProfilCreatures implements ProfilWarrior {
 
@@ -14,19 +15,40 @@ public enum ProfilCreatures implements ProfilWarrior {
 					100,
 					20,
 					Sprite.MERCHANT,
-					new Element[] {new ElementImpl(ElementEnum.FIRE, 10, 10)}),
+					new Element[] {new Elementary(ElementaryEnum.FIRE, 10, 10)}){
+		@Override
+		public void attack(Warrior warrior) {
+		
+			// TODO Auto-generated method stub
+			
+		}
+	},
 	GRUNT(10,
 				10,
 				100,
 				20,
 				Sprite.HEROE,
-				new Element[] {}),
+				new Element[] {}){
+		@Override
+		public void attack(Warrior warrior) {
+		
+			// TODO Auto-generated method stub
+			
+		}
+	},
 	WIZZARD(10,
 					10,
 					100,
 					20,
 					Sprite.MERCHANT,
-					new Element[] {});
+					new Element[] {}){
+		@Override
+		public void attack(Warrior warrior) {
+		
+			// TODO Auto-generated method stub
+			
+		}
+	};
 
 	private double attackValue;
 
@@ -38,7 +60,7 @@ public enum ProfilCreatures implements ProfilWarrior {
 
 	private Sprite sprite;
 	
-	private HashMap<ElementEnum, Element> elements;
+	private HashMap<ElementaryEnum, Element> elements;
 
 	private ProfilCreatures(double attackValue,
 													double defenseValue,
@@ -52,7 +74,7 @@ public enum ProfilCreatures implements ProfilWarrior {
 		this.health = health;
 		this.speed = speed;
 		this.sprite = sprite;
-		this.elements = new HashMap<ElementEnum, Element>();
+		this.elements = new HashMap<ElementaryEnum, Element>();
 		for (Element element : ee) {
 			this.elements.put(element.getType(), element);
 		}
@@ -89,9 +111,16 @@ public enum ProfilCreatures implements ProfilWarrior {
 	}
 
 	@Override
-	public HashMap<ElementEnum, Element> getElements() {
+	public HashMap<ElementaryEnum, Element> getElements() {
 
 		return this.elements;
+	}
+	
+	@Override
+	public void attack(Warrior warrior) {
+	
+		// TODO Auto-generated method stub
+		
 	}
 
 }

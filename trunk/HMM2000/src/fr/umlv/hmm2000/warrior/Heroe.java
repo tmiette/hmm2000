@@ -9,8 +9,8 @@ import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
-import fr.umlv.hmm2000.warrior.element.Element;
-import fr.umlv.hmm2000.warrior.element.ElementEnum;
+import fr.umlv.hmm2000.warrior.attack.elementary.Element;
+import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
 import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
 
 public class Heroe extends Warrior implements Container {
@@ -30,7 +30,7 @@ public class Heroe extends Warrior implements Container {
 				Sprite sprite,
 				double defenseValue,
 				double attackValue,
-				HashMap<ElementEnum, Element> elements,
+				HashMap<ElementaryEnum, Element> elements,
 				String name) {
 
 		super(player,
@@ -61,7 +61,7 @@ public class Heroe extends Warrior implements Container {
 		if (speed < super.getSpeed()) {
 			super.setSpeed(speed);
 		}
-		this.troop.add(w);
+		
 		try {
 			this.bpm.placeWarrior(w, this.bpm.getFirstFreeLocation());
 		}
@@ -74,6 +74,8 @@ public class Heroe extends Warrior implements Container {
 		catch (NoPlaceAvailableException e) {
 			return false;
 		}
+		this.troop.add(w);
+		w.setContainer(this);
 		return true;
 	};
 

@@ -3,8 +3,9 @@ package fr.umlv.hmm2000.warrior.profil;
 import java.util.HashMap;
 
 import fr.umlv.hmm2000.gui.Sprite;
-import fr.umlv.hmm2000.warrior.element.Element;
-import fr.umlv.hmm2000.warrior.element.ElementEnum;
+import fr.umlv.hmm2000.warrior.Warrior;
+import fr.umlv.hmm2000.warrior.attack.elementary.Element;
+import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
 
 public interface ProfilWarrior {
 
@@ -18,5 +19,7 @@ public interface ProfilWarrior {
 	
 	public Sprite getSprite();
 	
-	public HashMap<ElementEnum, Element> getElements();
+	public HashMap<ElementaryEnum, Element> getElements();
+	
+	public void attack(Warrior warrior, Element attack);
 }
