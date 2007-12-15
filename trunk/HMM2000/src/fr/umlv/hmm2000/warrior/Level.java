@@ -2,37 +2,30 @@ package fr.umlv.hmm2000.warrior;
 
 public enum Level {
 
-	LEVEL_1(1) {
+	LEVEL_1 {
+
+		public double getRatio() {
+
+			return 0;
+		}
+	},
+	LEVEL_2 {
 
 		public double getRatio() {
 
 			return 0.20;
 		}
 	},
-	LEVEL_2(2) {
+	LEVEL_3 {
 
 		public double getRatio() {
 
 			return 0.50;
 		}
-	},
-	LEVEL_3(3) {
-
-		public double getRatio() {
-
-			return 0.70;
-		}
 	};
-
-	private double ratio;
-
-	private Level(int level) {
-
-		this.ratio = level;
-	}
 
 	public double getRatio() {
 
-		return this.ratio;
+		return 0;
 	}
 }
