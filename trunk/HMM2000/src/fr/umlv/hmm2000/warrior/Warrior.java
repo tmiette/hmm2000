@@ -28,7 +28,7 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 
 	private double attackValue;
 
-	private HashMap<ElementEnum, Element> elements;
+	private HashMap<ElementEnum, Attack> elements;
 	
 	private String label;
 	
@@ -42,7 +42,7 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 					Sprite sprite,
 					double defenseValue,
 					double attackValue,
-					HashMap<ElementEnum, Element> elements) {
+					HashMap<ElementEnum, Attack> elements) {
 
 		super(player);
 		this.health = health;
@@ -108,7 +108,7 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 	}
 
 	@Override
-	public HashMap<ElementEnum, Element> getElements() {
+	public HashMap<ElementEnum, Attack> getElements() {
 
 		return this.elements;
 	}
@@ -172,10 +172,10 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 	}
 
 	@Override
-	public void attack(Warrior warrior, Element attack) {
+	public void attack(Warrior warrior, Attack attack) {
 
-		int damage = 
-		
+		double damage = ((warrior.getAttackValue() + attack.getDamage() * ((100 - this.elements.getValue(this.elements.getKey(attack.getType)).getResistance()) / 100 )) - this.getDefenseValue() );
+		warrior.setHealth(damage);
 	}
 
 	

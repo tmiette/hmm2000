@@ -3,6 +3,7 @@ package fr.umlv.hmm2000.warrior.profil;
 import java.util.HashMap;
 
 import fr.umlv.hmm2000.gui.Sprite;
+import fr.umlv.hmm2000.warrior.Attack;
 import fr.umlv.hmm2000.warrior.Warrior;
 import fr.umlv.hmm2000.warrior.attack.elementary.Element;
 import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
@@ -15,7 +16,7 @@ public enum ProfilCreatures implements ProfilWarrior {
 					100,
 					20,
 					Sprite.MERCHANT,
-					new Element[] {new Elementary(ElementaryEnum.FIRE, 10, 10)}){
+					new Attack[] {new Elementary(ElementaryEnum.FIRE, 10, 10)}){
 		@Override
 		public void attack(Warrior warrior) {
 		
@@ -28,7 +29,7 @@ public enum ProfilCreatures implements ProfilWarrior {
 				100,
 				20,
 				Sprite.HEROE,
-				new Element[] {}){
+				new Attack[] {}){
 		@Override
 		public void attack(Warrior warrior) {
 		
@@ -41,7 +42,7 @@ public enum ProfilCreatures implements ProfilWarrior {
 					100,
 					20,
 					Sprite.MERCHANT,
-					new Element[] {}){
+					new Attack[] {}){
 		@Override
 		public void attack(Warrior warrior) {
 		
@@ -60,22 +61,22 @@ public enum ProfilCreatures implements ProfilWarrior {
 
 	private Sprite sprite;
 	
-	private HashMap<ElementaryEnum, Element> elements;
+	private HashMap<ElementaryEnum, Attack> elements;
 
 	private ProfilCreatures(double attackValue,
 													double defenseValue,
 													double health,
 													int speed,
 													Sprite sprite,
-													Element[] ee) {
+													Attack[] ee) {
 
 		this.attackValue = attackValue;
 		this.defenseValue = defenseValue;
 		this.health = health;
 		this.speed = speed;
 		this.sprite = sprite;
-		this.elements = new HashMap<ElementaryEnum, Element>();
-		for (Element element : ee) {
+		this.elements = new HashMap<ElementaryEnum, Attack>();
+		for (Attack element : ee) {
 			this.elements.put(element.getType(), element);
 		}
 	}
@@ -111,7 +112,7 @@ public enum ProfilCreatures implements ProfilWarrior {
 	}
 
 	@Override
-	public HashMap<ElementaryEnum, Element> getElements() {
+	public HashMap<ElementaryEnum, Attack> getElements() {
 
 		return this.elements;
 	}
