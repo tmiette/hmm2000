@@ -113,12 +113,6 @@ public enum ProfilMonsters implements ProfilWarrior {
 	}
 
 	@Override
-	public ProfilWarrior getProfil() {
-
-		return valueOf(this.name());
-	}
-
-	@Override
 	public boolean isAttackable(Warrior attacker, Warrior defender) {
 
 		return false;

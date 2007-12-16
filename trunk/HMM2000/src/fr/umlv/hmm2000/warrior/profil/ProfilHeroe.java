@@ -96,12 +96,6 @@ public enum ProfilHeroe implements ProfilWarrior {
 		return this.toString();
 	}
 
-	@Override
-	public ProfilWarrior getProfil() {
-
-		return valueOf(this.name());
-	}
-
 	public ProfilWarrior[] getProfilWarrior() {
 
 		return this.profilWarrior;

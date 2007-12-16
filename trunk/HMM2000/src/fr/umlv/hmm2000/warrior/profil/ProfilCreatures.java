@@ -96,7 +96,6 @@ public enum ProfilCreatures implements ProfilWarrior {
 			this.attacks.put(attack.getType(),
 			                 attack);
 		}
-		this.profil = valueOf(this.name());
 	}
 
 	@Override
@@ -133,12 +132,6 @@ public enum ProfilCreatures implements ProfilWarrior {
 	public HashMap<ElementaryEnum, Attack> getAttacks() {
 
 		return this.attacks;
-	}
-
-	@Override
-	public ProfilWarrior getProfil() {
-
-		return this.profil;
 	}
 
 	@Override

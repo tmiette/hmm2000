@@ -129,7 +129,6 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 		return this.price;
 	}
 
-	@Override
 	public ProfilWarrior getProfil() {
 
 		return this.profil;
