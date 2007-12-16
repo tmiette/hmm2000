@@ -90,7 +90,7 @@ public class Heroe extends Warrior implements Container {
 		return stepCount;
 	}
 
-	public String getName() {
+	public String getProfilName() {
 
 		return this.name;
 	}

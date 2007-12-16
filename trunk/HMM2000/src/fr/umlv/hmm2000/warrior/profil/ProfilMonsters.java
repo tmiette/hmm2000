@@ -129,5 +129,11 @@ public enum ProfilMonsters implements ProfilWarrior {
 	
 		return this.toString();
 	}
+	
+	@Override
+	public String getProfilName() {
+	
+		return this.name();
+	}
 
 }

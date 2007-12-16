@@ -7,7 +7,7 @@ import fr.umlv.hmm2000.warrior.Attack;
 import fr.umlv.hmm2000.warrior.Warrior;
 import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
 
-public interface ProfilWarrior {
+public interface ProfilWarrior extends Profil {
 
 	public double getHealth();
 

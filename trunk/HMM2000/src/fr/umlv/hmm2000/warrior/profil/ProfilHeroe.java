@@ -45,11 +45,6 @@ public enum ProfilHeroe implements ProfilWarrior {
 
 	private ProfilWarrior[] profilWarrior;
 
-	public ProfilWarrior[] getProfilWarrior() {
-
-		return this.profilWarrior;
-	}
-
 	private ProfilHeroe(double attackValue,
 											double defenseValue,
 											double health,
@@ -72,6 +67,12 @@ public enum ProfilHeroe implements ProfilWarrior {
 	}
 
 	@Override
+	public HashMap<ElementaryEnum, Attack> getAttacks() {
+
+		return this.attacks;
+	}
+
+	@Override
 	public double getAttackValue() {
 
 		return this.attackValue;
@@ -90,6 +91,23 @@ public enum ProfilHeroe implements ProfilWarrior {
 	}
 
 	@Override
+	public String getLabel() {
+
+		return this.toString();
+	}
+
+	@Override
+	public ProfilWarrior getProfil() {
+
+		return valueOf(this.name());
+	}
+
+	public ProfilWarrior[] getProfilWarrior() {
+
+		return this.profilWarrior;
+	}
+
+	@Override
 	public int getSpeed() {
 
 		return this.speed;
@@ -102,18 +120,6 @@ public enum ProfilHeroe implements ProfilWarrior {
 	}
 
 	@Override
-	public HashMap<ElementaryEnum, Attack> getAttacks() {
-
-		return this.attacks;
-	}
-
-	@Override
-	public ProfilWarrior getProfil() {
-
-		return valueOf(this.name());
-	}
-
-	@Override
 	public boolean isAttackable(Warrior attacker, Warrior defender) {
 
 		// TODO Auto-generated method stub
@@ -121,8 +127,8 @@ public enum ProfilHeroe implements ProfilWarrior {
 	}
 
 	@Override
-	public String getLabel() {
+	public String getProfilName() {
 
-		return this.toString();
+		return this.name();
 	}
 }

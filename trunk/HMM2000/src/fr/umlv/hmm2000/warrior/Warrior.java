@@ -218,6 +218,12 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 		}
 		return ((Warrior)obj).id == this.id;
 	}
+	
+	@Override
+	public String getProfilName() {
+	
+		return this.profil.getProfilName();
+	}
 
 	@Override
 	public String toString() {

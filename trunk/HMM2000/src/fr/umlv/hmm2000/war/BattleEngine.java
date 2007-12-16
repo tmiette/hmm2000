@@ -21,6 +21,8 @@ public class BattleEngine {
   
   private final SelectionManager selectionManager;
   
+  private final BattleRoundManager roundManager;
+  
 //  private final LocationSelectionRequester locationRequester;
   
 //  private final BattleEvent battleEvent;
@@ -32,6 +34,7 @@ public class BattleEngine {
 		this.uiManager = Engine.currentEngine().uiManager();
 		this.map = SebMapBuilder.createMap(c1, c2);
 		this.selectionManager = Engine.currentEngine().selectionManager();
+		this.roundManager = new BattleRoundManager(c1, c2);
 	}
 	
 	public void locationClicked(int x, int y, int button) {
