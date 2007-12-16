@@ -18,7 +18,6 @@ public class BattleRoundManager {
 	
 	private Player p2;
 	
-	private HashMap<K, V>
 	
 	public BattleRoundManager(Container attacker, Container defender) {
 
@@ -26,6 +25,8 @@ public class BattleRoundManager {
 		this.p2 = defender.getPlayer();
 		this.currentPlayer = chooseFirstPlayer(attacker, defender);
 	}
+	
+	
 	
 	private Player chooseFirstPlayer(Container attacker, Container defender) {
 
