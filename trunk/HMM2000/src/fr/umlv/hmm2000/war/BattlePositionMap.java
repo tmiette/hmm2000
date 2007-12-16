@@ -2,6 +2,7 @@ package fr.umlv.hmm2000.war;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 import java.util.Map.Entry;
 
@@ -10,6 +11,7 @@ import fr.umlv.hmm2000.map.Map;
 import fr.umlv.hmm2000.map.element.MapBackgroundElement;
 import fr.umlv.hmm2000.map.element.MapBackgroundEnum;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
+import fr.umlv.hmm2000.map.graph.CheckerboardGraph;
 import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
 import fr.umlv.hmm2000.warrior.Warrior;
@@ -92,7 +94,7 @@ public class BattlePositionMap implements Map {
 		Location oldLocation;
 		// warrior is already contained
 		if ((oldLocation = getLocation(w)) != null) {
-			move(	oldLocation,
+			moveMapForegroundElement(	oldLocation,
 						location);
 		}
 		else {
@@ -122,7 +124,8 @@ public class BattlePositionMap implements Map {
 		return this.units.get(l);
 	}
 
-	public void move(Location from, Location to) {
+	@Override
+	public void moveMapForegroundElement(Location from, Location to) {
 
 		if (this.units.containsKey(to)) {
 			Warrior w = this.units.get(to);
@@ -201,5 +204,34 @@ public class BattlePositionMap implements Map {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void changeMapBackgroundElement(Location l,
+			MapBackgroundElement element) {
+
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<MapForegroundElement> getMapForegroundElements() {
+
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CheckerboardGraph graph() {
+
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void removeMapForegroundElement(Location l) {
+
+		// TODO Auto-generated method stub
+		
 	}
 }
