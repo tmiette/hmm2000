@@ -6,7 +6,7 @@ import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.Map;
 import fr.umlv.hmm2000.map.element.MapBackgroundEnum;
 import fr.umlv.hmm2000.warrior.Container;
-import fr.umlv.hmm2000.warrior.Warrior;
+import fr.umlv.hmm2000.warrior.Warrior2;
 
 public class SebMapBuilder {
 
@@ -47,7 +47,7 @@ public class SebMapBuilder {
 
 		// xmap = xbattle + (maxColumns - minColums) / 2;
 		// ymap = 0;
-		for (Warrior w : minContainer.getTroop()) {
+		for (Warrior2 w : minContainer.getTroop()) {
 			map.addMapForegroundElement(w,
 																	new Location(	minContainer.getBattlePositionManager()
 																														.getLocation(w)
@@ -58,7 +58,7 @@ public class SebMapBuilder {
 
 		// xmap = nbcol - xbattle;
 		// ymap = nbline - ybattle;
-		for (Warrior w : maxContainer.getTroop()) {
+		for (Warrior2 w : maxContainer.getTroop()) {
 			map.addMapForegroundElement(w,
 																	new Location(	maxColumns
 																										- maxContainer.getBattlePositionManager()
@@ -90,7 +90,7 @@ public class SebMapBuilder {
 
 		Map map = new Map(background);
 
-		for (Entry<Location, Warrior> entries : c1.getBattlePositionManager()
+		for (Entry<Location, Warrior2> entries : c1.getBattlePositionManager()
 																							.getUnits()) {
 			map.addMapForegroundElement(entries.getValue(),
 																	entries.getKey());

@@ -16,7 +16,9 @@ import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
 
 public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 	
-	private double id = 0;
+	private static double WARRIORS_COUNT = 0;
+	
+	private double id;
 
 	private double health;
 
@@ -50,7 +52,7 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 		this.attackValue = this.profil.getAttackValue();
 		this.elements = this.profil.getAttacks();
 		this.label = this.profil.getLabel();
-		this.id++;
+		this.id = WARRIORS_COUNT++;
 	}
 
 	@Override
@@ -205,15 +207,16 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 	@Override
 	public int hashCode() {
 	
-		// TODO Auto-generated method stub
-		return super.hashCode();
+		return (int)this.id;
 	}
 	
 	@Override
 	public boolean equals(Object obj) {
 	
-		// TODO Auto-generated method stub
-		return super.equals(obj);
+		if (!(obj instanceof Warrior)) {
+			return false;
+		}
+		return ((Warrior)obj).id == this.id;
 	}
 
 	@Override
