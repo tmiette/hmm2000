@@ -157,16 +157,15 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 		}
 	}
 
-	public void setPrice() {
-
-		//TODO
-	}
-
 	public void setSpeed(int speed) {
 
 		this.speed = speed;
 	}
 	
+    @Override
+    public ProfilWarrior getProfil() {
+      return this.profil;
+    }
 	
 	@Override
 	public int hashCode() {
