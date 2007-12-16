@@ -94,6 +94,7 @@ public class MoveCoreManager {
             break;
           }
         }
+        event.getSource().setStepCount(move.getRemainingStepCount());
         CoreEngine.map().moveMapForegroundElement(move.getStart(),
             move.getEnd());
         CoreEngine.uiManager().displayStep(move);

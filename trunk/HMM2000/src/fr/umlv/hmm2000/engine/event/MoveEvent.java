@@ -39,7 +39,7 @@ public class MoveEvent {
 		Location start = null;
 		Location end = null;
 
-		int stepCount = this.source.getStepCount();
+		double stepCount = this.source.getStepCount();
 		double weight;
 		boolean recheable = true;
 
