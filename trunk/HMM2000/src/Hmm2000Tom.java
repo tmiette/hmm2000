@@ -11,10 +11,7 @@ public class Hmm2000Tom {
 
   public static void main(String[] args) throws FileNotFoundException,
       IOException, InvalidPlayersNumberException {
-    /*
-     * Engine.startNewEngine(MapLevel.MAP1, new LawrenceUIEngine(), new
-     * Player(1), new Player(2));
-     */
+
     CoreEngine.startNewCoreEngine(MapLevel.MAP1, new LawrenceUIEngine(),
         new Player(1), new Player(2));
   }
