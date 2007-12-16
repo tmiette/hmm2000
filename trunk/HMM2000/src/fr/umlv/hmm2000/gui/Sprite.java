@@ -8,7 +8,8 @@ public enum Sprite {
 	TREE("tree"), WATER("water"), MOUNTAIN("mountain"), PLAIN("plain"), PATH(
 			"path"), HEROE("heroe"), GOLD_RESOURCE("goldresource"), RECHEABLE(
 			"recheable"), UNRECHEABLE("unrecheable"), SELECTION("selection"), BACKGROUND(
-			"background"), POINTER("pointer"), MERCHANT("merchant"), BARRACKS("barracks");
+			"background"), POINTER("pointer"), MERCHANT("merchant"), BARRACKS("barracks"),
+			FLIGHT("flight"), WIZZARD("troll");
 
 	private final String spritePath;
 
