@@ -15,6 +15,8 @@ import fr.umlv.hmm2000.warrior.exception.WarriorNotReachableException;
 import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
 
 public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
+	
+	private double id = 0;
 
 	private double health;
 
@@ -48,6 +50,7 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 		this.attackValue = this.profil.getAttackValue();
 		this.elements = this.profil.getAttacks();
 		this.label = this.profil.getLabel();
+		this.id++;
 	}
 
 	@Override
@@ -115,8 +118,7 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 	@Override
 	public String getLabel() {
 
-		// TODO Auto-generated method stub
-		return null;
+		return this.profil.getLabel();
 	}
 
 	@Override
@@ -128,8 +130,7 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 	@Override
 	public ProfilWarrior getProfil() {
 
-		// TODO Auto-generated method stub
-		return null;
+		return this.profil;
 	}
 
 	@Override
@@ -192,11 +193,27 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 
 	public void setPrice() {
 
+		//TODO
 	}
 
 	public void setSpeed(int speed) {
 
 		this.speed = speed;
+	}
+	
+	
+	@Override
+	public int hashCode() {
+	
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	
+		// TODO Auto-generated method stub
+		return super.equals(obj);
 	}
 
 	@Override
