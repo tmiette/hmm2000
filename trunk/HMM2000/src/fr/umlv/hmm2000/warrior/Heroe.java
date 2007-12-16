@@ -21,9 +21,9 @@ public class Heroe extends Warrior implements Container {
 	private final BattlePositionMap bpm = new BattlePositionMap(MAX_TROOP_SIZE
 			/ BattlePositionMap.LINE_NUMBER);
 
-	Heroe(	Player player,
-					ProfilWarrior profil,
-					String name) {
+	Heroe(Player player,
+				ProfilWarrior profil,
+				String name) {
 
 		super(player,
 					profil);
@@ -66,7 +66,7 @@ public class Heroe extends Warrior implements Container {
 		w.setContainer(this);
 		return true;
 	};
-	
+
 	@Override
 	public void removeWarrior(Warrior w) {
 
@@ -105,6 +105,11 @@ public class Heroe extends Warrior implements Container {
 	public BattlePositionMap getBattlePositionManager() {
 
 		return this.bpm;
+	}
+
+	public String getName() {
+
+		return this.name;
 	}
 
 }
