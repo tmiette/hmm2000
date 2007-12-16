@@ -19,7 +19,7 @@ public enum ProfilCreatures implements ProfilWarrior {
 					10,
 					100,
 					20,
-					Sprite.MERCHANT,
+					Sprite.FLIGHT,
 					new Attack[] { new Elementary(ElementaryEnum.FIRE,
 																				10,
 																				10) }) {
@@ -35,7 +35,7 @@ public enum ProfilCreatures implements ProfilWarrior {
 				10,
 				100,
 				20,
-				Sprite.HEROE,
+				Sprite.MERCHANT,
 				new Attack[] {}) {
 
 		@Override
@@ -52,7 +52,7 @@ public enum ProfilCreatures implements ProfilWarrior {
 					10,
 					100,
 					20,
-					Sprite.MERCHANT,
+					Sprite.WIZZARD,
 					new Attack[] {}) {
 
 		@Override
@@ -76,8 +76,6 @@ public enum ProfilCreatures implements ProfilWarrior {
 	private Sprite sprite;
 
 	private HashMap<ElementaryEnum, Attack> attacks;
-
-	private ProfilWarrior profil;
 
 	private ProfilCreatures(double attackValue,
 													double defenseValue,
