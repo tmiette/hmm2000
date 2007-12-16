@@ -1,6 +1,6 @@
 package fr.umlv.hmm2000.salesentity.spell;
 
-import fr.umlv.hmm2000.engine.Engine;
+import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.LocationSelectionRequester;
 import fr.umlv.hmm2000.engine.LocationSelectionRequester.LocationSelection;
 import fr.umlv.hmm2000.engine.event.EncounterEvent;
@@ -24,28 +24,24 @@ public class ObstacleDestructionSpellAction implements SpellAction {
 
   @Override
   public void perform(final EncounterEvent event) {
-    Engine
-        .currentEngine()
-        .requestLocationSelection(
-            new LocationSelectionRequester(
-                new LocationSelection(
-                    LocationSelectionRequester.UNREACHEABLE_BACKGROUND_ELEMENT_LOCATION,
-                    "Quel obstacle voulez-vous détruire ?")) {
-              @Override
-              public void perform(Location... locations) {
-                Location l = locations[0];
+    CoreEngine
+        .requestLocationSelection(new LocationSelectionRequester(
+            new LocationSelection(
+                LocationSelectionRequester.UNREACHEABLE_BACKGROUND_ELEMENT_LOCATION,
+                "Quel obstacle voulez-vous détruire ?")) {
+          @Override
+          public void perform(Location... locations) {
+            Location l = locations[0];
 
-                MapChangeEvent event = new MapChangeEvent(l,
-                    Engine.currentEngine().map()
-                        .getMapBackgroundElementAtLocation(l),
-                    MapBackgroundEnum.PLAIN);
+            MapChangeEvent event = new MapChangeEvent(l, CoreEngine
+                .map().getMapBackgroundElementAtLocation(l),
+                MapBackgroundEnum.PLAIN);
 
-                Engine.currentEngine().map().changeMapBackgroundElement(l,
-                    MapBackgroundEnum.PLAIN);
+            CoreEngine.map().changeMapBackgroundElement(l,
+                MapBackgroundEnum.PLAIN);
 
-                Engine.currentEngine().uiManager().changeBackgroundElement(
-                    event);
-              }
-            });
+            CoreEngine.uiManager().changeBackgroundElement(event);
+          }
+        });
   }
 }

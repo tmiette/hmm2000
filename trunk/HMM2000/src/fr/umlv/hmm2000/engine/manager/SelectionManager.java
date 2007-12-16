@@ -4,12 +4,12 @@ import fr.umlv.hmm2000.engine.Engine;
 import fr.umlv.hmm2000.engine.event.SelectionEvent;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.map.Location;
-import fr.umlv.hmm2000.map.MainMap;
+import fr.umlv.hmm2000.map.WorldMap;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 
 public class SelectionManager {
 
-  private final MainMap map;
+  private final WorldMap map;
   private final HMMUserInterface uiManager;
 
   private Location selectedLocation;

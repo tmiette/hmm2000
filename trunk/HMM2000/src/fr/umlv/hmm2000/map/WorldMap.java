@@ -9,18 +9,19 @@ import fr.umlv.hmm2000.map.element.MapBackgroundElement;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.map.graph.CheckerboardGraph;
 
-public class MainMap implements Map {
+public class WorldMap implements Map {
 
   private final CheckerboardGraph graph;
 
   private final HashMap<Location, MapForegroundElement> elements;
 
-  public MainMap(MapBackgroundElement[][] backgroundElements) {
+  public WorldMap(MapBackgroundElement[][] backgroundElements) {
     this.graph = new CheckerboardGraph(backgroundElements);
     this.elements = new HashMap<Location, MapForegroundElement>();
   }
 
-  public CheckerboardGraph getGraph() {
+  @Override
+  public CheckerboardGraph graph() {
     return this.graph;
   }
 
@@ -33,10 +34,12 @@ public class MainMap implements Map {
     this.elements.put(l, element);
   }
 
+  @Override
   public void removeMapForegroundElement(Location l) {
     this.elements.remove(l);
   }
 
+  @Override
   public void changeMapBackgroundElement(Location l,
       MapBackgroundElement element) {
     this.graph.changeMapBackgroundElement(l.getX(), l.getY(), element);
@@ -47,6 +50,7 @@ public class MainMap implements Map {
     return this.elements.get(l);
   }
 
+  @Override
   public void moveMapForegroundElement(Location from, Location to) {
     MapForegroundElement element = this.elements.get(from);
     if (element != null) {
@@ -55,6 +59,7 @@ public class MainMap implements Map {
     }
   }
 
+  @Override
   public List<MapForegroundElement> getMapForegroundElements() {
     ArrayList<MapForegroundElement> elements = new ArrayList<MapForegroundElement>();
     for (Entry<Location, MapForegroundElement> entry : this.elements.entrySet()) {

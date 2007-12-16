@@ -30,15 +30,15 @@ public abstract class LocationSelectionRequester {
   }
 
   private void askForNextSelection() {
-    Engine.currentEngine().uiManager().displayMessage(
+    CoreEngine.uiManager().displayMessage(
         this.selections[this.currentLocationsNumber].getLabel());
   }
 
   public void submitLocation(Location l) {
 
-    MapForegroundElement foregroundElement = Engine.currentEngine().map()
+    MapForegroundElement foregroundElement = CoreEngine.map()
         .getMapForegroundElementAtLocation(l);
-    MapBackgroundElement backgroundElement = Engine.currentEngine().map()
+    MapBackgroundElement backgroundElement = CoreEngine.map()
         .getMapBackgroundElementAtLocation(l);
     boolean isCorrectLocation = false;
 
@@ -75,7 +75,7 @@ public abstract class LocationSelectionRequester {
       this.locations[this.currentLocationsNumber] = l;
       this.currentLocationsNumber++;
     } else {
-      Engine.currentEngine().uiManager().displayMessage(
+      CoreEngine.uiManager().displayMessage(
           "Selection incorrecte, veuillez recommencer.");
     }
 
@@ -83,14 +83,14 @@ public abstract class LocationSelectionRequester {
       this.askForNextSelection();
     } else {
       this.perform();
-      Engine.currentEngine().clearLocationSelection();
+      CoreEngine.clearLocationSelection();
     }
 
   }
 
   private void perform() {
     this.perform(this.locations);
-    Engine.currentEngine().clearLocationSelection();
+    CoreEngine.clearLocationSelection();
   }
 
   public abstract void perform(Location... locations);

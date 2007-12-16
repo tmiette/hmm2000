@@ -2,12 +2,13 @@ package fr.umlv.hmm2000.salesentity.spell;
 
 import java.util.ArrayList;
 
+import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.Engine;
 import fr.umlv.hmm2000.engine.LocationSelectionRequester;
 import fr.umlv.hmm2000.engine.LocationSelectionRequester.LocationSelection;
 import fr.umlv.hmm2000.engine.event.EncounterEvent;
 import fr.umlv.hmm2000.engine.event.MoveEvent;
-import fr.umlv.hmm2000.engine.manager.MoveManager;
+import fr.umlv.hmm2000.engine.manager.MoveCoreManager;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.util.Pair;
 
@@ -28,7 +29,7 @@ public class TeleportationSpellAction implements SpellAction {
   @Override
   public void perform(final EncounterEvent event) {
 
-    Engine.currentEngine().requestLocationSelection(
+    CoreEngine.requestLocationSelection(
         new LocationSelectionRequester(new LocationSelection(
             LocationSelectionRequester.RECHEABLE_LOCATION,
             "Où voulez-vous vous téléportez ?")) {
@@ -42,7 +43,7 @@ public class TeleportationSpellAction implements SpellAction {
             moves.add(new Pair<Location, Double>(l, 0.0));
             MoveEvent moveEvent = new MoveEvent(event.getSender(), moves);
 
-            MoveManager moveManager = Engine.currentEngine().moveManager();
+            MoveCoreManager moveManager = CoreEngine.moveManager();
             moveManager.performMoveEvent(moveEvent);
           }
         });

@@ -3,6 +3,7 @@ package fr.umlv.hmm2000.gui;
 import java.util.ArrayList;
 
 import fr.umlv.hmm2000.engine.BattlePositionEngine;
+import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.Engine;
 import fr.umlv.hmm2000.engine.event.EncounterEvent;
 import fr.umlv.hmm2000.engine.event.MapChangeEvent;
@@ -50,13 +51,15 @@ public class LawrenceUIEngine implements HMMUserInterface {
   private final InputListener inputListener = new InputListener() {
 
     public void mouseClicked(int x, int y, int button) {
+      CoreEngine.locationClicked(x, y, button);
       // Engine.currentEngine().locationClicked(y, x, button);
-      BattlePositionEngine.currentEngine().locationClicked(y, x, button);
+      //BattlePositionEngine.currentEngine().locationClicked(y, x, button);
     }
 
     public void keyTyped(int x, int y, Key keyCode) {
       if (keyCode == Key.SPACE) {
-        Engine.currentEngine().nextDay();
+        //Engine.currentEngine().nextDay();
+        CoreEngine.nextDay();
         System.out.println("next day");
       }
     }

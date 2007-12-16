@@ -3,13 +3,13 @@ package fr.umlv.hmm2000.engine.manager;
 import fr.umlv.hmm2000.engine.Engine;
 import fr.umlv.hmm2000.engine.event.EncounterEvent;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
-import fr.umlv.hmm2000.map.MainMap;
+import fr.umlv.hmm2000.map.WorldMap;
 
 public class EncounterManager {
 
 	private final HMMUserInterface uiManager;
 
-	private final MainMap map;
+	private final WorldMap map;
 
 	public EncounterManager() {
 		this.map = Engine.currentEngine().map();

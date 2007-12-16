@@ -5,23 +5,18 @@ import java.util.ArrayList;
 import fr.umlv.hmm2000.astar.AStar;
 import fr.umlv.hmm2000.astar.AStarResult;
 import fr.umlv.hmm2000.astar.heuristic.CheckerboardEuclideanAStarHeuristic;
+import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.Engine;
 import fr.umlv.hmm2000.engine.event.EncounterEvent;
 import fr.umlv.hmm2000.engine.event.MoveEvent;
 import fr.umlv.hmm2000.engine.event.MoveEvent.Step;
-import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.map.Location;
-import fr.umlv.hmm2000.map.WorldMap;
 import fr.umlv.hmm2000.map.MovableElement;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.map.graph.CheckerboardVertex;
 import fr.umlv.hmm2000.util.Pair;
 
-public class MoveManager {
-
-  private final HMMUserInterface uiManager;
-
-  private final WorldMap map;
+public class MoveCoreManager {
 
   private final CheckerboardEuclideanAStarHeuristic heuristic;
 
@@ -29,16 +24,13 @@ public class MoveManager {
 
   private MoveEvent currentMoveEvent;
 
-  public MoveManager() {
-    this.map = Engine.currentEngine().map();
-    this.uiManager = Engine.currentEngine().uiManager();
+  public MoveCoreManager() {
     this.heuristic = new CheckerboardEuclideanAStarHeuristic();
   }
 
   public void perform(Location location) {
 
-    if (!Engine.currentEngine().selectionManager().getSelectedLocation()
-        .equals(location)) {
+    if (!CoreEngine.selectionManager().getSelectedLocation().equals(location)) {
       if (this.currentMoveEvent != null) {
         if (this.currentMoveEvent.getMoves().get(
             this.currentMoveEvent.getMoves().size() - 1).getEnd().equals(
@@ -55,20 +47,19 @@ public class MoveManager {
   }
 
   private void createCurrentMoveEvent(Location location) {
-    Location start = Engine.currentEngine().selectionManager()
-        .getSelectedLocation();
+    Location start = CoreEngine.selectionManager().getSelectedLocation();
     if (start != null) {
-      MapForegroundElement element = Engine.currentEngine().selectionManager()
+      MapForegroundElement element = CoreEngine.selectionManager()
           .getSelectedElement();
       if (element instanceof MovableElement
-          && Engine.currentEngine().roundManager().isCurrentPlayer(
+          && CoreEngine.roundManager().isCurrentPlayer(
               ((MovableElement) element).getPlayer())) {
         this.currentSource = (MovableElement) element;
 
-        AStarResult<CheckerboardVertex> result = AStar
-            .aStarAlgorithm(this.map.graph(), this.heuristic, this.map
-                .graph().getCheckerboardVertex(start.getX(), start.getY()),
-                this.map.graph().getCheckerboardVertex(location.getX(),
+        AStarResult<CheckerboardVertex> result = AStar.aStarAlgorithm(
+            CoreEngine.map().graph(), this.heuristic, CoreEngine.map().graph()
+                .getCheckerboardVertex(start.getX(), start.getY()), CoreEngine
+                .map().graph().getCheckerboardVertex(location.getX(),
                     location.getY()));
 
         if (result != null) {
@@ -83,7 +74,7 @@ public class MoveManager {
           this.clearCurrentMoveEvent();
           MoveEvent moves = new MoveEvent(this.currentSource, weightedLocation);
           this.currentMoveEvent = moves;
-          this.uiManager.displayMoveSteps(moves);
+          CoreEngine.uiManager().displayMoveSteps(moves);
         }
       }
     }
@@ -93,18 +84,19 @@ public class MoveManager {
     for (Step move : event.getMoves()) {
       if (move.isRecheable()) {
         Location l = move.getEnd();
-        MapForegroundElement element = this.map
+        MapForegroundElement element = CoreEngine.map()
             .getMapForegroundElementAtLocation(l);
         if (element != null) {
           EncounterEvent ecounterEvent = new EncounterEvent(this.currentSource,
               element, move.getStart(), l);
-          if (!Engine.currentEngine().encounterManager().perform(ecounterEvent)) {
+          if (!CoreEngine.encounterManager().perform(ecounterEvent)) {
             break;
           }
         }
-        this.map.moveMapForegroundElement(move.getStart(), move.getEnd());
-        this.uiManager.displayStep(move);
-        Engine.currentEngine().selectionManager().perform(move.getEnd());
+        CoreEngine.map().moveMapForegroundElement(move.getStart(),
+            move.getEnd());
+        CoreEngine.uiManager().displayStep(move);
+        CoreEngine.selectionManager().perform(move.getEnd());
       }
     }
   }
@@ -115,7 +107,7 @@ public class MoveManager {
 
   public void clearCurrentMoveEvent() {
     if (this.currentMoveEvent != null) {
-      this.uiManager.eraseMoveSteps(currentMoveEvent);
+      CoreEngine.uiManager().eraseMoveSteps(currentMoveEvent);
       this.currentMoveEvent = null;
     }
   }
