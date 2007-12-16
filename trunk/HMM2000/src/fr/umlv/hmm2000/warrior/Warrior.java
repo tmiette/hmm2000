@@ -3,13 +3,16 @@ package fr.umlv.hmm2000.warrior;
 import java.util.HashMap;
 
 import fr.umlv.hmm2000.Player;
+import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.event.EncounterEvent;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.map.MovableElement;
+import fr.umlv.hmm2000.resource.Resource.Kind;
 import fr.umlv.hmm2000.salesentity.Price;
 import fr.umlv.hmm2000.salesentity.Sellable;
 import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
+import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.exception.WarriorNotReachableException;
 import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
@@ -24,6 +27,8 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 
 	private int speed;
 
+	 private double stepCount;
+	
 	private Sprite sprite;
 
 	private double defenseValue;
@@ -31,10 +36,6 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 	private double attackValue;
 
 	private HashMap<ElementaryEnum, Attack> elements;
-
-	private String label;
-
-	private Price price;
 
 	private Container container;
 
@@ -47,11 +48,11 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 		this.profil = profil;
 		this.health = this.profil.getHealth();
 		this.speed = this.profil.getSpeed();
+		this.stepCount = this.speed;
 		this.sprite = this.profil.getSprite();
 		this.defenseValue = this.profil.getDefenseValue();
 		this.attackValue = this.profil.getAttackValue();
 		this.elements = this.profil.getAttacks();
-		this.label = this.profil.getLabel();
 		this.id = WARRIORS_COUNT++;
 	}
 
@@ -72,13 +73,6 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 	public void setDefenseValue(double defenseValue) {
 
 		this.defenseValue = defenseValue;
-	}
-
-	@Override
-	public void acquire(EncounterEvent event) {
-
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -118,24 +112,6 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 	}
 
 	@Override
-	public String getLabel() {
-
-		return this.profil.getLabel();
-	}
-
-	@Override
-	public Price getPrice() {
-
-		return this.price;
-	}
-
-	@Override
-	public ProfilWarrior getProfil() {
-
-		return this.profil;
-	}
-
-	@Override
 	public int getSpeed() {
 
 		return this.speed;
@@ -148,24 +124,12 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 	}
 
 	@Override
-	public int getStepCount() {
-
-		return getSpeed();
-	}
-
-	@Override
 	public boolean isAttackable(Warrior attacker, Warrior defender) {
 
 		return this.profil.isAttackable(attacker,
 																		defender);
 	}
 
-	@Override
-	public void nextDay(int day) {
-
-		// TODO Auto-generated method stub
-
-	}
 
 	public void performAttack(Warrior attacker, Warrior defender, Attack attack)
 			throws WarriorDeadException, WarriorNotReachableException {
@@ -238,4 +202,44 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 		return sb.toString();
 	}
 
+	  @Override
+	  public double getStepCount() {
+	    return this.stepCount;
+	  }
+
+	  @Override
+	  public void setStepCount(double stepCount) {
+	    this.stepCount = stepCount >= 0 ? stepCount : 0;
+	  }
+
+	  @Override
+	  public String getLabel() {
+	    return this.profil.getLabel();
+	  }
+
+	  @Override
+	  public Price getPrice() {
+	    Price price = new Price();
+	    // TODO trouver une methode de calcul du prix
+	    int gold = (2 * (int)this.profil.getHealth() + 3 * (int)this.profil.getDefenseValue()) / 10;
+	    price.addResource(Kind.GOLD, gold);
+	    return price;
+	  }
+
+	  @Override
+	  public void acquire(EncounterEvent event) {
+	    if (event.getSender() instanceof Container) {
+	      try {
+          ((Container) event.getSender()).addWarrior(this);
+        } catch (MaxNumberOfTroopsReachedException e) {
+          CoreEngine.uiManager().displayMessage("Vous avez trop d'unité.");
+        }
+	    }
+	  }
+
+	  @Override
+	  public void nextDay(int day) {
+	    this.stepCount = this.speed;
+	  }
+	
 }
