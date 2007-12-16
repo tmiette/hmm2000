@@ -130,4 +130,9 @@ public enum ProfilMonsters implements ProfilWarrior {
 		return this.name();
 	}
 
+	@Override
+	public ProfilWarrior getProfil() {
+	
+		return this;
+	}
 }

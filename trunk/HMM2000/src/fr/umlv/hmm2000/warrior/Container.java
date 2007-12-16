@@ -6,6 +6,7 @@ import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
 import fr.umlv.hmm2000.warrior.profil.Profil;
+import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
 
 public interface Container extends Profil {
 
@@ -20,4 +21,5 @@ public interface Container extends Profil {
 	public Player getPlayer();
 	
 	public String getLabel();
+	
 }
