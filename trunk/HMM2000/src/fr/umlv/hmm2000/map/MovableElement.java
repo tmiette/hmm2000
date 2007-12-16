@@ -15,6 +15,7 @@ public abstract class MovableElement implements MapForegroundElement, Movable {
 		return this.player;
 	}
 	
-	public abstract int getStepCount();
+	public abstract double getStepCount();
 	
+	public abstract void setStepCount(double stepCount);
 }
