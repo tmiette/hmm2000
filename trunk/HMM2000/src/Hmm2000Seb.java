@@ -14,9 +14,9 @@ import fr.umlv.hmm2000.resource.Resource.Kind;
 import fr.umlv.hmm2000.salesentity.SalesEntity;
 import fr.umlv.hmm2000.salesentity.SalesEntity.SalesEntityEnum;
 import fr.umlv.hmm2000.salesentity.spell.Spell;
-import fr.umlv.hmm2000.warrior.Heroe;
+import fr.umlv.hmm2000.warrior.Heroe2;
 import fr.umlv.hmm2000.warrior.Level;
-import fr.umlv.hmm2000.warrior.WarriorFactory;
+import fr.umlv.hmm2000.warrior.WarriorFactory2;
 import fr.umlv.hmm2000.warrior.profil.ProfilCreatures;
 import fr.umlv.hmm2000.warrior.profil.ProfilHeroe;
 
@@ -27,31 +27,31 @@ public class Hmm2000Seb {
 
 		Map map = MapBuilder.createMap(MapLevel.MAP1);
 
-		Heroe h1 = WarriorFactory.createHeroe(ProfilHeroe.ARCHER,
+		Heroe2 h1 = WarriorFactory2.createHeroe(ProfilHeroe.ARCHER,
 																					new Player(1),
 																					"batman",
 																					Level.LEVEL_1);
-		h1.addWarrior(WarriorFactory.createWarrior(	ProfilCreatures.FLIGHT,
+		h1.addWarrior(WarriorFactory2.createWarrior(	ProfilCreatures.FLIGHT,
 																								h1.getPlayer(),
 																								Level.LEVEL_1));
-		h1.addWarrior(WarriorFactory.createWarrior(	ProfilCreatures.FLIGHT,
+		h1.addWarrior(WarriorFactory2.createWarrior(	ProfilCreatures.FLIGHT,
 																								h1.getPlayer(),
 																								Level.LEVEL_1));
-		h1.addWarrior(WarriorFactory.createWarrior(	ProfilCreatures.FLIGHT,
+		h1.addWarrior(WarriorFactory2.createWarrior(	ProfilCreatures.FLIGHT,
 																								h1.getPlayer(),
 																								Level.LEVEL_1));
 
-		Heroe h2 = WarriorFactory.createHeroe(ProfilHeroe.LORD_OF_WAR,
+		Heroe2 h2 = WarriorFactory2.createHeroe(ProfilHeroe.LORD_OF_WAR,
 																					new Player(2),
 																					"spiderman",
 																					Level.LEVEL_1);
-		h2.addWarrior(WarriorFactory.createWarrior(	ProfilCreatures.FLIGHT,
+		h2.addWarrior(WarriorFactory2.createWarrior(	ProfilCreatures.FLIGHT,
 																								h2.getPlayer(),
 																								Level.LEVEL_1));
-		h2.addWarrior(WarriorFactory.createWarrior(	ProfilCreatures.FLIGHT,
+		h2.addWarrior(WarriorFactory2.createWarrior(	ProfilCreatures.FLIGHT,
 																								h2.getPlayer(),
 																								Level.LEVEL_1));
-		h2.addWarrior(WarriorFactory.createWarrior(	ProfilCreatures.FLIGHT,
+		h2.addWarrior(WarriorFactory2.createWarrior(	ProfilCreatures.FLIGHT,
 																								h2.getPlayer(),
 																								Level.LEVEL_1));
 
