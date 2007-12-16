@@ -99,7 +99,10 @@ public class MapBuilder {
     map.addMapForegroundElement(m, new Location(2, 2));
 
     SalesEntity b = new SalesEntity(SalesEntityEnum.BARRACKS);
-    b.addProduct(Spell.TELEPORTATION, 1);
+    b.addProduct(WarriorFactory.createWarrior(ProfilCreatures.WIZZARD,
+        null, Level.LEVEL_3), 1);
+    b.addProduct(WarriorFactory.createWarrior(ProfilCreatures.FLIGHT,
+        null, Level.LEVEL_2), 2);
     map.addMapForegroundElement(b, new Location(2, 5));
 
     return map;
