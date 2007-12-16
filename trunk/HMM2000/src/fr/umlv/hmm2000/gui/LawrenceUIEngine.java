@@ -2,9 +2,7 @@ package fr.umlv.hmm2000.gui;
 
 import java.util.ArrayList;
 
-import fr.umlv.hmm2000.engine.BattlePositionEngine;
 import fr.umlv.hmm2000.engine.CoreEngine;
-import fr.umlv.hmm2000.engine.Engine;
 import fr.umlv.hmm2000.engine.event.EncounterEvent;
 import fr.umlv.hmm2000.engine.event.MapChangeEvent;
 import fr.umlv.hmm2000.engine.event.MoveEvent;
@@ -51,16 +49,14 @@ public class LawrenceUIEngine implements HMMUserInterface {
   private final InputListener inputListener = new InputListener() {
 
     public void mouseClicked(int x, int y, int button) {
-      CoreEngine.locationClicked(x, y, button);
-      // Engine.currentEngine().locationClicked(y, x, button);
-      //BattlePositionEngine.currentEngine().locationClicked(y, x, button);
+      CoreEngine.locationClicked(y, x, button);
     }
 
     public void keyTyped(int x, int y, Key keyCode) {
       if (keyCode == Key.SPACE) {
-        //Engine.currentEngine().nextDay();
         CoreEngine.nextDay();
-        System.out.println("next day");
+      } else if (keyCode == Key.P) {
+        CoreEngine.manageBattlePosition();
       }
     }
   };
@@ -76,19 +72,31 @@ public class LawrenceUIEngine implements HMMUserInterface {
     }
   };
 
-  @Override
-  public void drawMap(Map map) {
-    this.map = map;
-    this.model = new DefaultGridModel<Sprite>(map.getWidth(), map.getHeight());
+  private void initProvider() {
     this.provider = new SVGImageProvider<Sprite>();
     this.provider.setDPI(93);
     this.registerImages();
+  }
+
+  private void initGridPane() {
     this.pane = new GridPane<Sprite>(this.model, this.provider, 50, 50);
     this.pane.addInputListener(this.inputListener);
     this.pointerLocation = new fr.umlv.lawrence.Location(0, 0);
     this.pane.addCursorListener(this.pointerCursorListener);
+  }
+
+  @Override
+  public void drawMap(Map map) {
+    this.map = map;
+    this.model = new DefaultGridModel<Sprite>(map.getWidth(), map.getHeight());
     this.initGrid();
+    this.initProvider();
+    this.initGridPane();
     Application.display(this.pane, "HMM2000 test", false, true);
+  }
+
+  @Override
+  public void eraseMap() {
   }
 
   private void registerImages() {
@@ -125,7 +133,6 @@ public class LawrenceUIEngine implements HMMUserInterface {
     MapForegroundElement element = this.map
         .getMapForegroundElementAtLocation(new Location(y, x));
     if (element != null) {
-      System.out.println(new Location(y, x));
       elements.add(element.getSprite());
     }
   }

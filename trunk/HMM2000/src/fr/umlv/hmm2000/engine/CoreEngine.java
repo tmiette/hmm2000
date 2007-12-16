@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
+import fr.umlv.hmm2000.engine.manager.BattlePositionCoreManager;
 import fr.umlv.hmm2000.engine.manager.EncounterCoreManager;
 import fr.umlv.hmm2000.engine.manager.MoveCoreManager;
 import fr.umlv.hmm2000.engine.manager.RoundCoreManager;
@@ -14,6 +15,7 @@ import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.Map;
 import fr.umlv.hmm2000.map.MapBuilder;
 import fr.umlv.hmm2000.map.MapLevel;
+import fr.umlv.hmm2000.map.MovableElement;
 import fr.umlv.hmm2000.map.WorldMap;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.war.BattlePositionMap;
@@ -37,7 +39,7 @@ public class CoreEngine {
 
   private static RoundCoreManager roundManager;
 
-  private static BattlePositionManager2 battlePositionManager;
+  private static BattlePositionCoreManager battlePositionManager;
 
   private static LocationSelectionRequester locationRequester;
 
@@ -60,12 +62,13 @@ public class CoreEngine {
     CoreEngine.encounterManager = new EncounterCoreManager();
     CoreEngine.moveManager = new MoveCoreManager();
     CoreEngine.roundManager = new RoundCoreManager(players);
-    //CoreEngine.battlePositionManager = new BattlePositionManager2();
+    CoreEngine.battlePositionManager = new BattlePositionCoreManager();
 
     CoreEngine.changeCurrentMap(worldMap);
   }
 
   private static void changeCurrentMap(Map map) {
+    CoreEngine.uiEngine.eraseMap();
     CoreEngine.currentMap = map;
     CoreEngine.uiEngine.drawMap(map);
   }
@@ -74,6 +77,7 @@ public class CoreEngine {
     Location l = new Location(x, y);
 
     if (CoreEngine.currentMap == CoreEngine.worldMap) {
+
       if (CoreEngine.locationRequester != null) {
         CoreEngine.locationRequester.submitLocation(l);
       } else {
@@ -88,7 +92,7 @@ public class CoreEngine {
       if (button == 1) {
         CoreEngine.selectionManager.perform(l);
       } else if (button == 3) {
-        // CoreEngine.postionManager.perform(l);
+        CoreEngine.battlePositionManager.perform(l);
       }
     }
   }
@@ -96,7 +100,10 @@ public class CoreEngine {
   public static void manageBattlePosition() {
     MapForegroundElement element = CoreEngine.selectionManager
         .getSelectedElement();
-    if (element != null && element instanceof Heroe) {
+
+    if (element != null && element instanceof MovableElement
+        && roundManager.isCurrentPlayer(((MovableElement) element).getPlayer())
+        && element instanceof Heroe) {
       CoreEngine.battlePositionMap = ((Heroe) element)
           .getBattlePositionManager();
       CoreEngine.changeCurrentMap(CoreEngine.battlePositionMap);

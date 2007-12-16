@@ -6,7 +6,6 @@ import fr.umlv.hmm2000.astar.AStar;
 import fr.umlv.hmm2000.astar.AStarResult;
 import fr.umlv.hmm2000.astar.heuristic.CheckerboardEuclideanAStarHeuristic;
 import fr.umlv.hmm2000.engine.CoreEngine;
-import fr.umlv.hmm2000.engine.Engine;
 import fr.umlv.hmm2000.engine.event.EncounterEvent;
 import fr.umlv.hmm2000.engine.event.MoveEvent;
 import fr.umlv.hmm2000.engine.event.MoveEvent.Step;
@@ -30,7 +29,9 @@ public class MoveCoreManager {
 
   public void perform(Location location) {
 
-    if (!CoreEngine.selectionManager().getSelectedLocation().equals(location)) {
+    if (CoreEngine.selectionManager().getSelectedLocation() != null
+        && !CoreEngine.selectionManager().getSelectedLocation()
+            .equals(location)) {
       if (this.currentMoveEvent != null) {
         if (this.currentMoveEvent.getMoves().get(
             this.currentMoveEvent.getMoves().size() - 1).getEnd().equals(

@@ -35,6 +35,7 @@ public class RoundCoreManager {
   }
 
   public void nextDay() {
+    System.out.println("next day");
     this.currentPlayerIndex++;
     if (this.currentPlayerIndex == this.players.size()) {
       this.currentPlayerIndex = 0;

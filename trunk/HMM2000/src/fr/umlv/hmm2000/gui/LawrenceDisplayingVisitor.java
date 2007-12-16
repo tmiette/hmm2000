@@ -22,7 +22,7 @@ public class LawrenceDisplayingVisitor implements UIDisplayingVisitor {
 
   @Override
   public void visit(SalesEntity salesEntity) {
-    System.out.println("Caserne");
+    System.out.println("marchant");
     System.out.println(salesEntity.getItems());
   }
 

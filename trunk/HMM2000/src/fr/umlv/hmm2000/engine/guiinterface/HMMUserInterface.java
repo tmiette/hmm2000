@@ -10,6 +10,8 @@ import fr.umlv.hmm2000.map.Map;
 
 public interface HMMUserInterface {
 
+  public void eraseMap();
+  
   public void drawMap(Map map);
 
   public UIChoicesManager choicesManager();

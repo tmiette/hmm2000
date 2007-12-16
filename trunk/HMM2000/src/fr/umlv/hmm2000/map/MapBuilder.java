@@ -12,14 +12,17 @@ import fr.umlv.hmm2000.resource.Resource.Kind;
 import fr.umlv.hmm2000.salesentity.SalesEntity;
 import fr.umlv.hmm2000.salesentity.SalesEntity.SalesEntityEnum;
 import fr.umlv.hmm2000.salesentity.spell.Spell;
+import fr.umlv.hmm2000.warrior.Heroe;
 import fr.umlv.hmm2000.warrior.Level;
 import fr.umlv.hmm2000.warrior.WarriorFactory;
+import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
+import fr.umlv.hmm2000.warrior.profil.ProfilCreatures;
 import fr.umlv.hmm2000.warrior.profil.ProfilHeroe;
 
 public class MapBuilder {
 
-  public static WorldMap createMap(MapLevel level) throws FileNotFoundException,
-      IOException {
+  public static WorldMap createMap(MapLevel level)
+      throws FileNotFoundException, IOException {
 
     LineNumberReader lnr = new LineNumberReader(new FileReader(level
         .getMapFile()));
@@ -62,21 +65,34 @@ public class MapBuilder {
     }
   }
 
-  public static WorldMap createMapTESTVERSION(MapLevel level, Player p1, Player p2)
-      throws FileNotFoundException, IOException {
+  public static WorldMap createMapTESTVERSION(MapLevel level, Player p1,
+      Player p2) throws FileNotFoundException, IOException {
 
     WorldMap map = createMap(level);
 
-    map.addMapForegroundElement(WarriorFactory.createHeroe(
-        ProfilHeroe.ARCHER, p1, "batman", Level.LEVEL_1), new Location(0, 0));
-    map.addMapForegroundElement(WarriorFactory.createHeroe(
-        ProfilHeroe.LORD_OF_WAR, p2, "spiderman", Level.LEVEL_1), new Location(
-        1, 2));
+    map.addMapForegroundElement(WarriorFactory.createHeroe(ProfilHeroe.ARCHER,
+        p1, "batman", Level.LEVEL_1), new Location(0, 0));
+    Heroe spiderman = WarriorFactory.createHeroe(ProfilHeroe.LORD_OF_WAR, p2,
+        "spiderman", Level.LEVEL_1);
+    try {
+      spiderman.addWarrior(WarriorFactory.createWarrior(ProfilCreatures.FLIGHT,
+          p2, Level.LEVEL_1));
+      spiderman.addWarrior(WarriorFactory.createWarrior(ProfilCreatures.FLIGHT,
+          p2, Level.LEVEL_3));
+      spiderman.addWarrior(WarriorFactory.createWarrior(ProfilCreatures.WIZZARD,
+          p2, Level.LEVEL_3));
+    } catch (MaxNumberOfTroopsReachedException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+
+    map.addMapForegroundElement(spiderman, new Location(1, 2));
+
     map.addMapForegroundElement(new Resource(Kind.GOLD, 10, 100, 1, 5,
         Resource.NON_RELOADABLE), new Location(2, 0));
     map.addMapForegroundElement(new Resource(Kind.GOLD, 30, 1000, 7, 30,
         Resource.RELOADABLE), new Location(2, 6));
-    
+
     SalesEntity m = new SalesEntity(SalesEntityEnum.MERCHANT);
     m.addProduct(Spell.TELEPORTATION, 2);
     m.addProduct(Spell.OBSTACLE_DESTRUCTION, 1);
