@@ -1,15 +1,12 @@
 package fr.umlv.hmm2000.warrior;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
-import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
-import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
 import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
 import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
 
@@ -24,23 +21,11 @@ public class Heroe extends Warrior implements Container {
 	private final BattlePositionMap bpm = new BattlePositionMap(MAX_TROOP_SIZE
 			/ BattlePositionMap.LINE_NUMBER);
 
-	Heroe(Player player,
-				double health,
-				int speed,
-				Sprite sprite,
-				double defenseValue,
-				double attackValue,
-				HashMap<ElementaryEnum, Attack> elements,
-				String name,
-				ProfilWarrior profil) {
+	Heroe(	Player player,
+					ProfilWarrior profil,
+					String name) {
 
 		super(player,
-					health,
-					speed,
-					sprite,
-					defenseValue,
-					attackValue,
-					elements,
 					profil);
 
 		this.name = name;
@@ -63,9 +48,10 @@ public class Heroe extends Warrior implements Container {
 		if (speed < super.getSpeed()) {
 			super.setSpeed(speed);
 		}
-		
+
 		try {
-			this.bpm.placeWarrior(w, this.bpm.getFirstFreeLocation());
+			this.bpm.placeWarrior(w,
+														this.bpm.getFirstFreeLocation());
 		}
 		catch (ArrayIndexOutOfBoundsException e) {
 			return false;
@@ -80,7 +66,7 @@ public class Heroe extends Warrior implements Container {
 		w.setContainer(this);
 		return true;
 	};
-
+	
 	@Override
 	public void removeWarrior(Warrior w) {
 
@@ -117,7 +103,7 @@ public class Heroe extends Warrior implements Container {
 
 	@Override
 	public BattlePositionMap getBattlePositionManager() {
-	
+
 		return this.bpm;
 	}
 

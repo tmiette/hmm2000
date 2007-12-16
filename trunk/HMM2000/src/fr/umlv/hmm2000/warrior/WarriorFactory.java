@@ -2,6 +2,7 @@ package fr.umlv.hmm2000.warrior;
 
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
+import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.profil.ProfilHeroe;
 import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
 
@@ -11,50 +12,62 @@ public class WarriorFactory {
 			Level level) {
 
 		double ratio = level.getRatio();
-		return new Warrior(	player,
-												applyRatio(	p.getHealth(),
-																		ratio),
-												(int) applyRatio(	p.getSpeed(),
-																					ratio),
-												p.getSprite(),
-												applyRatio(	p.getDefenseValue(),
-																		ratio),
-												applyRatio(	p.getAttackValue(),
-																		ratio),
-												p.getAttacks(),
-												p.getProfil());
+		Warrior w = new Warrior(player,
+															p);
+		if (ratio != 0) {
+			try {
+				w.setHealth(applyRatio(	w.getHealth(),
+																ratio));
+			}
+			catch (WarriorDeadException e) {
+				// nothing to do
+			}
+			w.setSpeed((int) applyRatio(w.getSpeed(),
+																	ratio));
+			w.setAttackValue(applyRatio(w.getAttackValue(),
+																	ratio));
+			w.setDefenseValue(applyRatio(	w.getDefenseValue(),
+																		ratio));
+		}
+
+		return w;
 	}
 
 	public static Heroe createHeroe(ProfilHeroe p, Player player, String name,
 			Level level) {
 
 		double ratio = level.getRatio();
-		Heroe heroe = new Heroe(player,
-														applyRatio(	p.getHealth(),
-																				ratio),
-														(int) applyRatio(	p.getSpeed(),
-																							ratio),
-														p.getSprite(),
-														applyRatio(	p.getDefenseValue(),
-																				ratio),
-														applyRatio(	p.getAttackValue(),
-																				ratio),
-														p.getAttacks(),
-														name,
-														p.getProfil());
+		Heroe h = new Heroe(player,
+													p,
+													name);
+		if (ratio != 0) {
+			try {
+				h.setHealth(applyRatio(	h.getHealth(),
+																ratio));
+			}
+			catch (WarriorDeadException e) {
+				// nothing to do
+			}
+			h.setSpeed((int) applyRatio(h.getSpeed(),
+																	ratio));
+			h.setAttackValue(applyRatio(h.getAttackValue(),
+																	ratio));
+			h.setDefenseValue(applyRatio(	h.getDefenseValue(),
+																		ratio));
+		}
 
 		for (ProfilWarrior profilWarrior : p.getProfilWarrior()) {
 			try {
-				heroe.addWarrior(WarriorFactory.createWarrior(profilWarrior,
-																											player,
-																											level));
+				h.addWarrior(WarriorFactory.createWarrior(	profilWarrior,
+																										player,
+																										level));
 			}
 			catch (MaxNumberOfTroopsReachedException e) {
 				break;
 			}
 		}
 
-		return heroe;
+		return h;
 
 	}
 

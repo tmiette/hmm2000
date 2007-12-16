@@ -36,23 +36,17 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 
 	private ProfilWarrior profil;
 
-	Warrior(Player player,
-					double health,
-					int speed,
-					Sprite sprite,
-					double defenseValue,
-					double attackValue,
-					HashMap<ElementaryEnum, Attack> elements,
-					ProfilWarrior profil) {
+	Warrior(	Player player,
+						ProfilWarrior profil) {
 
 		super(player);
-		this.health = health;
-		this.speed = speed;
-		this.sprite = sprite;
-		this.defenseValue = defenseValue;
-		this.attackValue = attackValue;
-		this.elements = elements;
 		this.profil = profil;
+		this.health = this.profil.getHealth();
+		this.speed = this.profil.getSpeed();
+		this.sprite = this.profil.getSprite();
+		this.defenseValue = this.profil.getDefenseValue();
+		this.attackValue = this.profil.getAttackValue();
+		this.elements = this.profil.getAttacks();
 		this.label = this.profil.getLabel();
 	}
 
@@ -61,6 +55,18 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 
 		visitor.visit(this);
 
+	}
+	
+	
+	public void setAttackValue(double attackValue) {
+
+		this.attackValue = attackValue;
+	}
+	
+	
+	public void setDefenseValue(double defenseValue) {
+
+		this.defenseValue = defenseValue;
 	}
 
 	@Override
@@ -166,9 +172,8 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
 			throw new WarriorNotReachableException("This warrior is not reachable");
 		}
 		double damage = ((attacker.getAttackValue() + attack.getDamage()
-				* ((100 - defender.getAttacks()
-													.get(attack.getType())
-													.getResistance()) / 100)) - defender.getDefenseValue());
+				* ((100 - defender.getAttacks()	.get(attack.getType())
+																		.getResistance()) / 100)) - defender.getDefenseValue());
 		defender.setHealth(damage);
 	}
 
