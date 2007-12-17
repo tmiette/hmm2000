@@ -5,7 +5,7 @@ import fr.umlv.hmm2000.map.element.MapForegroundElement;
 
 public abstract class MovableElement implements MapForegroundElement, Movable {
 
-	private final Player player;
+	private Player player;
 	
 	public MovableElement(Player player) {
 		this.player = player;
@@ -13,6 +13,10 @@ public abstract class MovableElement implements MapForegroundElement, Movable {
 	
 	public Player getPlayer() {
 		return this.player;
+	}
+	
+	public void setPlayer(Player player){
+	  this.player = player;
 	}
 	
 	public abstract double getStepCount();
