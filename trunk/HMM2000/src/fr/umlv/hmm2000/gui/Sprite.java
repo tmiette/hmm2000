@@ -18,7 +18,7 @@ public enum Sprite {
   SELECTION("selection"),
   BACKGROUND("background"),
   POINTER("pointer"),
-  MERCHANT("merchant"),
+  MERCHANT("merchant2"),
   BARRACKS("barracks"),
   FLIGHT("flight"),
   WIZZARD("troll");

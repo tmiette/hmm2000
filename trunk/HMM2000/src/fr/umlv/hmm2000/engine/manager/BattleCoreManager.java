@@ -27,8 +27,9 @@ public class BattleCoreManager {
     this.warriors = new ArrayList<Warrior>();
     this.warriors.addAll(attacker.getTroop());
     this.warriors.addAll(defender.getTroop());
-    this.roundManager = new BattleRoundCoreManager(attacker, defender, null,
-        null);
+    Player[] players = this.orderPlayer();
+    this.roundManager = new BattleRoundCoreManager(attacker, defender, players[0],
+        players[1]);
   }
 
   public void perform(Location l) {
