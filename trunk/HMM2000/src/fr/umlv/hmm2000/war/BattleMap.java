@@ -15,9 +15,13 @@ import fr.umlv.hmm2000.warrior.Container;
 
 public class BattleMap implements Map {
 
-	private enum TEAM {
-		TOP,
-		BOTTOM
+	private enum Team {
+		TOP(),
+		BOTTOM();
+
+		private Team() {
+
+		}
 	};
 
 	public static final int LINE_BETWEEN_TROOP = 4;
@@ -28,13 +32,13 @@ public class BattleMap implements Map {
 
 	private final int width;
 
-	private final HashMap<TEAM, BattlePositionMap> battlePosition;
+	private final HashMap<Team, BattlePositionMap> battlePosition;
 
-	private final HashMap<TEAM, Rectangle> teamPosition;
+	private final HashMap<Team, Rectangle> teamPosition;
 
 	private MapBackgroundElement[][] mbe;
 
-	private final HashMap<TEAM, Pair<Location, Container>> container;
+	private final HashMap<Team, Pair<Location, Container>> container;
 
 	public BattleMap(	Container attacker,
 										Container defender) {
@@ -44,38 +48,38 @@ public class BattleMap implements Map {
 				+ 2 * LINE_FOR_HEROE;
 		this.width = Math.max(attacker.getBattlePositionManager().getSlots(),
 				defender.getBattlePositionManager().getSlots());
-		
-		this.battlePosition = new HashMap<TEAM, BattlePositionMap>(2);
-		this.container = new HashMap<TEAM, Pair<Location, Container>>(2);
+
+		this.battlePosition = new HashMap<Team, BattlePositionMap>(2);
+		this.container = new HashMap<Team, Pair<Location, Container>>(2);
 		if (attacker.getBattlePositionManager().getSlots() >= defender
 				.getBattlePositionManager().getSlots()) {
-			this.battlePosition.put(TEAM.TOP, defender.getBattlePositionManager());
-			this.battlePosition.put(TEAM.BOTTOM, attacker.getBattlePositionManager());
-			this.container.put(TEAM.TOP, new Pair<Location, Container>(new Location(
+			this.battlePosition.put(Team.TOP, defender.getBattlePositionManager());
+			this.battlePosition.put(Team.BOTTOM, attacker.getBattlePositionManager());
+			this.container.put(Team.TOP, new Pair<Location, Container>(new Location(
 					0, this.width / 2), defender));
-			this.container.put(TEAM.BOTTOM, new Pair<Location, Container>(
+			this.container.put(Team.BOTTOM, new Pair<Location, Container>(
 					new Location(this.height - 1, this.width / 2), attacker));
 		}
 		else {
-			this.battlePosition.put(TEAM.TOP, attacker.getBattlePositionManager());
-			this.battlePosition.put(TEAM.BOTTOM, defender.getBattlePositionManager());
-			this.container.put(TEAM.TOP, new Pair<Location, Container>(new Location(
+			this.battlePosition.put(Team.TOP, attacker.getBattlePositionManager());
+			this.battlePosition.put(Team.BOTTOM, defender.getBattlePositionManager());
+			this.container.put(Team.TOP, new Pair<Location, Container>(new Location(
 					0, this.width / 2), attacker));
-			this.container.put(TEAM.BOTTOM, new Pair<Location, Container>(
+			this.container.put(Team.BOTTOM, new Pair<Location, Container>(
 					new Location(this.height - 1, this.width / 2), defender));
 		}
 		initBackGroundElements();
 
-		this.teamPosition = new HashMap<TEAM, Rectangle>(2);
+		this.teamPosition = new HashMap<Team, Rectangle>(2);
 		Location p1TOP = new Location(0, 0);
 		Location p2TOP = new Location(
-				this.battlePosition.get(TEAM.TOP).getHeight(), this.battlePosition.get(
-						TEAM.TOP).getWidth());
+				this.battlePosition.get(Team.TOP).getHeight(), this.battlePosition.get(
+						Team.TOP).getWidth());
 		Location p1BOTTOM = new Location(0, 0);
-		Location p2BOTTOM = new Location(this.battlePosition.get(TEAM.BOTTOM)
-				.getHeight(), this.battlePosition.get(TEAM.TOP).getWidth());
-		this.teamPosition.put(TEAM.TOP, new Rectangle(p1TOP, p2TOP));
-		this.teamPosition.put(TEAM.BOTTOM, new Rectangle(p1BOTTOM, p2BOTTOM));
+		Location p2BOTTOM = new Location(this.battlePosition.get(Team.BOTTOM)
+				.getHeight(), this.battlePosition.get(Team.TOP).getWidth());
+		this.teamPosition.put(Team.TOP, new Rectangle(p1TOP, p2TOP));
+		this.teamPosition.put(Team.BOTTOM, new Rectangle(p1BOTTOM, p2BOTTOM));
 
 	}
 
@@ -89,29 +93,29 @@ public class BattleMap implements Map {
 		}
 	}
 
-	private TEAM getTeamBelongingTo(Location l) {
+	private Team getTeamBelongingTo(Location l) {
 
-		if (this.teamPosition.get(TEAM.TOP).isIN(l)) {
-			return TEAM.TOP;
+		if (this.teamPosition.get(Team.TOP).isIN(l)) {
+			return Team.TOP;
 		}
 		else {
-			return TEAM.BOTTOM;
+			return Team.BOTTOM;
 		}
 	}
 
 	// translate a battlePositionMap location to a battleMap location
-	private Location getBattleMapLocation(Location l, TEAM team) {
+	private Location getBattleMapLocation(Location l, Team team) {
 
 		switch (team) {
 			case TOP:
-				int minWidth = this.battlePosition.get(TEAM.TOP).getWidth();
-				int maxHeight = this.battlePosition.get(TEAM.TOP).getHeight();
+				int minWidth = this.battlePosition.get(Team.TOP).getWidth();
+				int maxHeight = this.battlePosition.get(Team.TOP).getHeight();
 				int newY = l.getY() + (this.width - minWidth) / 2;
 				int newX = maxHeight - (l.getX() + 1) + LINE_FOR_HEROE;
 				return new Location(newX, newY);
 			case BOTTOM:
 				int newXX = l.getX() + this.height
-						- this.battlePosition.get(TEAM.BOTTOM).getHeight() - LINE_FOR_HEROE;
+						- this.battlePosition.get(Team.BOTTOM).getHeight() - LINE_FOR_HEROE;
 				int newYY = l.getY();
 				return new Location(newXX, newYY);
 			default:
@@ -119,18 +123,18 @@ public class BattleMap implements Map {
 		}
 	}
 
-	private Location getBattlePositionLocation(Location l, TEAM team) {
+	private Location getBattlePositionLocation(Location l, Team team) {
 
 		switch (team) {
 			case TOP:
-				int minWidth = this.battlePosition.get(TEAM.TOP).getWidth();
-				int maxHeight = this.battlePosition.get(TEAM.TOP).getHeight();
+				int minWidth = this.battlePosition.get(Team.TOP).getWidth();
+				int maxHeight = this.battlePosition.get(Team.TOP).getHeight();
 				int newY = l.getY() - (this.width - minWidth) / 2;
 				int newX = maxHeight - (l.getX() + 1) + LINE_FOR_HEROE;
 				return new Location(newX, newY);
 			case BOTTOM:
 				int newXX = l.getX() - this.height
-						+ this.battlePosition.get(TEAM.BOTTOM).getHeight() + LINE_FOR_HEROE;
+						+ this.battlePosition.get(Team.BOTTOM).getHeight() + LINE_FOR_HEROE;
 				int newYY = l.getY();
 				return new Location(newXX, newYY);
 			default:
@@ -160,25 +164,31 @@ public class BattleMap implements Map {
 	@Override
 	public MapForegroundElement getMapForegroundElementAtLocation(Location l) {
 
-		System.out.println(this.container.get(TEAM.TOP).getFirstElement().equals(l));
-		System.out.println(this.container.get(TEAM.TOP).getFirstElement());
-		
-		TEAM team = this.getTeamBelongingTo(l);
+		Team team = this.getTeamBelongingTo(l);
 		Location battlePositionLocation = this.getBattlePositionLocation(l, this
 				.getTeamBelongingTo(l));
-		if (battlePositionLocation != null) {
+		if (battlePositionLocation.equals(l)) {
+			System.out.println("Warrior");
+			System.out.println(this.battlePosition.get(team).getMapForegroundElementAtLocation(
+					battlePositionLocation));
 			return this.battlePosition.get(team).getMapForegroundElementAtLocation(
 					battlePositionLocation);
 		}
+		else if (this.container.get(Team.TOP).getFirstElement().equals(l)) {
+			System.out.println("coucou");
+			System.out.println((MapForegroundElement) this.container.get(Team.TOP)
+					.getSecondElement());
+			return (MapForegroundElement) this.container.get(Team.TOP)
+					.getSecondElement();
+		}
+		else if (this.container.get(Team.BOTTOM).getFirstElement().equals(l)) {
+			System.out.println("coucou");
+			System.out.println((MapForegroundElement) this.container.get(Team.BOTTOM)
+					.getSecondElement());
+			return (MapForegroundElement) this.container.get(Team.BOTTOM)
+					.getSecondElement();
+		}
 		else {
-			for (TEAM t : TEAM.values()) {
-				if (this.container.get(t).getFirstElement().equals(l)) {
-					System.out.println((MapForegroundElement) this.container.get(t)
-							.getSecondElement());
-					return (MapForegroundElement) this.container.get(t)
-							.getSecondElement();
-				}
-			}
 			return null;
 		}
 
@@ -188,10 +198,10 @@ public class BattleMap implements Map {
 	public List<MapForegroundElement> getMapForegroundElements() {
 
 		ArrayList<MapForegroundElement> list = new ArrayList<MapForegroundElement>();
-		list.addAll(this.battlePosition.get(TEAM.TOP).getMapForegroundElements());
+		list.addAll(this.battlePosition.get(Team.TOP).getMapForegroundElements());
 		list
-				.addAll(this.battlePosition.get(TEAM.BOTTOM).getMapForegroundElements());
-		for (TEAM team : TEAM.values()) {
+				.addAll(this.battlePosition.get(Team.BOTTOM).getMapForegroundElements());
+		for (Team team : Team.values()) {
 			list.add((MapForegroundElement) this.container.get(team)
 					.getSecondElement());
 		}
