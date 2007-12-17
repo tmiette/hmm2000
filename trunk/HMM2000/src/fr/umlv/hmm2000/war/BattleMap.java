@@ -44,6 +44,7 @@ public class BattleMap implements Map {
 				+ 2 * LINE_FOR_HEROE;
 		this.width = Math.max(attacker.getBattlePositionManager().getSlots(),
 				defender.getBattlePositionManager().getSlots());
+		
 		this.battlePosition = new HashMap<TEAM, BattlePositionMap>(2);
 		this.container = new HashMap<TEAM, Pair<Location, Container>>(2);
 		if (attacker.getBattlePositionManager().getSlots() >= defender
@@ -159,6 +160,9 @@ public class BattleMap implements Map {
 	@Override
 	public MapForegroundElement getMapForegroundElementAtLocation(Location l) {
 
+		System.out.println(this.container.get(TEAM.TOP).getFirstElement().equals(l));
+		System.out.println(this.container.get(TEAM.TOP).getFirstElement());
+		
 		TEAM team = this.getTeamBelongingTo(l);
 		Location battlePositionLocation = this.getBattlePositionLocation(l, this
 				.getTeamBelongingTo(l));
@@ -169,6 +173,8 @@ public class BattleMap implements Map {
 		else {
 			for (TEAM t : TEAM.values()) {
 				if (this.container.get(t).getFirstElement().equals(l)) {
+					System.out.println((MapForegroundElement) this.container.get(t)
+							.getSecondElement());
 					return (MapForegroundElement) this.container.get(t)
 							.getSecondElement();
 				}
