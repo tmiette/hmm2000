@@ -14,5 +14,6 @@ public class Hmm2000Tom {
 
     CoreEngine.startNewCoreEngine(MapLevel.MAP1, new LawrenceUIEngine(),
         new Player(1), new Player(2));
+    
   }
 }
