@@ -18,7 +18,9 @@ import fr.umlv.hmm2000.map.MapLevel;
 import fr.umlv.hmm2000.map.MovableElement;
 import fr.umlv.hmm2000.map.WorldMap;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
+import fr.umlv.hmm2000.war.BattleMap;
 import fr.umlv.hmm2000.war.BattlePositionMap;
+import fr.umlv.hmm2000.warrior.Container;
 import fr.umlv.hmm2000.warrior.Heroe;
 
 public class CoreEngine {
@@ -28,6 +30,8 @@ public class CoreEngine {
   private static WorldMap worldMap;
 
   private static BattlePositionMap battlePositionMap;
+  
+  private static BattleMap battleMap;
 
   private static HMMUserInterface uiEngine;
 
@@ -95,6 +99,13 @@ public class CoreEngine {
         CoreEngine.battlePositionManager.perform(l);
       }
     }
+    else if(CoreEngine.currentMap == CoreEngine.battleMap){
+      if (button == 1) {
+        CoreEngine.selectionManager.perform(l);
+      } else if (button == 3) {
+        //TODO battle manager
+      }
+    }
   }
 
   public static void manageBattlePosition() {
@@ -113,6 +124,11 @@ public class CoreEngine {
 
   public static void nextDay() {
     CoreEngine.roundManager.nextDay();
+  }
+  
+  public static void startBattle(Container attacker, Container defender){
+    CoreEngine.battleMap = new BattleMap(attacker, defender);
+    CoreEngine.changeCurrentMap(CoreEngine.battleMap);
   }
 
   public static Map map() {
