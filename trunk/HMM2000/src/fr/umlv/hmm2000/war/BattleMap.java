@@ -30,13 +30,13 @@ public class BattleMap implements Map {
 
 	private final HashMap<TEAM, BattlePositionMap> battlePosition;
 
-	private final HashMap<TEAM, Oblong> teamPosition;
+	private final HashMap<TEAM, Rectangle> teamPosition;
 
 	private MapBackgroundElement[][] mbe;
 
 	private final HashMap<TEAM, Pair<Location, Container>> container;
 
-	public BattleMap(Container attacker,
+	public BattleMap(	Container attacker,
 										Container defender) {
 
 		this.height = attacker.getBattlePositionManager().getHeight()
@@ -65,7 +65,7 @@ public class BattleMap implements Map {
 		}
 		initBackGroundElements();
 
-		this.teamPosition = new HashMap<TEAM, Oblong>(2);
+		this.teamPosition = new HashMap<TEAM, Rectangle>(2);
 		Location p1TOP = new Location(0, 0);
 		Location p2TOP = new Location(
 				this.battlePosition.get(TEAM.TOP).getHeight(), this.battlePosition.get(
@@ -73,8 +73,8 @@ public class BattleMap implements Map {
 		Location p1BOTTOM = new Location(0, 0);
 		Location p2BOTTOM = new Location(this.battlePosition.get(TEAM.BOTTOM)
 				.getHeight(), this.battlePosition.get(TEAM.TOP).getWidth());
-		this.teamPosition.put(TEAM.TOP, new Oblong(p1TOP, p2TOP));
-		this.teamPosition.put(TEAM.BOTTOM, new Oblong(p1BOTTOM, p2BOTTOM));
+		this.teamPosition.put(TEAM.TOP, new Rectangle(p1TOP, p2TOP));
+		this.teamPosition.put(TEAM.BOTTOM, new Rectangle(p1BOTTOM, p2BOTTOM));
 
 	}
 
@@ -114,7 +114,7 @@ public class BattleMap implements Map {
 				int newYY = l.getY();
 				return new Location(newXX, newYY);
 			default:
-				return new Location(0, 0);
+				return null;
 		}
 	}
 
@@ -133,7 +133,7 @@ public class BattleMap implements Map {
 				int newYY = l.getY();
 				return new Location(newXX, newYY);
 			default:
-				return new Location(0, 0);
+				return null;
 		}
 	}
 
@@ -162,8 +162,20 @@ public class BattleMap implements Map {
 		TEAM team = this.getTeamBelongingTo(l);
 		Location battlePositionLocation = this.getBattlePositionLocation(l, this
 				.getTeamBelongingTo(l));
-		return this.battlePosition.get(team).getMapForegroundElementAtLocation(
-				battlePositionLocation);
+		if (battlePositionLocation != null) {
+			return this.battlePosition.get(team).getMapForegroundElementAtLocation(
+					battlePositionLocation);
+		}
+		else {
+			for (TEAM t : TEAM.values()) {
+				if (this.container.get(t).getFirstElement().equals(l)) {
+					return (MapForegroundElement) this.container.get(t)
+							.getSecondElement();
+				}
+			}
+			return null;
+		}
+
 	}
 
 	@Override
@@ -173,6 +185,10 @@ public class BattleMap implements Map {
 		list.addAll(this.battlePosition.get(TEAM.TOP).getMapForegroundElements());
 		list
 				.addAll(this.battlePosition.get(TEAM.BOTTOM).getMapForegroundElements());
+		for (TEAM team : TEAM.values()) {
+			list.add((MapForegroundElement) this.container.get(team)
+					.getSecondElement());
+		}
 		return list;
 	}
 
@@ -203,14 +219,14 @@ public class BattleMap implements Map {
 
 	}
 
-	private class Oblong {
+	private class Rectangle {
 
 		private Location p1;
 
 		private Location p2;
 
-		public Oblong(Location p1,
-									Location p2) {
+		public Rectangle(	Location p1,
+											Location p2) {
 
 			this.p1 = p1;
 			this.p2 = p2;
