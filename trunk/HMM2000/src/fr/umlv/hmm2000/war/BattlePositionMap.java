@@ -63,6 +63,7 @@ public class BattlePositionMap implements Map {
 		}
 	}
 
+	//list of free locations a the map
 	private ArrayList<Location> initFreeLocations() {
 
 		ArrayList<Location> l = new ArrayList<Location>(LINE_NUMBER * slots);
@@ -75,6 +76,7 @@ public class BattlePositionMap implements Map {
 		return l;
 	}
 
+	//returns the first free location founded
 	public Location getFirstFreeLocation() throws NoPlaceAvailableException {
 
 		if (this.freePlaces == 0) {
