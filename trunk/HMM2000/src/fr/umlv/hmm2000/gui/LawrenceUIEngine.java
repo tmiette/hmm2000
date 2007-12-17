@@ -26,6 +26,14 @@ public class LawrenceUIEngine implements HMMUserInterface {
 
   private DefaultGridModel<Sprite> model;
 
+  private int originalWidth;
+
+  private int originalHeight;
+
+  private int currentWidth;
+
+  private int currentHeight;
+
   private LawrenceDisplayingVisitor displayingVisitor;
 
   private LawrenceChoicesManager choicesManager;
@@ -49,14 +57,24 @@ public class LawrenceUIEngine implements HMMUserInterface {
   private final InputListener inputListener = new InputListener() {
 
     public void mouseClicked(int x, int y, int button) {
-      CoreEngine.locationClicked(y, x, button);
+      if (LawrenceUIEngine.this.areInCurrentMap(x, y)) {
+        CoreEngine.locationClicked(y, x, button);
+      }
     }
 
     public void keyTyped(int x, int y, Key keyCode) {
-      if (keyCode == Key.SPACE) {
+      switch (keyCode) {
+      case SPACE:
         CoreEngine.nextDay();
-      } else if (keyCode == Key.P) {
+        break;
+      case P:
         CoreEngine.manageBattlePosition();
+        break;
+      case ESCAPE:
+        CoreEngine.backToWorldMap();
+        break;
+      default:
+        break;
       }
     }
   };
@@ -67,8 +85,10 @@ public class LawrenceUIEngine implements HMMUserInterface {
     }
 
     public void mouseEntered(int x, int y) {
-      fr.umlv.lawrence.Location location = new fr.umlv.lawrence.Location(x, y);
-      LawrenceUIEngine.this.setPointer(location);
+      if (LawrenceUIEngine.this.areInCurrentMap(x, y)) {
+        fr.umlv.lawrence.Location location = new fr.umlv.lawrence.Location(x, y);
+        LawrenceUIEngine.this.setPointer(location);
+      }
     }
   };
 
@@ -85,19 +105,44 @@ public class LawrenceUIEngine implements HMMUserInterface {
     this.pane.addCursorListener(this.pointerCursorListener);
   }
 
+  private boolean areInCurrentMap(int x, int y) {
+    if (x <= this.currentWidth - 1 && y <= this.currentHeight - 1) {
+      return true;
+    }
+    return false;
+  }
+
   @Override
   public void drawMap(Map map) {
     this.map = map;
-    this.model = new DefaultGridModel<Sprite>(map.getWidth(), map.getHeight());
-    this.initGrid();
-    this.initProvider();
-    this.initGridPane();
-    Application.display(this.pane, "HMM2000 test", false, true);
+    if (this.model == null) {
+      this.model = new DefaultGridModel<Sprite>(map.getWidth(), map.getHeight());
+      this.originalWidth = map.getWidth();
+      this.originalHeight = map.getHeight();
+      this.currentWidth = this.originalWidth;
+      this.currentHeight = this.originalHeight;
+      this.initGrid();
+      this.initProvider();
+      this.initGridPane();
+      Application.display(this.pane, "HMM2000 test", false, true);
+    } else {
+      this.currentWidth = this.map.getWidth();
+      this.currentHeight = this.map.getHeight();
+      this.initGrid();
+    }
   }
 
   @Override
   public void eraseMap() {
-    
+    ArrayList<Sprite> list = new ArrayList<Sprite>();
+    list.add(Sprite.DEFAULT);
+    for (int x = 0; x < this.currentWidth; x++) {
+      for (int y = 0; y < this.currentHeight; y++) {
+        this.model.setDeffered(x, y, list);
+      }
+    }
+    this.setPointer(new fr.umlv.lawrence.Location(0, 0));
+    this.model.swap();
   }
 
   private void registerImages() {
@@ -107,8 +152,8 @@ public class LawrenceUIEngine implements HMMUserInterface {
   }
 
   private void initGrid() {
-    for (int x = 0; x < this.model.getWidth(); x++) {
-      for (int y = 0; y < this.model.getHeight(); y++) {
+    for (int x = 0; x < this.currentWidth; x++) {
+      for (int y = 0; y < this.currentHeight; y++) {
         this.setCellElements(x, y);
       }
     }
@@ -124,7 +169,6 @@ public class LawrenceUIEngine implements HMMUserInterface {
 
   private void setCellMapBackgroundElements(ArrayList<Sprite> elements, int x,
       int y) {
-
     elements.add(Sprite.BACKGROUND);
     elements.add(this.map.getMapBackgroundElementAtLocation(new Location(y, x))
         .getSprite());

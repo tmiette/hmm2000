@@ -7,10 +7,9 @@ import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.engine.manager.BattleCoreManager;
 import fr.umlv.hmm2000.engine.manager.BattlePositionCoreManager;
-import fr.umlv.hmm2000.engine.manager.BattleRoundCoreManager;
+import fr.umlv.hmm2000.engine.manager.DayCoreManager;
 import fr.umlv.hmm2000.engine.manager.EncounterCoreManager;
 import fr.umlv.hmm2000.engine.manager.MoveCoreManager;
-import fr.umlv.hmm2000.engine.manager.DayCoreManager;
 import fr.umlv.hmm2000.engine.manager.SelectionCoreManager;
 import fr.umlv.hmm2000.map.InvalidPlayersNumberException;
 import fr.umlv.hmm2000.map.Location;
@@ -49,8 +48,6 @@ public class CoreEngine {
 
   private static BattleCoreManager battleManager;
 
-  private static BattleRoundCoreManager battleRoundManager;
-
   private static LocationSelectionRequester locationRequester;
 
   public static void startNewCoreEngine(MapLevel level,
@@ -74,13 +71,20 @@ public class CoreEngine {
     CoreEngine.roundManager = new DayCoreManager(players);
     CoreEngine.battlePositionManager = new BattlePositionCoreManager();
 
-    CoreEngine.changeCurrentMap(worldMap);
+    CoreEngine.currentMap = worldMap;
+    CoreEngine.uiEngine.drawMap(worldMap);
   }
 
   private static void changeCurrentMap(Map map) {
     CoreEngine.uiEngine.eraseMap();
     CoreEngine.currentMap = map;
     CoreEngine.uiEngine.drawMap(map);
+  }
+
+  public static void backToWorldMap() {
+    if (CoreEngine.currentMap != CoreEngine.worldMap) {
+      CoreEngine.changeCurrentMap(CoreEngine.worldMap);
+    }
   }
 
   public static void locationClicked(int x, int y, int button) {
@@ -134,9 +138,6 @@ public class CoreEngine {
   public static void startBattle(Container attacker, Container defender) {
     CoreEngine.battleMap = new BattleMap(attacker, defender);
     CoreEngine.battleManager = new BattleCoreManager(attacker, defender);
-    CoreEngine.battleRoundManager = new BattleRoundCoreManager(
-        ((MovableElement) attacker).getPlayer(), ((MovableElement) defender)
-            .getPlayer());
     CoreEngine.changeCurrentMap(CoreEngine.battleMap);
   }
 
@@ -166,10 +167,6 @@ public class CoreEngine {
 
   public static BattleCoreManager battleManager() {
     return CoreEngine.battleManager;
-  }
-
-  public static BattleRoundCoreManager battleRoundManager() {
-    return CoreEngine.battleRoundManager;
   }
 
   public static void requestLocationSelection(

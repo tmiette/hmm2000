@@ -10,9 +10,6 @@ import fr.umlv.hmm2000.warrior.Container;
 import fr.umlv.hmm2000.warrior.Warrior;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.exception.WarriorNotReachableException;
-import fr.umlv.hmm2000.warrior.profil.ProfilCreatures;
-import fr.umlv.hmm2000.warrior.profil.ProfilHeroe;
-import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
 
 public class BattleCoreManager {
 
@@ -30,7 +27,8 @@ public class BattleCoreManager {
     this.warriors = new ArrayList<Warrior>();
     this.warriors.addAll(attacker.getTroop());
     this.warriors.addAll(defender.getTroop());
-    this.roundManager = new BattleRoundCoreManager(this.orderPlayer());
+    this.roundManager = new BattleRoundCoreManager(attacker, defender, null,
+        null);
   }
 
   public void perform(Location l) {
@@ -42,12 +40,9 @@ public class BattleCoreManager {
     Warrior attackerWarrior = (Warrior) attackerElement;
     Warrior defenderWarrior = (Warrior) defenderElement;
 
-    if (attackerElement != null
-        && defenderElement != null
-        && CoreEngine.battleRoundManager().isCurrentPlayer(
-            attackerWarrior.getPlayer())
-        && !CoreEngine.battleRoundManager().isCurrentPlayer(
-            defenderWarrior.getPlayer())) {
+    if (attackerElement != null && defenderElement != null
+        && this.roundManager.isCurrentPlayer(attackerWarrior.getPlayer())
+        && !this.roundManager.isCurrentPlayer(defenderWarrior.getPlayer())) {
       try {
         attackerWarrior.performAttack(defenderWarrior, null);
       } catch (WarriorDeadException e) {
@@ -57,7 +52,7 @@ public class BattleCoreManager {
         CoreEngine.uiManager().displayMessage(
             "Vous ne pouvez pas attaquer cette unité.");
       }
-      CoreEngine.battleRoundManager().nextDay();
+      this.roundManager.nextDay();
     }
 
   }
@@ -66,6 +61,7 @@ public class BattleCoreManager {
     Player[] players = new Player[2];
     Player attacker = this.attacker.getPlayer();
     Player defender = this.defender.getPlayer();
+
     players[0] = attacker;
     players[1] = defender;
 
