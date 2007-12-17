@@ -36,7 +36,7 @@ public class BattleMap implements Map {
 
 	private final HashMap<TEAM, Pair<Location, Container>> container;
 
-	private BattleMap(Container attacker,
+	public BattleMap(Container attacker,
 										Container defender) {
 
 		this.height = attacker.getBattlePositionManager().getHeight()
