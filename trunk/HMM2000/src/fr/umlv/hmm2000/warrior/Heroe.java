@@ -3,6 +3,8 @@ package fr.umlv.hmm2000.warrior;
 import java.util.ArrayList;
 
 import fr.umlv.hmm2000.Player;
+import fr.umlv.hmm2000.engine.CoreEngine;
+import fr.umlv.hmm2000.engine.event.EncounterEvent;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
@@ -110,6 +112,13 @@ public class Heroe extends Warrior implements Container {
 	public String getName() {
 
 		return this.name;
+	}
+	
+	@Override
+	public boolean encounter(EncounterEvent event) {
+	
+		CoreEngine.startBattle((Container)event.getSender(), (Container)event.getRecipient());
+		return false;
 	}
 
 }

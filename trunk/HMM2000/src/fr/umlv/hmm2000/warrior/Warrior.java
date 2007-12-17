@@ -76,8 +76,7 @@ public class Warrior extends MovableElement implements Sellable {
   @Override
   public boolean encounter(EncounterEvent event) {
 
-    System.err.println("Combat");
-    return false;
+    return true;
   }
 
   public double getAttackValue() {
