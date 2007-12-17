@@ -18,7 +18,7 @@ import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.exception.WarriorNotReachableException;
 import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
 
-public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
+public class Warrior extends MovableElement implements Sellable {
 
   private static double WARRIORS_COUNT = 0;
 
@@ -80,7 +80,6 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
     return false;
   }
 
-  @Override
   public double getAttackValue() {
 
     return this.attackValue;
@@ -91,25 +90,20 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
     return this.container;
   }
 
-  @Override
   public double getDefenseValue() {
 
     return this.defenseValue;
   }
-
-  @Override
   public HashMap<ElementaryEnum, Attack> getAttacks() {
 
     return this.elements;
   }
 
-  @Override
   public double getHealth() {
 
     return this.health;
   }
 
-  @Override
   public int getSpeed() {
 
     return this.speed;
@@ -121,19 +115,13 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
     return this.sprite;
   }
 
-  @Override
-  public boolean isAttackable(Warrior attacker, Warrior defender) {
-
-    return this.profil.isAttackable(attacker, defender);
-  }
-
-  public void performAttack(Warrior attacker, Warrior defender, Attack attack)
+  public void performAttack(Warrior defender, Attack attack)
       throws WarriorDeadException, WarriorNotReachableException {
 
-    if (!profil.isAttackable(attacker, defender)) {
+    if (!profil.isAttackable(this, defender)) {
       throw new WarriorNotReachableException("This warrior is not reachable");
     }
-    double damage = ((attacker.getAttackValue() + attack.getDamage()
+    double damage = ((this.getAttackValue() + attack.getDamage()
         * ((100 - defender.getAttacks().get(attack.getType()).getResistance()) / 100)) - defender
         .getDefenseValue());
     defender.setHealth(damage);
@@ -157,7 +145,6 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
     this.speed = speed;
   }
 
-  @Override
   public ProfilWarrior getProfil() {
     return this.profil;
   }
@@ -177,7 +164,6 @@ public class Warrior extends MovableElement implements ProfilWarrior, Sellable {
     return ((Warrior) obj).id == this.id;
   }
 
-  @Override
   public String getProfilName() {
 
     return this.profil.getProfilName();
