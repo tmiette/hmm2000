@@ -233,7 +233,7 @@ public class BattlePositionMap implements Map {
 	@Override
 	public void removeMapForegroundElement(Location l) {
 
-		// TODO Auto-generated method stub
+		this.units.remove(l);
 		
 	}
 }
