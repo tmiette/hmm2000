@@ -66,10 +66,10 @@ public class BattleCoreManager {
     Player[] players = new Player[2];
     Player attacker = this.attacker.getPlayer();
     Player defender = this.defender.getPlayer();
-    if (this.attacker.getProfil() == ProfilHeroe.LORD_OF_WAR) {
+    players[0] = attacker;
+    players[1] = defender;
 
-    }
-    return null;
+    return players;
   }
 
 }
