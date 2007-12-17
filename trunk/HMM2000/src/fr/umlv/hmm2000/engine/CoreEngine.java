@@ -5,10 +5,12 @@ import java.io.IOException;
 
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
+import fr.umlv.hmm2000.engine.manager.BattleCoreManager;
 import fr.umlv.hmm2000.engine.manager.BattlePositionCoreManager;
+import fr.umlv.hmm2000.engine.manager.BattleRoundCoreManager;
 import fr.umlv.hmm2000.engine.manager.EncounterCoreManager;
 import fr.umlv.hmm2000.engine.manager.MoveCoreManager;
-import fr.umlv.hmm2000.engine.manager.RoundCoreManager;
+import fr.umlv.hmm2000.engine.manager.DayCoreManager;
 import fr.umlv.hmm2000.engine.manager.SelectionCoreManager;
 import fr.umlv.hmm2000.map.InvalidPlayersNumberException;
 import fr.umlv.hmm2000.map.Location;
@@ -30,7 +32,7 @@ public class CoreEngine {
   private static WorldMap worldMap;
 
   private static BattlePositionMap battlePositionMap;
-  
+
   private static BattleMap battleMap;
 
   private static HMMUserInterface uiEngine;
@@ -41,9 +43,13 @@ public class CoreEngine {
 
   private static EncounterCoreManager encounterManager;
 
-  private static RoundCoreManager roundManager;
+  private static DayCoreManager roundManager;
 
   private static BattlePositionCoreManager battlePositionManager;
+
+  private static BattleCoreManager battleManager;
+
+  private static BattleRoundCoreManager battleRoundManager;
 
   private static LocationSelectionRequester locationRequester;
 
@@ -65,7 +71,7 @@ public class CoreEngine {
     CoreEngine.selectionManager = new SelectionCoreManager();
     CoreEngine.encounterManager = new EncounterCoreManager();
     CoreEngine.moveManager = new MoveCoreManager();
-    CoreEngine.roundManager = new RoundCoreManager(players);
+    CoreEngine.roundManager = new DayCoreManager(players);
     CoreEngine.battlePositionManager = new BattlePositionCoreManager();
 
     CoreEngine.changeCurrentMap(worldMap);
@@ -98,12 +104,11 @@ public class CoreEngine {
       } else if (button == 3) {
         CoreEngine.battlePositionManager.perform(l);
       }
-    }
-    else if(CoreEngine.currentMap == CoreEngine.battleMap){
+    } else if (CoreEngine.currentMap == CoreEngine.battleMap) {
       if (button == 1) {
         CoreEngine.selectionManager.perform(l);
       } else if (button == 3) {
-        //TODO battle manager
+        CoreEngine.battleManager.perform(l);
       }
     }
   }
@@ -125,9 +130,13 @@ public class CoreEngine {
   public static void nextDay() {
     CoreEngine.roundManager.nextDay();
   }
-  
-  public static void startBattle(Container attacker, Container defender){
+
+  public static void startBattle(Container attacker, Container defender) {
     CoreEngine.battleMap = new BattleMap(attacker, defender);
+    CoreEngine.battleManager = new BattleCoreManager(attacker, defender);
+    CoreEngine.battleRoundManager = new BattleRoundCoreManager(
+        ((MovableElement) attacker).getPlayer(), ((MovableElement) defender)
+            .getPlayer());
     CoreEngine.changeCurrentMap(CoreEngine.battleMap);
   }
 
@@ -151,8 +160,16 @@ public class CoreEngine {
     return CoreEngine.encounterManager;
   }
 
-  public static RoundCoreManager roundManager() {
+  public static DayCoreManager roundManager() {
     return CoreEngine.roundManager;
+  }
+
+  public static BattleCoreManager battleManager() {
+    return CoreEngine.battleManager;
+  }
+
+  public static BattleRoundCoreManager battleRoundManager() {
+    return CoreEngine.battleRoundManager;
   }
 
   public static void requestLocationSelection(

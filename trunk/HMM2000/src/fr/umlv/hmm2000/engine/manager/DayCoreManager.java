@@ -6,8 +6,8 @@ import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 
-public class RoundCoreManager {
-  
+public class DayCoreManager {
+
   private Player currentPlayer;
 
   private int currentPlayerIndex;
@@ -16,7 +16,7 @@ public class RoundCoreManager {
 
   private final ArrayList<Player> players;
 
-  public RoundCoreManager(Player... players) {
+  public DayCoreManager(Player... players) {
     this.players = new ArrayList<Player>();
     for (Player p : players) {
       this.players.add(p);
@@ -36,20 +36,26 @@ public class RoundCoreManager {
 
   public void nextDay() {
     System.out.println("next day");
-    this.currentPlayerIndex++;
-    if (this.currentPlayerIndex == this.players.size()) {
-      this.currentPlayerIndex = 0;
-      this.currentDay++;
+    this.nextPlayer();
+    if (this.currentPlayerIndex == 0) {
       for (MapForegroundElement element : CoreEngine.map()
           .getMapForegroundElements()) {
         element.nextDay(this.currentDay);
       }
     }
-    this.currentPlayer = this.players.get(this.currentPlayerIndex);
   }
 
   public boolean isCurrentPlayer(Player player) {
     return this.currentPlayer.equals(player);
+  }
+
+  protected void nextPlayer() {
+    this.currentPlayerIndex++;
+    if (this.currentPlayerIndex == this.players.size()) {
+      this.currentPlayerIndex = 0;
+      this.currentDay++;
+    }
+    this.currentPlayer = this.players.get(this.currentPlayerIndex);
   }
 
 }

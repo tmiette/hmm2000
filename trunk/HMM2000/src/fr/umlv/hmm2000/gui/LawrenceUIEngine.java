@@ -97,6 +97,7 @@ public class LawrenceUIEngine implements HMMUserInterface {
 
   @Override
   public void eraseMap() {
+    
   }
 
   private void registerImages() {
