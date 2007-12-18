@@ -168,12 +168,7 @@ public class Warrior extends MovableElement implements Sellable {
   public String toString() {
 
     StringBuilder sb = new StringBuilder();
-    sb.append("Warrior : \n(Health = ");
-    sb.append(this.health);
-    sb.append(",StepCount = ");
-    sb.append(this.speed);
-    sb.append(",Attacks = ");
-    sb.append(")");
+    sb.append("Warrior n¡ " + this.id);
     return sb.toString();
   }
 
@@ -223,5 +218,11 @@ public class Warrior extends MovableElement implements Sellable {
   public void nextDay(int day) {
     this.stepCount = this.speed;
   }
+
+	
+	public double getId() {
+	
+		return this.id;
+	}
 
 }

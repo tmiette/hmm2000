@@ -129,7 +129,8 @@ public class Heroe extends Warrior implements Container {
 	public String toString() {
 	
 		StringBuilder sb = new StringBuilder();
-		sb.append("Hero : Troop { ");
+		sb.append("Hero n¡ " + super.getId());
+		sb.append(" : Troop { ");
 		for (Warrior w : this.troop) {
 			sb.append(w.toString());
 		}

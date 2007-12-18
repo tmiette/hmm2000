@@ -247,7 +247,9 @@ public class BattleMap implements Map {
 			System.out.println("Suppression mapforegroundelement location = " + l);
 			Container c = this.container.get(team).getSecondElement();
 			Location newLocation = getBattlePositionLocation(l, team);
+			System.out.println("Supprssion warrior : " + c.getBattlePositionManager().getWarriorAtLocation(newLocation));
 			c.removeWarrior(c.getBattlePositionManager().getWarriorAtLocation(newLocation));
+			System.out.println("Suppression ds position map a la location : " + newLocation);
 			c.getBattlePositionManager().removeMapForegroundElement(newLocation);
 		}
 		System.out.println("Cette location ne correspond a aucune equipe");
