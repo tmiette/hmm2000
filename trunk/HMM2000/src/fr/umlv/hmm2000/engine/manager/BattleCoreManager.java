@@ -53,8 +53,8 @@ public class BattleCoreManager {
       } catch (WarriorDeadException e) {
         CoreEngine.uiManager().displayMessage("Le défenseur est mort.");
         CoreEngine.map().removeMapForegroundElement(l);
-        EncounterEvent event = new EncounterEvent(null, null, l, l);
-        CoreEngine.uiManager().eraseForegroundElement(event);
+        //EncounterEvent event = new EncounterEvent(null, null, l, l);
+        //CoreEngine.uiManager().eraseForegroundElement(event);
         System.out.println("attacker :" + this.attacker.getTroop().size());
         System.out.println("defender :" + this.defender.getTroop().size());
         System.out.println((Heroe) this.attacker);
