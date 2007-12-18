@@ -77,4 +77,15 @@ public class WorldMap implements Map {
   public int getWidth() {
     return this.graph.getWidth();
   }
+
+  @Override
+  public Location getLocationForMapForegroundElement(
+      MapBackgroundElement element) {
+    for (Entry<Location, MapForegroundElement> entry : this.elements.entrySet()) {
+      if (entry.getValue().equals(element)) {
+        return entry.getKey();
+      }
+    }
+    return null;
+  }
 }
