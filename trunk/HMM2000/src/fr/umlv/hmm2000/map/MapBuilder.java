@@ -72,6 +72,8 @@ public class MapBuilder {
 
     map.addMapForegroundElement(WarriorFactory.createHeroe(ProfilHeroe.ARCHER,
         p1, "batman", Level.LEVEL_1), new Location(0, 0));
+    map.addMapForegroundElement(WarriorFactory.createHeroe(ProfilHeroe.SORCERER,
+        p1, "batman", Level.LEVEL_1), new Location(14, 3));
     Heroe spiderman = WarriorFactory.createHeroe(ProfilHeroe.LORD_OF_WAR, p2,
         "spiderman", Level.LEVEL_1);
     try {

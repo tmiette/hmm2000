@@ -21,7 +21,11 @@ public enum Sprite {
   MERCHANT("merchant2"),
   BARRACKS("barracks"),
   FLIGHT("flight"),
-  WIZZARD("troll");
+  WIZZARD("wizzard"),
+  GRUNT("grunt"),
+  SORCERER("sorcerer"),
+  LORDOFWAR("lordofwar"),
+  ARCHER("archer");
 
   private final String spritePath;
 
