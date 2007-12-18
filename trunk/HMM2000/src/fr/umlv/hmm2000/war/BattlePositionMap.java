@@ -15,11 +15,12 @@ import fr.umlv.hmm2000.map.graph.CheckerboardGraph;
 import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
 import fr.umlv.hmm2000.warrior.Fightable;
+import fr.umlv.hmm2000.warrior.FightableContainer;
 import fr.umlv.hmm2000.warrior.Warrior;
 
 public class BattlePositionMap implements Map {
 
-	private final HashMap<Location, Warrior> units;
+	private final HashMap<Location, Fightable> units;
 
 	public static final int LINE_NUMBER = 2;
 
@@ -32,7 +33,7 @@ public class BattlePositionMap implements Map {
 	public BattlePositionMap(int slots) {
 
 		this.width = slots;
-		this.units = new HashMap<Location, Warrior>(LINE_NUMBER * slots);
+		this.units = new HashMap<Location, Fightable>(LINE_NUMBER * slots);
 		this.freeLocations = initFreeLocations();
 		initMatrix();
 	}
@@ -97,7 +98,7 @@ public class BattlePositionMap implements Map {
 		return this.freeLocations.get(0);
 	}
 
-	public void placeWarrior(Warrior w, Location location)
+	public void placeWarrior(Fightable w, Location location)
 			throws LocationAlreadyOccupedException, ArrayIndexOutOfBoundsException,
 			NoPlaceAvailableException {
 

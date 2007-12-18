@@ -11,6 +11,7 @@ import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
 import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
+import fr.umlv.hmm2000.warrior.profil.ProfilHeroe;
 
 public class Hero extends MovableElement {
 
@@ -19,13 +20,18 @@ public class Hero extends MovableElement {
   private final String name;
 
   private final BattlePositionMap bpm;
+  
+  private int speed;
+  
+  private Sprite sprite;
 
-  public Hero(Player player, String name) {
+  public Hero(ProfilHeroe profil, Player player, String name) {
     super(player);
     this.name = name;
     this.troop = new ArrayList<Fightable>();
-    this.bpm = new BattlePositionMap(Container.MAX_TROOP_SIZE
+    this.bpm = new BattlePositionMap(FightableContainer.MAX_TROOP_SIZE
         / BattlePositionMap.LINE_NUMBER);
+    this.sprite = profil.getSprite();
   }
 
   @Override
@@ -36,13 +42,13 @@ public class Hero extends MovableElement {
           "The max number of troops, a heroe can contain, is reached");
     }
 
-    int speed = w.getSpeed();
-    if (speed < super.getSpeed()) {
-      super.setSpeed(speed);
+    int speed = f.getSpeed();
+    if (this.speed > speed) {
+      this.speed = speed;
     }
 
     try {
-      this.bpm.placeWarrior(w, this.bpm.getFirstFreeLocation());
+      this.bpm.placeWarrior(f, this.bpm.getFirstFreeLocation());
     } catch (ArrayIndexOutOfBoundsException e) {
       return false;
     } catch (LocationAlreadyOccupedException e) {
@@ -50,8 +56,8 @@ public class Hero extends MovableElement {
     } catch (NoPlaceAvailableException e) {
       return false;
     }
-    this.troop.add(w);
-    w.setContainer(this);
+    this.troop.add(f);
+    f.setFightableContainer(this);
     return true;
   }
 

@@ -1,5 +1,7 @@
 package fr.umlv.hmm2000.warrior;
 
+import java.awt.Container;
+
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.event.EncounterEvent;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
@@ -24,13 +26,15 @@ public class Warrior implements Sellable, Fightable {
 
 	private Sprite sprite;
 
+	private int speed;
+
 	private double defenseValue;
 
 	private double attackValue;
 
 	private final ElementAbility abilities;
 
-	private Container container;
+	private FightableContainer container;
 
 	private ProfilWarrior profil;
 
@@ -92,7 +96,7 @@ public class Warrior implements Sellable, Fightable {
 	}
 
 	@Override
-	public Container getContainer() {
+	public FightableContainer getFightableContainer() {
 
 		return this.container;
 	}
@@ -135,11 +139,6 @@ public class Warrior implements Sellable, Fightable {
 	public ProfilWarrior getProfil() {
 
 		return this.profil;
-	}
-
-	public String getProfilName() {
-
-		return this.profil.getProfilName();
 	}
 
 	@Override
@@ -185,10 +184,11 @@ public class Warrior implements Sellable, Fightable {
 	}
 
 	@Override
-	public void setContainer(Container container) {
+	public void setFightableContainer(FightableContainer container) {
 
 		this.container = container;
 	}
+	
 
 	@Override
 	public void setDefenseValue(double defenseValue) {
@@ -213,5 +213,12 @@ public class Warrior implements Sellable, Fightable {
 		sb.append(" ");
 		return sb.toString();
 	}
+
+	@Override
+	public int getSpeed() {
+
+		return this.speed;
+	}
+
 
 }

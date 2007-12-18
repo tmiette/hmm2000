@@ -36,9 +36,9 @@ public enum ProfilWarrior {
 		@Override
 		public boolean isAttackable(Fightable attacker, Fightable defender) {
 
-			BattlePositionMap bpmDefenser = defender.getContainer()
+			BattlePositionMap bpmDefenser = defender.getFightableContainer()
 					.getBattlePositionManager();
-			BattlePositionMap bpmAttacker = attacker.getContainer().getBattlePositionManager();
+			BattlePositionMap bpmAttacker = attacker.getFightableContainer().getBattlePositionManager();
 			return bpmAttacker.isInFirstLine(attacker) && bpmDefenser.isInFirstLine(defender);
 
 		}
@@ -53,7 +53,7 @@ public enum ProfilWarrior {
 		@Override
 		public boolean isAttackable(Fightable attacker, Fightable defender) {
 
-			BattlePositionMap bpm = defender.getContainer()
+			BattlePositionMap bpm = defender.getFightableContainer()
 					.getBattlePositionManager();
 			return bpm.isInFirstLine(defender);
 		}

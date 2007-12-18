@@ -12,7 +12,7 @@ public interface Fightable extends MapForegroundElement {
 
 	public abstract double getAttackValue();
 
-	public abstract Container getContainer();
+	public abstract FightableContainer getFightableContainer();
 
 	public abstract double getDefenseValue();
 
@@ -21,10 +21,12 @@ public interface Fightable extends MapForegroundElement {
 	public abstract void performAttack(Warrior defender)
 			throws WarriorDeadException, WarriorNotReachableException;
 
-	public abstract void setContainer(Container container);
+	public abstract void setFightableContainer(FightableContainer container);
 
 	public abstract void setHealth(double health) throws WarriorDeadException;
 
 	public abstract double getId();
+	
+	public abstract int getSpeed();
 
 }
