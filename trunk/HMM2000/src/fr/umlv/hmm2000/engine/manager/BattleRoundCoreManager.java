@@ -29,11 +29,12 @@ public class BattleRoundCoreManager extends DayCoreManager {
 
   @Override
   public void nextDay() {
-    System.out.println("next round");
     if (this.warriors.get(this.defenderPlayer).size() != 0) {
       this.nextPlayer();
+      System.out.println("player suivant");
       if (this.warriors.get(this.attackerPlayer).size() == 0) {
         this.newRound();
+        System.out.println("reaload du round");
       }
     }
   }
