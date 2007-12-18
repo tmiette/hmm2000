@@ -44,8 +44,8 @@ public class BattleMap implements Map {
 		this.height = c1.getBattlePositionManager().getHeight()
 				+ c2.getBattlePositionManager().getHeight() + LINE_BETWEEN_TROOP + 2
 				* LINE_FOR_HEROE;
-		this.width = Math.max(c1.getBattlePositionManager().getSlots(), c2
-				.getBattlePositionManager().getSlots());
+		this.width = Math.max(c1.getBattlePositionManager().getWidth(), c2
+				.getBattlePositionManager().getWidth());
 
 		this.container = new HashMap<Team, Pair<Location, Container>>();
 		initContainer(c1, c2);
@@ -69,8 +69,8 @@ public class BattleMap implements Map {
 
 		Container min;
 		Container max;
-		if (c1.getBattlePositionManager().getSlots() >= c2
-				.getBattlePositionManager().getSlots()) {
+		if (c1.getBattlePositionManager().getWidth() >= c2
+				.getBattlePositionManager().getWidth()) {
 			min = c2;
 			max = c1;
 		}
@@ -228,15 +228,27 @@ public class BattleMap implements Map {
 	@Override
 	public void moveMapForegroundElement(Location from, Location to) {
 
-		// TODO Auto-generated method stub
+		Team team = getTeam(from);
+		if (team != null) {
+			Container c = this.container.get(team).getSecondElement();
+			Location newFrom = getBattlePositionLocation(from, team);
+			Location newTo = getBattlePositionLocation(to, team);
+			c.getBattlePositionManager().moveMapForegroundElement(newFrom, newTo);
+		}
 
 	}
 
 	@Override
 	public void removeMapForegroundElement(Location l) {
 
-		// TODO Auto-generated method stub
-
+		Team team = getTeam(l);
+		if (team != null) {
+			Container c = this.container.get(team).getSecondElement();
+			Location newLocation = getBattlePositionLocation(l, team);
+			c.removeWarrior(c.getBattlePositionManager().getWarriorAtLocation(newLocation));
+			c.getBattlePositionManager().removeMapForegroundElement(newLocation);
+		}
+		
 	}
 
 }
