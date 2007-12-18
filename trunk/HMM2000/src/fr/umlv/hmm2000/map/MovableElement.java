@@ -1,6 +1,7 @@
 package fr.umlv.hmm2000.map;
 
 import fr.umlv.hmm2000.Player;
+import fr.umlv.hmm2000.warrior.FightableContainer;
 
 public abstract class MovableElement implements FightableContainer, Movable {
 
