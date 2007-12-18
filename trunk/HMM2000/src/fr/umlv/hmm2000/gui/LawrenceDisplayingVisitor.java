@@ -3,14 +3,14 @@ package fr.umlv.hmm2000.gui;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.resource.Resource;
 import fr.umlv.hmm2000.salesentity.SalesEntity;
-import fr.umlv.hmm2000.warrior.Heroe;
+import fr.umlv.hmm2000.warrior.Hero;
 import fr.umlv.hmm2000.warrior.Warrior;
 
 public class LawrenceDisplayingVisitor implements UIDisplayingVisitor {
 
   @Override
-  public void visit(Heroe heroe) {
-    System.out.println(heroe.getName());
+  public void visit(Hero heroe) {
+    System.out.println();
     System.out.println(heroe.getPlayer().getResources());
   }
 
