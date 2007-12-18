@@ -81,6 +81,10 @@ public class Heroe extends Warrior implements Container {
 
 	public int getMinSpeed() {
 
+		if (this.troop.size() == 0) {
+			return 0;
+		}
+		
 		int stepCount = this.troop.get(0)
 															.getSpeed();
 		for (Warrior wit : this.troop) {
