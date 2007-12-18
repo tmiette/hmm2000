@@ -28,8 +28,8 @@ public class BattleCoreManager {
     this.warriors.addAll(attacker.getTroop());
     this.warriors.addAll(defender.getTroop());
     Player[] players = this.orderPlayer();
-    this.roundManager = new BattleRoundCoreManager(attacker, defender, players[0],
-        players[1]);
+    this.roundManager = new BattleRoundCoreManager(attacker, defender,
+        players[0], players[1]);
   }
 
   public void perform(Location l) {
@@ -45,15 +45,22 @@ public class BattleCoreManager {
         && this.roundManager.isCurrentPlayer(attackerWarrior.getPlayer())
         && !this.roundManager.isCurrentPlayer(defenderWarrior.getPlayer())) {
       try {
-        attackerWarrior.performAttack(defenderWarrior, null);
+        attackerWarrior.performAttack(defenderWarrior);
+        this.roundManager.hasAlreadyAttacked(attackerWarrior);
+        this.roundManager.nextDay();
       } catch (WarriorDeadException e) {
         CoreEngine.uiManager().displayMessage("Le défenseur est mort.");
         CoreEngine.map().removeMapForegroundElement(l);
+        if (this.attacker.getTroop().size() == 0
+            || this.defender.getTroop().size() == 0) {
+          // TODO retirer le container du player
+          CoreEngine.uiManager().displayMessage("Vous avez perdu le combat.");
+          CoreEngine.backToWorldMap();
+        }
       } catch (WarriorNotReachableException e) {
         CoreEngine.uiManager().displayMessage(
             "Vous ne pouvez pas attaquer cette unité.");
       }
-      this.roundManager.nextDay();
     }
 
   }
