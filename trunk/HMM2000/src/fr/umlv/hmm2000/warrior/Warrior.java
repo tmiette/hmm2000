@@ -1,7 +1,5 @@
 package fr.umlv.hmm2000.warrior;
 
-import java.util.HashMap;
-
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.event.EncounterEvent;
@@ -12,7 +10,6 @@ import fr.umlv.hmm2000.resource.Resource.Kind;
 import fr.umlv.hmm2000.salesentity.Price;
 import fr.umlv.hmm2000.salesentity.Sellable;
 import fr.umlv.hmm2000.util.Pair;
-import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
 import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.exception.WarriorNotReachableException;
@@ -36,7 +33,7 @@ public class Warrior extends MovableElement implements Sellable {
 
   private double attackValue;
 
-  private HashMap<ElementaryEnum, Attack> elements;
+  private final ElementAbility abilities;
 
   private Container container;
 
@@ -52,8 +49,8 @@ public class Warrior extends MovableElement implements Sellable {
     this.sprite = this.profil.getSprite();
     this.defenseValue = this.profil.getDefenseValue();
     this.attackValue = this.profil.getAttackValue();
-    this.elements = this.profil.getAttacks();
     this.id = WARRIORS_COUNT++;
+    this.abilities = profil.getAbilities();
   }
 
   @Override
@@ -93,10 +90,6 @@ public class Warrior extends MovableElement implements Sellable {
 
     return this.defenseValue;
   }
-  public HashMap<ElementaryEnum, Attack> getAttacks() {
-
-    return this.elements;
-  }
 
   public double getHealth() {
 
@@ -114,16 +107,19 @@ public class Warrior extends MovableElement implements Sellable {
     return this.sprite;
   }
 
-  public void performAttack(Warrior defender, Attack attack)
+  public void performAttack(Warrior defender)
       throws WarriorDeadException, WarriorNotReachableException {
 
     if (!profil.isAttackable(this, defender)) {
       throw new WarriorNotReachableException("This warrior is not reachable");
     }
-    double damage = ((this.getAttackValue() + attack.getDamage()
-        * ((100 - defender.getAttacks().get(attack.getType()).getResistance()) / 100)) - defender
-        .getDefenseValue());
-    defender.setHealth(damage);
+    double damage = this.abilities.getDamage(defender.abilities);
+    double health = defender.health - (this.attackValue + damage - this.defenseValue);
+    defender.setHealth(health);
+//    double damage = ((this.getAttackValue() + attack.getDamage()
+//        * ((100 - defender.getAttacks().get(attack.getType()).getResistance()) / 100)) - defender
+//        .getDefenseValue());
+//    defender.setHealth(damage);
   }
 
   public void setContainer(Container container) {

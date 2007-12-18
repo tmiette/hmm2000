@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.warrior.Attack;
+import fr.umlv.hmm2000.warrior.ElementAbility;
 import fr.umlv.hmm2000.warrior.Warrior;
 import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
 
@@ -14,7 +15,8 @@ public enum ProfilMonsters implements ProfilWarrior {
 					100,
 					20,
 					null,
-					new Attack[] {}){
+					new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10)
+					.addAbility(ElementaryEnum.LIGHTNING, 10, 10)){
 		@Override
 		public boolean isAttackable(Warrior attacker, Warrior defender) {
 
@@ -26,7 +28,8 @@ public enum ProfilMonsters implements ProfilWarrior {
 				100,
 				20,
 				null,
-				new Attack[] {}){
+				new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10)
+				.addAbility(ElementaryEnum.LIGHTNING, 10, 10)){
 		@Override
 		public boolean isAttackable(Warrior attacker, Warrior defender) {
 
@@ -38,7 +41,8 @@ public enum ProfilMonsters implements ProfilWarrior {
 				100,
 				20,
 				null,
-				new Attack[] {}){
+				new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10)
+				.addAbility(ElementaryEnum.LIGHTNING, 10, 10)){
 		@Override
 		public boolean isAttackable(Warrior attacker, Warrior defender) {
 
@@ -57,13 +61,15 @@ public enum ProfilMonsters implements ProfilWarrior {
 	private Sprite sprite;
 	
 	private HashMap<ElementaryEnum, Attack> elements;
+	
+	private ElementAbility abilities;
 
 	private ProfilMonsters(	double attackValue,
 													double defenseValue,
 													double health,
 													int speed,
 													Sprite sprite,
-													Attack[] ee) {
+													ElementAbility abilities) {
 
 		this.attackValue = attackValue;
 		this.defenseValue = defenseValue;
@@ -71,9 +77,7 @@ public enum ProfilMonsters implements ProfilWarrior {
 		this.speed = speed;
 		this.sprite = sprite;
 		this.elements = new HashMap<ElementaryEnum, Attack>();
-		for (Attack element : ee) {
-			this.elements.put(element.getType(), element);
-		}
+		this.abilities = abilities;
 	}
 
 	@Override
@@ -107,12 +111,6 @@ public enum ProfilMonsters implements ProfilWarrior {
 	}
 
 	@Override
-	public HashMap<ElementaryEnum, Attack> getAttacks() {
-
-		return this.elements;
-	}
-
-	@Override
 	public boolean isAttackable(Warrior attacker, Warrior defender) {
 
 		return false;
@@ -134,5 +132,11 @@ public enum ProfilMonsters implements ProfilWarrior {
 	public ProfilWarrior getProfil() {
 	
 		return this;
+	}
+	
+	@Override
+	public ElementAbility getAbilities() {
+	
+		return this.abilities;
 	}
 }
