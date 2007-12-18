@@ -18,8 +18,5 @@ public abstract class MovableElement implements FightableContainer, Movable {
 	public void setPlayer(Player player){
 	  this.player = player;
 	}
-	
-	public abstract double getStepCount();
-	
-	public abstract void setStepCount(double stepCount);
+
 }
