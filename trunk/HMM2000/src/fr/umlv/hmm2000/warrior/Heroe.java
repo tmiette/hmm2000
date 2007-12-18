@@ -76,6 +76,7 @@ public class Heroe extends Warrior implements Container {
 		if (speed >= super.getSpeed()) {
 			super.setSpeed(getMinSpeed());
 		}
+		System.out.println("Suppression dans le heroe " + this + " de " + w);
 		this.troop.remove(w);
 	};
 

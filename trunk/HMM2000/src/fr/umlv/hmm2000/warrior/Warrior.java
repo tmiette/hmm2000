@@ -169,6 +169,7 @@ public class Warrior extends MovableElement implements Sellable {
 
     StringBuilder sb = new StringBuilder();
     sb.append("Warrior n¡ " + this.id);
+    sb.append(" ");
     return sb.toString();
   }
 
