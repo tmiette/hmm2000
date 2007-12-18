@@ -6,7 +6,7 @@ import fr.umlv.hmm2000.warrior.ElementAbility;
 import fr.umlv.hmm2000.warrior.Fightable;
 import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
 
-public enum ProfilCreatures implements ProfilWarrior {
+public enum ProfilCreatures {
 
 	/*
 	 * Enum default values description : TYPE(physicalAttackValue,

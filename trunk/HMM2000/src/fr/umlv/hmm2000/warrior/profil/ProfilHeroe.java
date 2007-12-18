@@ -5,7 +5,7 @@ import fr.umlv.hmm2000.warrior.ElementAbility;
 import fr.umlv.hmm2000.warrior.Fightable;
 import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
 
-public enum ProfilHeroe implements ProfilWarrior {
+public enum ProfilHeroe {
 
 	ARCHER(	10,
 					10,
