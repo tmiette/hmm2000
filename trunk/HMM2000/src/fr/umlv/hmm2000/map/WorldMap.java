@@ -80,7 +80,7 @@ public class WorldMap implements Map {
 
   @Override
   public Location getLocationForMapForegroundElement(
-      MapBackgroundElement element) {
+      MapForegroundElement element) {
     for (Entry<Location, MapForegroundElement> entry : this.elements.entrySet()) {
       if (entry.getValue().equals(element)) {
         return entry.getKey();

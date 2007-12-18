@@ -28,6 +28,6 @@ public interface Map {
   public List<MapForegroundElement> getMapForegroundElements();
 
   public Location getLocationForMapForegroundElement(
-      MapBackgroundElement element);
+      MapForegroundElement element);
 
 }
