@@ -124,5 +124,17 @@ public class Heroe extends Warrior implements Container {
 		CoreEngine.startBattle((Container)event.getSender(), (Container)event.getRecipient());
 		return false;
 	}
+	
+	@Override
+	public String toString() {
+	
+		StringBuilder sb = new StringBuilder();
+		sb.append("Hero : Troop { ");
+		for (Warrior w : this.troop) {
+			sb.append(w.toString());
+		}
+		sb.append(" }");
+		return sb.toString();
+	}
 
 }

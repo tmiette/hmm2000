@@ -244,12 +244,13 @@ public class BattleMap implements Map {
 
 		Team team = getTeam(l);
 		if (team != null) {
+			System.out.println("Suppression mapforegroundelement location = " + l);
 			Container c = this.container.get(team).getSecondElement();
 			Location newLocation = getBattlePositionLocation(l, team);
 			c.removeWarrior(c.getBattlePositionManager().getWarriorAtLocation(newLocation));
 			c.getBattlePositionManager().removeMapForegroundElement(newLocation);
 		}
-		
+		System.out.println("Cette location ne correspond a aucune equipe");
 	}
 	
 	@Override
