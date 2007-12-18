@@ -15,8 +15,6 @@ import fr.umlv.hmm2000.map.graph.CheckerboardGraph;
 import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
 import fr.umlv.hmm2000.warrior.Fightable;
-import fr.umlv.hmm2000.warrior.FightableContainer;
-import fr.umlv.hmm2000.warrior.Warrior;
 
 public class BattlePositionMap implements Map {
 
@@ -38,11 +36,11 @@ public class BattlePositionMap implements Map {
 		initMatrix();
 	}
 
-	public List<Warrior> getWarriorsOnLine(int line) {
+	public List<Fightable> getFightableOnLine(int line) {
 
-		ArrayList<Warrior> list = new ArrayList<Warrior>(this.width);
+		ArrayList<Fightable> list = new ArrayList<Fightable>(this.width);
 		if (line < LINE_NUMBER && line >= 0) {
-			for (Entry<Location, Warrior> entries : this.getUnits()) {
+			for (Entry<Location, Fightable> entries : this.getUnits()) {
 				if (entries.getKey().getX() == line) {
 					list.add(entries.getValue());
 				}
@@ -51,11 +49,11 @@ public class BattlePositionMap implements Map {
 		return list;
 	}
 
-	public List<Warrior> getWarriorsOnFirstLine() {
+	public List<Fightable> getFightableOnFirstLine() {
 
-		ArrayList<Warrior> list = new ArrayList<Warrior>(this.width);
+		ArrayList<Fightable> list = new ArrayList<Fightable>(this.width);
 		for (int line = 0; line < LINE_NUMBER; line++) {
-			for (Entry<Location, Warrior> entries : this.getUnits()) {
+			for (Entry<Location, Fightable> entries : this.getUnits()) {
 				if (entries.getKey().getX() == line) {
 					list.add(entries.getValue());
 				}
@@ -98,7 +96,7 @@ public class BattlePositionMap implements Map {
 		return this.freeLocations.get(0);
 	}
 
-	public void placeWarrior(Fightable w, Location location)
+	public void placeFightable(Fightable w, Location location)
 			throws LocationAlreadyOccupedException, ArrayIndexOutOfBoundsException,
 			NoPlaceAvailableException {
 
@@ -131,7 +129,7 @@ public class BattlePositionMap implements Map {
 		return (x < LINE_NUMBER && x >= 0 && y < this.width && y >= 0);
 	}
 
-	public Warrior getWarriorAtLocation(Location l) {
+	public Fightable getFightableAtLocation(Location l) {
 
 		return this.units.get(l);
 	}
@@ -144,7 +142,7 @@ public class BattlePositionMap implements Map {
 		// throw new IllegalMoveException("This is not a valid movement");
 		// }
 		if (this.units.containsKey(to)) {
-			Warrior w = this.units.get(to);
+			Fightable w = this.units.get(to);
 			this.units.put(to, this.units.get(from));
 			this.units.put(from, w);
 		}
@@ -158,7 +156,7 @@ public class BattlePositionMap implements Map {
 
 	public Location getLocation(Fightable w) {
 
-		for (Entry<Location, Warrior> it : getUnits()) {
+		for (Entry<Location, Fightable> it : getUnits()) {
 			if (w.equals(it.getValue())) {
 				return it.getKey();
 			}
@@ -166,7 +164,7 @@ public class BattlePositionMap implements Map {
 		return null;
 	}
 
-	public Set<Entry<Location, Warrior>> getUnits() {
+	public Set<Entry<Location, Fightable>> getUnits() {
 
 		return this.units.entrySet();
 	}
@@ -189,7 +187,7 @@ public class BattlePositionMap implements Map {
 	@Override
 	public MapForegroundElement getMapForegroundElementAtLocation(Location l) {
 
-		return this.getWarriorAtLocation(l);
+		return this.getFightableAtLocation(l);
 	}
 
 	@Override
@@ -198,10 +196,10 @@ public class BattlePositionMap implements Map {
 		return this.width;
 	}
 
-	public boolean isInFirstLine(Fightable warrior) {
+	public boolean isInFirstLine(Fightable fightable) {
 
-		List<Warrior> list = getWarriorsOnFirstLine();
-		return list.contains(warrior);
+		List<Fightable> list = getFightableOnFirstLine();
+		return list.contains(fightable);
 	}
 
 	@Override
@@ -239,7 +237,7 @@ public class BattlePositionMap implements Map {
 	public Location getLocationForMapForegroundElement(
 			MapForegroundElement element) {
 
-		return (element instanceof Warrior
+		return (element instanceof Fightable
 				? this.getLocation((Fightable) element)
 				: null);
 	}

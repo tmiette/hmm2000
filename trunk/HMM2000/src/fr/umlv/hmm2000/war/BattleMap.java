@@ -11,8 +11,8 @@ import fr.umlv.hmm2000.map.element.MapBackgroundEnum;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.map.graph.CheckerboardGraph;
 import fr.umlv.hmm2000.util.Pair;
-import fr.umlv.hmm2000.warrior.Container;
 import fr.umlv.hmm2000.warrior.Fightable;
+import fr.umlv.hmm2000.warrior.FightableContainer;
 
 public class BattleMap implements Map {
 
@@ -31,7 +31,7 @@ public class BattleMap implements Map {
 			+ (BattlePositionMap.LINE_NUMBER + LINE_FOR_HEROE) * 2
 			+ LINE_BETWEEN_TROOP - 1;
 
-	private HashMap<Team, Pair<Location, Container>> container;
+	private HashMap<Team, Pair<Location, FightableContainer>> container;
 
 	private int height;
 
@@ -39,8 +39,8 @@ public class BattleMap implements Map {
 
 	private final MapBackgroundElement[][] mbe;
 
-	public BattleMap(	Container c1,
-										Container c2) {
+	public BattleMap(	FightableContainer c1,
+										FightableContainer c2) {
 
 		this.height = c1.getBattlePositionManager().getHeight()
 				+ c2.getBattlePositionManager().getHeight() + LINE_BETWEEN_TROOP + 2
@@ -48,7 +48,7 @@ public class BattleMap implements Map {
 		this.width = Math.max(c1.getBattlePositionManager().getWidth(), c2
 				.getBattlePositionManager().getWidth());
 
-		this.container = new HashMap<Team, Pair<Location, Container>>();
+		this.container = new HashMap<Team, Pair<Location, FightableContainer>>();
 		initContainer(c1, c2);
 		this.mbe = new MapBackgroundEnum[this.height][this.width];
 		initBackGroundElements();
@@ -66,10 +66,10 @@ public class BattleMap implements Map {
 		}
 	}
 
-	private void initContainer(Container c1, Container c2) {
+	private void initContainer(FightableContainer c1, FightableContainer c2) {
 
-		Container min;
-		Container max;
+		FightableContainer min;
+		FightableContainer max;
 		if (c1.getBattlePositionManager().getWidth() >= c2
 				.getBattlePositionManager().getWidth()) {
 			min = c2;
@@ -82,8 +82,10 @@ public class BattleMap implements Map {
 		System.out.println(LAST_LINE_TROOP);
 		Location l1 = new Location(FIRST_LINE_TROOP, this.width / 2);
 		Location l2 = new Location(LAST_LINE_TROOP, this.width / 2);
-		this.container.put(Team.TOP, new Pair<Location, Container>(l1, min));
-		this.container.put(Team.BOTTOM, new Pair<Location, Container>(l2, max));
+		this.container.put(Team.TOP,
+				new Pair<Location, FightableContainer>(l1, min));
+		this.container.put(Team.BOTTOM, new Pair<Location, FightableContainer>(l2,
+				max));
 	}
 
 	private Team getTeam(Location l) {
@@ -113,7 +115,7 @@ public class BattleMap implements Map {
 	 */
 	private Location getBattlePositionLocation(Location l, Team team) {
 
-		Container c = this.container.get(team).getSecondElement();
+		FightableContainer c = this.container.get(team).getSecondElement();
 		switch (team) {
 			case TOP:
 				int minWidth = c.getBattlePositionManager().getWidth();
@@ -142,7 +144,7 @@ public class BattleMap implements Map {
 	 */
 	private Location getBattleMapLocation(Location l, Team team) {
 
-		Container c = this.container.get(team).getSecondElement();
+		FightableContainer c = this.container.get(team).getSecondElement();
 		switch (team) {
 			case TOP:
 				int minWidth = c.getBattlePositionManager().getWidth();
@@ -193,7 +195,7 @@ public class BattleMap implements Map {
 		}
 		else {
 			Location newLocation = getBattlePositionLocation(l, team);
-			Container c = this.container.get(team).getSecondElement();
+			FightableContainer c = this.container.get(team).getSecondElement();
 			return c.getBattlePositionManager().getMapForegroundElementAtLocation(
 					newLocation);
 		}
@@ -204,8 +206,8 @@ public class BattleMap implements Map {
 	public List<MapForegroundElement> getMapForegroundElements() {
 
 		ArrayList<MapForegroundElement> list = new ArrayList<MapForegroundElement>();
-		Container c1 = this.container.get(Team.TOP).getSecondElement();
-		Container c2 = this.container.get(Team.BOTTOM).getSecondElement();
+		FightableContainer c1 = this.container.get(Team.TOP).getSecondElement();
+		FightableContainer c2 = this.container.get(Team.BOTTOM).getSecondElement();
 		list.addAll(c1.getBattlePositionManager().getMapForegroundElements());
 		list.addAll(c2.getBattlePositionManager().getMapForegroundElements());
 		list.add((MapForegroundElement) c1);
@@ -231,7 +233,7 @@ public class BattleMap implements Map {
 
 		Team team = getTeam(from);
 		if (team != null) {
-			Container c = this.container.get(team).getSecondElement();
+			FightableContainer c = this.container.get(team).getSecondElement();
 			Location newFrom = getBattlePositionLocation(from, team);
 			Location newTo = getBattlePositionLocation(to, team);
 			c.getBattlePositionManager().moveMapForegroundElement(newFrom, newTo);
@@ -245,34 +247,39 @@ public class BattleMap implements Map {
 		Team team = getTeam(l);
 		if (team != null) {
 			System.out.println("Suppression mapforegroundelement location = " + l);
-			Container c = this.container.get(team).getSecondElement();
+			FightableContainer c = this.container.get(team).getSecondElement();
 			Location newLocation = getBattlePositionLocation(l, team);
-			System.out.println("Supprssion warrior : " + c.getBattlePositionManager().getWarriorAtLocation(newLocation));
-			c.removeWarrior(c.getBattlePositionManager().getWarriorAtLocation(newLocation));
-			System.out.println("Suppression ds position map a la location : " + newLocation);
+			System.out.println("Supprssion warrior : "
+					+ c.getBattlePositionManager().getFightableAtLocation(newLocation));
+			c.removeFightable(c.getBattlePositionManager().getFightableAtLocation(
+					newLocation));
+			System.out.println("Suppression ds position map a la location : "
+					+ newLocation);
 			c.getBattlePositionManager().removeMapForegroundElement(newLocation);
 		}
 		System.out.println("Cette location ne correspond a aucune equipe");
 	}
-	
+
 	@Override
 	public Location getLocationForMapForegroundElement(
 			MapForegroundElement element) {
-		Container c1 = this.container.get(Team.TOP).getSecondElement();
-		Container c2 = this.container.get(Team.BOTTOM).getSecondElement();
-		//TODO instanceof
-		Location l1 = c1.getBattlePositionManager().getLocation((Fightable)element);
-		Location l2 = c2.getBattlePositionManager().getLocation((Fightable)element);
+
+		FightableContainer c1 = this.container.get(Team.TOP).getSecondElement();
+		FightableContainer c2 = this.container.get(Team.BOTTOM).getSecondElement();
+		// TODO instanceof
+		Location l1 = c1.getBattlePositionManager()
+				.getLocation((Fightable) element);
+		Location l2 = c2.getBattlePositionManager()
+				.getLocation((Fightable) element);
 		if (l1 != null) {
 			return l1;
 		}
-		else if (l2 != null){
+		else if (l2 != null) {
 			return l2;
 		}
 		else {
 			return null;
 		}
 	}
-
 
 }
