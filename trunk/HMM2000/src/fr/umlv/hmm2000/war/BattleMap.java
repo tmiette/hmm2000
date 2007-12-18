@@ -187,11 +187,13 @@ public class BattleMap implements Map {
 
 		Team team = getTeam(l);
 		if (team == null) {
-			System.out.println("location = " + l + "retourne null");
+			System.out.println("pas d'equipe ici : " + l);
 			return null;
 		}
+		// location is owned by the container (hero...)
 		else if (this.container.get(team).getFirstElement().equals(l)) {
-			return (MapForegroundElement) this.container.get(team).getSecondElement();
+			System.out.println("position du hero");
+			return this.container.get(team).getSecondElement();
 		}
 		else {
 			Location newLocation = getBattlePositionLocation(l, team);
@@ -210,8 +212,8 @@ public class BattleMap implements Map {
 		FightableContainer c2 = this.container.get(Team.BOTTOM).getSecondElement();
 		list.addAll(c1.getBattlePositionManager().getMapForegroundElements());
 		list.addAll(c2.getBattlePositionManager().getMapForegroundElements());
-		list.add((MapForegroundElement) c1);
-		list.add((MapForegroundElement) c2);
+		list.add(c1);
+		list.add(c2);
 		return list;
 	}
 
@@ -246,18 +248,12 @@ public class BattleMap implements Map {
 
 		Team team = getTeam(l);
 		if (team != null) {
-			System.out.println("Suppression mapforegroundelement location = " + l);
 			FightableContainer c = this.container.get(team).getSecondElement();
 			Location newLocation = getBattlePositionLocation(l, team);
-			System.out.println("Supprssion warrior : "
-					+ c.getBattlePositionManager().getFightableAtLocation(newLocation));
 			c.removeFightable(c.getBattlePositionManager().getFightableAtLocation(
 					newLocation));
-			System.out.println("Suppression ds position map a la location : "
-					+ newLocation);
 			c.getBattlePositionManager().removeMapForegroundElement(newLocation);
 		}
-		System.out.println("Cette location ne correspond a aucune equipe");
 	}
 
 	@Override
@@ -266,7 +262,6 @@ public class BattleMap implements Map {
 
 		FightableContainer c1 = this.container.get(Team.TOP).getSecondElement();
 		FightableContainer c2 = this.container.get(Team.BOTTOM).getSecondElement();
-		// TODO instanceof
 		Location l1 = c1.getBattlePositionManager()
 				.getLocation((Fightable) element);
 		Location l2 = c2.getBattlePositionManager()
