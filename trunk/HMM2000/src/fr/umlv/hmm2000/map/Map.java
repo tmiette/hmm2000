@@ -12,6 +12,8 @@ public interface Map {
 
   public int getHeight();
 
+  public CheckerboardGraph graph();
+  
   public MapBackgroundElement getMapBackgroundElementAtLocation(Location l);
 
   public MapForegroundElement getMapForegroundElementAtLocation(Location l);
@@ -22,8 +24,6 @@ public interface Map {
       MapBackgroundElement element);
 
   public void moveMapForegroundElement(Location from, Location to);
-
-  public CheckerboardGraph graph();
 
   public List<MapForegroundElement> getMapForegroundElements();
 

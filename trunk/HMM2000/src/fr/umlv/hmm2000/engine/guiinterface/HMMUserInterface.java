@@ -5,14 +5,15 @@ import fr.umlv.hmm2000.engine.event.MapChangeEvent;
 import fr.umlv.hmm2000.engine.event.MoveEvent;
 import fr.umlv.hmm2000.engine.event.SelectionEvent;
 import fr.umlv.hmm2000.engine.event.MoveEvent.Step;
+import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.Map;
 
 public interface HMMUserInterface {
-
-  public void eraseMap();
   
   public void drawMap(Map map);
+  
+  public void eraseMap();
 
   public UIChoicesManager choicesManager();
 
@@ -35,4 +36,8 @@ public interface HMMUserInterface {
   public void eraseForegroundElement(EncounterEvent event);
 
   public void changeBackgroundElement(MapChangeEvent event);
+  
+  public void displaySprite(Location location, Sprite sprite);
+  
+  public void eraseSprite(Location location, Sprite sprite);
 }
