@@ -12,7 +12,7 @@ public enum ProfilHeroe {
 					100,
 					20,
 					Sprite.ARCHER,
-					new ProfilWarrior[] { ProfilCreatures.GRUNT },
+					new ProfilWarrior[] { ProfilWarrior.GRUNT },
 					new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10)
 					.addAbility(ElementaryEnum.LIGHTNING, 10, 10)),
 	LORD_OF_WAR(10,
@@ -20,7 +20,7 @@ public enum ProfilHeroe {
 							100,
 							20,
 							Sprite.LORDOFWAR,
-							new ProfilWarrior[] { ProfilCreatures.GRUNT },
+							new ProfilWarrior[] { ProfilWarrior.GRUNT },
 							new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10)
 							.addAbility(ElementaryEnum.LIGHTNING, 10, 10)),
 	SORCERER(	10,
@@ -28,7 +28,7 @@ public enum ProfilHeroe {
 						100,
 						20,
 						Sprite.SORCERER,
-						new ProfilWarrior[] { ProfilCreatures.GRUNT },
+						new ProfilWarrior[] { ProfilWarrior.GRUNT },
 						new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10)
 						.addAbility(ElementaryEnum.LIGHTNING, 10, 10));
 

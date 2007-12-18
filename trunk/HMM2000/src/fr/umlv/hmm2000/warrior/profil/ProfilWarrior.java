@@ -6,7 +6,7 @@ import fr.umlv.hmm2000.warrior.ElementAbility;
 import fr.umlv.hmm2000.warrior.Fightable;
 import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
 
-public enum ProfilCreatures {
+public enum ProfilWarrior {
 
 	/*
 	 * Enum default values description : TYPE(physicalAttackValue,
@@ -70,7 +70,7 @@ public enum ProfilCreatures {
 
 	private ElementAbility abilities;
 
-	private ProfilCreatures(double attackValue,
+	private ProfilWarrior(double attackValue,
 													double defenseValue,
 													double health,
 													Sprite sprite,
