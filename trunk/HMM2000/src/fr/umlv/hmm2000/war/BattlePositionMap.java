@@ -37,7 +37,7 @@ public class BattlePositionMap implements Map {
 		initMatrix();
 	}
 
-	public ArrayList<Warrior> getWarriorsOnLine(int line) {
+	public List<Warrior> getWarriorsOnLine(int line) {
 
 		ArrayList<Warrior> w = new ArrayList<Warrior>(this.width);
 		if (line < LINE_NUMBER && line >= 0) {
@@ -182,7 +182,7 @@ public class BattlePositionMap implements Map {
 
 	public boolean isInFirstLine(Warrior... warriors) {
 
-		ArrayList<Warrior> lineWarriors = null;
+		List<Warrior> lineWarriors = null;
 		boolean b = true;
 
 		for (int line = 0; line < LINE_NUMBER; line++) {
