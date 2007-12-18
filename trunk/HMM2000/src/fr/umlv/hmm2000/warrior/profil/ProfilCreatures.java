@@ -38,9 +38,10 @@ public enum ProfilCreatures implements ProfilWarrior {
 		@Override
 		public boolean isAttackable(Warrior attacker, Warrior defender) {
 
-			BattlePositionMap bpm = defender.getContainer()
+			BattlePositionMap bpmDefenser = defender.getContainer()
 					.getBattlePositionManager();
-			return bpm.isInFirstLine(attacker, defender);
+			BattlePositionMap bpmAttacker = attacker.getContainer().getBattlePositionManager();
+			return bpmAttacker.isInFirstLine(attacker) && bpmDefenser.isInFirstLine(defender);
 
 		}
 	},

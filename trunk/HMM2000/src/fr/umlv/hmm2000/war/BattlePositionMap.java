@@ -196,20 +196,10 @@ public class BattlePositionMap implements Map {
 		return this.width;
 	}
 
-	public boolean isInFirstLine(Warrior... warriors) {
+	public boolean isInFirstLine(Warrior warrior) {
 
-		List<Warrior> lineWarriors = null;
-		boolean b = true;
-
-		for (int line = 0; line < LINE_NUMBER; line++) {
-			if ((lineWarriors = getWarriorsOnLine(line)).size() > 0) {
-				for (int i = 0; i < warriors.length && b; i++) {
-					b = lineWarriors.contains(warriors[i]);
-				}
-				return b;
-			}
-		}
-		return false;
+		List<Warrior> list = getWarriorsOnFirstLine();
+		return list.contains(warrior);
 	}
 
 	@Override
