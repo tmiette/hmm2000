@@ -35,7 +35,7 @@ public enum ProfilCreatures implements ProfilWarrior {
 				10,
 				100,
 				20,
-				Sprite.MERCHANT,
+				Sprite.GRUNT,
 				new Attack[] {}) {
 
 		@Override
