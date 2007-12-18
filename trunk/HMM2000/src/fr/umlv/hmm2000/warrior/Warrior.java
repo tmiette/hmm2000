@@ -20,11 +20,9 @@ public class Warrior implements Sellable, Fightable {
 
 	private static double WARRIORS_COUNT = 0;
 
-	private double id;
+	private final double id;
 
 	private double health;
-
-	private Sprite sprite;
 
 	private int speed;
 
@@ -35,18 +33,20 @@ public class Warrior implements Sellable, Fightable {
 	private final ElementAbility abilities;
 
 	private FightableContainer container;
-
-	private ProfilWarrior profil;
+	
+	private final String label;
+	
+	private final Sprite sprite;
 
 	Warrior(ProfilWarrior profil) {
 
-		this.profil = profil;
-		this.health = this.profil.getHealth();
-		this.sprite = this.profil.getSprite();
-		this.defenseValue = this.profil.getDefenseValue();
-		this.attackValue = this.profil.getAttackValue();
+		this.health = profil.getHealth();
+		this.defenseValue = profil.getDefenseValue();
+		this.attackValue = profil.getAttackValue();
 		this.id = WARRIORS_COUNT++;
 		this.abilities = profil.getAbilities();
+		this.label = profil.getLabel();
+		this.sprite = profil.getSprite();
 	}
 
 	@Override
@@ -122,7 +122,7 @@ public class Warrior implements Sellable, Fightable {
 	@Override
 	public String getLabel() {
 
-		return this.profil.getLabel();
+		return this.label;
 	}
 
 	@Override
@@ -130,15 +130,9 @@ public class Warrior implements Sellable, Fightable {
 
 		Price price = new Price();
 		// TODO trouver une methode de calcul du prix
-		int gold = (2 * (int) this.profil.getHealth() + 3 * (int) this.profil
-				.getDefenseValue()) / 10;
+		int gold = (2 * (int) this.health + 3 * (int) this.defenseValue) / 10;
 		price.addResource(Kind.GOLD, gold);
 		return price;
-	}
-
-	public ProfilWarrior getProfil() {
-
-		return this.profil;
 	}
 
 	@Override
