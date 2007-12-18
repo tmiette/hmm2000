@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.warrior.Container;
+import fr.umlv.hmm2000.warrior.Fightable;
 import fr.umlv.hmm2000.warrior.Warrior;
 
 public class BattleRoundCoreManager extends DayCoreManager {
@@ -44,11 +45,11 @@ public class BattleRoundCoreManager extends DayCoreManager {
     this.warriors.put(this.defenderPlayer, this.defender.getTroop());
   }
 
-  public boolean canAttack(Warrior warrior) {
+  public boolean canAttack(Fightable warrior) {
     return this.warriors.get(this.attackerPlayer).contains(warrior);
   }
 
-  public void hasAlreadyAttacked(Warrior warrior) {
+  public void hasAlreadyAttacked(Fightable warrior) {
     this.warriors.get(this.attackerPlayer).remove(warrior);
   }
 

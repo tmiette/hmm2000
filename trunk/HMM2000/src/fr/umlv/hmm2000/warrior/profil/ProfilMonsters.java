@@ -5,7 +5,7 @@ import java.util.HashMap;
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.warrior.Attack;
 import fr.umlv.hmm2000.warrior.ElementAbility;
-import fr.umlv.hmm2000.warrior.Warrior;
+import fr.umlv.hmm2000.warrior.Fightable;
 import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
 
 public enum ProfilMonsters implements ProfilWarrior {
@@ -18,7 +18,7 @@ public enum ProfilMonsters implements ProfilWarrior {
 					new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10)
 					.addAbility(ElementaryEnum.LIGHTNING, 10, 10)){
 		@Override
-		public boolean isAttackable(Warrior attacker, Warrior defender) {
+		public boolean isAttackable(Fightable attacker, Fightable defender) {
 
 			return false;
 		}
@@ -31,7 +31,7 @@ public enum ProfilMonsters implements ProfilWarrior {
 				new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10)
 				.addAbility(ElementaryEnum.LIGHTNING, 10, 10)){
 		@Override
-		public boolean isAttackable(Warrior attacker, Warrior defender) {
+		public boolean isAttackable(Fightable attacker, Fightable defender) {
 
 			return false;
 		}
@@ -44,7 +44,7 @@ public enum ProfilMonsters implements ProfilWarrior {
 				new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10)
 				.addAbility(ElementaryEnum.LIGHTNING, 10, 10)){
 		@Override
-		public boolean isAttackable(Warrior attacker, Warrior defender) {
+		public boolean isAttackable(Fightable attacker, Fightable defender) {
 
 			return false;
 		}
@@ -99,19 +99,13 @@ public enum ProfilMonsters implements ProfilWarrior {
 	}
 
 	@Override
-	public int getSpeed() {
-
-		return this.speed;
-	}
-
-	@Override
 	public Sprite getSprite() {
 
 		return this.sprite;
 	}
 
 	@Override
-	public boolean isAttackable(Warrior attacker, Warrior defender) {
+	public boolean isAttackable(Fightable attacker, Fightable defender) {
 
 		return false;
 	}

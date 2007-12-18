@@ -8,6 +8,7 @@ import fr.umlv.hmm2000.engine.event.EncounterEvent;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.warrior.Container;
+import fr.umlv.hmm2000.warrior.Fightable;
 import fr.umlv.hmm2000.warrior.Heroe;
 import fr.umlv.hmm2000.warrior.Warrior;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
@@ -40,7 +41,7 @@ public class BattleCoreManager {
         .getSelectedElement();
     MapForegroundElement defenderElement = CoreEngine.map()
         .getMapForegroundElementAtLocation(l);
-    Warrior attackerWarrior = (Warrior) attackerElement;
+    Fightable attackerWarrior = (Fightable) attackerElement;
     Warrior defenderWarrior = (Warrior) defenderElement;
 
     if (attackerElement != null && defenderElement != null

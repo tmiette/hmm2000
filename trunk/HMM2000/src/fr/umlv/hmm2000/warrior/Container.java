@@ -14,7 +14,7 @@ public interface Container extends Profil {
 
 	public boolean addWarrior(Warrior w) throws MaxNumberOfTroopsReachedException;
 
-	public void removeWarrior(Warrior w);
+	public void removeWarrior(Fightable w);
 	
 	public BattlePositionMap getBattlePositionManager();
 	

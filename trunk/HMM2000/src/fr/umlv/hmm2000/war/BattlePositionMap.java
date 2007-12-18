@@ -14,6 +14,7 @@ import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.map.graph.CheckerboardGraph;
 import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
+import fr.umlv.hmm2000.warrior.Fightable;
 import fr.umlv.hmm2000.warrior.Warrior;
 
 public class BattlePositionMap implements Map {
@@ -154,7 +155,7 @@ public class BattlePositionMap implements Map {
 		}
 	}
 
-	public Location getLocation(Warrior w) {
+	public Location getLocation(Fightable w) {
 
 		for (Entry<Location, Warrior> it : getUnits()) {
 			if (w.equals(it.getValue())) {
@@ -196,7 +197,7 @@ public class BattlePositionMap implements Map {
 		return this.width;
 	}
 
-	public boolean isInFirstLine(Warrior warrior) {
+	public boolean isInFirstLine(Fightable warrior) {
 
 		List<Warrior> list = getWarriorsOnFirstLine();
 		return list.contains(warrior);
@@ -238,7 +239,7 @@ public class BattlePositionMap implements Map {
 			MapForegroundElement element) {
 
 		return (element instanceof Warrior
-				? this.getLocation((Warrior) element)
+				? this.getLocation((Fightable) element)
 				: null);
 	}
 }

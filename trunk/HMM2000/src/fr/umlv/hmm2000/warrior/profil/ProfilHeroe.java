@@ -2,7 +2,7 @@ package fr.umlv.hmm2000.warrior.profil;
 
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.warrior.ElementAbility;
-import fr.umlv.hmm2000.warrior.Warrior;
+import fr.umlv.hmm2000.warrior.Fightable;
 import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
 
 public enum ProfilHeroe implements ProfilWarrior {
@@ -105,7 +105,7 @@ public enum ProfilHeroe implements ProfilWarrior {
 	}
 
 	@Override
-	public boolean isAttackable(Warrior attacker, Warrior defender) {
+	public boolean isAttackable(Fightable attacker, Fightable defender) {
 
 		// TODO Auto-generated method stub
 		return false;

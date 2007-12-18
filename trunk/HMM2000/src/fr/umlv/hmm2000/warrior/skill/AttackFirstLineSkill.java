@@ -10,6 +10,7 @@ import fr.umlv.hmm2000.map.Map;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.warrior.Container;
+import fr.umlv.hmm2000.warrior.Fightable;
 import fr.umlv.hmm2000.warrior.Heroe;
 import fr.umlv.hmm2000.warrior.Warrior;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
@@ -47,11 +48,11 @@ public class AttackFirstLineSkill implements SkillAction {
 				
 				if (attacker instanceof Heroe && e instanceof Warrior) {
 					Heroe hero = (Heroe) attacker;
-					Warrior warrior = (Warrior) e;
+					Fightable warrior = (Fightable) e;
 					BattlePositionMap pMap = warrior.getContainer().getBattlePositionManager();
 					if (pMap.isInFirstLine(warrior)) {
 						try {
-							for (Warrior w : pMap.getWarriorsOnFirstLine()) {
+							for (Fightable w : pMap.getWarriorsOnFirstLine()) {
 								hero.performAttack(w);
 							}
 						}

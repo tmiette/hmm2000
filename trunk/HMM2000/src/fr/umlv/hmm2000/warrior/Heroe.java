@@ -70,7 +70,7 @@ public class Heroe extends Warrior implements Container {
 	};
 
 	@Override
-	public void removeWarrior(Warrior w) {
+	public void removeWarrior(Fightable w) {
 
 		int speed = w.getSpeed();
 		if (speed >= super.getSpeed()) {
@@ -88,7 +88,7 @@ public class Heroe extends Warrior implements Container {
 		
 		int stepCount = this.troop.get(0)
 															.getSpeed();
-		for (Warrior wit : this.troop) {
+		for (Fightable wit : this.troop) {
 			int sc;
 			if ((sc = (wit.getSpeed())) < stepCount) {
 				stepCount = sc;
@@ -132,7 +132,7 @@ public class Heroe extends Warrior implements Container {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Hero n¡ " + super.getId());
 		sb.append(" : Troop { ");
-		for (Warrior w : this.troop) {
+		for (Fightable w : this.troop) {
 			sb.append(w.toString());
 		}
 		sb.append(" }");

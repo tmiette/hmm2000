@@ -3,7 +3,7 @@ package fr.umlv.hmm2000.warrior.profil;
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.warrior.ElementAbility;
-import fr.umlv.hmm2000.warrior.Warrior;
+import fr.umlv.hmm2000.warrior.Fightable;
 import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
 
 public enum ProfilCreatures implements ProfilWarrior {
@@ -15,13 +15,12 @@ public enum ProfilCreatures implements ProfilWarrior {
 	FLIGHT(	10,
 					10,
 					100,
-					20,
 					Sprite.FLIGHT,
 					new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10)
 					.addAbility(ElementaryEnum.LIGHTNING, 10, 10)) {
 
 		@Override
-		public boolean isAttackable(Warrior attacker, Warrior defender) {
+		public boolean isAttackable(Fightable attacker, Fightable defender) {
 
 			return true;
 		}
@@ -30,13 +29,12 @@ public enum ProfilCreatures implements ProfilWarrior {
 	GRUNT(10,
 				10,
 				20,
-				20,
 				Sprite.GRUNT,
 				new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10)
 				.addAbility(ElementaryEnum.LIGHTNING, 10, 10)) {
 
 		@Override
-		public boolean isAttackable(Warrior attacker, Warrior defender) {
+		public boolean isAttackable(Fightable attacker, Fightable defender) {
 
 			BattlePositionMap bpmDefenser = defender.getContainer()
 					.getBattlePositionManager();
@@ -48,13 +46,12 @@ public enum ProfilCreatures implements ProfilWarrior {
 	WIZZARD(10,
 					10,
 					100,
-					20,
 					Sprite.WIZZARD,
 					new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10)
 							.addAbility(ElementaryEnum.LIGHTNING, 10, 10)) {
 
 		@Override
-		public boolean isAttackable(Warrior attacker, Warrior defender) {
+		public boolean isAttackable(Fightable attacker, Fightable defender) {
 
 			BattlePositionMap bpm = defender.getContainer()
 					.getBattlePositionManager();
@@ -69,8 +66,6 @@ public enum ProfilCreatures implements ProfilWarrior {
 
 	private double health;
 
-	private int speed;
-
 	private Sprite sprite;
 
 	private ElementAbility abilities;
@@ -78,14 +73,12 @@ public enum ProfilCreatures implements ProfilWarrior {
 	private ProfilCreatures(double attackValue,
 													double defenseValue,
 													double health,
-													int speed,
 													Sprite sprite,
 													ElementAbility abilities) {
 
 		this.attackValue = attackValue;
 		this.defenseValue = defenseValue;
 		this.health = health;
-		this.speed = speed;
 		this.sprite = sprite;
 		this.abilities = abilities;
 	}
@@ -109,19 +102,13 @@ public enum ProfilCreatures implements ProfilWarrior {
 	}
 
 	@Override
-	public int getSpeed() {
-
-		return this.speed;
-	}
-
-	@Override
 	public Sprite getSprite() {
 
 		return this.sprite;
 	}
 
 	@Override
-	public boolean isAttackable(Warrior attacker, Warrior defender) {
+	public boolean isAttackable(Fightable attacker, Fightable defender) {
 
 		return false;
 	}
