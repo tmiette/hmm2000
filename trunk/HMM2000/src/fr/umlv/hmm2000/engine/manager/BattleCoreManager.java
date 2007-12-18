@@ -7,6 +7,7 @@ import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.warrior.Container;
+import fr.umlv.hmm2000.warrior.Heroe;
 import fr.umlv.hmm2000.warrior.Warrior;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.exception.WarriorNotReachableException;
@@ -51,6 +52,10 @@ public class BattleCoreManager {
       } catch (WarriorDeadException e) {
         CoreEngine.uiManager().displayMessage("Le défenseur est mort.");
         CoreEngine.map().removeMapForegroundElement(l);
+        System.out.println("attacker :" + this.attacker.getTroop().size());
+        System.out.println("defender :" + this.defender.getTroop().size());
+        System.out.println((Heroe)this.attacker);
+        System.out.println((Heroe)this.defender);
         if (this.attacker.getTroop().size() == 0
             || this.defender.getTroop().size() == 0) {
           // TODO retirer le container du player
