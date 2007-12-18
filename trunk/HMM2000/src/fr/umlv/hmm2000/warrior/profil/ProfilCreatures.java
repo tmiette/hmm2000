@@ -29,7 +29,7 @@ public enum ProfilCreatures implements ProfilWarrior {
 	},
 	GRUNT(10,
 				10,
-				100,
+				20,
 				20,
 				Sprite.GRUNT,
 				new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10)
