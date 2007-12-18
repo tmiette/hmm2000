@@ -83,55 +83,46 @@ public enum ProfilWarrior {
 		this.abilities = abilities;
 	}
 
-	@Override
 	public double getAttackValue() {
 
 		return this.attackValue;
 	}
 
-	@Override
 	public double getDefenseValue() {
 
 		return this.defenseValue;
 	}
 
-	@Override
 	public double getHealth() {
 
 		return this.health;
 	}
 
-	@Override
 	public Sprite getSprite() {
 
 		return this.sprite;
 	}
 
-	@Override
 	public boolean isAttackable(Fightable attacker, Fightable defender) {
 
 		return false;
 	}
 
-	@Override
 	public String getLabel() {
 
 		return this.toString();
 	}
 
-	@Override
 	public String getProfilName() {
 
 		return this.name();
 	}
 
-	@Override
 	public ProfilWarrior getProfil() {
 
 		return this;
 	}
 
-	@Override
 	public ElementAbility getAbilities() {
 
 		return this.abilities;

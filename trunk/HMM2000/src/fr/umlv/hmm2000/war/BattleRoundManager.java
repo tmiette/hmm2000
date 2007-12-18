@@ -6,7 +6,7 @@ import java.util.Random;
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.warrior.Container;
 import fr.umlv.hmm2000.warrior.Warrior;
-import fr.umlv.hmm2000.warrior.profil.ProfilCreatures;
+import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
 import fr.umlv.hmm2000.warrior.profil.ProfilHeroe;
 
 
@@ -33,7 +33,7 @@ public class BattleRoundManager {
 		if (attacker.getProfilName().equals(ProfilHeroe.LORD_OF_WAR.name())) {
 			return this.p1;
 		}
-		else if (defender.getProfil() instanceof ProfilCreatures) {
+		else if (defender.getProfil() instanceof ProfilWarrior) {
 			return this.p1;
 		}
 		else if (defender.getProfil() instanceof ProfilHeroe) {

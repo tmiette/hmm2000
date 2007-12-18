@@ -63,25 +63,21 @@ public enum ProfilHeroe {
 		this.abilities = abilities;
 	}
 
-	@Override
 	public double getAttackValue() {
 
 		return this.attackValue;
 	}
 
-	@Override
 	public double getDefenseValue() {
 
 		return this.defenseValue;
 	}
 
-	@Override
 	public double getHealth() {
 
 		return this.health;
 	}
 
-	@Override
 	public String getLabel() {
 
 		return this.toString();
@@ -92,38 +88,32 @@ public enum ProfilHeroe {
 		return this.profilWarrior;
 	}
 
-	@Override
 	public int getSpeed() {
 
 		return this.speed;
 	}
 
-	@Override
 	public Sprite getSprite() {
 
 		return this.sprite;
 	}
 
-	@Override
 	public boolean isAttackable(Fightable attacker, Fightable defender) {
 
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public String getProfilName() {
 
 		return this.name();
 	}
 
-	@Override
 	public ProfilWarrior getProfil() {
 
 		return this;
 	}
 	
-	@Override
 	public ElementAbility getAbilities() {
 	
 		return this.abilities;
