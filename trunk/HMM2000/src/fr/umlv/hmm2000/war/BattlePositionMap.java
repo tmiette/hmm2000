@@ -12,7 +12,6 @@ import fr.umlv.hmm2000.map.element.MapBackgroundElement;
 import fr.umlv.hmm2000.map.element.MapBackgroundEnum;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.map.graph.CheckerboardGraph;
-import fr.umlv.hmm2000.war.exception.IllegalMoveException;
 import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
 import fr.umlv.hmm2000.warrior.Warrior;
@@ -39,15 +38,31 @@ public class BattlePositionMap implements Map {
 
 	public List<Warrior> getWarriorsOnLine(int line) {
 
-		ArrayList<Warrior> w = new ArrayList<Warrior>(this.width);
+		ArrayList<Warrior> list = new ArrayList<Warrior>(this.width);
 		if (line < LINE_NUMBER && line >= 0) {
 			for (Entry<Location, Warrior> entries : this.getUnits()) {
 				if (entries.getKey().getX() == line) {
-					w.add(entries.getValue());
+					list.add(entries.getValue());
 				}
 			}
 		}
-		return w;
+		return list;
+	}
+
+	public List<Warrior> getWarriorsOnFirstLine() {
+
+		ArrayList<Warrior> list = new ArrayList<Warrior>(this.width);
+		for (int line = 0; line < LINE_NUMBER; line++) {
+			for (Entry<Location, Warrior> entries : this.getUnits()) {
+				if (entries.getKey().getX() == line) {
+					list.add(entries.getValue());
+				}
+			}
+			if (list.size() != 0) {
+				return list;
+			}
+		}
+		return list;
 	}
 
 	private void initMatrix() {
@@ -121,10 +136,11 @@ public class BattlePositionMap implements Map {
 
 	@Override
 	public void moveMapForegroundElement(Location from, Location to) {
-//TODO
-//		if (!isValid(from) || !isValid(to)) {
-//			throw new IllegalMoveException("This is not a valid movement");
-//		}
+
+		// TODO
+		// if (!isValid(from) || !isValid(to)) {
+		// throw new IllegalMoveException("This is not a valid movement");
+		// }
 		if (this.units.containsKey(to)) {
 			Warrior w = this.units.get(to);
 			this.units.put(to, this.units.get(from));
@@ -224,5 +240,14 @@ public class BattlePositionMap implements Map {
 
 		this.units.remove(l);
 		this.freeLocations.remove(l);
+	}
+
+	@Override
+	public Location getLocationForMapForegroundElement(
+			MapForegroundElement element) {
+
+		return (element instanceof Warrior
+				? this.getLocation((Warrior) element)
+				: null);
 	}
 }

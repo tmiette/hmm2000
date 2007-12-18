@@ -12,6 +12,7 @@ import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.map.graph.CheckerboardGraph;
 import fr.umlv.hmm2000.util.Pair;
 import fr.umlv.hmm2000.warrior.Container;
+import fr.umlv.hmm2000.warrior.Warrior;
 
 public class BattleMap implements Map {
 
@@ -250,5 +251,25 @@ public class BattleMap implements Map {
 		}
 		
 	}
+	
+	@Override
+	public Location getLocationForMapForegroundElement(
+			MapForegroundElement element) {
+		Container c1 = this.container.get(Team.TOP).getSecondElement();
+		Container c2 = this.container.get(Team.BOTTOM).getSecondElement();
+		//TODO instanceof
+		Location l1 = c1.getBattlePositionManager().getLocation((Warrior)element);
+		Location l2 = c2.getBattlePositionManager().getLocation((Warrior)element);
+		if (l1 != null) {
+			return l1;
+		}
+		else if (l2 != null){
+			return l2;
+		}
+		else {
+			return null;
+		}
+	}
+
 
 }
