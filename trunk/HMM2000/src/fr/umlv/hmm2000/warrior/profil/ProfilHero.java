@@ -9,6 +9,9 @@ public enum ProfilHero {
 	ARCHER(	Sprite.ARCHER,
 					new Fightable[] {
 							UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
+							UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
+							UnitFactory.createWarrior(ProfilWarrior.GRUNT, Level.LEVEL_1),
+							UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
 							UnitFactory.createWarrior(ProfilWarrior.GRUNT, Level.LEVEL_1),
 							UnitFactory.createWarrior(ProfilWarrior.WIZZARD, Level.LEVEL_1) }),
 	LORD_OF_WAR(Sprite.LORDOFWAR,
