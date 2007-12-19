@@ -187,7 +187,7 @@ public class Warrior implements Fightable {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("Warrior n " + this.id);
+    sb.append("Warrior number " + this.id);
     sb.append(" ");
     return sb.toString();
   }

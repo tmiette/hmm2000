@@ -9,6 +9,7 @@ import fr.umlv.hmm2000.engine.event.EncounterEvent;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.map.MovableElement;
+import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
@@ -126,8 +127,18 @@ public class Hero extends MovableElement {
 	@Override
 	public boolean encounter(EncounterEvent event) {
 
-		CoreEngine.startBattle((FightableContainer) event.getSender(), (FightableContainer) event
-				.getRecipient());
+		MapForegroundElement sender = event.getSender();
+		MapForegroundElement recipient = event.getRecipient();
+		if (sender instanceof FightableContainer && recipient instanceof FightableContainer) {
+			FightableContainer s = (FightableContainer)sender;
+			FightableContainer r = (FightableContainer)recipient;
+			
+			if (!s.getPlayer().equals(r.getPlayer())) {
+				CoreEngine.startBattle(s, r);
+			}
+			return false;
+		}
+		
 		return false;
 	}
 
