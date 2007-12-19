@@ -22,7 +22,6 @@ public class UnitFactory {
   public static Hero createHero(Player player, ProfilHero profil) {
     Hero h = new Hero(player, profil.getSprite(), profil.name());
     for (Fightable fightable : profil.getUnits()) {
-    	fightable.setFightableContainer(h);
 			try {
 				h.addFightable(fightable);
 			}
