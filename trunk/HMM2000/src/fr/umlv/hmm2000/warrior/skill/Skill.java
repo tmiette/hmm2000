@@ -1,6 +1,6 @@
 package fr.umlv.hmm2000.warrior.skill;
 
-import fr.umlv.hmm2000.warrior.Container;
+import fr.umlv.hmm2000.warrior.FightableContainer;
 
 public enum Skill {
 
@@ -21,7 +21,7 @@ public enum Skill {
 		this.action = action;
 	}
 	
-	public void perform(Container container) {
+	public void perform(FightableContainer container) {
 
 		this.action.perform(container);
 	}

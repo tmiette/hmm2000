@@ -1,10 +1,10 @@
 package fr.umlv.hmm2000.warrior.skill;
 
-import fr.umlv.hmm2000.warrior.Container;
+import fr.umlv.hmm2000.warrior.FightableContainer;
 
 
 public interface SkillAction {
 
-	public void perform(Container attacker);
+	public void perform(FightableContainer attacker);
 
 }

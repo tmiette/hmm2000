@@ -151,15 +151,15 @@ public class Warrior implements Sellable, Fightable {
   }
 
   @Override
-  public void performAttack(Warrior defender) throws WarriorDeadException,
+  public void performAttack(Fightable defender) throws WarriorDeadException,
       WarriorNotReachableException {
 
     if (!this.attackBehaviour.isAttackable(this, defender)) {
       throw new WarriorNotReachableException("This warrior is not reachable");
     }
-    double elementaryDamage = this.abilities.getDamage(defender.abilities);
+    double elementaryDamage = this.abilities.getDamage(defender.getAbilities());
     defender.hurt(this.physicalAttackValue + elementaryDamage
-        - defender.physicalDefenseValue);
+        - defender.getPhysicalDefenseValue());
   }
 
   @Override
@@ -196,6 +196,12 @@ public class Warrior implements Sellable, Fightable {
   @Override
   public int getSpeed() {
     return this.speed;
+  }
+  
+  @Override
+  public ElementAbility getAbilities() {
+  
+  	return this.abilities;
   }
 
 }
