@@ -27,10 +27,10 @@ public class Hero extends MovableElement {
 
   private Sprite sprite;
 
-  Hero(Player player, Sprite sprite, String name) {
+  Hero(Player player, Sprite sprite, String name, ArrayList<Fightable> troop) {
     super(player);
     this.name = name;
-    this.troop = new ArrayList<Fightable>();
+    this.troop = troop;
     this.battlePosition = new BattlePositionMap(
         FightableContainer.MAX_TROOP_SIZE / BattlePositionMap.LINE_NUMBER);
     this.sprite = sprite;

@@ -19,7 +19,7 @@ public class UnitFactory {
   }
   
   public static Hero createHero(Player player, ProfilHero profil) {
-    return new Hero(player, profil.getSprite(), profil.name());
+    return new Hero(player, profil.getSprite(), profil.name(), profil.getUnits());
 
   }
 

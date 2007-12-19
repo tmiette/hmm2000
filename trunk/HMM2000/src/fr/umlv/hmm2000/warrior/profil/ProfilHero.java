@@ -37,4 +37,12 @@ public enum ProfilHero {
 		return this.sprite;
 	}
 
+	
+	public ArrayList<Fightable> getUnits() {
+	
+		return this.units;
+	}
+	
+
+
 }
