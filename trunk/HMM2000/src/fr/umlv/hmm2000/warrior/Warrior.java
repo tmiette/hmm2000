@@ -5,13 +5,12 @@ import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.resource.Resource.Kind;
 import fr.umlv.hmm2000.salesentity.Price;
-import fr.umlv.hmm2000.salesentity.Sellable;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.exception.WarriorNotReachableException;
 import fr.umlv.hmm2000.warrior.profil.AttackBehaviour;
 import fr.umlv.hmm2000.warrior.profil.ElementAbility;
 
-public class Warrior implements Sellable, Fightable {
+public class Warrior implements Fightable {
 
   private static double WARRIORS_COUNT = 0;
 

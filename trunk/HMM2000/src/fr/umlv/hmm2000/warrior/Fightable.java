@@ -1,12 +1,13 @@
 package fr.umlv.hmm2000.warrior;
 
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
+import fr.umlv.hmm2000.salesentity.Sellable;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.exception.WarriorNotReachableException;
 import fr.umlv.hmm2000.warrior.profil.AttackBehaviour;
 import fr.umlv.hmm2000.warrior.profil.ElementAbility;
 
-public interface Fightable extends MapForegroundElement {
+public interface Fightable extends Sellable, MapForegroundElement {
 
   public double getPhysicalAttackValue();
 

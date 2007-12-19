@@ -33,7 +33,7 @@ public class AttackAllSkill implements SkillAction {
 		for (MapForegroundElement mfe : map.getMapForegroundElements()) {
 			try {
 				
-				((Heroe)c).performAttack((Warrior)mfe);
+				
 			}
 			catch (WarriorDeadException e) {
 				map.removeMapForegroundElement(map.getLocationForMapForegroundElement(mfe));
