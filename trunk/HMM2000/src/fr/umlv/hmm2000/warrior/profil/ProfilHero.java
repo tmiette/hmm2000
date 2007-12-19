@@ -7,38 +7,32 @@ import fr.umlv.hmm2000.warrior.UnitFactory;
 public enum ProfilHero {
 
 	ARCHER(	Sprite.ARCHER,
-					new Fightable[] { UnitFactory.createWarrior(ProfilWarrior.FLIGHT,
-							Level.LEVEL_1) },
-					new ElementAbility().addAbility(ElementaryEnum.POISON, 10, 10),
-					10),
+					new Fightable[] {
+							UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
+							UnitFactory.createWarrior(ProfilWarrior.GRUNT, Level.LEVEL_1),
+							UnitFactory.createWarrior(ProfilWarrior.WIZZARD, Level.LEVEL_1) }),
 	LORD_OF_WAR(Sprite.LORDOFWAR,
-							new Fightable[] { UnitFactory.createWarrior(ProfilWarrior.FLIGHT,
-									Level.LEVEL_1) },
-							new ElementAbility().addAbility(ElementaryEnum.POISON, 10, 10),
-							10),
+							new Fightable[] {
+									UnitFactory
+											.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
+									UnitFactory.createWarrior(ProfilWarrior.GRUNT, Level.LEVEL_1),
+									UnitFactory.createWarrior(ProfilWarrior.WIZZARD,
+											Level.LEVEL_1) }),
 	SORCERER(	Sprite.SORCERER,
-						new Fightable[] { UnitFactory.createWarrior(ProfilWarrior.FLIGHT,
-								Level.LEVEL_1) },
-						new ElementAbility().addAbility(ElementaryEnum.POISON, 10, 10),
-						0);
+						new Fightable[] {
+								UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
+								UnitFactory.createWarrior(ProfilWarrior.GRUNT, Level.LEVEL_1),
+								UnitFactory.createWarrior(ProfilWarrior.WIZZARD, Level.LEVEL_1) });
 
 	private final Sprite sprite;
 
 	private final Fightable[] units;
 
-	private final ElementAbility abilities;
-
-	private final double attackValue;
-
 	private ProfilHero(	Sprite sprite,
-											Fightable[] units,
-											ElementAbility abilities,
-											double attackvalue) {
+											Fightable[] units) {
 
 		this.sprite = sprite;
 		this.units = units;
-		this.abilities = abilities;
-		this.attackValue = attackvalue;
 
 	}
 
@@ -51,19 +45,5 @@ public enum ProfilHero {
 
 		return this.units;
 	}
-
-	
-	public ElementAbility getAbilities() {
-	
-		return this.abilities;
-	}
-
-	
-	public double getAttackValue() {
-	
-		return this.attackValue;
-	}
-	
-	
 
 }

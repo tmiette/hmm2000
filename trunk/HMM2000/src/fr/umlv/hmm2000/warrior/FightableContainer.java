@@ -6,7 +6,6 @@ import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
-import fr.umlv.hmm2000.warrior.profil.ElementAbility;
 
 public interface FightableContainer extends MapForegroundElement {
 
@@ -25,9 +24,4 @@ public interface FightableContainer extends MapForegroundElement {
   
   public void setPlayer(Player player);
   
-	public ElementAbility getAbilities();
-
-	
-	public double getPhysicalAttackValue();
-	
 }
