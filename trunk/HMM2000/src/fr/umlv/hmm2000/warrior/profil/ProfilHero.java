@@ -3,6 +3,7 @@ package fr.umlv.hmm2000.warrior.profil;
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.warrior.Fightable;
 import fr.umlv.hmm2000.warrior.UnitFactory;
+import fr.umlv.hmm2000.warrior.skill.Skill;
 
 public enum ProfilHero {
 

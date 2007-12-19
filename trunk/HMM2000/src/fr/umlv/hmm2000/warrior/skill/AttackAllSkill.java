@@ -9,7 +9,7 @@ import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.profil.ElementAbility;
 
 
-public class AttackAllSkill implements SkillAction {
+public class AttackAllSkill implements Skill {
 	
 	private final ElementAbility abilities;
 	
@@ -25,7 +25,7 @@ public class AttackAllSkill implements SkillAction {
 
 
 	@Override
-	public void perform(FightableContainer c) {
+	public void perform() {
 
 		
 		Map map = CoreEngine.map();

@@ -12,7 +12,7 @@ import fr.umlv.hmm2000.warrior.FightableContainer;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.profil.ElementAbility;
 
-public class AttackFirstLineSkill implements SkillAction {
+public class AttackFirstLineSkill implements Skill {
 
 	private final ElementAbility abilities;
 
@@ -26,7 +26,7 @@ public class AttackFirstLineSkill implements SkillAction {
 	}
 
 	@Override
-	public void perform(final FightableContainer attacker) {
+	public void perform() {
 
 		CoreEngine.requestLocationSelection(new LocationSelectionRequester(
 				new LocationSelection(LocationSelectionRequester.FIRST_LINE_LOCATION,

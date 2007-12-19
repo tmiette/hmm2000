@@ -11,7 +11,7 @@ import fr.umlv.hmm2000.warrior.FightableContainer;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.profil.ElementAbility;
 
-public class AttackSecondLineUnitSkill implements SkillAction {
+public class AttackSecondLineUnitSkill implements Skill {
 
 	private final ElementAbility abilities;
 
@@ -25,7 +25,7 @@ public class AttackSecondLineUnitSkill implements SkillAction {
 	}
 
 	@Override
-	public void perform(final FightableContainer container) {
+	public void perform() {
 
 		CoreEngine.requestLocationSelection(new LocationSelectionRequester(
 				new LocationSelection(LocationSelectionRequester.SECOND_LINE_LOCATION,

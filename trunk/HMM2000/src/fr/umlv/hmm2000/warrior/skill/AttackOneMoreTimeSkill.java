@@ -11,24 +11,14 @@ import fr.umlv.hmm2000.warrior.Fightable;
 import fr.umlv.hmm2000.warrior.FightableContainer;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 
-public class AttackOneMoreTimeSkill implements SkillAction {
-
-	private static AttackOneMoreTimeSkill instance;
-
-	public static AttackOneMoreTimeSkill getInstance() {
-
-		if (AttackOneMoreTimeSkill.instance == null) {
-			AttackOneMoreTimeSkill.instance = new AttackOneMoreTimeSkill();
-		}
-		return AttackOneMoreTimeSkill.instance;
-	}
+public class AttackOneMoreTimeSkill implements Skill {
 
 	private AttackOneMoreTimeSkill() {
 
 	}
 
 	@Override
-	public void perform(final FightableContainer container) {
+	public void perform() {
 
 		CoreEngine.requestLocationSelection(new LocationSelectionRequester(
 				new LocationSelection(LocationSelectionRequester.ATTACKER_DEFENDER_LOCATIONS,
