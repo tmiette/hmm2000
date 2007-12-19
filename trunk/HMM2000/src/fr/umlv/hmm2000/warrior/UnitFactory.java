@@ -1,6 +1,7 @@
 package fr.umlv.hmm2000.warrior;
 
 import fr.umlv.hmm2000.Player;
+import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
 import fr.umlv.hmm2000.warrior.profil.Level;
 import fr.umlv.hmm2000.warrior.profil.ProfilHero;
 import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
@@ -19,8 +20,17 @@ public class UnitFactory {
   }
   
   public static Hero createHero(Player player, ProfilHero profil) {
-    return new Hero(player, profil.getSprite(), profil.name(), profil.getUnits());
-
+    Hero h = new Hero(player, profil.getSprite(), profil.name());
+    for (Fightable fightable : profil.getUnits()) {
+    	fightable.setFightableContainer(h);
+			try {
+				h.addFightable(fightable);
+			}
+			catch (MaxNumberOfTroopsReachedException e) {
+				//do nothing
+			}
+		}
+    return h;
   }
 
 }

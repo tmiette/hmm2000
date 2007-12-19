@@ -19,7 +19,7 @@ public enum ProfilHero {
 	private final Sprite sprite;
 
 	private final Fightable[] units;
-
+	
 	private ProfilHero(	Sprite sprite,
 											Fightable[] units) {
 
