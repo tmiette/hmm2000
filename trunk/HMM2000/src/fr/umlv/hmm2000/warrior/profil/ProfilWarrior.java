@@ -2,130 +2,105 @@ package fr.umlv.hmm2000.warrior.profil;
 
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.war.BattlePositionMap;
-import fr.umlv.hmm2000.warrior.ElementAbility;
 import fr.umlv.hmm2000.warrior.Fightable;
-import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
 
 public enum ProfilWarrior {
 
-	/*
-	 * Enum default values description : TYPE(physicalAttackValue,
-	 * physycalDefenseValue, health, speed, sprite, arrayAttacks)
-	 */
-	FLIGHT(	10,
-					10,
-					100,
-					Sprite.FLIGHT,
-					new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10)
-					.addAbility(ElementaryEnum.LIGHTNING, 10, 10)) {
+  /*
+   * Enum default values description : TYPE(physicalAttackValue,
+   * physycalDefenseValue, health, speed, sprite, arrayAttacks)
+   */
+  FLIGHT(Sprite.FLIGHT, 10, 10, 100, 30,
+      new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10).addAbility(
+          ElementaryEnum.LIGHTNING, 10, 10), new AttackBehaviour() {
 
-		@Override
-		public boolean isAttackable(Fightable attacker, Fightable defender) {
+        @Override
+        public boolean isAttackable(Fightable attacker, Fightable defender) {
+          return true;
+        }
 
-			return true;
-		}
+      }),
+  GRUNT(Sprite.GRUNT, 10, 10, 20, 20,
+      new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10).addAbility(
+          ElementaryEnum.LIGHTNING, 10, 10), new AttackBehaviour() {
 
-	},
-	GRUNT(10,
-				10,
-				20,
-				Sprite.GRUNT,
-				new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10)
-				.addAbility(ElementaryEnum.LIGHTNING, 10, 10)) {
+        @Override
+        public boolean isAttackable(Fightable attacker, Fightable defender) {
+          BattlePositionMap bpmDefenser = defender.getFightableContainer()
+              .getBattlePositionManager();
+          BattlePositionMap bpmAttacker = attacker.getFightableContainer()
+              .getBattlePositionManager();
+          return bpmAttacker.isInFirstLine(attacker)
+              && bpmDefenser.isInFirstLine(defender);
+        }
 
-		@Override
-		public boolean isAttackable(Fightable attacker, Fightable defender) {
+      }),
+  WIZZARD(Sprite.WIZZARD, 10, 10, 100, 10,
+      new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10).addAbility(
+          ElementaryEnum.LIGHTNING, 10, 10), new AttackBehaviour() {
 
-			BattlePositionMap bpmDefenser = defender.getFightableContainer()
-					.getBattlePositionManager();
-			BattlePositionMap bpmAttacker = attacker.getFightableContainer().getBattlePositionManager();
-			return bpmAttacker.isInFirstLine(attacker) && bpmDefenser.isInFirstLine(defender);
+        @Override
+        public boolean isAttackable(Fightable attacker, Fightable defender) {
+          BattlePositionMap bpm = defender.getFightableContainer()
+              .getBattlePositionManager();
+          return bpm.isInFirstLine(defender);
+        }
 
-		}
-	},
-	WIZZARD(10,
-					10,
-					100,
-					Sprite.WIZZARD,
-					new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10)
-							.addAbility(ElementaryEnum.LIGHTNING, 10, 10)) {
+      });
 
-		@Override
-		public boolean isAttackable(Fightable attacker, Fightable defender) {
+  private final Sprite sprite;
 
-			BattlePositionMap bpm = defender.getFightableContainer()
-					.getBattlePositionManager();
-			return bpm.isInFirstLine(defender);
-		}
+  private final double physicalAttackValue;
 
-	};
+  private final double physicalDefenseValue;
 
-	private double attackValue;
+  private final double health;
 
-	private double defenseValue;
+  private final int speed;
 
-	private double health;
+  private final ElementAbility abilities;
 
-	private Sprite sprite;
+  private final AttackBehaviour attackBahaviour;
 
-	private ElementAbility abilities;
+  private ProfilWarrior(Sprite sprite, double physicalAttackValue,
+      double physicalDefenseValue, double health, int speed,
+      ElementAbility abilities, AttackBehaviour attackBahaviour) {
 
-	private ProfilWarrior(double attackValue,
-													double defenseValue,
-													double health,
-													Sprite sprite,
-													ElementAbility abilities) {
+    this.sprite = sprite;
+    this.physicalAttackValue = physicalAttackValue;
+    this.physicalDefenseValue = physicalDefenseValue;
+    this.health = health;
+    this.speed = speed;
+    this.abilities = abilities;
+    this.attackBahaviour = attackBahaviour;
+  }
 
-		this.attackValue = attackValue;
-		this.defenseValue = defenseValue;
-		this.health = health;
-		this.sprite = sprite;
-		this.abilities = abilities;
-	}
+  public Sprite getSprite() {
+    return this.sprite;
+  }
 
-	public double getAttackValue() {
+  public double getPhysicalAttackValue() {
+    return this.physicalAttackValue;
+  }
 
-		return this.attackValue;
-	}
+  public double getPhysicalDefenseValue() {
+    return this.physicalDefenseValue;
+  }
 
-	public double getDefenseValue() {
+  public double getHealth() {
+    return this.health;
+  }
 
-		return this.defenseValue;
-	}
+  public int getSpeed() {
+    return this.speed;
+  }
 
-	public double getHealth() {
+  public ElementAbility getAbilities() {
+    return this.abilities;
+  }
 
-		return this.health;
-	}
-
-	public Sprite getSprite() {
-
-		return this.sprite;
-	}
-
-	public boolean isAttackable(Fightable attacker, Fightable defender) {
-
-		return false;
-	}
-
-	public String getLabel() {
-
-		return this.toString();
-	}
-
-	public String getProfilName() {
-
-		return this.name();
-	}
-
-	public ProfilWarrior getProfil() {
-
-		return this;
-	}
-
-	public ElementAbility getAbilities() {
-
-		return this.abilities;
-	}
+  public AttackBehaviour getAttackBahaviour() {
+    return this.attackBahaviour;
+  }
 
 }

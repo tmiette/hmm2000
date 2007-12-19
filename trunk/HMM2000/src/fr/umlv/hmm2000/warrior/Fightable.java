@@ -3,30 +3,35 @@ package fr.umlv.hmm2000.warrior;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.exception.WarriorNotReachableException;
+import fr.umlv.hmm2000.warrior.profil.AttackBehaviour;
 
 public interface Fightable extends MapForegroundElement {
 
-	public abstract void setAttackValue(double attackValue);
+  public double getPhysicalAttackValue();
 
-	public abstract void setDefenseValue(double defenseValue);
+  public void setPhysicalAttackValue(double attackValue);
 
-	public abstract double getAttackValue();
+  public void setPhysicalDefenseValue(double defenseValue);
 
-	public abstract FightableContainer getFightableContainer();
+  public FightableContainer getFightableContainer();
 
-	public abstract double getDefenseValue();
+  public double getPhysicalDefenseValue();
 
-	public abstract double getHealth();
+  public double getHealth();
 
-	public abstract void performAttack(Warrior defender)
-			throws WarriorDeadException, WarriorNotReachableException;
+  public double getCurrentHealth();
 
-	public abstract void setFightableContainer(FightableContainer container);
+  public void performAttack(Warrior defender) throws WarriorDeadException,
+      WarriorNotReachableException;
 
-	public abstract void setHealth(double health) throws WarriorDeadException;
+  public void setFightableContainer(FightableContainer container);
 
-	public abstract double getId();
-	
-	public abstract int getSpeed();
+  public void hurt(double damage) throws WarriorDeadException;
+
+  public double getId();
+
+  public int getSpeed();
+
+  public AttackBehaviour getAttackBehaviour();
 
 }

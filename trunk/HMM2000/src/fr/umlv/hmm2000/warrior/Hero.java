@@ -1,4 +1,5 @@
 package fr.umlv.hmm2000.warrior;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,6 @@ import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
 import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
-import fr.umlv.hmm2000.warrior.profil.ProfilHeroe;
 
 public class Hero extends MovableElement {
 
@@ -19,36 +19,40 @@ public class Hero extends MovableElement {
 
   private final String name;
 
-  private final BattlePositionMap bpm;
-  
+  private final BattlePositionMap battlePosition;
+
+  private double stepCount;
+
   private int speed;
-  
+
   private Sprite sprite;
 
-  public Hero(ProfilHeroe profil, Player player, String name) {
+  public Hero(Player player, Sprite sprite, String name) {
     super(player);
     this.name = name;
     this.troop = new ArrayList<Fightable>();
-    this.bpm = new BattlePositionMap(FightableContainer.MAX_TROOP_SIZE
-        / BattlePositionMap.LINE_NUMBER);
-    this.sprite = profil.getSprite();
+    this.battlePosition = new BattlePositionMap(
+        FightableContainer.MAX_TROOP_SIZE / BattlePositionMap.LINE_NUMBER);
+    this.sprite = sprite;
   }
 
   @Override
   public boolean addFightable(Fightable f)
       throws MaxNumberOfTroopsReachedException {
-    if (this.troop.size() >= FightableContainer.MAX_TROOP_SIZE) {
+    if (this.troop.size() == FightableContainer.MAX_TROOP_SIZE) {
       throw new MaxNumberOfTroopsReachedException(
           "The max number of troops, a heroe can contain, is reached");
     }
 
-    int speed = f.getSpeed();
-    if (this.speed > speed) {
+    final int speed = f.getSpeed();
+    if (speed < this.speed || this.speed == 0) {
       this.speed = speed;
+      this.stepCount = speed;
     }
 
     try {
-      this.bpm.placeWarrior(f, this.bpm.getFirstFreeLocation());
+      this.battlePosition.placeWarrior(f, this.battlePosition
+          .getFirstFreeLocation());
     } catch (ArrayIndexOutOfBoundsException e) {
       return false;
     } catch (LocationAlreadyOccupedException e) {
@@ -63,38 +67,46 @@ public class Hero extends MovableElement {
 
   @Override
   public BattlePositionMap getBattlePositionManager() {
-    // TODO Auto-generated method stub
-    return null;
+    return this.battlePosition;
   }
 
   @Override
   public List<Fightable> getTroop() {
-    // TODO Auto-generated method stub
-    return null;
+    return this.troop;
   }
 
   @Override
   public void removeFightable(Fightable f) {
-    // TODO Auto-generated method stub
-
+    int index;
+    if ((index = this.troop.indexOf(f)) != -1) {
+      int speed = this.troop.get(index).getSpeed();
+      this.troop.remove(index);
+      if (this.speed == speed) {
+        this.speed = 0;
+        for (Fightable fightable : this.troop) {
+          if (fightable.getSpeed() < this.speed || this.speed == 0) {
+            this.speed = fightable.getSpeed();
+            this.stepCount = fightable.getSpeed();
+          }
+        }
+      }
+    }
   }
 
   @Override
   public double getStepCount() {
-    // TODO Auto-generated method stub
-    return 0;
+    return this.stepCount;
   }
 
   @Override
   public void setStepCount(double stepCount) {
-    // TODO Auto-generated method stub
-    
+    this.stepCount = stepCount >= 0 ? stepCount : 0;
   }
 
   @Override
   public void accept(UIDisplayingVisitor visitor) {
     visitor.visit(this);
-    
+
   }
 
   @Override
@@ -105,14 +117,17 @@ public class Hero extends MovableElement {
 
   @Override
   public void nextDay(int day) {
-    // TODO Auto-generated method stub
-    
+    this.stepCount = this.speed;
   }
 
   @Override
   public Sprite getSprite() {
-    // TODO Auto-generated method stub
-    return null;
+    return this.sprite;
+  }
+
+  @Override
+  public String getName() {
+    return this.name;
   }
 
 }

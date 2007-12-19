@@ -1,10 +1,9 @@
-package fr.umlv.hmm2000.warrior;
+package fr.umlv.hmm2000.warrior.profil;
 
 import java.util.HashMap;
 import java.util.Map.Entry;
 
 import fr.umlv.hmm2000.util.Pair;
-import fr.umlv.hmm2000.warrior.attack.elementary.ElementaryEnum;
 
 public class ElementAbility {
 

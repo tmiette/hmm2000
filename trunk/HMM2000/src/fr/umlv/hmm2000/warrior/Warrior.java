@@ -1,218 +1,202 @@
 package fr.umlv.hmm2000.warrior;
 
-import java.awt.Container;
-
-import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.event.EncounterEvent;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.gui.Sprite;
-import fr.umlv.hmm2000.map.MovableElement;
 import fr.umlv.hmm2000.resource.Resource.Kind;
 import fr.umlv.hmm2000.salesentity.Price;
 import fr.umlv.hmm2000.salesentity.Sellable;
-import fr.umlv.hmm2000.util.Pair;
-import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.exception.WarriorNotReachableException;
-import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
+import fr.umlv.hmm2000.warrior.profil.AttackBehaviour;
+import fr.umlv.hmm2000.warrior.profil.ElementAbility;
 
 public class Warrior implements Sellable, Fightable {
 
-	private static double WARRIORS_COUNT = 0;
+  private static double WARRIORS_COUNT = 0;
 
-	private final double id;
+  private final double id;
 
-	private double health;
+  private FightableContainer container;
 
-	private int speed;
+  private final String label;
 
-	private double defenseValue;
+  private final Sprite sprite;
 
-	private double attackValue;
+  private double physicalAttackValue;
 
-	private final ElementAbility abilities;
+  private double physicalDefenseValue;
 
-	private FightableContainer container;
-	
-	private final String label;
-	
-	private final Sprite sprite;
+  private double health;
 
-	Warrior(ProfilWarrior profil) {
+  private double currentHealth;
 
-		this.health = profil.getHealth();
-		this.defenseValue = profil.getDefenseValue();
-		this.attackValue = profil.getAttackValue();
-		this.id = WARRIORS_COUNT++;
-		this.abilities = profil.getAbilities();
-		this.label = profil.getLabel();
-		this.sprite = profil.getSprite();
-	}
+  private int speed;
 
-	@Override
-	public void accept(UIDisplayingVisitor visitor) {
+  private ElementAbility abilities;
 
-		visitor.visit(this);
+  private AttackBehaviour attackBehaviour;
 
-	}
+  Warrior(FightableContainer container, String label, Sprite sprite,
+      double physicalAttackValue, double physicalDefenseValue, double health,
+      int speed, ElementAbility abilities, AttackBehaviour attackBehaviour) {
 
-	@Override
-	public void acquire(EncounterEvent event) {
+    this.id = Warrior.WARRIORS_COUNT++;
+    this.container = container;
+    this.label = label;
+    this.sprite = sprite;
+    this.physicalAttackValue = physicalDefenseValue;
+    this.physicalDefenseValue = physicalAttackValue;
+    this.health = health;
+    this.currentHealth = health;
+    this.speed = speed;
+    this.abilities = abilities;
+    this.attackBehaviour = attackBehaviour;
+  }
 
-		MovableElement element = event.getSender();
-		if (element instanceof Container) {
-			try {
-				((Container) element).addWarrior(this);
-			}
-			catch (MaxNumberOfTroopsReachedException e) {
-				for (Pair<Kind, Integer> pair : this.getPrice().getResourcesList()) {
-					element.getPlayer().addResource(pair.getFirstElement(),
-							pair.getSecondElement());
-				}
-				CoreEngine.uiManager().displayMessage("Vous avez trop d'unité.");
-			}
-		}
-	}
+  @Override
+  public void accept(UIDisplayingVisitor visitor) {
+    visitor.visit(this);
+  }
 
-	@Override
-	public boolean encounter(EncounterEvent event) {
+  @Override
+  public void acquire(EncounterEvent event) {
+    // TODO
+    /*
+     * MovableElement element = event.getSender(); if (element instanceof
+     * Container) { try { ((Container) element).addWarrior(this); } catch
+     * (MaxNumberOfTroopsReachedException e) { for (Pair<Kind, Integer> pair :
+     * this.getPrice().getResourcesList()) {
+     * element.getPlayer().addResource(pair.getFirstElement(),
+     * pair.getSecondElement()); } CoreEngine.uiManager().displayMessage("Vous
+     * avez trop d'unité."); } }
+     */
+  }
 
-		return true;
-	}
+  @Override
+  public boolean encounter(EncounterEvent event) {
+    // TODO
+    return true;
+  }
 
-	@Override
-	public boolean equals(Object obj) {
+  @Override
+  public boolean equals(Object obj) {
+    if (!(obj instanceof Warrior)) {
+      return false;
+    }
+    return ((Warrior) obj).id == this.id;
+  }
 
-		if (!(obj instanceof Warrior)) {
-			return false;
-		}
-		return ((Warrior) obj).id == this.id;
-	}
+  @Override
+  public double getPhysicalAttackValue() {
+    return this.physicalAttackValue;
+  }
 
-	@Override
-	public double getAttackValue() {
+  @Override
+  public FightableContainer getFightableContainer() {
+    return this.container;
+  }
 
-		return this.attackValue;
-	}
+  @Override
+  public double getPhysicalDefenseValue() {
+    return this.physicalDefenseValue;
+  }
 
-	@Override
-	public FightableContainer getFightableContainer() {
+  @Override
+  public double getHealth() {
+    return this.health;
+  }
 
-		return this.container;
-	}
+  @Override
+  public double getCurrentHealth() {
+    return this.currentHealth;
+  }
 
-	@Override
-	public double getDefenseValue() {
+  @Override
+  public AttackBehaviour getAttackBehaviour() {
+    return this.attackBehaviour;
+  }
 
-		return this.defenseValue;
-	}
+  @Override
+  public double getId() {
+    return this.id;
+  }
 
-	@Override
-	public double getHealth() {
+  @Override
+  public String getLabel() {
+    return this.label;
+  }
 
-		return this.health;
-	}
+  @Override
+  public Price getPrice() {
+    Price price = new Price();
+    // TODO trouver une methode de calcul du prix
+    int gold = (2 * (int) this.health + 3 * (int) this.physicalDefenseValue) / 10;
+    price.addResource(Kind.GOLD, gold);
+    return price;
+  }
 
-	@Override
-	public double getId() {
+  @Override
+  public Sprite getSprite() {
+    return this.sprite;
+  }
 
-		return this.id;
-	}
+  @Override
+  public int hashCode() {
+    return (int) this.id;
+  }
 
-	@Override
-	public String getLabel() {
+  @Override
+  public void nextDay(int day) {
+    // do nothing
+  }
 
-		return this.label;
-	}
+  @Override
+  public void performAttack(Warrior defender) throws WarriorDeadException,
+      WarriorNotReachableException {
 
-	@Override
-	public Price getPrice() {
+    if (!this.attackBehaviour.isAttackable(this, defender)) {
+      throw new WarriorNotReachableException("This warrior is not reachable");
+    }
+    double elementaryDamage = this.abilities.getDamage(defender.abilities);
+    defender.hurt(this.physicalAttackValue + elementaryDamage
+        - defender.physicalDefenseValue);
+  }
 
-		Price price = new Price();
-		// TODO trouver une methode de calcul du prix
-		int gold = (2 * (int) this.health + 3 * (int) this.defenseValue) / 10;
-		price.addResource(Kind.GOLD, gold);
-		return price;
-	}
+  @Override
+  public void setPhysicalAttackValue(double attackValue) {
+    this.physicalAttackValue = attackValue;
+  }
 
-	@Override
-	public Sprite getSprite() {
+  @Override
+  public void setFightableContainer(FightableContainer container) {
+    this.container = container;
+  }
 
-		return this.sprite;
-	}
+  @Override
+  public void setPhysicalDefenseValue(double defenseValue) {
+    this.physicalDefenseValue = defenseValue;
+  }
 
-	@Override
-	public int hashCode() {
+  @Override
+  public void hurt(double damage) throws WarriorDeadException {
+    this.health -= damage;
+    if (this.health <= 0) {
+      throw new WarriorDeadException("Warrior is dead");
+    }
+  }
 
-		return (int) this.id;
-	}
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("Warrior n " + this.id);
+    sb.append(" ");
+    return sb.toString();
+  }
 
-	@Override
-	public void nextDay(int day) {
-
-		// do nothing
-	}
-
-	@Override
-	public void performAttack(Warrior defender) throws WarriorDeadException,
-			WarriorNotReachableException {
-
-		if (!profil.isAttackable(this, defender)) {
-			throw new WarriorNotReachableException("This warrior is not reachable");
-		}
-		double damage = this.abilities.getDamage(defender.abilities);
-		double health = defender.health
-				- (this.attackValue + damage - this.defenseValue);
-		defender.setHealth(health);
-		// double damage = ((this.getAttackValue() + attack.getDamage()
-		// * ((100 - defender.getAttacks().get(attack.getType()).getResistance()) /
-		// 100)) - defender
-		// .getDefenseValue());
-		// defender.setHealth(damage);
-	}
-
-	@Override
-	public void setAttackValue(double attackValue) {
-
-		this.attackValue = attackValue;
-	}
-
-	@Override
-	public void setFightableContainer(FightableContainer container) {
-
-		this.container = container;
-	}
-	
-
-	@Override
-	public void setDefenseValue(double defenseValue) {
-
-		this.defenseValue = defenseValue;
-	}
-
-	@Override
-	public void setHealth(double health) throws WarriorDeadException {
-
-		this.health = health;
-		if (this.health <= 0) {
-			throw new WarriorDeadException("Warrior is dead");
-		}
-	}
-
-	@Override
-	public String toString() {
-
-		StringBuilder sb = new StringBuilder();
-		sb.append("Warrior n� " + this.id);
-		sb.append(" ");
-		return sb.toString();
-	}
-
-	@Override
-	public int getSpeed() {
-
-		return this.speed;
-	}
-
+  @Override
+  public int getSpeed() {
+    return this.speed;
+  }
 
 }
