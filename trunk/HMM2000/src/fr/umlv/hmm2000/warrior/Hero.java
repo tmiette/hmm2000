@@ -12,6 +12,7 @@ import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
 import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
+import fr.umlv.hmm2000.warrior.profil.ElementAbility;
 
 public class Hero extends MovableElement {
 
@@ -26,14 +27,19 @@ public class Hero extends MovableElement {
   private int speed;
 
   private Sprite sprite;
+  
+  private final ElementAbility abilities;
+	private final double physicalAttackValue;
 
-  Hero(Player player, Sprite sprite, String name) {
+  Hero(Player player, Sprite sprite, String name, ElementAbility abilities, double physical) {
     super(player);
     this.name = name;
     this.battlePosition = new BattlePositionMap(
         FightableContainer.MAX_TROOP_SIZE / BattlePositionMap.LINE_NUMBER);
     this.sprite = sprite;
     this.troop = new ArrayList<Fightable>();
+    this.abilities = abilities;
+    this.physicalAttackValue = physical;
   }
 
   @Override
@@ -128,5 +134,17 @@ public class Hero extends MovableElement {
   public String getName() {
     return this.name;
   }
+
+	
+	public ElementAbility getAbilities() {
+	
+		return this.abilities;
+	}
+
+	
+	public double getPhysicalAttackValue() {
+	
+		return this.physicalAttackValue;
+	}
 
 }

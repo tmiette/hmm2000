@@ -1,6 +1,6 @@
 package fr.umlv.hmm2000.warrior.skill;
 
-import fr.umlv.hmm2000.warrior.Container;
+import fr.umlv.hmm2000.warrior.FightableContainer;
 
 public class AttackSecondLineUnitSkill implements SkillAction {
 
@@ -19,7 +19,7 @@ public class AttackSecondLineUnitSkill implements SkillAction {
 	}
 
 	@Override
-	public void perform(Container c) {
+	public void perform(FightableContainer c) {
 
 		// TODO Auto-generated method stub
 

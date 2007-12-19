@@ -1,6 +1,6 @@
 package fr.umlv.hmm2000.warrior.skill;
 
-import fr.umlv.hmm2000.warrior.Container;
+import fr.umlv.hmm2000.warrior.FightableContainer;
 
 public class AttackOneMoreTimeSkill implements SkillAction {
 
@@ -19,9 +19,7 @@ public class AttackOneMoreTimeSkill implements SkillAction {
 	}
 
 	@Override
-	public void perform(Container c) {
-
-		// TODO Auto-generated method stub
+	public void perform(FightableContainer c) {
 
 	}
 }
