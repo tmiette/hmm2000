@@ -304,11 +304,13 @@ public class LawrenceUIEngine implements HMMUserInterface {
   @Override
   public void displaySprite(Location location, Sprite sprite) {
     this.model.addDeffered(location.getY(), location.getX(), sprite);
+    this.model.swap();
   }
 
   @Override
   public void eraseSprite(Location location, Sprite sprite) {
     this.model.removeDeffered(location.getY(), location.getX(), sprite);
+    this.model.swap();
   }
 
 }

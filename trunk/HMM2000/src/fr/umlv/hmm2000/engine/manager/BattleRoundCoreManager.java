@@ -1,26 +1,25 @@
 package fr.umlv.hmm2000.engine.manager;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import fr.umlv.hmm2000.Player;
-import fr.umlv.hmm2000.warrior.Container;
 import fr.umlv.hmm2000.warrior.Fightable;
-import fr.umlv.hmm2000.warrior.Warrior;
+import fr.umlv.hmm2000.warrior.FightableContainer;
 
 public class BattleRoundCoreManager extends DayCoreManager {
 
   private final Player attackerPlayer;
   private final Player defenderPlayer;
-  private final Container attacker;
-  private final Container defender;
+  private final FightableContainer attacker;
+  private final FightableContainer defender;
 
-  private final HashMap<Player, ArrayList<Warrior>> warriors;
+  private final HashMap<Player, List<Fightable>> warriors;
 
-  public BattleRoundCoreManager(Container attacker, Container defender,
-      Player attackerPlayer, Player defenderPlayer) {
+  public BattleRoundCoreManager(FightableContainer attacker,
+      FightableContainer defender, Player attackerPlayer, Player defenderPlayer) {
     super(attackerPlayer, defenderPlayer);
-    this.warriors = new HashMap<Player, ArrayList<Warrior>>();
+    this.warriors = new HashMap<Player, List<Fightable>>();
     this.attackerPlayer = attackerPlayer;
     this.defenderPlayer = defenderPlayer;
     this.attacker = attacker;
@@ -45,12 +44,12 @@ public class BattleRoundCoreManager extends DayCoreManager {
     this.warriors.put(this.defenderPlayer, this.defender.getTroop());
   }
 
-  public boolean canAttack(Fightable warrior) {
-    return this.warriors.get(this.attackerPlayer).contains(warrior);
+  public boolean canAttack(Fightable f) {
+    return this.warriors.get(this.attackerPlayer).contains(f);
   }
 
-  public void hasAlreadyAttacked(Fightable warrior) {
-    this.warriors.get(this.attackerPlayer).remove(warrior);
+  public void hasAlreadyAttacked(Fightable f) {
+    this.warriors.get(this.attackerPlayer).remove(f);
   }
 
 }

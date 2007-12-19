@@ -18,5 +18,7 @@ public abstract class MovableElement implements FightableContainer, Movable {
 	public void setPlayer(Player player){
 	  this.player = player;
 	}
+	
+	public abstract String getName();
 
 }

@@ -87,19 +87,16 @@ public class MoveCoreManager {
         Location l = move.getEnd();
         MapForegroundElement element = CoreEngine.map()
             .getMapForegroundElementAtLocation(l);
-        if (element != null) {
-          EncounterEvent ecounterEvent = new EncounterEvent(this.currentSource,
-              element, move.getStart(), l);
-          if (!CoreEngine.encounterManager().perform(ecounterEvent)) {
-            break;
-          }
+        EncounterEvent ecounterEvent = new EncounterEvent(this.currentSource,
+            element, move.getStart(), l);
+        if (!CoreEngine.encounterManager().perform(ecounterEvent)) {
+          break;
         }
-        event.getSource().setStepCount(move.getRemainingStepCount());
-        CoreEngine.map().moveMapForegroundElement(move.getStart(),
-            move.getEnd());
-        CoreEngine.uiManager().displayStep(move);
-        CoreEngine.selectionManager().perform(move.getEnd());
       }
+      event.getSource().setStepCount(move.getRemainingStepCount());
+      CoreEngine.map().moveMapForegroundElement(move.getStart(), move.getEnd());
+      CoreEngine.uiManager().displayStep(move);
+      CoreEngine.selectionManager().perform(move.getEnd());
     }
   }
 

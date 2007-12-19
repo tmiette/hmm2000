@@ -1,7 +1,7 @@
 package fr.umlv.hmm2000.engine.manager;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
-import fr.umlv.hmm2000.engine.event.SelectionEvent;
+import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 
@@ -17,11 +17,14 @@ public class SelectionCoreManager {
         .getMapForegroundElementAtLocation(l);
     if (element != null) {
       if (this.selectedLocation != null) {
-        CoreEngine.uiManager().eraseSelection(
-            new SelectionEvent(element, this.selectedLocation));
+        // CoreEngine.uiManager().eraseSelection(
+        // new SelectionEvent(element, this.selectedLocation));
+        CoreEngine.uiManager().eraseSprite(this.selectedLocation, Sprite.SELECTION);
         this.selectedLocation = null;
       }
-      CoreEngine.uiManager().displaySelection(new SelectionEvent(element, l));
+      // CoreEngine.uiManager().displaySelection(new SelectionEvent(element,
+      // l));
+      CoreEngine.uiManager().displaySprite(l, Sprite.SELECTION);
       element.accept(CoreEngine.uiManager().displayingVisitor());
       this.selectedLocation = l;
     }

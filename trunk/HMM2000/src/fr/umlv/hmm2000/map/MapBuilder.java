@@ -12,12 +12,12 @@ import fr.umlv.hmm2000.resource.Resource.Kind;
 import fr.umlv.hmm2000.salesentity.SalesEntity;
 import fr.umlv.hmm2000.salesentity.SalesEntity.SalesEntityEnum;
 import fr.umlv.hmm2000.salesentity.spell.Spell;
-import fr.umlv.hmm2000.warrior.Heroe;
-import fr.umlv.hmm2000.warrior.Level;
-import fr.umlv.hmm2000.warrior.WarriorFactory;
+import fr.umlv.hmm2000.warrior.Hero;
+import fr.umlv.hmm2000.warrior.UnitFactory;
 import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
-import fr.umlv.hmm2000.warrior.profil.ProfilCreatures;
-import fr.umlv.hmm2000.warrior.profil.ProfilHeroe;
+import fr.umlv.hmm2000.warrior.profil.Level;
+import fr.umlv.hmm2000.warrior.profil.ProfilHero;
+import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
 
 public class MapBuilder {
 
@@ -70,19 +70,18 @@ public class MapBuilder {
 
     WorldMap map = createMap(level);
 
-    map.addMapForegroundElement(WarriorFactory.createHeroe(ProfilHeroe.ARCHER,
-        p1, "batman", Level.LEVEL_1), new Location(0, 0));
-    map.addMapForegroundElement(WarriorFactory.createHeroe(ProfilHeroe.SORCERER,
-        p1, "batman", Level.LEVEL_1), new Location(14, 3));
-    Heroe spiderman = WarriorFactory.createHeroe(ProfilHeroe.LORD_OF_WAR, p2,
-        "spiderman", Level.LEVEL_1);
+    map.addMapForegroundElement(UnitFactory.createHero(p1, ProfilHero.ARCHER),
+        new Location(0, 0));
+    map.addMapForegroundElement(
+        UnitFactory.createHero(p1, ProfilHero.SORCERER), new Location(14, 3));
+    Hero spiderman = UnitFactory.createHero(p2, ProfilHero.LORD_OF_WAR);
     try {
-      spiderman.addWarrior(WarriorFactory.createWarrior(ProfilCreatures.FLIGHT,
-          p2, Level.LEVEL_1));
-      spiderman.addWarrior(WarriorFactory.createWarrior(ProfilCreatures.FLIGHT,
-          p2, Level.LEVEL_3));
-      spiderman.addWarrior(WarriorFactory.createWarrior(ProfilCreatures.WIZZARD,
-          p2, Level.LEVEL_3));
+      spiderman.addFightable(UnitFactory.createWarrior(ProfilWarrior.FLIGHT,
+          Level.LEVEL_1));
+      spiderman.addFightable(UnitFactory.createWarrior(ProfilWarrior.FLIGHT,
+          Level.LEVEL_3));
+      spiderman.addFightable(UnitFactory.createWarrior(ProfilWarrior.WIZZARD,
+          Level.LEVEL_3));
     } catch (MaxNumberOfTroopsReachedException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
@@ -101,10 +100,10 @@ public class MapBuilder {
     map.addMapForegroundElement(m, new Location(2, 2));
 
     SalesEntity b = new SalesEntity(SalesEntityEnum.BARRACKS);
-    b.addProduct(WarriorFactory.createWarrior(ProfilCreatures.WIZZARD,
-        null, Level.LEVEL_3), 1);
-    b.addProduct(WarriorFactory.createWarrior(ProfilCreatures.FLIGHT,
-        null, Level.LEVEL_2), 2);
+    b.addProduct(UnitFactory
+        .createWarrior(ProfilWarrior.WIZZARD, Level.LEVEL_3), 1);
+    b.addProduct(
+        UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_2), 2);
     map.addMapForegroundElement(b, new Location(2, 5));
 
     return map;

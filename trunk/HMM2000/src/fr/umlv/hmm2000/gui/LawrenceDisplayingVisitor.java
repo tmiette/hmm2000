@@ -9,9 +9,9 @@ import fr.umlv.hmm2000.warrior.Warrior;
 public class LawrenceDisplayingVisitor implements UIDisplayingVisitor {
 
   @Override
-  public void visit(Hero heroe) {
-    System.out.println();
-    System.out.println(heroe.getPlayer().getResources());
+  public void visit(Hero hero) {
+    System.out.println(hero.getName());
+    System.out.println(hero.getPlayer().getResources());
   }
 
   @Override
@@ -28,7 +28,6 @@ public class LawrenceDisplayingVisitor implements UIDisplayingVisitor {
 
   @Override
   public void visit(Warrior warrior) {
-    System.out.println(warrior.getProfilName() + "health : "
-        + warrior.getHealth());
+    System.out.println(warrior.getLabel() + "health : " + warrior.getHealth());
   }
 }
