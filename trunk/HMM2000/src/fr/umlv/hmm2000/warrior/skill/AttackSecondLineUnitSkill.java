@@ -1,27 +1,64 @@
 package fr.umlv.hmm2000.warrior.skill;
 
+import fr.umlv.hmm2000.engine.CoreEngine;
+import fr.umlv.hmm2000.engine.LocationSelectionRequester;
+import fr.umlv.hmm2000.engine.LocationSelectionRequester.LocationSelection;
+import fr.umlv.hmm2000.map.Location;
+import fr.umlv.hmm2000.map.Map;
+import fr.umlv.hmm2000.map.element.MapForegroundElement;
+import fr.umlv.hmm2000.warrior.Fightable;
 import fr.umlv.hmm2000.warrior.FightableContainer;
+import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
+import fr.umlv.hmm2000.warrior.profil.ElementAbility;
 
 public class AttackSecondLineUnitSkill implements SkillAction {
 
-	private static AttackSecondLineUnitSkill instance;
+	private final ElementAbility abilities;
 
-	public static AttackSecondLineUnitSkill getInstance() {
+	private final double physical;
 
-		if (AttackSecondLineUnitSkill.instance == null) {
-			AttackSecondLineUnitSkill.instance = new AttackSecondLineUnitSkill();
-		}
-		return AttackSecondLineUnitSkill.instance;
-	}
+	private AttackSecondLineUnitSkill(ElementAbility abilities,
+																		double physical) {
 
-	private AttackSecondLineUnitSkill() {
-
+		this.abilities = abilities;
+		this.physical = physical;
 	}
 
 	@Override
-	public void perform(FightableContainer c) {
+	public void perform(final FightableContainer container) {
 
-		// TODO Auto-generated method stub
+		CoreEngine.requestLocationSelection(new LocationSelectionRequester(
+				new LocationSelection(LocationSelectionRequester.SECOND_LINE_LOCATION,
+						"selectionner un joueur de la deuxieme ligne adverse")) {
+
+			@Override
+			public void perform(Location... locations) {
+
+				Location defenderLocation = locations[0];
+
+				Map map = CoreEngine.map();
+				MapForegroundElement e = map
+						.getMapForegroundElementAtLocation(defenderLocation);
+
+				if (e instanceof Fightable) {
+					Fightable defender = (Fightable) e;
+
+					double elementaryDamage = abilities
+							.getDamage(defender.getAbilities());
+
+					try {
+						defender.hurt(physical + elementaryDamage
+								- defender.getPhysicalDefenseValue());
+
+					}
+					catch (WarriorDeadException e1) {
+						map.removeMapForegroundElement(map
+								.getLocationForMapForegroundElement(defender));
+					}
+				}
+
+			}
+		});
 
 	}
 }

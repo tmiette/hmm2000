@@ -21,11 +21,15 @@ public class BattlePositionMap implements Map {
 	private final HashMap<Location, Fightable> units;
 
 	public static final int LINE_NUMBER = 2;
+	
+	private static final int FIRST_LINE = 0;
+	
+	private static final int SECOND_LINE = 1;
 
 	private final int width;
 
 	private final ArrayList<Location> freeLocations;
-
+	
 	private MapBackgroundElement[][] mbe;
 
 	public BattlePositionMap(int slots) {
@@ -34,19 +38,6 @@ public class BattlePositionMap implements Map {
 		this.units = new HashMap<Location, Fightable>(LINE_NUMBER * slots);
 		this.freeLocations = initFreeLocations();
 		initMatrix();
-	}
-
-	public List<Fightable> getFightableOnLine(int line) {
-
-		ArrayList<Fightable> list = new ArrayList<Fightable>(this.width);
-		if (line < LINE_NUMBER && line >= 0) {
-			for (Entry<Location, Fightable> entries : this.getUnits()) {
-				if (entries.getKey().getX() == line) {
-					list.add(entries.getValue());
-				}
-			}
-		}
-		return list;
 	}
 
 	public List<Fightable> getFightableOnFirstLine() {
@@ -60,6 +51,17 @@ public class BattlePositionMap implements Map {
 			}
 			if (list.size() != 0) {
 				return list;
+			}
+		}
+		return list;
+	}
+	
+	public List<Fightable> getFightableOnSecondLine() {
+
+		ArrayList<Fightable> list = new ArrayList<Fightable>(this.width);
+		for (Entry<Location, Fightable> entries : this.getUnits()) {
+			if (entries.getKey().getX() == SECOND_LINE) {
+				list.add(entries.getValue());
 			}
 		}
 		return list;
@@ -199,6 +201,12 @@ public class BattlePositionMap implements Map {
 	public boolean isInFirstLine(Fightable fightable) {
 
 		List<Fightable> list = getFightableOnFirstLine();
+		return list.contains(fightable);
+	}
+	
+	public boolean isInSecondLine(Fightable fightable) {
+
+		List<Fightable> list = getFightableOnSecondLine();
 		return list.contains(fightable);
 	}
 

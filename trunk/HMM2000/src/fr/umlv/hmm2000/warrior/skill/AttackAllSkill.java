@@ -6,14 +6,24 @@ import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.warrior.Fightable;
 import fr.umlv.hmm2000.warrior.FightableContainer;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
+import fr.umlv.hmm2000.warrior.profil.ElementAbility;
 
 
 public class AttackAllSkill implements SkillAction {
 	
-
-  private AttackAllSkill() {
-  }
+	private final ElementAbility abilities;
 	
+	private final double physical;
+
+	
+	private AttackAllSkill(	ElementAbility abilities,
+													double physical) {
+
+		this.abilities = abilities;
+		this.physical = physical;
+	}
+
+
 	@Override
 	public void perform(FightableContainer c) {
 
@@ -23,8 +33,8 @@ public class AttackAllSkill implements SkillAction {
 			try {
 					if (mfe instanceof Fightable) {
 						Fightable defender = (Fightable)mfe;
-						double elementaryDamage = c.getAbilities().getDamage(defender.getAbilities());
-				    defender.hurt(c.getPhysicalAttackValue() + elementaryDamage
+						double elementaryDamage = this.abilities.getDamage(defender.getAbilities());
+				    defender.hurt(this.physical + elementaryDamage
 				        - defender.getPhysicalDefenseValue());
 					}
 				}

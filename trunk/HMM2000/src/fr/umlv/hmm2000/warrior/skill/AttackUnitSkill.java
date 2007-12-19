@@ -1,27 +1,66 @@
 package fr.umlv.hmm2000.warrior.skill;
 
+import fr.umlv.hmm2000.engine.CoreEngine;
+import fr.umlv.hmm2000.engine.LocationSelectionRequester;
+import fr.umlv.hmm2000.engine.LocationSelectionRequester.LocationSelection;
+import fr.umlv.hmm2000.map.Location;
+import fr.umlv.hmm2000.map.Map;
+import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.warrior.Container;
+import fr.umlv.hmm2000.warrior.Fightable;
+import fr.umlv.hmm2000.warrior.FightableContainer;
+import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
+import fr.umlv.hmm2000.warrior.profil.ElementAbility;
 
 public class AttackUnitSkill implements SkillAction {
 
-	private static AttackUnitSkill instance;
+	private final ElementAbility abilities;
 
-	public static AttackUnitSkill getInstance() {
+	private final double physical;
 
-		if (AttackUnitSkill.instance == null) {
-			AttackUnitSkill.instance = new AttackUnitSkill();
-		}
-		return AttackUnitSkill.instance;
+	private AttackUnitSkill(ElementAbility abilities,
+																		double physical) {
+
+		this.abilities = abilities;
+		this.physical = physical;
 	}
-
-	private AttackUnitSkill() {
-
-	}
-
+	
 	@Override
-	public void perform(Container c) {
+	public void perform(final FightableContainer container) {
 
-		// TODO Auto-generated method stub
+		CoreEngine.requestLocationSelection(new LocationSelectionRequester(
+				new LocationSelection(LocationSelectionRequester.DEFENDER_LOCATION,
+						"Qui voulez vous attaquer ?")) {
 
+			@Override
+			public void perform(Location... locations) {
+
+				Location defenderLocation = locations[0];
+
+				Map map = CoreEngine.map();
+				MapForegroundElement e = map
+						.getMapForegroundElementAtLocation(defenderLocation);
+
+				if (e instanceof Fightable) {
+					Fightable defender = (Fightable) e;
+
+					double elementaryDamage = abilities
+							.getDamage(defender.getAbilities());
+
+					try {
+						defender.hurt(physical + elementaryDamage
+								- defender.getPhysicalDefenseValue());
+
+					}
+					catch (WarriorDeadException e1) {
+						map.removeMapForegroundElement(map
+								.getLocationForMapForegroundElement(defender));
+					}
+				}
+				
+				
+			}
+		});
+		
 	}
 }
