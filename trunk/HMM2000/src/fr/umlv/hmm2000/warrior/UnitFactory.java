@@ -4,6 +4,7 @@ import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
 import fr.umlv.hmm2000.warrior.profil.Level;
 import fr.umlv.hmm2000.warrior.profil.ProfilHero;
+import fr.umlv.hmm2000.warrior.profil.ProfilMonster;
 import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
 
 public class UnitFactory {
@@ -31,6 +32,20 @@ public class UnitFactory {
 			}
 		}
 		return h;
+	}
+	
+	public static Monster createMonster(Player player, ProfilMonster profil) {
+
+		Monster m = new Monster(profil.getSprite());
+		for (Fightable fightable : profil.getUnits()) {
+			try {
+				m.addFightable(fightable);
+			}
+			catch (MaxNumberOfTroopsReachedException e) {
+				// do nothing
+			}
+		}
+		return m;
 	}
 
 }
