@@ -37,12 +37,11 @@ public class Warrior implements Sellable, Fightable {
 
   private AttackBehaviour attackBehaviour;
 
-  Warrior(FightableContainer container, String label, Sprite sprite,
+  Warrior(String label, Sprite sprite,
       double physicalAttackValue, double physicalDefenseValue, double health,
       int speed, ElementAbility abilities, AttackBehaviour attackBehaviour) {
 
     this.id = Warrior.WARRIORS_COUNT++;
-    this.container = container;
     this.label = label;
     this.sprite = sprite;
     this.physicalAttackValue = physicalDefenseValue;

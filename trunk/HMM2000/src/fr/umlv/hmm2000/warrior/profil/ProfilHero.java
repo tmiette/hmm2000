@@ -1,6 +1,9 @@
 package fr.umlv.hmm2000.warrior.profil;
 
+import java.util.ArrayList;
+
 import fr.umlv.hmm2000.gui.Sprite;
+import fr.umlv.hmm2000.warrior.Fightable;
 
 public enum ProfilHero {
 
@@ -10,7 +13,9 @@ public enum ProfilHero {
 
   private final Sprite sprite;
   
-  private ProfilHero(Sprite sprite) {
+  private final ArrayList<Fightable> units;
+  
+  private ProfilHero(Sprite sprite, ArrayList<Fightable> units) {
     this.sprite = sprite;
   }
 

@@ -27,7 +27,7 @@ public class Hero extends MovableElement {
 
   private Sprite sprite;
 
-  public Hero(Player player, Sprite sprite, String name) {
+  Hero(Player player, Sprite sprite, String name) {
     super(player);
     this.name = name;
     this.troop = new ArrayList<Fightable>();
@@ -51,7 +51,7 @@ public class Hero extends MovableElement {
     }
 
     try {
-      this.battlePosition.placeWarrior(f, this.battlePosition
+      this.battlePosition.placeFightable(f, this.battlePosition
           .getFirstFreeLocation());
     } catch (ArrayIndexOutOfBoundsException e) {
       return false;
@@ -125,7 +125,6 @@ public class Hero extends MovableElement {
     return this.sprite;
   }
 
-  @Override
   public String getName() {
     return this.name;
   }
