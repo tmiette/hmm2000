@@ -274,10 +274,10 @@ public class BattleMap implements Map {
 			Location l1 = c1.getBattlePositionManager().getLocation(f);
 			Location l2 = c2.getBattlePositionManager().getLocation(f);
 			if (l1 != null) {
-				return l1;
+				return getBattleMapLocation(l1, Team.TOP);
 			}
 			else if (l2 != null) {
-				return l2;
+				return getBattleMapLocation(l2, Team.BOTTOM);
 			}
 			else {
 				return null;
