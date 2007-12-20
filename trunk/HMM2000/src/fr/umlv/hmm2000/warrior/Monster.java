@@ -112,4 +112,10 @@ public class Monster implements FightableContainer {
 
   }
 
+	@Override
+	public int getAttackPriority() {
+
+		return FightableContainer.PRIORITY_VERY_LOW;
+	}
+
 }
