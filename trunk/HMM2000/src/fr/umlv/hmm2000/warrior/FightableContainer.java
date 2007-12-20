@@ -9,6 +9,9 @@ import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
 
 public interface FightableContainer extends MapForegroundElement {
 
+	public static final int PRIORITY_HIGH = 1;
+	public static final int PRIORITY_MEDIUM = 2;
+	public static final int PRIORITY_LOW = 4;
 
   public static final int MAX_TROOP_SIZE = 12;
   
@@ -23,5 +26,7 @@ public interface FightableContainer extends MapForegroundElement {
   public Player getPlayer();
   
   public void setPlayer(Player player);
+  
+  public int getAttackPriority();
   
 }

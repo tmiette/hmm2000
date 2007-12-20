@@ -30,8 +30,10 @@ public class Hero extends MovableElement {
   private int speed;
 
   private Sprite sprite;
+  
+  private final int attackPriority;
 
-  Hero(Player player, Sprite sprite, String name, Skill[] skills) {
+  Hero(Player player, Sprite sprite, String name, Skill[] skills, int attackPriority) {
 
     super(player);
     this.name = name;
@@ -43,6 +45,7 @@ public class Hero extends MovableElement {
     for (Skill skill : skills) {
       this.skills.add(skill);
     }
+    this.attackPriority = attackPriority;
   }
 
   @Override
@@ -149,5 +152,11 @@ public class Hero extends MovableElement {
 
     return this.name;
   }
+
+	@Override
+	public int getAttackPriority() {
+
+		return this.attackPriority;
+	}
 
 }

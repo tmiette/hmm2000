@@ -2,6 +2,7 @@ package fr.umlv.hmm2000.warrior.profil;
 
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.warrior.Fightable;
+import fr.umlv.hmm2000.warrior.FightableContainer;
 import fr.umlv.hmm2000.warrior.UnitFactory;
 import fr.umlv.hmm2000.warrior.skill.AttackAllSkill;
 import fr.umlv.hmm2000.warrior.skill.AttackFirstLineSkill;
@@ -30,7 +31,8 @@ public enum ProfilHero {
 							new AttackFirstLineSkill(new ElementAbility().addAbility(
 									ElementaryEnum.FIRE, 10, 0), 10),
 							new AttackSecondLineUnitSkill(new ElementAbility().addAbility(
-									ElementaryEnum.FIRE, 10, 0), 10) }),
+									ElementaryEnum.FIRE, 10, 0), 10) },
+					FightableContainer.PRIORITY_LOW),
 	LORD_OF_WAR(Sprite.LORDOFWAR,
 							new Fightable[] {
 									UnitFactory
@@ -52,9 +54,9 @@ public enum ProfilHero {
 											.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
 									UnitFactory.createWarrior(ProfilWarrior.WIZZARD,
 											Level.LEVEL_1) },
-							new Skill[] {
-									new SwapWarriorSkill(),
-									new AttackOneMoreTimeSkill() }),
+							new Skill[] { new SwapWarriorSkill(),
+									new AttackOneMoreTimeSkill() },
+							FightableContainer.PRIORITY_MEDIUM),
 	SORCERER(	Sprite.SORCERER,
 						new Fightable[] {
 								UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
@@ -64,21 +66,26 @@ public enum ProfilHero {
 								new AttackAllSkill(new ElementAbility().addAbility(
 										ElementaryEnum.FIRE, 10, 0), 0),
 								new AttackUnitSkill(new ElementAbility().addAbility(
-										ElementaryEnum.FIRE, 10, 0), 0) });
+										ElementaryEnum.FIRE, 10, 0), 0) },
+						FightableContainer.PRIORITY_LOW);
 
 	private final Sprite sprite;
 
 	private final Fightable[] units;
 
 	private final Skill[] skills;
+	
+	private final int attackPriority;
 
 	private ProfilHero(	Sprite sprite,
 											Fightable[] units,
-											Skill[] skills) {
+											Skill[] skills,
+											int attackPriority) {
 
 		this.sprite = sprite;
 		this.units = units;
 		this.skills = skills;
+		this.attackPriority = attackPriority;
 	}
 
 	public Sprite getSprite() {
@@ -94,5 +101,11 @@ public enum ProfilHero {
 	public Skill[] getSkills() {
 
 		return this.skills;
+	}
+
+	
+	public int getAttackPriority() {
+	
+		return this.attackPriority;
 	}
 }

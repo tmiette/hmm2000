@@ -22,7 +22,8 @@ public class UnitFactory {
 
 	public static Hero createHero(Player player, ProfilHero profil) {
 
-		Hero h = new Hero(player, profil.getSprite(), profil.name(), profil.getSkills());
+		Hero h = new Hero(player, profil.getSprite(), profil.name(), profil
+				.getSkills(), profil.getAttackPriority());
 		for (Fightable fightable : profil.getUnits()) {
 			try {
 				h.addFightable(fightable);
@@ -33,7 +34,7 @@ public class UnitFactory {
 		}
 		return h;
 	}
-	
+
 	public static Monster createMonster(Player player, ProfilMonster profil) {
 
 		Monster m = new Monster(player, profil.getSprite());
