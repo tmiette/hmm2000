@@ -7,7 +7,6 @@ import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.Map;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.warrior.Fightable;
-import fr.umlv.hmm2000.warrior.FightableContainer;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.profil.ElementAbility;
 
@@ -17,7 +16,7 @@ public class AttackSecondLineUnitSkill implements Skill {
 
 	private final double physical;
 
-	private AttackSecondLineUnitSkill(ElementAbility abilities,
+	public AttackSecondLineUnitSkill(ElementAbility abilities,
 																		double physical) {
 
 		this.abilities = abilities;
@@ -60,5 +59,17 @@ public class AttackSecondLineUnitSkill implements Skill {
 			}
 		});
 
+	}
+
+	@Override
+	public String getName() {
+
+		return this.getName();
+	}
+
+	@Override
+	public String getToolTipText() {
+
+		return "This skill permits to attack an unit on secon line";
 	}
 }

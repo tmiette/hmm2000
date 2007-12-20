@@ -6,13 +6,8 @@ import fr.umlv.hmm2000.engine.LocationSelectionRequester.LocationSelection;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.warrior.Fightable;
-import fr.umlv.hmm2000.warrior.FightableContainer;
 
-public class SwapWarriorSkill implements SkillAction {
-
-	private SwapWarriorSkill() {
-
-	}
+public class SwapWarriorSkill implements Skill {
 
 	@Override
 	public void perform() {
@@ -39,5 +34,17 @@ public class SwapWarriorSkill implements SkillAction {
 			}
 			
 		});
+	}
+
+	@Override
+	public String getName() {
+
+		return this.getName();
+	}
+
+	@Override
+	public String getToolTipText() {
+
+		return "This skill permits to move an unit";
 	}
 }

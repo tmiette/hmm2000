@@ -6,9 +6,7 @@ import fr.umlv.hmm2000.engine.LocationSelectionRequester.LocationSelection;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.Map;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
-import fr.umlv.hmm2000.warrior.Container;
 import fr.umlv.hmm2000.warrior.Fightable;
-import fr.umlv.hmm2000.warrior.FightableContainer;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.profil.ElementAbility;
 
@@ -18,7 +16,7 @@ public class AttackUnitSkill implements Skill {
 
 	private final double physical;
 
-	private AttackUnitSkill(ElementAbility abilities,
+	public AttackUnitSkill(ElementAbility abilities,
 																		double physical) {
 
 		this.abilities = abilities;
@@ -62,5 +60,17 @@ public class AttackUnitSkill implements Skill {
 			}
 		});
 		
+	}
+
+	@Override
+	public String getName() {
+
+		return this.getName();
+	}
+
+	@Override
+	public String getToolTipText() {
+
+		return "This skil permits to an unit to attack";
 	}
 }

@@ -6,16 +6,9 @@ import fr.umlv.hmm2000.engine.LocationSelectionRequester.LocationSelection;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.Map;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
-import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.warrior.Fightable;
-import fr.umlv.hmm2000.warrior.FightableContainer;
-import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 
 public class AttackOneMoreTimeSkill implements Skill {
-
-	private AttackOneMoreTimeSkill() {
-
-	}
 
 	@Override
 	public void perform() {
@@ -49,5 +42,17 @@ public class AttackOneMoreTimeSkill implements Skill {
 			}
 		});
 		
+	}
+
+	@Override
+	public String getName() {
+
+		return this.getName();
+	}
+
+	@Override
+	public String getToolTipText() {
+
+		return "This skill permits to attack a unit one more time";
 	}
 }

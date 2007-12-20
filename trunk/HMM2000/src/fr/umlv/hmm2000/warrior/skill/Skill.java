@@ -6,5 +6,5 @@ public interface Skill {
 
 	public String getName();
 	public void perform();
-
+	public String getToolTipText();
 }

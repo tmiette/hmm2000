@@ -14,10 +14,13 @@ import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
 import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
+import fr.umlv.hmm2000.warrior.skill.Skill;
 
 public class Hero extends MovableElement {
 
 	private final ArrayList<Fightable> troop;
+	
+	private final ArrayList<Skill> skills;
 
 	private final String name;
 
@@ -31,7 +34,8 @@ public class Hero extends MovableElement {
 
 	Hero(	Player player,
 				Sprite sprite,
-				String name) {
+				String name,
+				Skill[] skills) {
 
 		super(player);
 		this.name = name;
@@ -39,6 +43,10 @@ public class Hero extends MovableElement {
 				FightableContainer.MAX_TROOP_SIZE / BattlePositionMap.LINE_NUMBER);
 		this.sprite = sprite;
 		this.troop = new ArrayList<Fightable>();
+		this.skills = new ArrayList<Skill>();
+		for (Skill skill : skills) {
+			this.skills.add(skill);
+		}
 	}
 
 	@Override
