@@ -262,19 +262,26 @@ public class BattleMap implements Map {
 
 		FightableContainer c1 = this.container.get(Team.TOP).getSecondElement();
 		FightableContainer c2 = this.container.get(Team.BOTTOM).getSecondElement();
-		Location l1 = c1.getBattlePositionManager()
-				.getLocation((Fightable) element);
-		Location l2 = c2.getBattlePositionManager()
-				.getLocation((Fightable) element);
-		if (l1 != null) {
-			return l1;
-		}
-		else if (l2 != null) {
-			return l2;
+
+		if (element instanceof FightableContainer) {
+			FightableContainer c = (FightableContainer) element;
+			return (c.equals(c1)
+					? this.container.get(Team.TOP).getFirstElement()
+					: this.container.get(Team.BOTTOM).getFirstElement());
 		}
 		else {
-			return null;
+			Fightable f = (Fightable) element;
+			Location l1 = c1.getBattlePositionManager().getLocation(f);
+			Location l2 = c2.getBattlePositionManager().getLocation(f);
+			if (l1 != null) {
+				return l1;
+			}
+			else if (l2 != null) {
+				return l2;
+			}
+			else {
+				return null;
+			}
 		}
 	}
-
 }
