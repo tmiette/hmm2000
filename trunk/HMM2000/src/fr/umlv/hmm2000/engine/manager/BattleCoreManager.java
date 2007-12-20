@@ -54,15 +54,14 @@ public class BattleCoreManager {
         this.roundManager.tagAsAlreadyPlayed(attackerWarrior);
         this.roundManager.nextDay();
       } catch (WarriorDeadException e) {
-        CoreEngine.uiManager().displayMessage("Le warrior attqué est mort.");
         this.roundManager.tagAsAlreadyPlayed(attackerWarrior);
         this.roundManager.kill(defenderWarrior);
         CoreEngine.map().removeMapForegroundElement(l);
         this.roundManager.nextDay();
+        // TODO deleguer remove sprite a la map
         CoreEngine.uiManager().eraseSprite(l, defenderWarrior.getSprite());
       } catch (WarriorNotReachableException e) {
-        CoreEngine.uiManager().displayMessage(
-            "Vous ne pouvez pas attaquer cette unité.");
+        CoreEngine.fireMessage("Vous ne pouvez pas attaquer cette unité.");
       }
     } else {
       System.out.println(attackerWarrior + "ne peut pas attaquer");
@@ -71,14 +70,14 @@ public class BattleCoreManager {
   }
 
   public void select() {
-    this.roundManager.untagAttackable();
+    this.roundManager.untagUnattackable();
     MapForegroundElement element = CoreEngine.selectionManager()
         .getSelectedElement();
     if (element instanceof Fightable) {
       Fightable f = (Fightable) element;
       if (this.roundManager.isCurrentPlayer(f.getFightableContainer()
-         .getPlayer())) {
-        this.roundManager.tagAttackable((Fightable) element);
+          .getPlayer())) {
+        this.roundManager.tagUnattackable((Fightable) element);
       }
     }
   }

@@ -85,22 +85,13 @@ public class MoveCoreManager {
         MapForegroundElement element = CoreEngine.map()
             .getMapForegroundElementAtLocation(l);
         if (element != null) {
-
           if (!element.encounter(new Encounter(l, this.currentSource, move
               .getStart()))) {
             break;
-          }
-          else{
+          } else {
             CoreEngine.map().removeMapForegroundElement(l);
           }
-          
-          /*
-           * EncounterEvent ecounterEvent = new
-           * EncounterEvent(this.currentSource, element, move.getStart(), l); if
-           * (!CoreEngine.encounterManager().perform(ecounterEvent)) { break; }
-           */
         }
-
         this.currentSource.setStepCount(move.getRemainingStepCount());
         CoreEngine.map().moveMapForegroundElement(move.getStart(),
             move.getEnd());
@@ -167,7 +158,7 @@ public class MoveCoreManager {
 
   private static void slow() {
     try {
-      Thread.sleep(200);
+      Thread.sleep(50);
     } catch (InterruptedException e) {
       throw new AssertionError();
     }

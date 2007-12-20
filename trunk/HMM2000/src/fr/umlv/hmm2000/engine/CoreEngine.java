@@ -25,9 +25,9 @@ import fr.umlv.hmm2000.warrior.FightableContainer;
 
 public class CoreEngine {
 
-  public static final int WORLD_CONFIG = 0;
-  public static final int BATTLE_POSITION_CONFIG = 1;
-  public static final int BATTLE_CONFIG = 2;
+  public static final int WORLD_CONFIG = 1;
+  public static final int BATTLE_POSITION_CONFIG = 2;
+  public static final int BATTLE_CONFIG = 4;
 
   private static Map currentMap;
 
@@ -86,7 +86,8 @@ public class CoreEngine {
   }
 
   public static void backToWorldMap() {
-    if (CoreEngine.currentMap != CoreEngine.worldMap) {
+    if (CoreEngine.currentMap != CoreEngine.worldMap
+        && CoreEngine.currentConfiguration() != CoreEngine.BATTLE_CONFIG) {
       CoreEngine.changeCurrentMap(CoreEngine.worldMap);
     }
   }
@@ -139,21 +140,24 @@ public class CoreEngine {
   }
 
   public static void manageBattlePosition() {
-    MapForegroundElement element = CoreEngine.selectionManager
-        .getSelectedElement();
+    if (CoreEngine.currentConfiguration() == CoreEngine.WORLD_CONFIG) {
+      MapForegroundElement element = CoreEngine.selectionManager
+          .getSelectedElement();
 
-    if (element != null && element instanceof FightableContainer) {
-      FightableContainer container = (FightableContainer) element;
-      if (CoreEngine.roundManager.isCurrentPlayer(container.getPlayer())) {
-        CoreEngine.battlePositionMap = container.getBattlePositionManager();
-        CoreEngine.changeCurrentMap(CoreEngine.battlePositionMap);
+      if (element != null && element instanceof FightableContainer) {
+        FightableContainer container = (FightableContainer) element;
+        if (CoreEngine.roundManager.isCurrentPlayer(container.getPlayer())) {
+          CoreEngine.battlePositionMap = container.getBattlePositionManager();
+          CoreEngine.changeCurrentMap(CoreEngine.battlePositionMap);
+        }
       }
     }
-
   }
 
   public static void nextDay() {
-    CoreEngine.roundManager.nextDay();
+    if (CoreEngine.currentConfiguration() == CoreEngine.WORLD_CONFIG) {
+      CoreEngine.roundManager.nextDay();
+    }
   }
 
   public static void startBattle(FightableContainer attacker,
@@ -165,7 +169,7 @@ public class CoreEngine {
 
   public static void endBattle(FightableContainer winner,
       FightableContainer looser) {
-    CoreEngine.backToWorldMap();
+    CoreEngine.changeCurrentMap(CoreEngine.worldMap);
     Location l = CoreEngine.map().getLocationForMapForegroundElement(looser);
     CoreEngine.map().removeMapForegroundElement(l);
     CoreEngine.uiEngine.eraseSprite(l, looser.getSprite());
@@ -203,6 +207,10 @@ public class CoreEngine {
   public static void clearLocationSelection() {
     CoreEngine.locationRequester = null;
   }
+  
+  public static void fireMessage(String message){
+    CoreEngine.uiEngine.displayMessage(message);
+  }
 
   public static void fireSpriteAdded(Location location, Sprite sprite) {
     CoreEngine.uiEngine.displaySprite(location, sprite);
@@ -221,7 +229,7 @@ public class CoreEngine {
       MapForegroundElement element) {
     CoreEngine.uiEngine.elementRemoved(location, element);
   }
-  
+
   public static void fireBackgroundElementAdded(Location location,
       MapBackgroundElement element) {
     CoreEngine.uiEngine.elementAdded(location, element);
