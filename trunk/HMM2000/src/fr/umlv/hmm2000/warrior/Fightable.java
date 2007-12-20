@@ -37,5 +37,7 @@ public interface Fightable extends Sellable, MapForegroundElement {
   public AttackBehaviour getAttackBehaviour();
   
   public ElementAbility getAbilities();
+  
+  public boolean isAttackable(Fightable defender);
 
 }

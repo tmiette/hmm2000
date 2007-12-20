@@ -160,6 +160,12 @@ public class Warrior implements Fightable {
     defender.hurt(this.physicalAttackValue + elementaryDamage
         - defender.getPhysicalDefenseValue());
   }
+  
+  @Override
+  public boolean isAttackable(Fightable defender) {
+
+		return this.attackBehaviour.isAttackable(this, defender);
+	}
 
   @Override
   public void setPhysicalAttackValue(double attackValue) {
