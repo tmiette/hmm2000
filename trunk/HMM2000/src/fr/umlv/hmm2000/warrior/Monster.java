@@ -5,123 +5,111 @@ import java.util.List;
 
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.CoreEngine;
-import fr.umlv.hmm2000.engine.event.EncounterEvent;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
+import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
 import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
 
-
 public class Monster implements FightableContainer {
-	
-	private final Sprite sprite;
-	
-	private final ArrayList<Fightable> troop;
 
-	private final BattlePositionMap battlePosition;
-	
-	private Player player;
-	
-	public Monster(Player player, Sprite sprite) {
+  private final Sprite sprite;
 
-		this.player = player;
-		this.sprite = sprite;
-		this.battlePosition = new BattlePositionMap(
-				FightableContainer.MAX_TROOP_SIZE / BattlePositionMap.LINE_NUMBER);
-		this.troop = new ArrayList<Fightable>();
-	}
+  private final ArrayList<Fightable> troop;
 
-	@Override
-	public boolean addFightable(Fightable f)
-			throws MaxNumberOfTroopsReachedException {
+  private final BattlePositionMap battlePosition;
 
-		if (this.troop.size() == FightableContainer.MAX_TROOP_SIZE) {
-			throw new MaxNumberOfTroopsReachedException(
-					"The max number of troops, a heroe can contain, is reached");
-		}
+  private Player player;
 
-		try {
-			this.battlePosition.placeFightable(f, this.battlePosition
-					.getFirstFreeLocation());
-		}
-		catch (ArrayIndexOutOfBoundsException e) {
-			return false;
-		}
-		catch (LocationAlreadyOccupedException e) {
-			return false;
-		}
-		catch (NoPlaceAvailableException e) {
-			return false;
-		}
-		this.troop.add(f);
-		f.setFightableContainer(this);
-		return true;
-	}
+  public Monster(Player player, Sprite sprite) {
 
+    this.player = player;
+    this.sprite = sprite;
+    this.battlePosition = new BattlePositionMap(
+        FightableContainer.MAX_TROOP_SIZE / BattlePositionMap.LINE_NUMBER);
+    this.troop = new ArrayList<Fightable>();
+  }
 
-	@Override
-	public BattlePositionMap getBattlePositionManager() {
+  @Override
+  public boolean addFightable(Fightable f)
+      throws MaxNumberOfTroopsReachedException {
 
-		return this.battlePosition;
-	}
+    if (this.troop.size() == FightableContainer.MAX_TROOP_SIZE) {
+      throw new MaxNumberOfTroopsReachedException(
+          "The max number of troops, a heroe can contain, is reached");
+    }
 
-	@Override
-	public List<Fightable> getTroop() {
+    try {
+      this.battlePosition.placeFightable(f, this.battlePosition
+          .getFirstFreeLocation());
+    } catch (ArrayIndexOutOfBoundsException e) {
+      return false;
+    } catch (LocationAlreadyOccupedException e) {
+      return false;
+    } catch (NoPlaceAvailableException e) {
+      return false;
+    }
+    this.troop.add(f);
+    f.setFightableContainer(this);
+    return true;
+  }
 
-		return this.troop;
-	}
+  @Override
+  public BattlePositionMap getBattlePositionManager() {
 
-	@Override
-	public void removeFightable(Fightable f) {
+    return this.battlePosition;
+  }
 
-		int index;
-		if ((index = this.troop.indexOf(f)) != -1) {
-			this.troop.remove(index);
-		}
-	}
+  @Override
+  public List<Fightable> getTroop() {
 
-	@Override
-	public void accept(UIDisplayingVisitor visitor) {
+    return this.troop;
+  }
 
-		//TODO visitor.visit(this);
-		
-	}
+  @Override
+  public void removeFightable(Fightable f) {
 
-	@Override
-	public boolean encounter(EncounterEvent event) {
+    int index;
+    if ((index = this.troop.indexOf(f)) != -1) {
+      this.troop.remove(index);
+    }
+  }
 
-		CoreEngine.startBattle((FightableContainer) event.getSender(), (FightableContainer) event
-				.getRecipient());
-		return false;
-	}
+  @Override
+  public void accept(UIDisplayingVisitor visitor) {
+    visitor.visit(this);
+  }
 
-	@Override
-	public void nextDay(int day) {
+  @Override
+  public boolean encounter(Encounter encounter) {
+    CoreEngine.startBattle(encounter.getSender(),this);
+    return false;
+  }
 
-		//do nothing
-		
-	}
+  @Override
+  public void nextDay(int day) {
+    // do nothing
+  }
 
-	@Override
-	public Sprite getSprite() {
+  @Override
+  public Sprite getSprite() {
 
-		return this.sprite;
-	}
+    return this.sprite;
+  }
 
-	@Override
-	public Player getPlayer() {
+  @Override
+  public Player getPlayer() {
 
-		return this.player;
-	}
+    return this.player;
+  }
 
-	@Override
-	public void setPlayer(Player player) {
+  @Override
+  public void setPlayer(Player player) {
 
-		this.player = player;
-		
-	}
+    this.player = player;
 
+  }
 
 }

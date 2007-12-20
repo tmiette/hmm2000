@@ -1,10 +1,13 @@
 package fr.umlv.hmm2000.warrior;
 
-import fr.umlv.hmm2000.engine.event.EncounterEvent;
+import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
+import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.resource.Resource.Kind;
 import fr.umlv.hmm2000.salesentity.Price;
+import fr.umlv.hmm2000.util.Pair;
+import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.exception.WarriorNotReachableException;
 import fr.umlv.hmm2000.warrior.profil.AttackBehaviour;
@@ -36,9 +39,9 @@ public class Warrior implements Fightable {
 
   private AttackBehaviour attackBehaviour;
 
-  Warrior(String label, Sprite sprite,
-      double physicalAttackValue, double physicalDefenseValue, double health,
-      int speed, ElementAbility abilities, AttackBehaviour attackBehaviour) {
+  Warrior(String label, Sprite sprite, double physicalAttackValue,
+      double physicalDefenseValue, double health, int speed,
+      ElementAbility abilities, AttackBehaviour attackBehaviour) {
 
     this.id = Warrior.WARRIORS_COUNT++;
     this.label = label;
@@ -58,23 +61,22 @@ public class Warrior implements Fightable {
   }
 
   @Override
-  public void acquire(EncounterEvent event) {
-    // TODO
-    /*
-     * MovableElement element = event.getSender(); if (element instanceof
-     * Container) { try { ((Container) element).addWarrior(this); } catch
-     * (MaxNumberOfTroopsReachedException e) { for (Pair<Kind, Integer> pair :
-     * this.getPrice().getResourcesList()) {
-     * element.getPlayer().addResource(pair.getFirstElement(),
-     * pair.getSecondElement()); } CoreEngine.uiManager().displayMessage("Vous
-     * avez trop d'unité."); } }
-     */
+  public void acquire(Encounter encounter) {
+    try {
+      encounter.getSender().addFightable(this);
+    } catch (MaxNumberOfTroopsReachedException e) {
+      for (Pair<Kind, Integer> pair : this.getPrice().getResourcesList()) {
+        encounter.getSender().getPlayer().addResource(pair.getFirstElement(),
+            pair.getSecondElement());
+      }
+      CoreEngine.uiManager().displayMessage("Vous avez trop d'unité.");
+    }
   }
 
   @Override
-  public boolean encounter(EncounterEvent event) {
-    // TODO
-    return true;
+  public boolean encounter(Encounter encounter) {
+    // do nothing
+    return false;
   }
 
   @Override
@@ -160,12 +162,12 @@ public class Warrior implements Fightable {
     defender.hurt(this.physicalAttackValue + elementaryDamage
         - defender.getPhysicalDefenseValue());
   }
-  
+
   @Override
   public boolean isAttackable(Fightable defender) {
 
-		return this.attackBehaviour.isAttackable(this, defender);
-	}
+    return this.attackBehaviour.isAttackable(this, defender);
+  }
 
   @Override
   public void setPhysicalAttackValue(double attackValue) {
@@ -202,11 +204,11 @@ public class Warrior implements Fightable {
   public int getSpeed() {
     return this.speed;
   }
-  
+
   @Override
   public ElementAbility getAbilities() {
-  
-  	return this.abilities;
+
+    return this.abilities;
   }
 
 }
