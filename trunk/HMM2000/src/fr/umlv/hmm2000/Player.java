@@ -41,4 +41,9 @@ public class Player {
     Player p = (Player) o;
     return this.id == p.id;
   }
+  
+  @Override
+  public String toString() {
+    return "Player : " + this.id;
+  }
 }
