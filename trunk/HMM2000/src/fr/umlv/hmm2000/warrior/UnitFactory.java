@@ -36,7 +36,7 @@ public class UnitFactory {
 	
 	public static Monster createMonster(Player player, ProfilMonster profil) {
 
-		Monster m = new Monster(profil.getSprite());
+		Monster m = new Monster(player, profil.getSprite());
 		for (Fightable fightable : profil.getUnits()) {
 			try {
 				m.addFightable(fightable);

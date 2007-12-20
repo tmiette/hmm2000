@@ -3,18 +3,18 @@ package fr.umlv.hmm2000.warrior;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.event.EncounterEvent;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.gui.Sprite;
-import fr.umlv.hmm2000.map.MovableElement;
 import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
 import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
 
 
-public class Monster extends MovableElement {
+public class Monster implements FightableContainer {
 	
 	private final Sprite sprite;
 	
@@ -22,20 +22,15 @@ public class Monster extends MovableElement {
 
 	private final BattlePositionMap battlePosition;
 	
-	public Monster(Sprite sprite) {
+	private Player player;
+	
+	public Monster(Player player, Sprite sprite) {
 
-		super(null);
+		this.player = player;
 		this.sprite = sprite;
 		this.battlePosition = new BattlePositionMap(
 				FightableContainer.MAX_TROOP_SIZE / BattlePositionMap.LINE_NUMBER);
 		this.troop = new ArrayList<Fightable>();
-	}
-
-	@Override
-	public String getName() {
-
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -116,16 +111,17 @@ public class Monster extends MovableElement {
 	}
 
 	@Override
-	public double getStepCount() {
+	public Player getPlayer() {
 
-		return 0;
+		return this.player;
 	}
 
 	@Override
-	public void setStepCount(double stepCount) {
+	public void setPlayer(Player player) {
 
-		//do nothing
+		this.player = player;
 		
 	}
+
 
 }
