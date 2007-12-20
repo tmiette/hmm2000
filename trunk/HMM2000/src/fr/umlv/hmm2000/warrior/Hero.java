@@ -129,9 +129,8 @@ public class Hero extends MovableElement {
   public boolean encounter(Encounter encounter) {
     if (!encounter.getSender().getPlayer().equals(this.getPlayer())) {
       CoreEngine.startBattle(encounter.getSender(), this);
-      return false;
     }
-    return true;
+    return false;
   }
 
   @Override
