@@ -19,6 +19,8 @@ public enum ProfilHero {
 									UnitFactory
 											.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
 									UnitFactory.createWarrior(ProfilWarrior.GRUNT, Level.LEVEL_1),
+									UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
+									UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
 									UnitFactory.createWarrior(ProfilWarrior.WIZZARD,
 											Level.LEVEL_1) }),
 	SORCERER(	Sprite.SORCERER,
