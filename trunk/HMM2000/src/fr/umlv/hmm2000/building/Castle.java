@@ -1,19 +1,21 @@
 package fr.umlv.hmm2000.building;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import fr.umlv.hmm2000.Player;
-import fr.umlv.hmm2000.engine.CoreEngine;
-import fr.umlv.hmm2000.engine.event.EncounterEvent;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
+import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
 import fr.umlv.hmm2000.gui.Sprite;
-import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.warrior.Fightable;
 import fr.umlv.hmm2000.warrior.FightableContainer;
 import fr.umlv.hmm2000.warrior.Hero;
+import fr.umlv.hmm2000.warrior.UnitFactory;
 import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
+import fr.umlv.hmm2000.warrior.profil.Level;
+import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
 
 public class Castle implements FightableContainer {
 
@@ -24,7 +26,12 @@ public class Castle implements FightableContainer {
 	private final ArrayList<Hero> heroes;
 
 	private final BattlePositionMap battlePosition;
-
+	
+	private final HashMap<ProfilWarrior, Level> factory;
+	
+	public final static Level defaultLevel = Level.LEVEL_1;
+	public final static ProfilWarrior defaultWarrior = ProfilWarrior.FLIGHT;
+	
 	public Castle(Player player) {
 
 		this.player = player;
@@ -32,6 +39,52 @@ public class Castle implements FightableContainer {
 		this.heroes = new ArrayList<Hero>();
 		this.battlePosition = new BattlePositionMap(
 				FightableContainer.MAX_TROOP_SIZE / BattlePositionMap.LINE_NUMBER);
+		this.factory = new HashMap<ProfilWarrior, Level>();
+		this.factory.put(defaultWarrior, defaultLevel);
+	}
+	
+	public boolean canBuyWarrior(ProfilWarrior profil) {
+
+		return this.factory.containsKey(profil);
+	}
+	
+	public void buildFactory(ProfilWarrior profil) {
+
+		if (!this.factory.containsKey(profil)) {
+			this.factory.put(profil, defaultLevel);
+		}
+	}
+	
+	
+	
+	public List<ProfilWarrior> getBuildableFactories() {
+
+		ArrayList<ProfilWarrior> list = new ArrayList<ProfilWarrior>();
+		for (ProfilWarrior profil : ProfilWarrior.values()) {
+			if (!this.factory.containsKey(profil)) {
+				list.add(profil);
+			}
+		}
+		return list;
+	}
+	
+	public void upgradeFactory(ProfilWarrior profil) {
+
+		if (this.factory.containsKey(profil)) {
+			Level level = this.factory.get(profil);
+			this.factory.remove(profil);
+			this.factory.put(profil, level.getNextLevel());
+		}		
+	}
+	
+	public boolean createWarrior(ProfilWarrior profil) throws MaxNumberOfTroopsReachedException {
+
+		if (this.canBuyWarrior(profil)) {
+			Level level = this.factory.get(profil);
+			this.addFightable(UnitFactory.createWarrior(profil, level));
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -100,25 +153,8 @@ public class Castle implements FightableContainer {
 	}
 
 	@Override
-	public boolean encounter(EncounterEvent event) {
+	public boolean encounter(Encounter Encounter) {
 
-		MapForegroundElement sender = event.getSender();
-		MapForegroundElement recipient = event.getRecipient();
-
-		if (sender instanceof FightableContainer
-				&& recipient instanceof FightableContainer) {
-			FightableContainer s = (FightableContainer) sender;
-			FightableContainer r = (FightableContainer) recipient;
-
-			if (!s.getPlayer().equals(r.getPlayer())) {
-				CoreEngine.startBattle(s, r);
-				return true;
-			}
-			else {
-				//TODO start recrutement
-				return true;
-			}
-		}
 		return false;
 	}
 
@@ -133,6 +169,12 @@ public class Castle implements FightableContainer {
 	public Sprite getSprite() {
 
 		return Sprite.CASTLE;
+	}
+
+	
+	public HashMap<ProfilWarrior, Level> getFactory() {
+	
+		return this.factory;
 	}
 
 }
