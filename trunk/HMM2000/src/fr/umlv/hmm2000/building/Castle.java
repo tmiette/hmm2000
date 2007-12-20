@@ -177,4 +177,10 @@ public class Castle implements FightableContainer {
 		return this.factory;
 	}
 
+	@Override
+	public int getAttackPriority() {
+
+		return FightableContainer.PRIORITY_HIGH;
+	}
+
 }
