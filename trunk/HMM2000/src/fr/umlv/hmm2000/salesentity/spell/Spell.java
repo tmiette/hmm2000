@@ -1,6 +1,6 @@
 package fr.umlv.hmm2000.salesentity.spell;
 
-import fr.umlv.hmm2000.engine.event.EncounterEvent;
+import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
 import fr.umlv.hmm2000.resource.Resource.Kind;
 import fr.umlv.hmm2000.salesentity.Price;
 import fr.umlv.hmm2000.salesentity.Sellable;
@@ -33,8 +33,8 @@ public enum Spell implements Sellable {
   }
 
   @Override
-  public void acquire(EncounterEvent event) {
-    this.action.perform(event);
+  public void acquire(Encounter encounter) {
+    this.action.perform(encounter);
   }
 
 }

@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.map.element.MapBackgroundElement;
+import fr.umlv.hmm2000.map.element.MapBackgroundEnum;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.map.graph.CheckerboardGraph;
 
@@ -36,13 +38,20 @@ public class WorldMap implements Map {
 
   @Override
   public void removeMapForegroundElement(Location l) {
-    this.elements.remove(l);
+    MapForegroundElement element = this.elements.get(l);
+    if (element != null) {
+      this.elements.remove(l);
+      CoreEngine.fireElementRemoved(l, element);
+    }
   }
 
   @Override
   public void changeMapBackgroundElement(Location l,
       MapBackgroundElement element) {
+    CoreEngine.fireBackgroundElementRemoved(l, this.graph
+        .getMapBackgroundElement(l.getX(), l.getY()));
     this.graph.changeMapBackgroundElement(l.getX(), l.getY(), element);
+    CoreEngine.fireBackgroundElementAdded(l, MapBackgroundEnum.PLAIN);
   }
 
   @Override
@@ -55,7 +64,9 @@ public class WorldMap implements Map {
     MapForegroundElement element = this.elements.get(from);
     if (element != null) {
       this.elements.remove(from);
+      CoreEngine.fireElementRemoved(from, element);
       this.elements.put(to, element);
+      CoreEngine.fireElementAdded(to, element);
     }
   }
 

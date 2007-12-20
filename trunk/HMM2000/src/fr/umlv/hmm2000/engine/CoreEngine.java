@@ -8,15 +8,16 @@ import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.engine.manager.BattleCoreManager;
 import fr.umlv.hmm2000.engine.manager.BattlePositionCoreManager;
 import fr.umlv.hmm2000.engine.manager.DayCoreManager;
-import fr.umlv.hmm2000.engine.manager.EncounterCoreManager;
 import fr.umlv.hmm2000.engine.manager.MoveCoreManager;
 import fr.umlv.hmm2000.engine.manager.SelectionCoreManager;
+import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.map.InvalidPlayersNumberException;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.Map;
 import fr.umlv.hmm2000.map.MapBuilder;
 import fr.umlv.hmm2000.map.MapLevel;
 import fr.umlv.hmm2000.map.WorldMap;
+import fr.umlv.hmm2000.map.element.MapBackgroundElement;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.war.BattleMap;
 import fr.umlv.hmm2000.war.BattlePositionMap;
@@ -41,8 +42,6 @@ public class CoreEngine {
   private static MoveCoreManager moveManager;
 
   private static SelectionCoreManager selectionManager;
-
-  private static EncounterCoreManager encounterManager;
 
   private static DayCoreManager roundManager;
 
@@ -72,7 +71,6 @@ public class CoreEngine {
     CoreEngine.worldMap = worldMap;
     CoreEngine.uiEngine = uiEngine;
     CoreEngine.selectionManager = new SelectionCoreManager();
-    CoreEngine.encounterManager = new EncounterCoreManager();
     CoreEngine.moveManager = new MoveCoreManager();
     CoreEngine.roundManager = new DayCoreManager(players);
     CoreEngine.battlePositionManager = new BattlePositionCoreManager();
@@ -189,10 +187,6 @@ public class CoreEngine {
     return CoreEngine.moveManager;
   }
 
-  public static EncounterCoreManager encounterManager() {
-    return CoreEngine.encounterManager;
-  }
-
   public static DayCoreManager roundManager() {
     return CoreEngine.roundManager;
   }
@@ -209,4 +203,33 @@ public class CoreEngine {
   public static void clearLocationSelection() {
     CoreEngine.locationRequester = null;
   }
+
+  public static void fireSpriteAdded(Location location, Sprite sprite) {
+    CoreEngine.uiEngine.displaySprite(location, sprite);
+  }
+
+  public static void fireSpriteRemoved(Location location, Sprite sprite) {
+    CoreEngine.uiEngine.eraseSprite(location, sprite);
+  }
+
+  public static void fireElementAdded(Location location,
+      MapForegroundElement element) {
+    CoreEngine.uiEngine.elementAdded(location, element);
+  }
+
+  public static void fireElementRemoved(Location location,
+      MapForegroundElement element) {
+    CoreEngine.uiEngine.elementRemoved(location, element);
+  }
+  
+  public static void fireBackgroundElementAdded(Location location,
+      MapBackgroundElement element) {
+    CoreEngine.uiEngine.elementAdded(location, element);
+  }
+
+  public static void fireBackgroundElementRemoved(Location location,
+      MapBackgroundElement element) {
+    CoreEngine.uiEngine.elementRemoved(location, element);
+  }
+
 }

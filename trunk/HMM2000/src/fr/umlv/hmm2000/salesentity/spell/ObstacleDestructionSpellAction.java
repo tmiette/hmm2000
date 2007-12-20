@@ -3,8 +3,7 @@ package fr.umlv.hmm2000.salesentity.spell;
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.LocationSelectionRequester;
 import fr.umlv.hmm2000.engine.LocationSelectionRequester.LocationSelection;
-import fr.umlv.hmm2000.engine.event.EncounterEvent;
-import fr.umlv.hmm2000.engine.event.MapChangeEvent;
+import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.element.MapBackgroundEnum;
 
@@ -23,7 +22,7 @@ public class ObstacleDestructionSpellAction implements SpellAction {
   }
 
   @Override
-  public void perform(final EncounterEvent event) {
+  public void perform(final Encounter encounter) {
     CoreEngine
         .requestLocationSelection(new LocationSelectionRequester(
             new LocationSelection(
@@ -32,15 +31,8 @@ public class ObstacleDestructionSpellAction implements SpellAction {
           @Override
           public void perform(Location... locations) {
             Location l = locations[0];
-
-            MapChangeEvent event = new MapChangeEvent(l, CoreEngine
-                .map().getMapBackgroundElementAtLocation(l),
-                MapBackgroundEnum.PLAIN);
-
             CoreEngine.map().changeMapBackgroundElement(l,
                 MapBackgroundEnum.PLAIN);
-
-            CoreEngine.uiManager().changeBackgroundElement(event);
           }
         });
   }

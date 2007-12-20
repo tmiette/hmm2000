@@ -1,15 +1,10 @@
 package fr.umlv.hmm2000.salesentity.spell;
 
-import java.util.ArrayList;
-
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.LocationSelectionRequester;
 import fr.umlv.hmm2000.engine.LocationSelectionRequester.LocationSelection;
-import fr.umlv.hmm2000.engine.event.EncounterEvent;
-import fr.umlv.hmm2000.engine.event.MoveEvent;
-import fr.umlv.hmm2000.engine.manager.MoveCoreManager;
+import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
 import fr.umlv.hmm2000.map.Location;
-import fr.umlv.hmm2000.util.Pair;
 
 public class TeleportationSpellAction implements SpellAction {
 
@@ -26,26 +21,17 @@ public class TeleportationSpellAction implements SpellAction {
   }
 
   @Override
-  public void perform(final EncounterEvent event) {
-
-    CoreEngine.requestLocationSelection(
-        new LocationSelectionRequester(new LocationSelection(
-            LocationSelectionRequester.RECHEABLE_LOCATION,
+  public void perform(final Encounter encounter) {
+    CoreEngine.requestLocationSelection(new LocationSelectionRequester(
+        new LocationSelection(LocationSelectionRequester.RECHEABLE_LOCATION,
             "Où voulez-vous vous téléportez ?")) {
-          @Override
-          public void perform(Location... locations) {
-            Location l = locations[0];
-
-            ArrayList<Pair<Location, Double>> moves = new ArrayList<Pair<Location, Double>>();
-            moves
-                .add(new Pair<Location, Double>(event.getSenderLocation(), 0.0));
-            moves.add(new Pair<Location, Double>(l, 0.0));
-            MoveEvent moveEvent = new MoveEvent(event.getSender(), moves);
-
-            MoveCoreManager moveManager = CoreEngine.moveManager();
-            moveManager.performMoveEvent(moveEvent);
-          }
-        });
-
+      @Override
+      public void perform(Location... locations) {
+        Location l = locations[0];
+        CoreEngine.map().moveMapForegroundElement(
+            encounter.getSenderLocation(), l);
+        CoreEngine.selectionManager().perform(l);
+      }
+    });
   }
 }

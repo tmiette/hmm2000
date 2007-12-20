@@ -1,7 +1,7 @@
 package fr.umlv.hmm2000.resource;
 
-import fr.umlv.hmm2000.engine.event.EncounterEvent;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
+import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 
@@ -77,17 +77,6 @@ public class Resource implements MapForegroundElement {
   }
 
   @Override
-  public boolean encounter(EncounterEvent event) {
-    event.getSender().getPlayer().addResource(this.kind, this.currentValue);
-    this.drain();
-    if (this.behaviour == Resource.NON_RELOADABLE) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  @Override
   public void accept(UIDisplayingVisitor visitor) {
     visitor.visit(this);
   }
@@ -110,6 +99,17 @@ public class Resource implements MapForegroundElement {
   @Override
   public void nextDay(int day) {
     this.fill();
+  }
+
+  @Override
+  public boolean encounter(Encounter encounter) {
+    encounter.getSender().getPlayer().addResource(this.kind, this.currentValue);
+    this.drain();
+    if (this.behaviour == Resource.NON_RELOADABLE) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }

@@ -3,16 +3,12 @@ package fr.umlv.hmm2000.gui;
 import java.util.ArrayList;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
-import fr.umlv.hmm2000.engine.event.EncounterEvent;
-import fr.umlv.hmm2000.engine.event.MapChangeEvent;
-import fr.umlv.hmm2000.engine.event.MoveEvent;
-import fr.umlv.hmm2000.engine.event.SelectionEvent;
-import fr.umlv.hmm2000.engine.event.MoveEvent.Step;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.engine.guiinterface.UIChoicesManager;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.Map;
+import fr.umlv.hmm2000.map.element.MapBackgroundElement;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.lawrence.Application;
 import fr.umlv.lawrence.CursorListener;
@@ -45,14 +41,6 @@ public class LawrenceUIEngine implements HMMUserInterface {
   private fr.umlv.lawrence.Location pointerLocation;
 
   private Map map;
-
-  private static void slow() {
-    try {
-      Thread.sleep(200);
-    } catch (InterruptedException e) {
-      throw new AssertionError();
-    }
-  }
 
   private final InputListener inputListener = new InputListener() {
 
@@ -213,78 +201,6 @@ public class LawrenceUIEngine implements HMMUserInterface {
   }
 
   @Override
-  public void displaySelection(SelectionEvent event) {
-    Location location = event.getLocation();
-    this.model.addDeffered(location.getY(), location.getX(), Sprite.SELECTION);
-    this.model.swap();
-  }
-
-  @Override
-  public void eraseSelection(SelectionEvent event) {
-    Location location = event.getLocation();
-    this.model.removeDeffered(location.getY(), location.getX(),
-        Sprite.SELECTION);
-    this.model.swap();
-  }
-
-  @Override
-  public void displayMoveSteps(MoveEvent event) {
-
-    for (Step move : event.getMoves()) {
-      Location l = move.getEnd();
-      if (move.isRecheable()) {
-        this.model.addDeffered(l.getY(), l.getX(), Sprite.RECHEABLE);
-      } else {
-        this.model.addDeffered(l.getY(), l.getX(), Sprite.UNRECHEABLE);
-      }
-    }
-    this.model.swap();
-  }
-
-  @Override
-  public void eraseMoveSteps(MoveEvent event) {
-
-    for (Step move : event.getMoves()) {
-      Location l = move.getEnd();
-      this.model.removeDeffered(l.getY(), l.getX(), Sprite.RECHEABLE);
-      this.model.removeDeffered(l.getY(), l.getX(), Sprite.UNRECHEABLE);
-    }
-    this.model.swap();
-  }
-
-  @Override
-  public void displayStep(Step event) {
-    Location start = event.getStart();
-    Location end = event.getEnd();
-    this.model.removeDeffered(start.getY(), start.getX(), event.getSource()
-        .getSprite());
-    this.model.removeDeffered(end.getY(), end.getX(), Sprite.RECHEABLE);
-    this.model.removeDeffered(end.getY(), end.getX(), Sprite.UNRECHEABLE);
-    this.model.addDeffered(end.getY(), end.getX(), event.getSource()
-        .getSprite());
-    LawrenceUIEngine.slow();
-    this.model.swap();
-  }
-
-  @Override
-  public void eraseForegroundElement(EncounterEvent event) {
-    Location l = event.getRecipientLocation();
-    this.model.removeDeffered(l.getY(), l.getX(), event.getRecipient()
-        .getSprite());
-    this.model.swap();
-  }
-
-  @Override
-  public void changeBackgroundElement(MapChangeEvent event) {
-    Location l = event.getLocation();
-    this.model.removeDeffered(l.getY(), l.getX(), event.getOldElement()
-        .getSprite());
-    this.model.addDeffered(l.getY(), l.getX(), event.getNewElement()
-        .getSprite());
-    this.model.swap();
-  }
-
-  @Override
   public void swap(Location from, Location to) {
     MapForegroundElement fromElement = this.map
         .getMapForegroundElementAtLocation(to);
@@ -310,6 +226,34 @@ public class LawrenceUIEngine implements HMMUserInterface {
   @Override
   public void eraseSprite(Location location, Sprite sprite) {
     this.model.removeDeffered(location.getY(), location.getX(), sprite);
+    this.model.swap();
+  }
+
+  @Override
+  public void elementAdded(Location location, MapForegroundElement element) {
+    this.model.addDeffered(location.getY(), location.getX(), element
+        .getSprite());
+    this.model.swap();
+  }
+
+  @Override
+  public void elementRemoved(Location location, MapForegroundElement element) {
+    this.model.removeDeffered(location.getY(), location.getX(), element
+        .getSprite());
+    this.model.swap();
+  }
+
+  @Override
+  public void elementAdded(Location location, MapBackgroundElement element) {
+    this.model.addDeffered(location.getY(), location.getX(), element
+        .getSprite());
+    this.model.swap();
+  }
+
+  @Override
+  public void elementRemoved(Location location, MapBackgroundElement element) {
+    this.model.removeDeffered(location.getY(), location.getX(), element
+        .getSprite());
     this.model.swap();
   }
 

@@ -5,9 +5,8 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
-import fr.umlv.hmm2000.engine.event.EncounterEvent;
-import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
+import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
 import fr.umlv.hmm2000.gui.Spritable;
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
@@ -41,40 +40,7 @@ public class SalesEntity implements MapForegroundElement {
     return this.type.getSprite();
   }
 
-  @Override
-  public boolean encounter(EncounterEvent event) {
-
-    HMMUserInterface uiManager = CoreEngine.uiManager();
-    ArrayList<Pair<Sellable, Integer>> purchases = SalesEntity
-        .createItemsList(this.items);
-    Sellable item = uiManager.choicesManager().submit(purchases);
-
-    if (item != null && item != SalesEntity.defaultSellable) {
-      if (event.getSender().getPlayer().spend(item.getPrice())) {
-        int quantity = this.items.get(item);
-        quantity--;
-        if (quantity == 0) {
-          this.items.remove(item);
-        } else {
-          this.items.put(item, quantity);
-        }
-        item.acquire(event);
-      } else {
-        uiManager.displayMessage("Vous n'avez pas assez de ressource.");
-      }
-    } else {
-      uiManager.displayMessage("Vous n'avez rien acheter.");
-    }
-
-    return false;
-  }
-
   private static final Sellable defaultSellable = new Sellable() {
-
-    @Override
-    public void acquire(EncounterEvent event) {
-      throw new UnsupportedOperationException();
-    }
 
     @Override
     public String getLabel() {
@@ -84,6 +50,11 @@ public class SalesEntity implements MapForegroundElement {
     @Override
     public Price getPrice() {
       return null;
+    }
+
+    @Override
+    public void acquire(Encounter encounter) {
+      throw new UnsupportedOperationException();
     }
 
   };
@@ -121,5 +92,33 @@ public class SalesEntity implements MapForegroundElement {
   @Override
   public void nextDay(int day) {
     // do nothing
+  }
+
+  @Override
+  public boolean encounter(Encounter encounter) {
+
+    ArrayList<Pair<Sellable, Integer>> purchases = SalesEntity
+        .createItemsList(this.items);
+    Sellable item = CoreEngine.uiManager().choicesManager().submit(purchases);
+
+    if (item != null && item != SalesEntity.defaultSellable) {
+      if (encounter.getSender().getPlayer().spend(item.getPrice())) {
+        int quantity = this.items.get(item);
+        quantity--;
+        if (quantity == 0) {
+          this.items.remove(item);
+        } else {
+          this.items.put(item, quantity);
+        }
+        item.acquire(encounter);
+      } else {
+        CoreEngine.uiManager().displayMessage(
+            "Vous n'avez pas assez de ressource.");
+      }
+    } else {
+      CoreEngine.uiManager().displayMessage("Vous n'avez rien acheter.");
+    }
+
+    return false;
   }
 }
