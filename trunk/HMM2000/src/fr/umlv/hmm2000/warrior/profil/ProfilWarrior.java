@@ -10,7 +10,7 @@ public enum ProfilWarrior {
    * Enum default values description : TYPE(physicalAttackValue,
    * physycalDefenseValue, health, speed, sprite, arrayAttacks)
    */
-  FLIGHT(Sprite.FLIGHT, 10, 10, 100, 30,
+  FLIGHT(Sprite.FLIGHT, 10, 10, 10, 30,
       new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10).addAbility(
           ElementaryEnum.LIGHTNING, 10, 10), new AttackBehaviour() {
 
@@ -20,7 +20,7 @@ public enum ProfilWarrior {
         }
 
       }),
-  GRUNT(Sprite.GRUNT, 10, 10, 20, 20,
+  GRUNT(Sprite.GRUNT, 10, 10, 10, 20,
       new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10).addAbility(
           ElementaryEnum.LIGHTNING, 10, 10), new AttackBehaviour() {
 
@@ -35,7 +35,7 @@ public enum ProfilWarrior {
         }
 
       }),
-  WIZZARD(Sprite.WIZZARD, 10, 10, 100, 10,
+  WIZZARD(Sprite.WIZZARD, 10, 10, 10, 10,
       new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10).addAbility(
           ElementaryEnum.LIGHTNING, 10, 10), new AttackBehaviour() {
 
