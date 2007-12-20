@@ -75,7 +75,7 @@ public class MapBuilder {
     map.addMapForegroundElement(
         UnitFactory.createHero(p1, ProfilHero.SORCERER), new Location(14, 3));
     Hero spiderman = UnitFactory.createHero(p2, ProfilHero.LORD_OF_WAR);
-    try {
+    /*try {
       spiderman.addFightable(UnitFactory.createWarrior(ProfilWarrior.FLIGHT,
           Level.LEVEL_1));
       spiderman.addFightable(UnitFactory.createWarrior(ProfilWarrior.FLIGHT,
@@ -85,7 +85,7 @@ public class MapBuilder {
     } catch (MaxNumberOfTroopsReachedException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
-    }
+    }*/
 
     map.addMapForegroundElement(spiderman, new Location(1, 2));
 

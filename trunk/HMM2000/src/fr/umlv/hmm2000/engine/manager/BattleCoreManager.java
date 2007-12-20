@@ -47,28 +47,40 @@ public class BattleCoreManager {
         && this.roundManager.isCurrentPlayer(attackerWarrior
             .getFightableContainer().getPlayer())
         && !this.roundManager.isCurrentPlayer(defenderWarrior
-            .getFightableContainer().getPlayer())) {
+            .getFightableContainer().getPlayer())
+        && this.roundManager.hasAlreadyPlayed(attackerWarrior)) {
       try {
         attackerWarrior.performAttack(defenderWarrior);
-        this.roundManager.hasAlreadyAttacked(attackerWarrior);
+        this.roundManager.tagAsAlreadyPlayed(attackerWarrior);
         this.roundManager.nextDay();
       } catch (WarriorDeadException e) {
-        CoreEngine.uiManager().displayMessage("Le défenseur est mort.");
+        CoreEngine.uiManager().displayMessage("Le warrior attqué est mort.");
+        this.roundManager.tagAsAlreadyPlayed(attackerWarrior);
+        this.roundManager.kill(defenderWarrior);
         CoreEngine.map().removeMapForegroundElement(l);
-        // EncounterEvent event = new EncounterEvent(null, null, l, l);
-        // CoreEngine.uiManager().eraseForegroundElement(event);
-        if (this.attacker.getTroop().size() == 0
-            || this.defender.getTroop().size() == 0) {
-          // TODO retirer le container du player
-          CoreEngine.uiManager().displayMessage("Vous avez perdu le combat.");
-          CoreEngine.backToWorldMap();
-        }
+        this.roundManager.nextDay();
+        CoreEngine.uiManager().eraseSprite(l, defenderWarrior.getSprite());
       } catch (WarriorNotReachableException e) {
         CoreEngine.uiManager().displayMessage(
             "Vous ne pouvez pas attaquer cette unité.");
       }
+    } else {
+      System.out.println(attackerWarrior + "ne peut pas attaquer");
     }
 
+  }
+
+  public void select() {
+    this.roundManager.untagAttackable();
+    MapForegroundElement element = CoreEngine.selectionManager()
+        .getSelectedElement();
+    if (element instanceof Fightable) {
+      Fightable f = (Fightable) element;
+      if (this.roundManager.isCurrentPlayer(f.getFightableContainer()
+         .getPlayer())) {
+        this.roundManager.tagAttackable((Fightable) element);
+      }
+    }
   }
 
   private Player[] orderPlayer() {

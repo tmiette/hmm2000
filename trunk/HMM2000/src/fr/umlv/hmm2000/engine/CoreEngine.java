@@ -130,6 +130,7 @@ public class CoreEngine {
     case CoreEngine.BATTLE_CONFIG:
       if (button == 1) {
         CoreEngine.selectionManager.perform(l);
+        CoreEngine.battleManager.select();
       } else if (button == 3) {
         CoreEngine.battleManager.perform(l);
       }
@@ -160,8 +161,16 @@ public class CoreEngine {
   public static void startBattle(FightableContainer attacker,
       FightableContainer defender) {
     CoreEngine.battleMap = new BattleMap(attacker, defender);
-    CoreEngine.battleManager = new BattleCoreManager(attacker, defender);
     CoreEngine.changeCurrentMap(CoreEngine.battleMap);
+    CoreEngine.battleManager = new BattleCoreManager(attacker, defender);
+  }
+
+  public static void endBattle(FightableContainer winner,
+      FightableContainer looser) {
+    CoreEngine.backToWorldMap();
+    Location l = CoreEngine.map().getLocationForMapForegroundElement(looser);
+    CoreEngine.map().removeMapForegroundElement(l);
+    CoreEngine.uiEngine.eraseSprite(l, looser.getSprite());
   }
 
   public static Map map() {

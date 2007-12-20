@@ -25,7 +25,11 @@ public enum Sprite {
   GRUNT("grunt"),
   SORCERER("sorcerer"),
   LORDOFWAR("lordofwar"),
-  ARCHER("archer");
+  ARCHER("archer"),
+  YOURTURN("yourturn"),
+  ALREADY("alreadyAttack"),
+  UNATTACKABLE("unattackable"),
+  CASTLE("castle");
 
   private final String spritePath;
 
