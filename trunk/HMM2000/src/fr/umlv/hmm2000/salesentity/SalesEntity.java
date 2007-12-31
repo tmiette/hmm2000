@@ -99,8 +99,8 @@ public class SalesEntity implements MapForegroundElement {
 
     ArrayList<Pair<Sellable, Integer>> purchases = SalesEntity
         .createItemsList(this.items);
-    Sellable item = CoreEngine.uiManager().choicesManager().submit(purchases);
-
+    Sellable item = CoreEngine.requestPurchase(purchases);
+    
     if (item != null && item != SalesEntity.defaultSellable) {
       if (encounter.getSender().getPlayer().spend(item.getPrice())) {
         int quantity = this.items.get(item);
@@ -112,11 +112,10 @@ public class SalesEntity implements MapForegroundElement {
         }
         item.acquire(encounter);
       } else {
-        CoreEngine.uiManager().displayMessage(
-            "Vous n'avez pas assez de ressource.");
+        CoreEngine.fireMessage("Vous n'avez pas assez de ressource.");
       }
     } else {
-      CoreEngine.uiManager().displayMessage("Vous n'avez rien acheter.");
+      CoreEngine.fireMessage("Vous n'avez rien acheter.");
     }
 
     return false;

@@ -22,9 +22,12 @@ public class MoveCoreManager {
 
   private final ArrayList<Step> currentSteps;
 
+  private final ArrayList<Pair<Location, Sprite>> sprites;
+
   public MoveCoreManager() {
     this.heuristic = new CheckerboardEuclideanAStarHeuristic();
     this.currentSteps = new ArrayList<Step>();
+    this.sprites = new ArrayList<Pair<Location, Sprite>>();
   }
 
   public void perform(Location location) {
@@ -90,13 +93,18 @@ public class MoveCoreManager {
             break;
           } else {
             CoreEngine.map().removeMapForegroundElement(l);
+            CoreEngine.fireSpriteRemoved(l, element.getSprite());
           }
         }
         this.currentSource.setStepCount(move.getRemainingStepCount());
         CoreEngine.map().moveMapForegroundElement(move.getStart(),
             move.getEnd());
+        CoreEngine.fireSpriteRemoved(move.getStart(), this.currentSource
+            .getSprite());
         CoreEngine.fireSpriteRemoved(move.getEnd(), Sprite.RECHEABLE);
         CoreEngine.fireSpriteRemoved(move.getEnd(), Sprite.UNRECHEABLE);
+        CoreEngine.fireSpriteAdded(move.getEnd(), this.currentSource
+            .getSprite());
         CoreEngine.selectionManager().perform(move.getEnd());
         MoveCoreManager.slow();
       }
@@ -138,22 +146,26 @@ public class MoveCoreManager {
   }
 
   private void displayCurrentSteps() {
+    this.sprites.clear();
     for (Step move : this.currentSteps) {
       Location l = move.getEnd();
       if (move.isRecheable()) {
-        CoreEngine.fireSpriteAdded(l, Sprite.RECHEABLE);
+        this.sprites.add(new Pair<Location, Sprite>(l, Sprite.RECHEABLE));
       } else {
-        CoreEngine.fireSpriteAdded(l, Sprite.UNRECHEABLE);
+        this.sprites.add(new Pair<Location, Sprite>(l, Sprite.UNRECHEABLE));
       }
     }
+    CoreEngine.fireSpritesAdded(this.sprites);
   }
 
   private void eraseMoveSteps() {
+    this.sprites.clear();
     for (Step move : this.currentSteps) {
       Location l = move.getEnd();
-      CoreEngine.fireSpriteRemoved(l, Sprite.RECHEABLE);
-      CoreEngine.fireSpriteRemoved(l, Sprite.UNRECHEABLE);
+      this.sprites.add(new Pair<Location, Sprite>(l, Sprite.RECHEABLE));
+      this.sprites.add(new Pair<Location, Sprite>(l, Sprite.UNRECHEABLE));
     }
+    CoreEngine.fireSpritesRemoved(this.sprites);
   }
 
   private static void slow() {

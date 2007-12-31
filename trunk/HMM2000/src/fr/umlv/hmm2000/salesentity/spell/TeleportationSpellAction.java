@@ -30,6 +30,9 @@ public class TeleportationSpellAction implements SpellAction {
         Location l = locations[0];
         CoreEngine.map().moveMapForegroundElement(
             encounter.getSenderLocation(), l);
+        CoreEngine.fireSpriteRemoved(encounter.getSenderLocation(), encounter
+            .getSender().getSprite());
+        CoreEngine.fireSpriteAdded(l, encounter.getSender().getSprite());
         CoreEngine.selectionManager().perform(l);
       }
     });

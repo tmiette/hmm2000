@@ -5,6 +5,7 @@ import fr.umlv.hmm2000.engine.LocationSelectionRequester;
 import fr.umlv.hmm2000.engine.LocationSelectionRequester.LocationSelection;
 import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
 import fr.umlv.hmm2000.map.Location;
+import fr.umlv.hmm2000.map.element.MapBackgroundElement;
 import fr.umlv.hmm2000.map.element.MapBackgroundEnum;
 
 public class ObstacleDestructionSpellAction implements SpellAction {
@@ -31,8 +32,12 @@ public class ObstacleDestructionSpellAction implements SpellAction {
           @Override
           public void perform(Location... locations) {
             Location l = locations[0];
-            CoreEngine.map().changeMapBackgroundElement(l,
-                MapBackgroundEnum.PLAIN);
+            MapBackgroundElement oldElement = CoreEngine.map()
+                .getMapBackgroundElementAtLocation(l);
+            MapBackgroundElement newElement = MapBackgroundEnum.PLAIN;
+            CoreEngine.map().changeMapBackgroundElement(l, newElement);
+            CoreEngine.fireSpriteRemoved(l, oldElement.getSprite());
+            CoreEngine.fireSpriteAdded(l, newElement.getSprite());
           }
         });
   }

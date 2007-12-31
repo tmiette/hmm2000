@@ -2,6 +2,7 @@ package fr.umlv.hmm2000.engine;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
@@ -17,11 +18,13 @@ import fr.umlv.hmm2000.map.Map;
 import fr.umlv.hmm2000.map.MapBuilder;
 import fr.umlv.hmm2000.map.MapLevel;
 import fr.umlv.hmm2000.map.WorldMap;
-import fr.umlv.hmm2000.map.element.MapBackgroundElement;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
+import fr.umlv.hmm2000.salesentity.Sellable;
+import fr.umlv.hmm2000.util.Pair;
 import fr.umlv.hmm2000.war.BattleMap;
 import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.warrior.FightableContainer;
+import fr.umlv.hmm2000.warrior.skill.Skill;
 
 public class CoreEngine {
 
@@ -127,11 +130,15 @@ public class CoreEngine {
       }
       break;
     case CoreEngine.BATTLE_CONFIG:
-      if (button == 1) {
-        CoreEngine.selectionManager.perform(l);
-        CoreEngine.battleManager.select();
-      } else if (button == 3) {
-        CoreEngine.battleManager.perform(l);
+      if (CoreEngine.locationRequester != null) {
+        CoreEngine.locationRequester.submitLocation(l);
+      } else {
+        if (button == 1) {
+          CoreEngine.selectionManager.perform(l);
+          CoreEngine.battleManager.select();
+        } else if (button == 3) {
+          CoreEngine.battleManager.perform(l);
+        }
       }
       break;
     default:
@@ -179,10 +186,6 @@ public class CoreEngine {
     return CoreEngine.currentMap;
   }
 
-  public static HMMUserInterface uiManager() {
-    return CoreEngine.uiEngine;
-  }
-
   public static SelectionCoreManager selectionManager() {
     return CoreEngine.selectionManager;
   }
@@ -207,8 +210,20 @@ public class CoreEngine {
   public static void clearLocationSelection() {
     CoreEngine.locationRequester = null;
   }
-  
-  public static void fireMessage(String message){
+
+  public static Sellable requestPurchase(List<Pair<Sellable, Integer>> items) {
+    return CoreEngine.uiEngine.choicesManager().submit(items);
+  }
+
+  public static Skill requestSkill(List<Skill> skills) {
+    return CoreEngine.uiEngine.choicesManager().submit(skills);
+  }
+
+  public static void displayMapForegroundElement(MapForegroundElement element) {
+    element.accept(CoreEngine.uiEngine.displayingVisitor());
+  }
+
+  public static void fireMessage(String message) {
     CoreEngine.uiEngine.displayMessage(message);
   }
 
@@ -216,28 +231,15 @@ public class CoreEngine {
     CoreEngine.uiEngine.displaySprite(location, sprite);
   }
 
+  public static void fireSpritesAdded(List<Pair<Location, Sprite>> sprites) {
+    CoreEngine.uiEngine.displaySprites(sprites);
+  }
+
   public static void fireSpriteRemoved(Location location, Sprite sprite) {
     CoreEngine.uiEngine.eraseSprite(location, sprite);
   }
 
-  public static void fireElementAdded(Location location,
-      MapForegroundElement element) {
-    CoreEngine.uiEngine.elementAdded(location, element);
+  public static void fireSpritesRemoved(List<Pair<Location, Sprite>> sprites) {
+    CoreEngine.uiEngine.eraseSprites(sprites);
   }
-
-  public static void fireElementRemoved(Location location,
-      MapForegroundElement element) {
-    CoreEngine.uiEngine.elementRemoved(location, element);
-  }
-
-  public static void fireBackgroundElementAdded(Location location,
-      MapBackgroundElement element) {
-    CoreEngine.uiEngine.elementAdded(location, element);
-  }
-
-  public static void fireBackgroundElementRemoved(Location location,
-      MapBackgroundElement element) {
-    CoreEngine.uiEngine.elementRemoved(location, element);
-  }
-
 }

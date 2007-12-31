@@ -7,54 +7,46 @@ import fr.umlv.hmm2000.warrior.Fightable;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.profil.ElementAbility;
 
-
 public class AttackAllSkill implements Skill {
-	
-	private final ElementAbility abilities;
-	
-	private final double physical;
 
-	public AttackAllSkill(	ElementAbility abilities,
-													double physical) {
+  private final ElementAbility abilities;
 
-		this.abilities = abilities;
-		this.physical = physical;
-	}
+  private final double physical;
 
+  public AttackAllSkill(ElementAbility abilities, double physical) {
 
-	@Override
-	public void perform() {
+    this.abilities = abilities;
+    this.physical = physical;
+  }
 
-		
-		Map map = CoreEngine.map();
-		for (MapForegroundElement mfe : map.getMapForegroundElements()) {
-			try {
-					if (mfe instanceof Fightable) {
-						Fightable defender = (Fightable)mfe;
-						double elementaryDamage = this.abilities.getDamage(defender.getAbilities());
-				    defender.hurt(this.physical + elementaryDamage
-				        - defender.getPhysicalDefenseValue());
-					}
-				}
-			catch (WarriorDeadException e) {
-				map.removeMapForegroundElement(map.getLocationForMapForegroundElement(mfe));
-			}
-		}
-	}
+  @Override
+  public void perform() {
 
+    Map map = CoreEngine.map();
+    for (MapForegroundElement mfe : map.getMapForegroundElements()) {
+      try {
+        if (mfe instanceof Fightable) {
+          Fightable defender = (Fightable) mfe;
+          double elementaryDamage = this.abilities.getDamage(defender
+              .getAbilities());
+          defender.hurt(this.physical + elementaryDamage
+              - defender.getPhysicalDefenseValue());
+        }
+      } catch (WarriorDeadException e) {
+        map.removeMapForegroundElement(map
+            .getLocationForMapForegroundElement(mfe));
+      }
+    }
+  }
 
-	@Override
-	public String getName() {
+  @Override
+  public String getName() {
+    return this.getClass().toString();
+  }
 
-		return this.getName();
-	}
+  @Override
+  public String getToolTipText() {
 
-
-	@Override
-	public String getToolTipText() {
-
-		return "This skill permits to attack all units on the battle map";
-	}
+    return "This skill permits to attack all units on the battle map";
+  }
 }
-		
-

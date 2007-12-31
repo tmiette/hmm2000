@@ -19,9 +19,25 @@ public class BattlePositionCoreManager {
         Location selectedLocation = CoreEngine.selectionManager()
             .getSelectedLocation();
         CoreEngine.map().moveMapForegroundElement(selectedLocation, l);
-        CoreEngine.uiManager().swap(selectedLocation, l);
+        this.swap(selectedLocation, l);
         CoreEngine.selectionManager().perform(l);
       }
     }
   }
+
+  private void swap(Location from, Location to) {
+    MapForegroundElement fromElement = CoreEngine.map()
+        .getMapForegroundElementAtLocation(to);
+    MapForegroundElement toElement = CoreEngine.map()
+        .getMapForegroundElementAtLocation(from);
+    if (toElement != null) {
+      CoreEngine.fireSpriteRemoved(to, toElement.getSprite());
+    }
+    CoreEngine.fireSpriteRemoved(from, fromElement.getSprite());
+    CoreEngine.fireSpriteAdded(to, fromElement.getSprite());
+    if (toElement != null) {
+      CoreEngine.fireSpriteAdded(from, toElement.getSprite());
+    }
+  }
+
 }

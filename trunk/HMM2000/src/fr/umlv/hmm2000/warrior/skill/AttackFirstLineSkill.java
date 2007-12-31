@@ -4,7 +4,6 @@ import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.LocationSelectionRequester;
 import fr.umlv.hmm2000.engine.LocationSelectionRequester.LocationSelection;
 import fr.umlv.hmm2000.map.Location;
-import fr.umlv.hmm2000.map.Map;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.warrior.Fightable;
@@ -13,65 +12,63 @@ import fr.umlv.hmm2000.warrior.profil.ElementAbility;
 
 public class AttackFirstLineSkill implements Skill {
 
-	private final ElementAbility abilities;
+  private final ElementAbility abilities;
 
-	private final double physical;
+  private final double physical;
 
-	public AttackFirstLineSkill(	ElementAbility abilities,
-																double physical) {
+  public AttackFirstLineSkill(ElementAbility abilities, double physical) {
 
-		this.abilities = abilities;
-		this.physical = physical;
-	}
+    this.abilities = abilities;
+    this.physical = physical;
+  }
 
-	@Override
-	public void perform() {
+  @Override
+  public void perform() {
 
-		CoreEngine.requestLocationSelection(new LocationSelectionRequester(
-				new LocationSelection(LocationSelectionRequester.FIRST_LINE_LOCATION,
-						"Qui voulez vous attaquer ?")) {
+    CoreEngine.requestLocationSelection(new LocationSelectionRequester(
+        new LocationSelection(
+            LocationSelectionRequester.BATTLE_FIRST_LINE_LOCATION,
+            "Qui voulez vous attaquer ?")) {
 
-			@Override
-			public void perform(Location... locations) {
+      @Override
+      public void perform(Location... locations) {
 
-				Location l = locations[0];
-				Map map = CoreEngine.map();
-				MapForegroundElement mfe = map.getMapForegroundElementAtLocation(l);
+        Location l = locations[0];
+        MapForegroundElement mfe = CoreEngine.map()
+            .getMapForegroundElementAtLocation(l);
 
-				if (mfe instanceof Fightable) {
-					Fightable fightable = (Fightable) mfe;
-					BattlePositionMap pMap = fightable.getFightableContainer()
-							.getBattlePositionManager();
+        Fightable fightable = (Fightable) mfe;
+        BattlePositionMap pMap = fightable.getFightableContainer()
+            .getBattlePositionManager();
 
-					for (Fightable defender : pMap.getFightableOnFirstLine()) {
+        for (Fightable defender : pMap.getFightableOnFirstLine()) {
 
-						double elementaryDamage = abilities.getDamage(defender
-								.getAbilities());
+          double elementaryDamage = abilities
+              .getDamage(defender.getAbilities());
 
-						try {
-							defender.hurt(physical + elementaryDamage
-									- defender.getPhysicalDefenseValue());
+          try {
+            defender.hurt(physical + elementaryDamage
+                - defender.getPhysicalDefenseValue());
 
-						}
-						catch (WarriorDeadException e1) {
-							map.removeMapForegroundElement(map
-									.getLocationForMapForegroundElement(defender));
-						}
-					}
-				}
-			}
-		});
-	}
+          } catch (WarriorDeadException e1) {
+            Location defenderLocation = CoreEngine.map()
+                .getLocationForMapForegroundElement(defender);
+            CoreEngine.map().removeMapForegroundElement(defenderLocation);
+            CoreEngine
+                .fireSpriteRemoved(defenderLocation, defender.getSprite());
+          }
+        }
+      }
+    });
+  }
 
-	@Override
-	public String getName() {
+  @Override
+  public String getName() {
+    return this.getClass().toString();
+  }
 
-		return this.getName();
-	}
-
-	@Override
-	public String getToolTipText() {
-
-		return "This skill permits to attack all units on the first line";
-	}
+  @Override
+  public String getToolTipText() {
+    return "This skill permits to attack all units on the first line";
+  }
 }

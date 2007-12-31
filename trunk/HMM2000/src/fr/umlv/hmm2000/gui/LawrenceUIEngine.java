@@ -1,6 +1,7 @@
 package fr.umlv.hmm2000.gui;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
@@ -8,8 +9,8 @@ import fr.umlv.hmm2000.engine.guiinterface.UIChoicesManager;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.Map;
-import fr.umlv.hmm2000.map.element.MapBackgroundElement;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
+import fr.umlv.hmm2000.util.Pair;
 import fr.umlv.lawrence.Application;
 import fr.umlv.lawrence.CursorListener;
 import fr.umlv.lawrence.DefaultGridModel;
@@ -201,23 +202,6 @@ public class LawrenceUIEngine implements HMMUserInterface {
   }
 
   @Override
-  public void swap(Location from, Location to) {
-    MapForegroundElement fromElement = this.map
-        .getMapForegroundElementAtLocation(to);
-    MapForegroundElement toElement = this.map
-        .getMapForegroundElementAtLocation(from);
-    if (toElement != null) {
-      this.model.removeDeffered(to.getY(), to.getX(), toElement.getSprite());
-    }
-    this.model
-        .removeDeffered(from.getY(), from.getX(), fromElement.getSprite());
-    this.model.addDeffered(to.getY(), to.getX(), fromElement.getSprite());
-    if (toElement != null) {
-      this.model.addDeffered(from.getY(), from.getX(), toElement.getSprite());
-    }
-  }
-
-  @Override
   public void displaySprite(Location location, Sprite sprite) {
     this.model.addDeffered(location.getY(), location.getX(), sprite);
     this.model.swap();
@@ -230,30 +214,20 @@ public class LawrenceUIEngine implements HMMUserInterface {
   }
 
   @Override
-  public void elementAdded(Location location, MapForegroundElement element) {
-    this.model.addDeffered(location.getY(), location.getX(), element
-        .getSprite());
+  public void displaySprites(List<Pair<Location, Sprite>> sprites) {
+    for (Pair<Location, Sprite> pair : sprites) {
+      this.model.addDeffered(pair.getFirstElement().getY(), pair
+          .getFirstElement().getX(), pair.getSecondElement());
+    }
     this.model.swap();
   }
 
   @Override
-  public void elementRemoved(Location location, MapForegroundElement element) {
-    this.model.removeDeffered(location.getY(), location.getX(), element
-        .getSprite());
-    this.model.swap();
-  }
-
-  @Override
-  public void elementAdded(Location location, MapBackgroundElement element) {
-    this.model.addDeffered(location.getY(), location.getX(), element
-        .getSprite());
-    this.model.swap();
-  }
-
-  @Override
-  public void elementRemoved(Location location, MapBackgroundElement element) {
-    this.model.removeDeffered(location.getY(), location.getX(), element
-        .getSprite());
+  public void eraseSprites(List<Pair<Location, Sprite>> sprites) {
+    for (Pair<Location, Sprite> pair : sprites) {
+      this.model.removeDeffered(pair.getFirstElement().getY(), pair
+          .getFirstElement().getX(), pair.getSecondElement());
+    }
     this.model.swap();
   }
 

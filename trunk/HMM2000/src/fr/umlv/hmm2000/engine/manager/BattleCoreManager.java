@@ -8,8 +8,10 @@ import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.warrior.Fightable;
 import fr.umlv.hmm2000.warrior.FightableContainer;
+import fr.umlv.hmm2000.warrior.Hero;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.exception.WarriorNotReachableException;
+import fr.umlv.hmm2000.warrior.skill.Skill;
 
 public class BattleCoreManager {
 
@@ -37,36 +39,49 @@ public class BattleCoreManager {
 
     MapForegroundElement attackerElement = CoreEngine.selectionManager()
         .getSelectedElement();
-    MapForegroundElement defenderElement = CoreEngine.map()
-        .getMapForegroundElementAtLocation(l);
-    Fightable attackerWarrior = (Fightable) attackerElement;
-    Fightable defenderWarrior = (Fightable) defenderElement;
 
     if (attackerElement != null
-        && defenderElement != null
-        && this.roundManager.isCurrentPlayer(attackerWarrior
-            .getFightableContainer().getPlayer())
-        && !this.roundManager.isCurrentPlayer(defenderWarrior
-            .getFightableContainer().getPlayer())
-        && this.roundManager.hasAlreadyPlayed(attackerWarrior)) {
-      try {
-        attackerWarrior.performAttack(defenderWarrior);
-        this.roundManager.tagAsAlreadyPlayed(attackerWarrior);
-        this.roundManager.nextDay();
-      } catch (WarriorDeadException e) {
-        this.roundManager.tagAsAlreadyPlayed(attackerWarrior);
-        this.roundManager.kill(defenderWarrior);
-        CoreEngine.map().removeMapForegroundElement(l);
-        this.roundManager.nextDay();
-        // TODO deleguer remove sprite a la map
-        CoreEngine.uiManager().eraseSprite(l, defenderWarrior.getSprite());
-      } catch (WarriorNotReachableException e) {
-        CoreEngine.fireMessage("Vous ne pouvez pas attaquer cette unité.");
-      }
-    } else {
-      System.out.println(attackerWarrior + "ne peut pas attaquer");
-    }
+        && !CoreEngine.selectionManager().getSelectedLocation().equals(l)) {
 
+      MapForegroundElement defenderElement = CoreEngine.map()
+          .getMapForegroundElementAtLocation(l);
+
+      if (attackerElement instanceof Fightable && defenderElement != null
+          && defenderElement instanceof Fightable) {
+
+        Fightable attackerWarrior = (Fightable) attackerElement;
+        Fightable defenderWarrior = (Fightable) defenderElement;
+
+        if (this.roundManager.isCurrentPlayer(attackerWarrior
+            .getFightableContainer().getPlayer())
+            && !this.roundManager.isCurrentPlayer(defenderWarrior
+                .getFightableContainer().getPlayer())
+            && !this.roundManager.hasAlreadyPlayed(attackerWarrior)) {
+          try {
+            attackerWarrior.performAttack(defenderWarrior);
+            this.roundManager.tagAsAlreadyPlayed(attackerWarrior);
+            this.roundManager.nextDay();
+          } catch (WarriorDeadException e) {
+            this.roundManager.tagAsAlreadyPlayed(attackerWarrior);
+            this.roundManager.kill(defenderWarrior);
+            CoreEngine.map().removeMapForegroundElement(l);
+            CoreEngine.fireSpriteRemoved(l, defenderWarrior.getSprite());
+            this.roundManager.nextDay();
+          } catch (WarriorNotReachableException e) {
+            CoreEngine.fireMessage("Vous ne pouvez pas attaquer cette unité.");
+          }
+        } else {
+          CoreEngine.fireMessage(attackerWarrior + "ne peut pas attaquer.");
+        }
+      } else if (attackerElement instanceof Hero) {
+        Hero hero = (Hero) attackerElement;
+        if (this.roundManager.isCurrentPlayer(hero.getPlayer())
+            && !this.roundManager.hasAlreadyPlayed(hero)) {
+          Skill skill = CoreEngine.requestSkill(hero.getSkills());
+          skill.perform();
+        }
+      }
+    }
   }
 
   public void select() {
@@ -87,10 +102,18 @@ public class BattleCoreManager {
     Player attacker = this.attacker.getPlayer();
     Player defender = this.defender.getPlayer();
 
+    /*
+     * if (this.attacker.getAttackPriority() <
+     * this.defender.getAttackPriority()) { players[0] = defender; players[1] =
+     * attacker; } else { players[0] = attacker; players[1] = defender; }
+     */
     players[0] = attacker;
     players[1] = defender;
-
     return players;
+  }
+
+  public BattleRoundCoreManager roundManager() {
+    return this.roundManager;
   }
 
 }

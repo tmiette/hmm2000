@@ -159,4 +159,8 @@ public class Hero extends MovableElement {
 		return this.attackPriority;
 	}
 
+  public List<Skill> getSkills() {
+    return this.skills;
+  }
+
 }

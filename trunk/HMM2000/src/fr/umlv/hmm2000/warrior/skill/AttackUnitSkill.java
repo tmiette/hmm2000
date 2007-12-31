@@ -65,7 +65,7 @@ public class AttackUnitSkill implements Skill {
 	@Override
 	public String getName() {
 
-		return this.getName();
+	  return this.getClass().toString();
 	}
 
 	@Override

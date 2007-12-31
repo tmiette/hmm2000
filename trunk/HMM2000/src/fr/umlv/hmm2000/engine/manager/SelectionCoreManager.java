@@ -21,7 +21,7 @@ public class SelectionCoreManager {
         this.selectedLocation = null;
       }
       CoreEngine.fireSpriteAdded(l, Sprite.SELECTION);
-      element.accept(CoreEngine.uiManager().displayingVisitor());
+      CoreEngine.displayMapForegroundElement(element);
       this.selectedLocation = l;
     }
   }

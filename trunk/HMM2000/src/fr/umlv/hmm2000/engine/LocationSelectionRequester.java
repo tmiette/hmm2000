@@ -4,14 +4,18 @@ import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.MovableElement;
 import fr.umlv.hmm2000.map.element.MapBackgroundElement;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
+import fr.umlv.hmm2000.warrior.Fightable;
 
 public abstract class LocationSelectionRequester {
 
-  public static final int ANY_LOCATION = 0;
-  public static final int RECHEABLE_LOCATION = 1;
-  public static final int FOREGROUND_ELEMENT_LOCATION = 2;
-  public static final int MOVABLE_ELEMENT_LOCATION = 4;
-  public static final int UNREACHEABLE_BACKGROUND_ELEMENT_LOCATION = 8;
+  public static final int ANY_LOCATION = 1;
+  public static final int RECHEABLE_LOCATION = 2;
+  public static final int FOREGROUND_ELEMENT_LOCATION = 4;
+  public static final int MOVABLE_ELEMENT_LOCATION = 8;
+  public static final int UNREACHEABLE_BACKGROUND_ELEMENT_LOCATION = 16;
+  public static final int BATTLE_FIRST_LINE_LOCATION = 32;
+  public static final int BATTLE_CURRENT_FIGHTABLE_LOCATION = 64;
+  public static final int BATTLE_OPPONENT_FIGHTABLE_LOCATION = 128;
 
   private int currentLocationsNumber;
 
@@ -30,8 +34,8 @@ public abstract class LocationSelectionRequester {
   }
 
   private void askForNextSelection() {
-    CoreEngine.uiManager().displayMessage(
-        this.selections[this.currentLocationsNumber].getLabel());
+    CoreEngine.fireMessage(this.selections[this.currentLocationsNumber]
+        .getLabel());
   }
 
   public void submitLocation(Location l) {
@@ -67,6 +71,21 @@ public abstract class LocationSelectionRequester {
         isCorrectLocation = true;
       }
       break;
+    case LocationSelectionRequester.BATTLE_FIRST_LINE_LOCATION:
+      if (foregroundElement != null && foregroundElement instanceof Fightable) {
+        Fightable f = (Fightable) foregroundElement;
+        isCorrectLocation = f.getFightableContainer()
+            .getBattlePositionManager().isInFirstLine(f);
+      }
+      break;
+    case LocationSelectionRequester.BATTLE_CURRENT_FIGHTABLE_LOCATION:
+      if (foregroundElement != null && foregroundElement instanceof Fightable) {
+        Fightable f = (Fightable) foregroundElement;
+        isCorrectLocation = f.getFightableContainer().getPlayer().equals(
+            CoreEngine.battleManager().roundManager().currentPlayer())
+            && CoreEngine.battleManager().roundManager().hasAlreadyPlayed(f);
+      }
+      break;
     default:
       break;
     }
@@ -75,8 +94,7 @@ public abstract class LocationSelectionRequester {
       this.locations[this.currentLocationsNumber] = l;
       this.currentLocationsNumber++;
     } else {
-      CoreEngine.uiManager().displayMessage(
-          "Selection incorrecte, veuillez recommencer.");
+      CoreEngine.fireMessage("Selection incorrecte, veuillez recommencer.");
     }
 
     if (this.currentLocationsNumber != this.selections.length) {

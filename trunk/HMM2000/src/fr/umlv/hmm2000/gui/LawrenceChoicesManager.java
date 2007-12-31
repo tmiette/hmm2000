@@ -6,6 +6,7 @@ import java.util.Scanner;
 import fr.umlv.hmm2000.engine.guiinterface.UIChoicesManager;
 import fr.umlv.hmm2000.salesentity.Sellable;
 import fr.umlv.hmm2000.util.Pair;
+import fr.umlv.hmm2000.warrior.skill.Skill;
 
 public class LawrenceChoicesManager implements UIChoicesManager {
 
@@ -43,5 +44,17 @@ public class LawrenceChoicesManager implements UIChoicesManager {
       Sellable item = pairSelected.getFirstElement();
       return item;
     }
+  }
+
+  @Override
+  public Skill submit(List<Skill> skills) {
+    int i = 0;
+    for (Skill skill : skills) {
+      System.out.println(i++ + "-" + skill.getName() + " : "
+          + skill.getToolTipText());
+    }
+
+    int skillIndex = LawrenceChoicesManager.readInt(0, skills.size() - 1);
+    return skills.get(skillIndex);
   }
 }

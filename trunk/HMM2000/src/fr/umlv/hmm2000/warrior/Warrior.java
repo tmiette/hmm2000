@@ -69,7 +69,7 @@ public class Warrior implements Fightable {
         encounter.getSender().getPlayer().addResource(pair.getFirstElement(),
             pair.getSecondElement());
       }
-      CoreEngine.uiManager().displayMessage("Vous avez trop d'unité.");
+      CoreEngine.fireMessage("Vous avez trop d'unité.");
     }
   }
 

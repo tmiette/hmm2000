@@ -7,6 +7,7 @@ import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.map.Location;
+import fr.umlv.hmm2000.util.Pair;
 import fr.umlv.hmm2000.warrior.Fightable;
 import fr.umlv.hmm2000.warrior.FightableContainer;
 
@@ -16,18 +17,22 @@ public class BattleRoundCoreManager extends DayCoreManager {
   private final Player player2;
   private final FightableContainer player1Container;
   private final FightableContainer player2Container;
+  private final HashMap<FightableContainer, Boolean> containers;
   private final HashMap<FightableContainer, Location> containersLocations;
   private final HashMap<Player, ArrayList<Fightable>> fightables;
   private final ArrayList<Fightable> player1Fightables;
   private final ArrayList<Fightable> player2Fightables;
+  private final ArrayList<Pair<Location, Sprite>> sprites;
 
   public BattleRoundCoreManager(FightableContainer attacker,
       FightableContainer defender, Player attackerPlayer, Player defenderPlayer) {
     super(attackerPlayer, defenderPlayer);
+    this.sprites = new ArrayList<Pair<Location, Sprite>>();
     this.player1 = attackerPlayer;
     this.player2 = defenderPlayer;
     this.player1Container = attacker;
     this.player2Container = defender;
+    this.containers = new HashMap<FightableContainer, Boolean>();
     this.containersLocations = new HashMap<FightableContainer, Location>();
     this.containersLocations.put(this.player1Container, CoreEngine.map()
         .getLocationForMapForegroundElement(this.player1Container));
@@ -45,7 +50,8 @@ public class BattleRoundCoreManager extends DayCoreManager {
   public void nextDay() {
     this.untagAlreadyPlayed();
     if (this.opponentContainer().getTroop().size() == 0) {
-      System.out.println(opponentPlayer() + " a perdu le combat");
+      CoreEngine
+          .fireMessage(this.opponentContainer() + " a perdu la bataille.");
       CoreEngine.endBattle(this.currentContainer(), this.opponentContainer());
       return;
     }
@@ -66,26 +72,41 @@ public class BattleRoundCoreManager extends DayCoreManager {
         .currentContainer()), Sprite.YOURTURN);
     CoreEngine.fireSpriteRemoved(this.containersLocations.get(this
         .opponentContainer()), Sprite.YOURTURN);
-    System.out.println(this.currentPlayer() + " doit jouer");
+    CoreEngine.fireMessage(this.currentContainer() + " attaque.");
   }
 
   private void newRound() {
+    this.containers.put(this.player1Container, false);
+    this.containers.put(this.player2Container, false);
     this.player1Fightables.clear();
     this.player2Fightables.clear();
     this.player1Fightables.addAll(this.player1Container.getTroop());
     this.player2Fightables.addAll(this.player2Container.getTroop());
     this.fightables.put(this.player1, this.player1Fightables);
     this.fightables.put(this.player2, this.player2Fightables);
-    System.out.println("On recommence le round");
-    System.out.println(this.currentPlayer() + " doit jouer");
+    CoreEngine.fireMessage(this.currentContainer() + " attaque.");
   }
 
   public boolean hasAlreadyPlayed(Fightable f) {
-    return this.fightables.get(this.currentPlayer()).contains(f);
+    return !this.fightables.get(this.currentPlayer()).contains(f);
+  }
+
+  public boolean hasAlreadyPlayed(FightableContainer f) {
+    return this.containers.get(f);
   }
 
   public void tagAsAlreadyPlayed(Fightable f) {
     this.fightables.get(this.currentPlayer()).remove(f);
+  }
+
+  public void tagAsNotAlreadyPlayed(Fightable f) {
+    if (this.hasAlreadyPlayed(f)) {
+      this.fightables.get(this.currentPlayer()).add(f);
+    }
+  }
+
+  public void tagAsAlreadyPlayed(FightableContainer f) {
+    this.containers.put(f, true);
   }
 
   public void kill(Fightable f) {
@@ -93,41 +114,49 @@ public class BattleRoundCoreManager extends DayCoreManager {
   }
 
   public void tagUnattackable(Fightable f) {
+    this.sprites.clear();
     for (Fightable opponentFightable : this.opponentContainer().getTroop()) {
       if (!f.isAttackable(opponentFightable)) {
         Location l = CoreEngine.map().getLocationForMapForegroundElement(
             opponentFightable);
-        CoreEngine.fireSpriteAdded(l, Sprite.UNATTACKABLE);
+        this.sprites.add(new Pair<Location, Sprite>(l, Sprite.UNATTACKABLE));
       }
     }
+    CoreEngine.fireSpritesAdded(this.sprites);
   }
 
   public void untagUnattackable() {
+    this.sprites.clear();
     for (Fightable opponentFightable : this.opponentContainer().getTroop()) {
       Location l = CoreEngine.map().getLocationForMapForegroundElement(
           opponentFightable);
-      CoreEngine.fireSpriteRemoved(l, Sprite.UNATTACKABLE);
+      this.sprites.add(new Pair<Location, Sprite>(l, Sprite.UNATTACKABLE));
     }
+    CoreEngine.fireSpritesRemoved(this.sprites);
   }
 
   private void tagAlreadyPlayed() {
+    this.sprites.clear();
     for (Fightable f : this.currentContainer().getTroop()) {
       if (!this.fightables.get(this.currentPlayer()).contains(f)) {
-        CoreEngine.fireSpriteAdded(CoreEngine.map()
-            .getLocationForMapForegroundElement(f), Sprite.ALREADY);
+        this.sprites.add(new Pair<Location, Sprite>(CoreEngine.map()
+            .getLocationForMapForegroundElement(f), Sprite.ALREADY));
       }
     }
+    CoreEngine.fireSpritesAdded(this.sprites);
   }
 
   private void untagAlreadyPlayed() {
+    this.sprites.clear();
     for (Fightable f : this.currentContainer().getTroop()) {
-      CoreEngine.fireSpriteRemoved(CoreEngine.map()
-          .getLocationForMapForegroundElement(f), Sprite.ALREADY);
+      this.sprites.add(new Pair<Location, Sprite>(CoreEngine.map()
+          .getLocationForMapForegroundElement(f), Sprite.ALREADY));
     }
     for (Fightable f : this.opponentContainer().getTroop()) {
-      CoreEngine.fireSpriteRemoved(CoreEngine.map()
-          .getLocationForMapForegroundElement(f), Sprite.UNATTACKABLE);
+      this.sprites.add(new Pair<Location, Sprite>(CoreEngine.map()
+          .getLocationForMapForegroundElement(f), Sprite.UNATTACKABLE));
     }
+    CoreEngine.fireSpritesRemoved(this.sprites);
   }
 
   private boolean isStillAttacker(ArrayList<Fightable> attackers,
