@@ -63,6 +63,7 @@ public class AttackLineOpponentFightableSkill implements Skill {
             }
           }
         }
+        CoreEngine.battleManager().roundManager().nextDay();
       }
     });
   }

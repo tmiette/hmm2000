@@ -36,6 +36,7 @@ public class AttackAllFightablesSkill implements Skill {
         }
       }
     }
+    CoreEngine.battleManager().roundManager().nextDay();
   }
 
   @Override

@@ -37,6 +37,7 @@ public class SwapFightablesSkill implements Skill {
         if (toElement != null) {
           CoreEngine.fireSpriteAdded(from, toElement.getSprite());
         }
+        CoreEngine.battleManager().roundManager().nextDay();
       }
 
     });

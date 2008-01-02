@@ -21,6 +21,7 @@ public class AttackOneMoreTimeSkill implements Skill {
         Location l = locations[0];
         CoreEngine.battleManager().roundManager().tagAsNotAlreadyPlayed(
             (Fightable) CoreEngine.map().getMapForegroundElementAtLocation(l));
+        CoreEngine.battleManager().roundManager().nextDay();
       }
     });
 
@@ -33,6 +34,6 @@ public class AttackOneMoreTimeSkill implements Skill {
 
   @Override
   public String getToolTipText() {
-    return "This skill enables to attack a unit one more time";
+    return "This skill enables an unit to attack one more time.";
   }
 }
