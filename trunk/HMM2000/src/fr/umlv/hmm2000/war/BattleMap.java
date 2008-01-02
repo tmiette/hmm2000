@@ -162,6 +162,15 @@ public class BattleMap implements Map {
 		}
 	}
 
+	public FightableContainer getFightableContainerAtLocation(Location l) {
+
+		Team team = getTeam(l);
+		if (team != null) {
+			return this.container.get(team).getSecondElement();
+		}
+		return null;
+	}
+
 	@Override
 	public void changeMapBackgroundElement(Location l,
 			MapBackgroundElement element) {
