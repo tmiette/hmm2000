@@ -37,11 +37,9 @@ public class AttackOpponentFightableSkill implements Skill {
 
         Fightable defender = (Fightable) mfe;
         double elementaryDamage = abilities.getDamage(defender.getAbilities());
-
         try {
           defender.hurt(physical + elementaryDamage
               - defender.getPhysicalDefenseValue());
-
         } catch (WarriorDeadException e) {
           Location l = CoreEngine.map().getLocationForMapForegroundElement(
               defender);

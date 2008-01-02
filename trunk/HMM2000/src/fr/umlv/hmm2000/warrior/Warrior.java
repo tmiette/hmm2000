@@ -186,9 +186,11 @@ public class Warrior implements Fightable {
 
   @Override
   public void hurt(double damage) throws WarriorDeadException {
-    this.health -= damage;
-    if (this.health <= 0) {
-      throw new WarriorDeadException("Warrior is dead");
+    if (damage > 0) {
+      this.currentHealth -= damage;
+      if (this.currentHealth <= 0) {
+        throw new WarriorDeadException("Warrior is dead");
+      }
     }
   }
 

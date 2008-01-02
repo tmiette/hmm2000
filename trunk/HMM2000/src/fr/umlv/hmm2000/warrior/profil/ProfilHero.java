@@ -26,7 +26,7 @@ public enum ProfilHero {
       UnitFactory.createWarrior(ProfilWarrior.GRUNT, Level.LEVEL_1),
       UnitFactory.createWarrior(ProfilWarrior.WIZZARD, Level.LEVEL_1) },
       new Skill[] { new AttackLineOpponentFightableSkill(new ElementAbility()
-          .addAbility(ElementaryEnum.FIRE, 10, 0), 10) },
+          .addAbility(ElementaryEnum.FIRE, 25, 0), 10) },
       FightableContainer.PRIORITY_LOW),
   LORD_OF_WAR(Sprite.LORDOFWAR, new Fightable[] {
       UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
@@ -48,9 +48,9 @@ public enum ProfilHero {
       UnitFactory.createWarrior(ProfilWarrior.WIZZARD, Level.LEVEL_1) },
       new Skill[] {
           new AttackAllFightablesSkill(new ElementAbility().addAbility(
-              ElementaryEnum.FIRE, 10, 0), 0),
+              ElementaryEnum.FIRE, 15, 0), 0),
           new AttackOpponentFightableSkill(new ElementAbility().addAbility(
-              ElementaryEnum.FIRE, 10, 0), 0) },
+              ElementaryEnum.FIRE, 50, 0), 0) },
       FightableContainer.PRIORITY_LOW);
 
   private final Sprite sprite;
