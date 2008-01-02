@@ -4,7 +4,9 @@ import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.MovableElement;
 import fr.umlv.hmm2000.map.element.MapBackgroundElement;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
+import fr.umlv.hmm2000.war.BattleMap;
 import fr.umlv.hmm2000.warrior.Fightable;
+import fr.umlv.hmm2000.warrior.FightableContainer;
 
 public abstract class LocationSelectionRequester {
 
@@ -13,9 +15,9 @@ public abstract class LocationSelectionRequester {
   public static final int FOREGROUND_ELEMENT_LOCATION = 4;
   public static final int MOVABLE_ELEMENT_LOCATION = 8;
   public static final int UNREACHEABLE_BACKGROUND_ELEMENT_LOCATION = 16;
-  public static final int BATTLE_FIRST_LINE_LOCATION = 32;
+  public static final int BATTLE_OPPONENT_FIGHTABLE_LOCATION = 32;
   public static final int BATTLE_CURRENT_FIGHTABLE_LOCATION = 64;
-  public static final int BATTLE_OPPONENT_FIGHTABLE_LOCATION = 128;
+  public static final int BATTLE_CURRENT_POSITION_LOCATION = 128;
 
   private int currentLocationsNumber;
 
@@ -71,19 +73,28 @@ public abstract class LocationSelectionRequester {
         isCorrectLocation = true;
       }
       break;
-    case LocationSelectionRequester.BATTLE_FIRST_LINE_LOCATION:
+    case LocationSelectionRequester.BATTLE_OPPONENT_FIGHTABLE_LOCATION:
       if (foregroundElement != null && foregroundElement instanceof Fightable) {
         Fightable f = (Fightable) foregroundElement;
-        isCorrectLocation = f.getFightableContainer()
-            .getBattlePositionManager().isInFirstLine(f);
+        isCorrectLocation = !CoreEngine.battleManager().roundManager()
+            .isCurrentPlayer(f.getFightableContainer().getPlayer());
       }
       break;
     case LocationSelectionRequester.BATTLE_CURRENT_FIGHTABLE_LOCATION:
       if (foregroundElement != null && foregroundElement instanceof Fightable) {
         Fightable f = (Fightable) foregroundElement;
-        isCorrectLocation = f.getFightableContainer().getPlayer().equals(
-            CoreEngine.battleManager().roundManager().currentPlayer())
+        isCorrectLocation = CoreEngine.battleManager().roundManager()
+            .isCurrentPlayer(f.getFightableContainer().getPlayer())
             && CoreEngine.battleManager().roundManager().hasAlreadyPlayed(f);
+      }
+      break;
+    case LocationSelectionRequester.BATTLE_CURRENT_POSITION_LOCATION:
+      BattleMap map = (BattleMap) CoreEngine.map();
+      FightableContainer container = map.getFightableContainerAtLocation(l);
+      if (container != null
+          && container.equals(CoreEngine.battleManager().roundManager()
+              .currentContainer())) {
+        isCorrectLocation = true;
       }
       break;
     default:

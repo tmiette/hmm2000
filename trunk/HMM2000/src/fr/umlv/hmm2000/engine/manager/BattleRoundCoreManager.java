@@ -171,7 +171,7 @@ public class BattleRoundCoreManager extends DayCoreManager {
     return false;
   }
 
-  private Player opponentPlayer() {
+  public Player opponentPlayer() {
     if (this.currentPlayer().equals(this.player1)) {
       return player2;
     } else {
@@ -179,7 +179,7 @@ public class BattleRoundCoreManager extends DayCoreManager {
     }
   }
 
-  private FightableContainer currentContainer() {
+  public FightableContainer currentContainer() {
     if (this.currentPlayer().equals(this.player1)) {
       return player1Container;
     } else {
@@ -187,7 +187,7 @@ public class BattleRoundCoreManager extends DayCoreManager {
     }
   }
 
-  private FightableContainer opponentContainer() {
+  public FightableContainer opponentContainer() {
     if (this.currentPlayer().equals(this.player1)) {
       return player2Container;
     } else {

@@ -63,10 +63,13 @@ public class BattleCoreManager {
             this.roundManager.nextDay();
           } catch (WarriorDeadException e) {
             this.roundManager.tagAsAlreadyPlayed(attackerWarrior);
-            this.roundManager.kill(defenderWarrior);
-            CoreEngine.map().removeMapForegroundElement(l);
-            CoreEngine.fireSpriteRemoved(l, defenderWarrior.getSprite());
-            this.roundManager.nextDay();
+            /*
+             * this.roundManager.kill(defenderWarrior);
+             * CoreEngine.map().removeMapForegroundElement(l);
+             * CoreEngine.fireSpriteRemoved(l, defenderWarrior.getSprite());
+             * this.roundManager.nextDay();
+             */
+            this.kill(l, defenderWarrior);
           } catch (WarriorNotReachableException e) {
             CoreEngine.fireMessage("Vous ne pouvez pas attaquer cette unité.");
           }
@@ -94,7 +97,24 @@ public class BattleCoreManager {
           .getPlayer())) {
         this.roundManager.tagUnattackable((Fightable) element);
       }
+    } else if (element instanceof Hero) {
+      Hero hero = (Hero) element;
+      ArrayList<Skill> skills = new ArrayList<Skill>();
+      skills.add(Skill.defaultSkill);
+      skills.addAll(hero.getSkills());
+      Skill skill = CoreEngine.requestSkill(skills);
+      if (skill != null) {
+        this.roundManager.tagAsAlreadyPlayed(hero);
+        skill.perform();
+      }
     }
+  }
+
+  public void kill(Location l, Fightable f) {
+    this.roundManager.kill(f);
+    CoreEngine.map().removeMapForegroundElement(l);
+    CoreEngine.fireSpriteRemoved(l, f.getSprite());
+    this.roundManager.nextDay();
   }
 
   private Player[] orderPlayer() {
