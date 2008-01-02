@@ -63,25 +63,12 @@ public class BattleCoreManager {
             this.roundManager.nextDay();
           } catch (WarriorDeadException e) {
             this.roundManager.tagAsAlreadyPlayed(attackerWarrior);
-            /*
-             * this.roundManager.kill(defenderWarrior);
-             * CoreEngine.map().removeMapForegroundElement(l);
-             * CoreEngine.fireSpriteRemoved(l, defenderWarrior.getSprite());
-             * this.roundManager.nextDay();
-             */
             this.kill(l, defenderWarrior);
           } catch (WarriorNotReachableException e) {
             CoreEngine.fireMessage("Vous ne pouvez pas attaquer cette unité.");
           }
         } else {
           CoreEngine.fireMessage(attackerWarrior + "ne peut pas attaquer.");
-        }
-      } else if (attackerElement instanceof Hero) {
-        Hero hero = (Hero) attackerElement;
-        if (this.roundManager.isCurrentPlayer(hero.getPlayer())
-            && !this.roundManager.hasAlreadyPlayed(hero)) {
-          Skill skill = CoreEngine.requestSkill(hero.getSkills());
-          skill.perform();
         }
       }
     }
@@ -99,13 +86,18 @@ public class BattleCoreManager {
       }
     } else if (element instanceof Hero) {
       Hero hero = (Hero) element;
-      ArrayList<Skill> skills = new ArrayList<Skill>();
-      skills.add(Skill.defaultSkill);
-      skills.addAll(hero.getSkills());
-      Skill skill = CoreEngine.requestSkill(skills);
-      if (skill != null) {
-        this.roundManager.tagAsAlreadyPlayed(hero);
-        skill.perform();
+      System.out.println(hero.getPlayer());
+      System.out.println(this.roundManager.currentPlayer());
+      if (this.roundManager.isCurrentPlayer(hero.getPlayer())
+          && !this.roundManager.hasAlreadyPlayed(hero)) {
+        ArrayList<Skill> skills = new ArrayList<Skill>();
+        skills.add(Skill.defaultSkill);
+        skills.addAll(hero.getSkills());
+        Skill skill = CoreEngine.requestSkill(skills);
+        if (skill != Skill.defaultSkill) {
+          this.roundManager.tagAsAlreadyPlayed(hero);
+          skill.perform();
+        }
       }
     }
   }
