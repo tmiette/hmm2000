@@ -30,10 +30,11 @@ public class Hero extends MovableElement {
   private int speed;
 
   private Sprite sprite;
-  
+
   private final int attackPriority;
 
-  Hero(Player player, Sprite sprite, String name, Skill[] skills, int attackPriority) {
+  Hero(Player player, Sprite sprite, String name, Skill[] skills,
+      int attackPriority) {
 
     super(player);
     this.name = name;
@@ -132,6 +133,8 @@ public class Hero extends MovableElement {
   public boolean encounter(Encounter encounter) {
     if (!encounter.getSender().getPlayer().equals(this.getPlayer())) {
       CoreEngine.startBattle(encounter.getSender(), this);
+    } else {
+      CoreEngine.startSwap(this, encounter.getSender());
     }
     return false;
   }
@@ -153,11 +156,11 @@ public class Hero extends MovableElement {
     return this.name;
   }
 
-	@Override
-	public int getAttackPriority() {
+  @Override
+  public int getAttackPriority() {
 
-		return this.attackPriority;
-	}
+    return this.attackPriority;
+  }
 
   public List<Skill> getSkills() {
     return this.skills;
