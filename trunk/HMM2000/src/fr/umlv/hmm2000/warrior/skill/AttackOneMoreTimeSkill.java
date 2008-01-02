@@ -33,6 +33,6 @@ public class AttackOneMoreTimeSkill implements Skill {
 
   @Override
   public String getToolTipText() {
-    return "This skill permits to attack a unit one more time";
+    return "This skill enables to attack a unit one more time";
   }
 }

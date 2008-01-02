@@ -1,19 +1,19 @@
 package fr.umlv.hmm2000.warrior.skill;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
-import fr.umlv.hmm2000.map.Map;
+import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.warrior.Fightable;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.profil.ElementAbility;
 
-public class AttackAllSkill implements Skill {
+public class AttackAllFightablesSkill implements Skill {
 
   private final ElementAbility abilities;
 
   private final double physical;
 
-  public AttackAllSkill(ElementAbility abilities, double physical) {
+  public AttackAllFightablesSkill(ElementAbility abilities, double physical) {
 
     this.abilities = abilities;
     this.physical = physical;
@@ -21,20 +21,19 @@ public class AttackAllSkill implements Skill {
 
   @Override
   public void perform() {
-
-    Map map = CoreEngine.map();
-    for (MapForegroundElement mfe : map.getMapForegroundElements()) {
-      try {
-        if (mfe instanceof Fightable) {
-          Fightable defender = (Fightable) mfe;
-          double elementaryDamage = this.abilities.getDamage(defender
-              .getAbilities());
+    for (MapForegroundElement mfe : CoreEngine.map().getMapForegroundElements()) {
+      if (mfe instanceof Fightable) {
+        Fightable defender = (Fightable) mfe;
+        double elementaryDamage = this.abilities.getDamage(defender
+            .getAbilities());
+        try {
           defender.hurt(this.physical + elementaryDamage
               - defender.getPhysicalDefenseValue());
+        } catch (WarriorDeadException e) {
+          Location l = CoreEngine.map().getLocationForMapForegroundElement(
+              defender);
+          CoreEngine.battleManager().kill(l, defender);
         }
-      } catch (WarriorDeadException e) {
-        map.removeMapForegroundElement(map
-            .getLocationForMapForegroundElement(mfe));
       }
     }
   }
@@ -46,7 +45,6 @@ public class AttackAllSkill implements Skill {
 
   @Override
   public String getToolTipText() {
-
-    return "This skill permits to attack all units on the battle map";
+    return "This skill enables to attack all units on the battle map";
   }
 }
