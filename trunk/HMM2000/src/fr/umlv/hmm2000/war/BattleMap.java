@@ -90,12 +90,14 @@ public class BattleMap implements Map {
 
 	private Team getTeam(Location l) {
 
-		if (l.getX() >= FIRST_LINE_TROOP + LINE_FOR_HEROE
+		if (this.container.get(Team.TOP).getFirstElement().equals(l)
+				|| l.getX() >= FIRST_LINE_TROOP + LINE_FOR_HEROE
 				&& l.getX() <= (BattlePositionMap.LINE_NUMBER + LINE_FOR_HEROE + FIRST_LINE_TROOP)) {
 			return Team.TOP;
 		}
-		else if (l.getX() >= (FIRST_LINE_TROOP + BattlePositionMap.LINE_NUMBER
-				+ LINE_FOR_HEROE + LINE_BETWEEN_TROOP)
+		else if (this.container.get(Team.BOTTOM).getFirstElement().equals(l)
+				|| l.getX() >= (FIRST_LINE_TROOP + BattlePositionMap.LINE_NUMBER
+						+ LINE_FOR_HEROE + LINE_BETWEEN_TROOP)
 				&& l.getX() <= LAST_LINE_TROOP - LINE_FOR_HEROE) {
 			return Team.BOTTOM;
 		}
@@ -103,22 +105,23 @@ public class BattleMap implements Map {
 			return null;
 		}
 	}
-	
-//	private Team getTeam(Location l) {
-//
-//		if (l.getX() >= FIRST_LINE_TROOP
-//				&& l.getX() <= (BattlePositionMap.LINE_NUMBER + LINE_FOR_HEROE + FIRST_LINE_TROOP)) {
-//			return Team.TOP;
-//		}
-//		else if (l.getX() >= (FIRST_LINE_TROOP + BattlePositionMap.LINE_NUMBER
-//				+ LINE_FOR_HEROE + LINE_BETWEEN_TROOP)
-//				&& l.getX() <= LAST_LINE_TROOP) {
-//			return Team.BOTTOM;
-//		}
-//		else {
-//			return null;
-//		}
-//	}
+
+	// private Team getTeam(Location l) {
+	//
+	// if (l.getX() >= FIRST_LINE_TROOP
+	// && l.getX() <= (BattlePositionMap.LINE_NUMBER + LINE_FOR_HEROE +
+	// FIRST_LINE_TROOP)) {
+	// return Team.TOP;
+	// }
+	// else if (l.getX() >= (FIRST_LINE_TROOP + BattlePositionMap.LINE_NUMBER
+	// + LINE_FOR_HEROE + LINE_BETWEEN_TROOP)
+	// && l.getX() <= LAST_LINE_TROOP) {
+	// return Team.BOTTOM;
+	// }
+	// else {
+	// return null;
+	// }
+	// }
 
 	/**
 	 * Translates a BattleMapLocation location to a BattlePositionMap.
