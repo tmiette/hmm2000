@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 
 import fr.umlv.hmm2000.Player;
+import fr.umlv.hmm2000.building.Castle;
 import fr.umlv.hmm2000.map.element.MapBackgroundEnum;
 import fr.umlv.hmm2000.resource.Resource;
 import fr.umlv.hmm2000.resource.Resource.Kind;
@@ -69,6 +70,11 @@ public class MapBuilder {
       Player p2) throws FileNotFoundException, IOException {
 
     WorldMap map = createMap(level);
+    
+    Castle c1 = new Castle(p1);
+    Castle c2 = new Castle(p2);
+    map.addMapForegroundElement(c1, new Location(14, 4));
+    map.addMapForegroundElement(c2, new Location(14,5));
 
     map.addMapForegroundElement(UnitFactory.createHero(p1, ProfilHero.ARCHER),
         new Location(0, 0));
