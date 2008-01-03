@@ -59,6 +59,9 @@ public class LawrenceUIEngine implements HMMUserInterface {
       case P:
         CoreEngine.manageBattlePosition();
         break;
+      case C:
+        CoreEngine.manageCastle();
+        break;
       case ESCAPE:
         CoreEngine.backToWorldMap();
         break;

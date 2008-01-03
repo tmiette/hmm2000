@@ -19,168 +19,176 @@ import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
 
 public class Castle implements FightableContainer {
 
-	private final Player player;
+  private final Player player;
 
-	private final ArrayList<Fightable> troop;
+  private final ArrayList<Fightable> troop;
 
-	private final ArrayList<Hero> heroes;
+  private final ArrayList<Hero> heroes;
 
-	private final BattlePositionMap battlePosition;
-	
-	private final HashMap<ProfilWarrior, Level> factory;
-	
-	public final static Level defaultLevel = Level.LEVEL_1;
-	public final static ProfilWarrior defaultWarrior = ProfilWarrior.FLIGHT;
-	
-	public Castle(Player player) {
+  private final BattlePositionMap battlePosition;
 
-		this.player = player;
-		this.troop = new ArrayList<Fightable>(FightableContainer.MAX_TROOP_SIZE);
-		this.heroes = new ArrayList<Hero>();
-		this.battlePosition = new BattlePositionMap(
-				FightableContainer.MAX_TROOP_SIZE / BattlePositionMap.LINE_NUMBER);
-		this.factory = new HashMap<ProfilWarrior, Level>();
-		this.factory.put(defaultWarrior, defaultLevel);
-	}
-	
-	public boolean canBuyWarrior(ProfilWarrior profil) {
+  private final HashMap<ProfilWarrior, Level> factory;
 
-		return this.factory.containsKey(profil);
-	}
-	
-	public void buildFactory(ProfilWarrior profil) {
+  private ArrayList<CastleItem> items;
 
-		if (!this.factory.containsKey(profil)) {
-			this.factory.put(profil, defaultLevel);
-		}
-	}
-	
-	
-	
-	public List<ProfilWarrior> getBuildableFactories() {
+  public final static Level defaultLevel = Level.LEVEL_1;
+  public final static ProfilWarrior defaultWarrior = ProfilWarrior.FLIGHT;
 
-		ArrayList<ProfilWarrior> list = new ArrayList<ProfilWarrior>();
-		for (ProfilWarrior profil : ProfilWarrior.values()) {
-			if (!this.factory.containsKey(profil)) {
-				list.add(profil);
-			}
-		}
-		return list;
-	}
-	
-	public void upgradeFactory(ProfilWarrior profil) {
+  public Castle(Player player) {
+    this.player = player;
+    this.troop = new ArrayList<Fightable>(FightableContainer.MAX_TROOP_SIZE);
+    this.heroes = new ArrayList<Hero>();
+    this.battlePosition = new BattlePositionMap(
+        FightableContainer.MAX_TROOP_SIZE / BattlePositionMap.LINE_NUMBER);
+    this.factory = new HashMap<ProfilWarrior, Level>();
+    this.factory.put(defaultWarrior, defaultLevel);
+  }
 
-		if (this.factory.containsKey(profil)) {
-			Level level = this.factory.get(profil);
-			this.factory.remove(profil);
-			this.factory.put(profil, level.getNextLevel());
-		}		
-	}
-	
-	public boolean createWarrior(ProfilWarrior profil) throws MaxNumberOfTroopsReachedException {
+  public boolean canBuyWarrior(ProfilWarrior profil) {
 
-		if (this.canBuyWarrior(profil)) {
-			Level level = this.factory.get(profil);
-			this.addFightable(UnitFactory.createWarrior(profil, level));
-			return true;
-		}
-		return false;
-	}
+    return this.factory.containsKey(profil);
+  }
 
-	@Override
-	public boolean addFightable(Fightable f)
-			throws MaxNumberOfTroopsReachedException {
+  public void buildFactory(ProfilWarrior profil) {
 
-		if (this.troop.size() < FightableContainer.MAX_TROOP_SIZE) {
-			f.setFightableContainer(this);
-			this.troop.add(f);
-			return true;
-		}
-		else {
-			throw new MaxNumberOfTroopsReachedException(
-					"Too much warriors in the castle");
-		}
-	}
+    if (!this.factory.containsKey(profil)) {
+      this.factory.put(profil, defaultLevel);
+    }
+  }
 
-	public boolean addHero(Hero hero) {
+  public List<ProfilWarrior> getBuildableFactories() {
 
-		this.heroes.add(hero);
-		return true;
-	}
+    ArrayList<ProfilWarrior> list = new ArrayList<ProfilWarrior>();
+    for (ProfilWarrior profil : ProfilWarrior.values()) {
+      if (!this.factory.containsKey(profil)) {
+        list.add(profil);
+      }
+    }
+    return list;
+  }
 
-	@Override
-	public BattlePositionMap getBattlePositionManager() {
+  public void upgradeFactory(ProfilWarrior profil) {
 
-		return this.battlePosition;
-	}
+    if (this.factory.containsKey(profil)) {
+      Level level = this.factory.get(profil);
+      this.factory.remove(profil);
+      this.factory.put(profil, level.getNextLevel());
+    }
+  }
 
-	@Override
-	public Player getPlayer() {
+  public boolean createWarrior(ProfilWarrior profil)
+      throws MaxNumberOfTroopsReachedException {
 
-		return this.player;
-	}
+    if (this.canBuyWarrior(profil)) {
+      Level level = this.factory.get(profil);
+      this.addFightable(UnitFactory.createWarrior(profil, level));
+      return true;
+    }
+    return false;
+  }
 
-	@Override
-	public List<Fightable> getTroop() {
+  @Override
+  public boolean addFightable(Fightable f)
+      throws MaxNumberOfTroopsReachedException {
 
-		return this.troop;
-	}
+    if (this.troop.size() < FightableContainer.MAX_TROOP_SIZE) {
+      f.setFightableContainer(this);
+      this.troop.add(f);
+      return true;
+    } else {
+      throw new MaxNumberOfTroopsReachedException(
+          "Too much warriors in the castle");
+    }
+  }
 
-	public List<Hero> getHeroes() {
+  public boolean addHero(Hero hero) {
 
-		return this.heroes;
-	}
+    this.heroes.add(hero);
+    return true;
+  }
 
-	@Override
-	public void removeFightable(Fightable f) {
+  public List<CastleItem> getItems() {
+    if (this.items == null) {
+      this.items = new ArrayList<CastleItem>();
+      items.add(CastleItem.defaultItem);
+      items.add(new HeroRecruitmentItem(this));
+      items.add(new RecruitmentItem(this));
+    }
+    return this.items;
+  }
 
-		this.troop.remove(f);
+  @Override
+  public BattlePositionMap getBattlePositionManager() {
 
-	}
+    return this.battlePosition;
+  }
 
-	@Override
-	public void setPlayer(Player player) {
+  @Override
+  public Player getPlayer() {
 
-		// do nothing
+    return this.player;
+  }
 
-	}
+  @Override
+  public List<Fightable> getTroop() {
 
-	@Override
-	public void accept(UIDisplayingVisitor visitor) {
+    return this.troop;
+  }
 
-		// TODO Auto-generated method stub
-		
-	}
+  public List<Hero> getHeroes() {
 
-	@Override
-	public boolean encounter(Encounter Encounter) {
+    return this.heroes;
+  }
 
-		return false;
-	}
+  @Override
+  public void removeFightable(Fightable f) {
 
-	@Override
-	public void nextDay(int day) {
+    this.troop.remove(f);
 
-		// do nothing
+  }
 
-	}
+  @Override
+  public void setPlayer(Player player) {
 
-	@Override
-	public Sprite getSprite() {
+    // do nothing
 
-		return Sprite.CASTLE;
-	}
+  }
 
-	
-	public HashMap<ProfilWarrior, Level> getFactory() {
-	
-		return this.factory;
-	}
+  @Override
+  public void accept(UIDisplayingVisitor visitor) {
 
-	@Override
-	public int getAttackPriority() {
+    // TODO Auto-generated method stub
 
-		return FightableContainer.PRIORITY_HIGH;
-	}
+  }
+
+  @Override
+  public boolean encounter(Encounter Encounter) {
+
+    return false;
+  }
+
+  @Override
+  public void nextDay(int day) {
+
+    // do nothing
+
+  }
+
+  @Override
+  public Sprite getSprite() {
+
+    return Sprite.CASTLE;
+  }
+
+  public HashMap<ProfilWarrior, Level> getFactory() {
+
+    return this.factory;
+  }
+
+  @Override
+  public int getAttackPriority() {
+
+    return FightableContainer.PRIORITY_HIGH;
+  }
 
 }

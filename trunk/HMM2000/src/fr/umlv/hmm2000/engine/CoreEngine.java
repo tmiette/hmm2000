@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import fr.umlv.hmm2000.Player;
+import fr.umlv.hmm2000.building.Castle;
 import fr.umlv.hmm2000.building.CastleItem;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.engine.manager.BattleCoreManager;
@@ -83,7 +84,7 @@ public class CoreEngine {
     CoreEngine.roundManager = new DayCoreManager(players);
     CoreEngine.battlePositionManager = new BattlePositionCoreManager();
     CoreEngine.swapManager = new SwapCoreManager();
-    
+
     CoreEngine.currentMap = worldMap;
     CoreEngine.uiEngine.drawMap(worldMap);
   }
@@ -167,12 +168,28 @@ public class CoreEngine {
     if (CoreEngine.currentConfiguration() == CoreEngine.WORLD_CONFIG) {
       MapForegroundElement element = CoreEngine.selectionManager
           .getSelectedElement();
-
       if (element != null && element instanceof FightableContainer) {
         FightableContainer container = (FightableContainer) element;
         if (CoreEngine.roundManager.isCurrentPlayer(container.getPlayer())) {
           CoreEngine.battlePositionMap = container.getBattlePositionManager();
           CoreEngine.changeCurrentMap(CoreEngine.battlePositionMap);
+        }
+      }
+    }
+  }
+
+  public static void manageCastle() {
+    if (CoreEngine.currentConfiguration() == CoreEngine.WORLD_CONFIG) {
+      MapForegroundElement element = CoreEngine.selectionManager
+          .getSelectedElement();
+      if (element != null && element instanceof Castle) {
+        Castle castle = (Castle) element;
+        if (CoreEngine.roundManager.isCurrentPlayer(castle.getPlayer())) {
+          CastleItem item = CoreEngine.uiEngine.choicesManager().submit(
+              castle.getItems());
+          if (item != CastleItem.defaultItem) {
+            item.perform();
+          }
         }
       }
     }
@@ -242,8 +259,8 @@ public class CoreEngine {
   public static Skill requestSkill(List<Skill> skills) {
     return CoreEngine.uiEngine.choicesManager().submit(skills);
   }
-  
-  public static CastleItem requestCastleItem(List<CastleItem> items){
+
+  public static CastleItem requestCastleItem(List<CastleItem> items) {
     return CoreEngine.uiEngine.choicesManager().submit(items);
   }
 

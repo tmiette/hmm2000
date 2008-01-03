@@ -2,17 +2,20 @@ package fr.umlv.hmm2000.building;
 
 public class RecruitmentItem implements CastleItem {
 
+  private final Castle castle;
+
+  public RecruitmentItem(Castle castle) {
+    this.castle = castle;
+  }
+
   @Override
   public String getSuggestion() {
-    // TODO Auto-generated method stub
-    return null;
+    return "Recruter une créature";
   }
 
   @Override
   public void perform() {
-
-    // TODO Auto-generated method stub
-
+    System.err.println(this.getSuggestion());
   }
 
 }

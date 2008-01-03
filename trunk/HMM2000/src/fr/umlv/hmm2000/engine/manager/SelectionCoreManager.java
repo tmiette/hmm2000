@@ -9,9 +9,6 @@ public class SelectionCoreManager {
 
   private Location selectedLocation;
 
-  public SelectionCoreManager() {
-  }
-
   public void perform(Location l) {
     MapForegroundElement element = CoreEngine.map()
         .getMapForegroundElementAtLocation(l);

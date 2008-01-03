@@ -123,8 +123,9 @@ public class StartPanel {
           for (int i = 0; i < players.length; i++) {
             players[i] = new Player(i);
           }
-          CoreEngine.startNewCoreEngine((MapLevel) list.getSelectedValue(),
-              new LawrenceUIEngine(), players);
+          final MapLevel level = (MapLevel) list.getSelectedValue();
+          Hmm2000Tom.frame.dispose();
+          CoreEngine.startNewCoreEngine(level, new LawrenceUIEngine(), players);
         } catch (FileNotFoundException e1) {
           // the map file does not exist
           throw new AssertionError(e1);
@@ -132,7 +133,7 @@ public class StartPanel {
           // this map can be played with the number of player
           throw new AssertionError(e1);
         } catch (IOException e1) {
-          //io exception
+          // io exception
           throw new AssertionError(e1);
         }
       }
