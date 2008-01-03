@@ -238,7 +238,7 @@ public class BattlePositionMap implements Map {
 
 		System.out.println("Suppression de la battleposition de " + this.units.get(l));
 		this.units.remove(l);
-		this.freeLocations.remove(l);
+		this.freeLocations.add(l);
 	}
 
 	@Override
