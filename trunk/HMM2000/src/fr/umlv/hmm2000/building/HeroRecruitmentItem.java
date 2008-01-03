@@ -2,6 +2,7 @@ package fr.umlv.hmm2000.building;
 
 import java.util.ArrayList;
 
+import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.warrior.UnitFactory;
 import fr.umlv.hmm2000.warrior.profil.ProfilHero;
 
@@ -36,6 +37,10 @@ public class HeroRecruitmentItem implements CastleItem {
         }
 
       });
+    }
+    CastleItem item = CoreEngine.requestCastleItem(items);
+    if (item != CastleItem.defaultItem) {
+      item.perform();
     }
   }
 
