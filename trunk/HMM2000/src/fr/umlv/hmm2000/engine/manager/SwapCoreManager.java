@@ -20,6 +20,7 @@ public class SwapCoreManager {
         map.swapBetweenFightableContainers(fromLocation, toLocation);
         this.swap(fromLocation, toLocation);
         CoreEngine.selectionManager().perform(toLocation);
+
       }
     }
 
