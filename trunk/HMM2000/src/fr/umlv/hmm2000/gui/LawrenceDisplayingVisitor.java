@@ -29,7 +29,8 @@ public class LawrenceDisplayingVisitor implements UIDisplayingVisitor {
 
   @Override
   public void visit(Warrior warrior) {
-    System.out.println(warrior.getLabel() + "health : " + warrior.getHealth());
+    System.out.println(warrior.getLabel() + "health : "
+        + warrior.getCurrentHealth() + "/" + warrior.getHealth());
   }
 
   @Override

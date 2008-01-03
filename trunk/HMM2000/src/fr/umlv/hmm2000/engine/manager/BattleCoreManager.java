@@ -86,8 +86,6 @@ public class BattleCoreManager {
       }
     } else if (element instanceof Hero) {
       Hero hero = (Hero) element;
-      System.out.println(hero.getPlayer());
-      System.out.println(this.roundManager.currentPlayer());
       if (this.roundManager.isCurrentPlayer(hero.getPlayer())
           && !this.roundManager.hasAlreadyPlayed(hero)) {
         ArrayList<Skill> skills = new ArrayList<Skill>();

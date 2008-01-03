@@ -11,6 +11,7 @@ import fr.umlv.hmm2000.engine.manager.BattlePositionCoreManager;
 import fr.umlv.hmm2000.engine.manager.DayCoreManager;
 import fr.umlv.hmm2000.engine.manager.MoveCoreManager;
 import fr.umlv.hmm2000.engine.manager.SelectionCoreManager;
+import fr.umlv.hmm2000.engine.manager.SwapCoreManager;
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.map.InvalidPlayersNumberException;
 import fr.umlv.hmm2000.map.Location;
@@ -31,6 +32,7 @@ public class CoreEngine {
   public static final int WORLD_CONFIG = 1;
   public static final int BATTLE_POSITION_CONFIG = 2;
   public static final int BATTLE_CONFIG = 4;
+  public static final int SWAP_CONFIG = 8;
 
   private static Map currentMap;
 
@@ -51,6 +53,8 @@ public class CoreEngine {
   private static BattlePositionCoreManager battlePositionManager;
 
   private static BattleCoreManager battleManager;
+
+  private static SwapCoreManager swapManager;
 
   private static LocationSelectionRequester locationRequester;
 
@@ -77,7 +81,8 @@ public class CoreEngine {
     CoreEngine.moveManager = new MoveCoreManager();
     CoreEngine.roundManager = new DayCoreManager(players);
     CoreEngine.battlePositionManager = new BattlePositionCoreManager();
-
+    CoreEngine.swapManager = new SwapCoreManager();
+    
     CoreEngine.currentMap = worldMap;
     CoreEngine.uiEngine.drawMap(worldMap);
   }
@@ -100,8 +105,12 @@ public class CoreEngine {
       return CoreEngine.WORLD_CONFIG;
     } else if (CoreEngine.currentMap == CoreEngine.battlePositionMap) {
       return CoreEngine.BATTLE_POSITION_CONFIG;
-    } else if (CoreEngine.currentMap == CoreEngine.battleMap) {
-      return BATTLE_CONFIG;
+    } else if (CoreEngine.currentMap == CoreEngine.battleMap
+        && CoreEngine.battleManager != null) {
+      return CoreEngine.BATTLE_CONFIG;
+    } else if (CoreEngine.currentMap == CoreEngine.battleMap
+        && CoreEngine.battleManager == null) {
+      return CoreEngine.SWAP_CONFIG;
     } else {
       return -1;
     }
@@ -141,6 +150,13 @@ public class CoreEngine {
         }
       }
       break;
+    case CoreEngine.SWAP_CONFIG:
+      if (button == 1) {
+        CoreEngine.selectionManager.perform(l);
+      } else if (button == 3) {
+        CoreEngine.swapManager.perform(l);
+      }
+      break;
     default:
       break;
     }
@@ -176,10 +192,17 @@ public class CoreEngine {
 
   public static void endBattle(FightableContainer winner,
       FightableContainer looser) {
+    CoreEngine.battleManager = null;
     CoreEngine.changeCurrentMap(CoreEngine.worldMap);
     Location l = CoreEngine.map().getLocationForMapForegroundElement(looser);
     CoreEngine.map().removeMapForegroundElement(l);
     CoreEngine.uiEngine.eraseSprite(l, looser.getSprite());
+  }
+
+  public static void startSwap(FightableContainer container1,
+      FightableContainer container2) {
+    CoreEngine.battleMap = new BattleMap(container1, container2);
+    CoreEngine.changeCurrentMap(CoreEngine.battleMap);
   }
 
   public static Map map() {

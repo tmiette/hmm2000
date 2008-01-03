@@ -236,7 +236,7 @@ public class BattlePositionMap implements Map {
 	@Override
 	public void removeMapForegroundElement(Location l) {
 
-		System.out.println("Suprrsion de la battleposition de " + this.units.get(l));
+		System.out.println("Suppression de la battleposition de " + this.units.get(l));
 		this.units.remove(l);
 		this.freeLocations.remove(l);
 	}

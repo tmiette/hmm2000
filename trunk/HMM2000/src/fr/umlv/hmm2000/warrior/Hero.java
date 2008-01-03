@@ -87,7 +87,6 @@ public class Hero extends MovableElement {
 
   @Override
   public List<Fightable> getTroop() {
-
     return this.troop;
   }
 
@@ -98,12 +97,14 @@ public class Hero extends MovableElement {
     if ((index = this.troop.indexOf(f)) != -1) {
       int speed = this.troop.get(index).getSpeed();
       this.troop.remove(index);
+      this.battlePosition.removeMapForegroundElement(this.battlePosition
+          .getLocationForMapForegroundElement(f));
       if (this.speed == speed) {
         this.speed = 0;
         for (Fightable fightable : this.troop) {
           if (fightable.getSpeed() < this.speed || this.speed == 0) {
             this.speed = fightable.getSpeed();
-            this.stepCount = fightable.getSpeed();
+            //this.stepCount = fightable.getSpeed();
           }
         }
       }

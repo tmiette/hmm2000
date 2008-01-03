@@ -84,8 +84,7 @@ public abstract class LocationSelectionRequester {
       if (foregroundElement != null && foregroundElement instanceof Fightable) {
         Fightable f = (Fightable) foregroundElement;
         isCorrectLocation = CoreEngine.battleManager().roundManager()
-            .isCurrentPlayer(f.getFightableContainer().getPlayer())
-            && CoreEngine.battleManager().roundManager().hasAlreadyPlayed(f);
+            .isCurrentPlayer(f.getFightableContainer().getPlayer());
       }
       break;
     case LocationSelectionRequester.BATTLE_CURRENT_POSITION_LOCATION:
