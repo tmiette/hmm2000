@@ -17,24 +17,33 @@ public class PanelHero {
 	private final JPanel panel;
 	private final JPanel northPanel;
 	private final JPanel centerPanel;
-	private final Hero hero;
+	private final JLabel sprite;
+	private final JLabel name;
+	private final JLabel sizeTroop;
+	private final JLabel player;
+	private static PanelHero instance;
 	
-	public PanelHero(Hero hero) {
+	private PanelHero() {
 
-		this.hero = hero;
-		this.panel = new JPanel(new BorderLayout());
+		panel = new JPanel(new BorderLayout());
 		
 		this.northPanel = new JPanel();
 		this.northPanel.add(battlePositionButton());
 		
 		this.centerPanel = new JPanel(new GridLayout(10, 1, 1, 1));
-		this.centerPanel.add(new JLabel("Sprite : " + this.hero.getSprite().toString()));
-		this.centerPanel.add(new JLabel("Nom : " + this.hero.getName()));
-		this.centerPanel.add(new JLabel("Nombre de guerriers : " + this.hero.getTroop().size()));
-		this.centerPanel.add(new JLabel("Joueur n¡ : " + this.hero.getPlayer().getId()));
 		
-		this.panel.add(this.northPanel, BorderLayout.NORTH);
-		this.panel.add(this.centerPanel, BorderLayout.CENTER);
+		this.sprite = new JLabel();
+		this.name = new JLabel();
+		this.sizeTroop = new JLabel();
+		this.player = new JLabel();
+		this.centerPanel.add(this.sprite);
+		this.centerPanel.add(this.name);
+		this.centerPanel.add(this.sizeTroop);
+		this.centerPanel.add(this.player);
+		
+		panel.add(this.northPanel, BorderLayout.NORTH);
+		panel.add(this.centerPanel, BorderLayout.CENTER);
+		
 	}
 	
 	
@@ -53,9 +62,22 @@ public class PanelHero {
 		return b;
 	}
 
-	public JPanel getPanel() {
+	public static JPanel getPanel(Hero hero) {
 
-		return this.panel;
+		if (PanelHero.instance == null) {
+			PanelHero.instance = new PanelHero();
+		}
+		refresh(hero);
+		
+		return PanelHero.instance.panel;
+	}
+	
+	private static void refresh(Hero hero) {
+
+		instance.sprite.setText("Sprite : " + hero.getSprite().toString());
+		instance.name.setText("Nom : " + hero.getName());
+		instance.sizeTroop.setText("Nombre de guerriers : " + hero.getTroop().size());
+		instance.player.setText("Joueur n¡ : " + hero.getPlayer().getId());
 	}
 	
 }

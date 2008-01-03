@@ -16,29 +16,62 @@ public class PanelWarrior {
 
 	private final JPanel centerPanel;
 
-	private final Warrior warrior;
+	private final JLabel sprite;
 
-	public PanelWarrior(Warrior warrior) {
+	private final JLabel health;
+
+	private final JLabel att;
+
+	private final JLabel def;
+
+	private final JLabel speed;
+
+	private static PanelWarrior instance;
+
+	private PanelWarrior() {
 
 		this.panel = new JPanel(new BorderLayout());
 
-		this.warrior = warrior;
 		this.northPanel = new JPanel();
 
+		this.sprite = new JLabel();
+		this.health = new JLabel();
+		this.att = new JLabel();
+		this.def = new JLabel();
+		this.speed = new JLabel();
+
 		this.centerPanel = new JPanel(new GridLayout(10, 1, 1, 1));
-		this.centerPanel.add(new JLabel("Sprite : "
-				+ this.warrior.getSprite().toString()));
-		this.centerPanel.add(new JLabel("Santé : " + this.warrior.getCurrentHealth()/this.warrior.getHealth() * 100 + "%"));
-		this.centerPanel.add(new JLabel("Attaque physique : " + this.warrior.getPhysicalAttackValue()));
-		this.centerPanel.add(new JLabel("Résistance physique : " + this.warrior.getPhysicalDefenseValue()));
-		this.centerPanel.add(new JLabel("Vitesse : " + this.warrior.getSpeed()));
+
+		this.centerPanel.add(this.sprite);
+		this.centerPanel.add(this.health);
+		this.centerPanel.add(this.att);
+		this.centerPanel.add(this.def);
+		this.centerPanel.add(this.speed);
 
 		this.panel.add(this.northPanel, BorderLayout.NORTH);
 		this.panel.add(this.centerPanel, BorderLayout.CENTER);
 	}
-	
-	public JPanel getPanel() {
 
-		return this.panel;
+	public JPanel getPanel(Warrior warrior) {
+
+		if (PanelWarrior.instance == null) {
+			PanelWarrior.instance = new PanelWarrior();
+		}
+
+		refresh(warrior);
+
+		return PanelWarrior.instance.panel;
+	}
+
+	private static void refresh(Warrior warrior) {
+
+		instance.sprite.setText("Sprite : " + warrior.getSprite().toString());
+		instance.health.setText("Santé : " + warrior.getCurrentHealth()
+				/ warrior.getHealth() * 100 + "%");
+		instance.att.setText("Attaque physique : "
+				+ warrior.getPhysicalAttackValue());
+		instance.def.setText("Résistance physique : "
+				+ warrior.getPhysicalDefenseValue());
+		instance.speed.setText("Vitesse : " + warrior.getSpeed());
 	}
 }
