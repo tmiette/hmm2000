@@ -10,7 +10,7 @@ public enum Sprite {
   BACKGROUND("background"),
   BARRACKS("barracks"),
   CASTLE("castle"),
-  DEFAULT("black"),
+  DEFAULT("white"),
   FLIGHT("flight"),
   GOLD_RESOURCE("goldresource"),
   GRUNT("grunt"),

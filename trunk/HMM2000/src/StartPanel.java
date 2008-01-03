@@ -23,13 +23,13 @@ import javax.swing.event.ListSelectionListener;
 
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.CoreEngine;
-import fr.umlv.hmm2000.gui.LawrenceUIEngine;
+import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.map.InvalidPlayersNumberException;
 import fr.umlv.hmm2000.map.MapLevel;
 
 public class StartPanel {
 
-  public static JComponent getPanel() {
+  public static JComponent createStratPanel(final HMMUserInterface ui) {
 
     // layered pane
     final JLayeredPane pane = new JLayeredPane();
@@ -124,8 +124,7 @@ public class StartPanel {
             players[i] = new Player(i);
           }
           final MapLevel level = (MapLevel) list.getSelectedValue();
-          Hmm2000Tom.frame.dispose();
-          CoreEngine.startNewCoreEngine(level, new LawrenceUIEngine(), players);
+          CoreEngine.startNewCoreEngine(level, ui, players);
         } catch (FileNotFoundException e1) {
           // the map file does not exist
           throw new AssertionError(e1);

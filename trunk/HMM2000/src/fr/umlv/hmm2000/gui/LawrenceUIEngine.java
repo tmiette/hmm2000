@@ -1,5 +1,6 @@
 package fr.umlv.hmm2000.gui;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +92,10 @@ public class LawrenceUIEngine implements HMMUserInterface {
   }
 
   private void initGridPane() {
-    this.pane = new GridPane<Sprite>(this.model, this.provider, 50, 50);
+    this.pane = new GridPane<Sprite>(this.model, this.provider, 40, 40);
+  }
+
+  private void addListeners() {
     this.pane.addInputListener(this.inputListener);
     this.pointerLocation = new fr.umlv.lawrence.Location(0, 0);
     this.pane.addCursorListener(this.pointerCursorListener);
@@ -104,24 +108,30 @@ public class LawrenceUIEngine implements HMMUserInterface {
     return false;
   }
 
+  public LawrenceUIEngine() {
+    this.map = Map.defaultMap;
+    this.model = new DefaultGridModel<Sprite>(this.map.getWidth(), this.map
+        .getHeight());
+    this.originalWidth = this.map.getWidth();
+    this.originalHeight = this.map.getHeight();
+    this.currentWidth = this.originalWidth;
+    this.currentHeight = this.originalHeight;
+    this.initGrid();
+    this.initProvider();
+    this.initGridPane();
+    Application
+        .display(this.pane, null, true, 0, 0, 0, new Rectangle(800, 600));
+  }
+
   @Override
   public void drawMap(Map map) {
-    this.map = map;
-    if (this.model == null) {
-      this.model = new DefaultGridModel<Sprite>(map.getWidth(), map.getHeight());
-      this.originalWidth = map.getWidth();
-      this.originalHeight = map.getHeight();
-      this.currentWidth = this.originalWidth;
-      this.currentHeight = this.originalHeight;
-      this.initGrid();
-      this.initProvider();
-      this.initGridPane();
-      Application.display(this.pane, "HMM2000 test", false, true);
-    } else {
-      this.currentWidth = this.map.getWidth();
-      this.currentHeight = this.map.getHeight();
-      this.initGrid();
+    if (this.map == Map.defaultMap) {
+      this.addListeners();
     }
+    this.map = map;
+    this.currentWidth = this.map.getWidth();
+    this.currentHeight = this.map.getHeight();
+    this.initGrid();
   }
 
   @Override
@@ -178,9 +188,6 @@ public class LawrenceUIEngine implements HMMUserInterface {
     model.setHighligthElement(pointerLocation, null);
     pointerLocation = location;
     model.setHighligthElement(pointerLocation, Sprite.POINTER);
-  }
-
-  public LawrenceUIEngine() {
   }
 
   @Override
