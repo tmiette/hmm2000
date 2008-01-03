@@ -7,8 +7,20 @@ import fr.umlv.hmm2000.warrior.profil.ProfilHero;
 import fr.umlv.hmm2000.warrior.profil.ProfilMonster;
 import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
 
+/**
+ * This class permits to create specifics units
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class UnitFactory {
 
+	/**
+	 * Creates a warrior thanks to specific profil and level
+	 * @param profil enum which specify warrior type
+	 * @param level enum which specify warrior level
+	 * @return new warrior
+	 */
 	public static Fightable createWarrior(ProfilWarrior profil, Level level) {
 
 		final double ratio = level.getRatio();
@@ -20,6 +32,12 @@ public class UnitFactory {
 
 	}
 
+	/**
+	 * Creates a hero associated to a player.
+	 * @param player hero owner
+	 * @param profil enum which specify the hero profil
+	 * @return new hero 
+	 */
 	public static Hero createHero(Player player, ProfilHero profil) {
 
 		Hero h = new Hero(player, profil.getSprite(), profil.name(), profil
@@ -35,6 +53,12 @@ public class UnitFactory {
 		return h;
 	}
 
+	/**
+	 * Creates a monster associated to a player
+	 * @param player monster owner
+	 * @param profil enum which specify the monster profil
+	 * @return new monster
+	 */
 	public static Monster createMonster(Player player, ProfilMonster profil) {
 
 		Monster m = new Monster(player, profil.getSprite());
