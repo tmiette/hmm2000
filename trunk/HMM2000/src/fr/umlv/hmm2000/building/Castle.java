@@ -149,7 +149,7 @@ public class Castle implements FightableContainer {
 	public void accept(UIDisplayingVisitor visitor) {
 
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
