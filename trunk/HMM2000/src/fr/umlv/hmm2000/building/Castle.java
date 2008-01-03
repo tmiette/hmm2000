@@ -106,13 +106,17 @@ public class Castle implements FightableContainer {
     this.heroes.add(hero);
     return true;
   }
+  
+  public Level getFactoryLevel(ProfilWarrior pw) {
+
+		return this.factory.get(pw);
+	}
 
   public List<CastleItem> getItems() {
     if (this.items == null) {
       this.items = new ArrayList<CastleItem>();
       items.add(CastleItem.defaultItem);
       items.add(new HeroRecruitmentItem(this));
-      items.add(new RecruitmentItem(this));
     }
     return this.items;
   }

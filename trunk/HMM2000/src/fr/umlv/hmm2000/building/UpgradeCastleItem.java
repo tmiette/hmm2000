@@ -2,16 +2,24 @@ package fr.umlv.hmm2000.building;
 
 public class UpgradeCastleItem implements CastleItem {
 
+	private final Castle castle;
+	
+	
+	public UpgradeCastleItem(Castle castle) {
+
+		this.castle = castle;
+	}
+	
   @Override
   public String getSuggestion() {
-    // TODO Auto-generated method stub
-    return null;
+    
+  	return "Améliorer le chateau";
   }
 
   @Override
   public void perform() {
 
-    castle.upgradeFactory(Castle.defaultWarrior);
+    UpgradeCastleItem.this.castle.upgradeFactory(Castle.defaultWarrior);
 
   }
 
