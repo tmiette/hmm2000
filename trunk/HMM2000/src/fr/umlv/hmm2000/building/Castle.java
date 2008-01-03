@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import fr.umlv.hmm2000.Player;
+import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
 import fr.umlv.hmm2000.gui.Sprite;
@@ -166,8 +167,13 @@ public class Castle implements FightableContainer {
   }
 
   @Override
-  public boolean encounter(Encounter Encounter) {
+  public boolean encounter(Encounter encounter) {
 
+  	if (!encounter.getSender().getPlayer().equals(this.getPlayer())) {
+      CoreEngine.startBattle(encounter.getSender(), this);
+    } else {
+      CoreEngine.startSwap(this, encounter.getSender());
+    }
     return false;
   }
 
