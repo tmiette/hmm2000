@@ -1,28 +1,18 @@
 package fr.umlv.hmm2000.building;
 
-
-
 public class UpgradeCastleItem implements CastleItem {
 
-	@Override
-	public String getName() {
+  @Override
+  public String getSuggestion() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
-		// TODO Auto-generated method stub
-		return null;
-	}
+  @Override
+  public void perform() {
 
-	@Override
-	public String getToolTipText() {
+    castle.upgradeFactory(Castle.defaultWarrior);
 
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void perform(Castle castle) {
-
-		castle.upgradeFactory(Castle.defaultWarrior);
-
-	}
+  }
 
 }

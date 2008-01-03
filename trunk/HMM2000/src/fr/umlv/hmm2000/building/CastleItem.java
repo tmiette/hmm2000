@@ -1,29 +1,21 @@
 package fr.umlv.hmm2000.building;
 
-
-
 public interface CastleItem {
 
-	public String getName();
+  public String getSuggestion();
 
-  public void perform(Castle castle);
+  public void perform();
 
-  public String getToolTipText();
-  
-  public static final CastleItem defaultItem = new CastleItem(){
+  public static final CastleItem defaultItem = new CastleItem() {
+
     @Override
-    public String getName() {
-      return "Aucun choix.";
+    public String getSuggestion() {
+      return "Ne rien faire";
     }
 
     @Override
-    public String getToolTipText() {
-      return null;
-    }
-
-    @Override
-    public void perform(Castle castle) {
-      throw new UnsupportedOperationException();      
+    public void perform() {
+      throw new UnsupportedOperationException();
     }
   };
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import fr.umlv.hmm2000.Player;
+import fr.umlv.hmm2000.building.CastleItem;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.engine.manager.BattleCoreManager;
 import fr.umlv.hmm2000.engine.manager.BattlePositionCoreManager;
@@ -240,6 +241,10 @@ public class CoreEngine {
 
   public static Skill requestSkill(List<Skill> skills) {
     return CoreEngine.uiEngine.choicesManager().submit(skills);
+  }
+  
+  public static CastleItem requestCastleItem(List<CastleItem> items){
+    return CoreEngine.uiEngine.choicesManager().submit(items);
   }
 
   public static void displayMapForegroundElement(MapForegroundElement element) {

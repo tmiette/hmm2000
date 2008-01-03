@@ -3,6 +3,7 @@ package fr.umlv.hmm2000.gui;
 import java.util.List;
 import java.util.Scanner;
 
+import fr.umlv.hmm2000.building.CastleItem;
 import fr.umlv.hmm2000.engine.guiinterface.UIChoicesManager;
 import fr.umlv.hmm2000.salesentity.Sellable;
 import fr.umlv.hmm2000.util.Pair;
@@ -56,5 +57,16 @@ public class LawrenceChoicesManager implements UIChoicesManager {
 
     int skillIndex = LawrenceChoicesManager.readInt(0, skills.size() - 1);
     return skills.get(skillIndex);
+  }
+
+  @Override
+  public CastleItem submit(List<CastleItem> items) {
+    int i = 0;
+    for (CastleItem item : items) {
+      System.out.println(i++ + "-" + item.getSuggestion());
+    }
+
+    int itemIndex = LawrenceChoicesManager.readInt(0, items.size() - 1);
+    return items.get(itemIndex);
   }
 }
