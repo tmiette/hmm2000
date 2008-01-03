@@ -205,7 +205,7 @@ public class BattleMap implements Map {
 	public FightableContainer getFightableContainerAtLocation(Location l) {
 
 		Team team = getTeam(l);
-		if (team != null) {
+		if (team != null && !this.container.get(team).getFirstElement().equals(l)) {
 			return this.container.get(team).getSecondElement();
 		}
 		return null;
