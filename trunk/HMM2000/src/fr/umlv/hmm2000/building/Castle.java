@@ -3,6 +3,8 @@ package fr.umlv.hmm2000.building;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.CoreEngine;
@@ -10,6 +12,8 @@ import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
 import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.war.BattlePositionMap;
+import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
+import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
 import fr.umlv.hmm2000.warrior.Fightable;
 import fr.umlv.hmm2000.warrior.FightableContainer;
 import fr.umlv.hmm2000.warrior.Hero;
@@ -57,23 +61,21 @@ public class Castle implements FightableContainer {
     }
   }
 
-  public List<ProfilWarrior> getBuildableFactories() {
+  public Set<ProfilWarrior> getBuildableFactories() {
 
-    ArrayList<ProfilWarrior> list = new ArrayList<ProfilWarrior>();
-    for (ProfilWarrior profil : ProfilWarrior.values()) {
-      if (!this.factory.containsKey(profil)) {
-        list.add(profil);
-      }
-    }
-    return list;
+  	return this.factory.keySet();
   }
-
+  
   public void upgradeFactory(ProfilWarrior profil) {
 
     if (this.factory.containsKey(profil)) {
       Level level = this.factory.get(profil);
+      System.out.println(profil);
+      System.out.println(level);
       this.factory.remove(profil);
-      this.factory.put(profil, level.getNextLevel());
+      Level nextLevel = level.getNextLevel();
+      System.out.println(nextLevel);
+      this.factory.put(profil, nextLevel == null ? level : nextLevel);
     }
   }
 
@@ -92,14 +94,24 @@ public class Castle implements FightableContainer {
   public boolean addFightable(Fightable f)
       throws MaxNumberOfTroopsReachedException {
 
-    if (this.troop.size() < FightableContainer.MAX_TROOP_SIZE) {
-      f.setFightableContainer(this);
-      this.troop.add(f);
-      return true;
-    } else {
+  	if (this.troop.size() == FightableContainer.MAX_TROOP_SIZE) {
       throw new MaxNumberOfTroopsReachedException(
-          "Too much warriors in the castle");
+          "The max number of troops, a heroe can contain, is reached");
     }
+
+    try {
+      this.battlePosition.placeFightable(f, this.battlePosition
+          .getFirstFreeLocation());
+    } catch (ArrayIndexOutOfBoundsException e) {
+      return false;
+    } catch (LocationAlreadyOccupedException e) {
+      return false;
+    } catch (NoPlaceAvailableException e) {
+      return false;
+    }
+    this.troop.add(f);
+    f.setFightableContainer(this);
+    return true;
   }
 
   public boolean addHero(Hero hero) {
@@ -151,8 +163,12 @@ public class Castle implements FightableContainer {
   @Override
   public void removeFightable(Fightable f) {
 
-    this.troop.remove(f);
-
+    int index;
+    if ((index = this.troop.indexOf(f)) != -1) {
+      this.troop.remove(index);
+      this.battlePosition.removeMapForegroundElement(this.battlePosition
+          .getLocationForMapForegroundElement(f));
+    }
   }
 
   @Override
@@ -204,4 +220,27 @@ public class Castle implements FightableContainer {
     return FightableContainer.PRIORITY_HIGH;
   }
 
+  @Override
+  public String toString() {
+  
+  	
+  	StringBuilder sb = new StringBuilder();
+  	sb.append("Castle ");
+  	sb.append("(player, ");
+  	sb.append(this.player);
+  	sb.append(")");
+  	sb.append("(troop, ");
+  	for (Fightable warrior : this.troop) {
+			sb.append(warrior);
+			sb.append(" - ");
+		}
+  	sb.append(")");
+  	sb.append("(Factories, ");
+  	for (Entry<ProfilWarrior, Level> entries : this.factory.entrySet()) {
+			sb.append("[").append(entries.getKey()).append(",").append(entries.getValue()).append("]");
+		}
+  	sb.append(")");
+  	
+  	return sb.toString();
+  }
 }

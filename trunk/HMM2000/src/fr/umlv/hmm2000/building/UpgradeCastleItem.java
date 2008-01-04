@@ -19,8 +19,9 @@ public class UpgradeCastleItem implements CastleItem {
   @Override
   public void perform() {
 
+  	System.out.println(castle);
     UpgradeCastleItem.this.castle.upgradeFactory(Castle.defaultWarrior);
-
+    System.out.println(castle);
   }
 
 }
