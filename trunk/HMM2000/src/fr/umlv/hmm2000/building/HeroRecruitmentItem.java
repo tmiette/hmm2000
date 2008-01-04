@@ -39,10 +39,12 @@ public class HeroRecruitmentItem implements CastleItem {
 				@Override
 				public void perform() {
 
-					if (castle.getPlayer().spend(PriceFactory.getHeroPrice(profil))) {
+					if (!castle.getPlayer().spend(PriceFactory.getHeroPrice(profil))) {
 						castle.addHero(UnitFactory.createHero(castle.getPlayer(), profil));
 					}
-					// TODO pas assez argent
+					else {
+						CoreEngine.fireMessage("Vous n'avez pas assez d'argent");
+					}
 				}
 
 			});

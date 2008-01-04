@@ -288,7 +288,7 @@ public class BattleMap implements Map {
 
   }
 
-  public void swapBetweenFightableContainers(Location from, Location to) {
+  public boolean swapBetweenFightableContainers(Location from, Location to) {
 
     Team fromTeam = getTeam(from);
     Team toTeam = getTeam(to);
@@ -298,10 +298,11 @@ public class BattleMap implements Map {
         Location newFrom = getBattlePositionLocation(from, fromTeam);
         Location newTo = getBattlePositionLocation(to, fromTeam);
         c.getBattlePositionManager().moveMapForegroundElement(newFrom, newTo);
+        return true;
       } else {
         FightableContainer fromContainer = this.container.get(fromTeam)
             .getSecondElement();
-        if (fromContainer.getTroop().size() > 0) {
+        if (fromContainer.getTroop().size() > 1) {
           FightableContainer toContainer = this.container.get(toTeam)
               .getSecondElement();
           Location newFrom = getBattlePositionLocation(from, fromTeam);
@@ -324,21 +325,23 @@ public class BattleMap implements Map {
             toContainer.getBattlePositionManager().placeFightable(
                 fromFightable, newTo);
           } catch (ArrayIndexOutOfBoundsException e) {
-            // do nothing
+            new AssertionError(e);
           } catch (LocationAlreadyOccupedException e) {
-            // do nothing
+          	new AssertionError(e);
           } catch (NoPlaceAvailableException e) {
-            // do nothing
+          	new AssertionError(e);
           } catch (MaxNumberOfTroopsReachedException e) {
-            // do nothing
+          	new AssertionError(e);
           }
+          return true;
         } else {
           CoreEngine.fireMessage("Vous devez avoir au moins une unité.");
+          return false;
         }
       }
 
     }
-
+    return false;
   }
 
   @Override
