@@ -30,6 +30,7 @@ public class WorldMap implements Map {
     return this.graph.getMapBackgroundElement(l.getX(), l.getY());
   }
 
+  @Override
   public void addMapForegroundElement(MapForegroundElement element, Location l) {
     this.elements.put(l, element);
   }

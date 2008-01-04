@@ -12,6 +12,8 @@ public interface Map {
   public int getWidth();
 
   public int getHeight();
+  
+  public void addMapForegroundElement(MapForegroundElement element, Location l);
 
   public CheckerboardGraph graph();
 
@@ -45,6 +47,12 @@ public interface Map {
         return Sprite.DEFAULT;
       }
     };
+    
+    @Override
+    public void addMapForegroundElement(MapForegroundElement element, Location l) {
+    
+    	throw new UnsupportedOperationException();
+    }
 
     @Override
     public int getWidth() {
