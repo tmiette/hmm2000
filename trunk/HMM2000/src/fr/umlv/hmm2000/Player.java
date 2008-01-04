@@ -10,50 +10,62 @@ import fr.umlv.hmm2000.warrior.Hero;
 
 public class Player {
 
-  private final int id;
-  private final ResourcesCollection resources;
-  private final ArrayList<Hero> heroes;
+	public static final Player PLAYER_IA = new Player(-1);
 
-  public Player(int id) {
-    this.id = id;
-    this.resources = new ResourcesCollection();
-    this.heroes = new ArrayList<Hero>();
-  }
+	private final int id;
 
-  public int getId() {
-    return this.id;
-  }
+	private final ResourcesCollection resources;
 
-  public void addResource(Kind kind, int value) {
-    this.resources.addResource(kind, value);
-  }
+	private final ArrayList<Hero> heroes;
 
-  public ResourcesCollection getResources() {
-    return this.resources;
-  }
+	public Player(int id) {
 
-  public boolean spend(Price price) {
-    return this.resources.removeAllResources(price.getResourcesList());
-  }
-  
-  public List<Hero> getHeroes() {
-    return this.heroes;
-  }
+		this.id = id;
+		this.resources = new ResourcesCollection();
+		this.heroes = new ArrayList<Hero>();
+	}
 
-  @Override
-  public boolean equals(Object o) {
-    if (o == null) {
-      return false;
-    }
-    if (!(o instanceof Player)) {
-      return false;
-    }
-    Player p = (Player) o;
-    return this.id == p.id;
-  }
+	public int getId() {
 
-  @Override
-  public String toString() {
-    return "Player : " + this.id;
-  }
+		return this.id;
+	}
+
+	public void addResource(Kind kind, int value) {
+
+		this.resources.addResource(kind, value);
+	}
+
+	public ResourcesCollection getResources() {
+
+		return this.resources;
+	}
+
+	public boolean spend(Price price) {
+
+		return this.resources.removeAllResources(price.getResourcesList());
+	}
+
+	public List<Hero> getHeroes() {
+
+		return this.heroes;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+
+		if (o == null) {
+			return false;
+		}
+		if (!(o instanceof Player)) {
+			return false;
+		}
+		Player p = (Player) o;
+		return this.id == p.id;
+	}
+
+	@Override
+	public String toString() {
+
+		return "Player : " + this.id;
+	}
 }
