@@ -38,7 +38,7 @@ public class Warrior implements Fightable {
   private ElementAbility abilities;
 
   private AttackBehaviour attackBehaviour;
-
+  
   Warrior(String label, Sprite sprite, double physicalAttackValue,
       double physicalDefenseValue, double health, int speed,
       ElementAbility abilities, AttackBehaviour attackBehaviour) {

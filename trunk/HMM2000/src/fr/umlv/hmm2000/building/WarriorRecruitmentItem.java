@@ -2,13 +2,13 @@ package fr.umlv.hmm2000.building;
 
 import java.util.ArrayList;
 
+import fr.umlv.hmm2000.PriceFactory;
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.manager.MoveCoreManager;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.warrior.Fightable;
 import fr.umlv.hmm2000.warrior.UnitFactory;
-import fr.umlv.hmm2000.warrior.Warrior;
-import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
+import fr.umlv.hmm2000.warrior.profil.Level;
 import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
 
 public class WarriorRecruitmentItem implements CastleItem {
@@ -45,13 +45,19 @@ public class WarriorRecruitmentItem implements CastleItem {
 					@Override
 					public void perform() {
 
-						Fightable warrior = UnitFactory.createWarrior(profil, castle
-								.getFactoryLevel(profil));
-						Location castleLocation = CoreEngine.map()
-								.getLocationForMapForegroundElement(castle);
-						// warrior is acquired by castle
-						warrior.acquire(new MoveCoreManager.Encounter(castleLocation,
-								castle, castleLocation));
+						Level level = castle.getFactoryLevel(profil);
+						if (castle.getPlayer().spend(
+								PriceFactory.getWarriorPrice(profil, level))) {
+							
+							Fightable warrior = UnitFactory.createWarrior(profil, level);
+							Location castleLocation = CoreEngine.map()
+									.getLocationForMapForegroundElement(castle);
+							// warrior is acquired by castle
+							warrior.acquire(new MoveCoreManager.Encounter(castleLocation,
+									castle, castleLocation));
+						}
+
+						//TODO pas assez d'argent
 					}
 
 				});
