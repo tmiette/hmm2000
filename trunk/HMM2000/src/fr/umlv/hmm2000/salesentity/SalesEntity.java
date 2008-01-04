@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
+import fr.umlv.hmm2000.engine.guiinterface.Spritable;
+import fr.umlv.hmm2000.engine.guiinterface.Sprite;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
-import fr.umlv.hmm2000.gui.Spritable;
-import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.util.Pair;
 

@@ -1,6 +1,6 @@
 package fr.umlv.hmm2000.map.element;
 
-import fr.umlv.hmm2000.gui.Sprite;
+import fr.umlv.hmm2000.engine.guiinterface.Sprite;
 
 public enum MapBackgroundEnum implements MapBackgroundElement {
 

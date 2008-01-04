@@ -1,20 +1,15 @@
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import javax.swing.JFrame;
 
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.gui.LawrenceUIEngine;
-import fr.umlv.hmm2000.map.InvalidPlayersNumberException;
+import fr.umlv.hmm2000.gui.panel.StartPanel;
 
 public class Hmm2000Tom {
 
-  public final static JFrame frame = new JFrame();;
+  public static void main(String[] args) {
 
-  public static void main(String[] args) throws FileNotFoundException,
-      IOException, InvalidPlayersNumberException {
-
-    final HMMUserInterface hmmui = new LawrenceUIEngine();
+    final JFrame frame = new JFrame("HMM 2000");
+    final HMMUserInterface hmmui = new LawrenceUIEngine(frame);
 
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(400, 300);

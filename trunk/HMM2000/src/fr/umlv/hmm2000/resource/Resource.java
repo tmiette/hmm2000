@@ -1,8 +1,8 @@
 package fr.umlv.hmm2000.resource;
 
+import fr.umlv.hmm2000.engine.guiinterface.Sprite;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
-import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 
 public class Resource implements MapForegroundElement {

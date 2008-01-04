@@ -1,6 +1,6 @@
 package fr.umlv.hmm2000.warrior.profil;
 
-import fr.umlv.hmm2000.gui.Sprite;
+import fr.umlv.hmm2000.engine.guiinterface.Sprite;
 import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.warrior.Fightable;
 

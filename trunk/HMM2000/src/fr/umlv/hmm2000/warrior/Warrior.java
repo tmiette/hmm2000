@@ -1,9 +1,9 @@
 package fr.umlv.hmm2000.warrior;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
+import fr.umlv.hmm2000.engine.guiinterface.Sprite;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
-import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.resource.Resource.Kind;
 import fr.umlv.hmm2000.salesentity.Price;
 import fr.umlv.hmm2000.util.Pair;

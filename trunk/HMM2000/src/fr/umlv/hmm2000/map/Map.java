@@ -2,7 +2,7 @@ package fr.umlv.hmm2000.map;
 
 import java.util.List;
 
-import fr.umlv.hmm2000.gui.Sprite;
+import fr.umlv.hmm2000.engine.guiinterface.Sprite;
 import fr.umlv.hmm2000.map.element.MapBackgroundElement;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.map.graph.CheckerboardGraph;

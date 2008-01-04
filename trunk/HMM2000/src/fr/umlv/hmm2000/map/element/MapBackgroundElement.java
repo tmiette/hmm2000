@@ -1,6 +1,6 @@
 package fr.umlv.hmm2000.map.element;
 
-import fr.umlv.hmm2000.gui.Spritable;
+import fr.umlv.hmm2000.engine.guiinterface.Spritable;
 
 public interface MapBackgroundElement extends Spritable {
 
