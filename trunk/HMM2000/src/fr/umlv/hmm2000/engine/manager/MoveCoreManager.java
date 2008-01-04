@@ -13,6 +13,7 @@ import fr.umlv.hmm2000.map.MovableElement;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.map.graph.CheckerboardVertex;
 import fr.umlv.hmm2000.util.Pair;
+import fr.umlv.hmm2000.warrior.FightableContainer;
 
 public class MoveCoreManager {
 
@@ -180,11 +181,11 @@ public class MoveCoreManager {
 
     private final Location recipientLocation;
 
-    private final MovableElement sender;
+    private final FightableContainer sender;
 
     private final Location senderLocation;
 
-    public Encounter(Location recipientLocation, MovableElement sender,
+    public Encounter(Location recipientLocation, FightableContainer sender,
         Location senderLocation) {
       this.recipientLocation = recipientLocation;
       this.sender = sender;
@@ -192,7 +193,7 @@ public class MoveCoreManager {
 
     }
 
-    public MovableElement getSender() {
+    public FightableContainer getSender() {
       return this.sender;
     }
 
