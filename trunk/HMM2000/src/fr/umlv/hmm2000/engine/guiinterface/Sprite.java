@@ -1,6 +1,7 @@
 package fr.umlv.hmm2000.engine.guiinterface;
 
-import fr.umlv.hmm2000.map.element.MapBackgroundEnum;
+import java.net.URL;
+
 import fr.umlv.lawrence.svg.SVGImageProvider;
 
 public enum Sprite {
@@ -37,8 +38,12 @@ public enum Sprite {
   }
 
   public void register(SVGImageProvider<Sprite> provider) {
-    provider.registerImage(this, MapBackgroundEnum.class
+    provider.registerImage(this, Sprite.class
         .getResource("/sprites/" + spritePath + ".svg"));
+  }
+
+  public URL getIconPath() {
+    return Sprite.class.getResource("/icons/" + this.spritePath + ".png");
   }
 
 }

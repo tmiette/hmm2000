@@ -30,7 +30,7 @@ import fr.umlv.hmm2000.map.MapLevel;
 
 public class StartPanel {
 
-  public static JComponent createStratPanel(final HMMUserInterface ui) {
+  public static JComponent createStartPanel(final HMMUserInterface ui) {
 
     // layered pane
     final JLayeredPane pane = new JLayeredPane();

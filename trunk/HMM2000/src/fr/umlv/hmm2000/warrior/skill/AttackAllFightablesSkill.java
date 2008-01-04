@@ -41,11 +41,11 @@ public class AttackAllFightablesSkill implements Skill {
 
   @Override
   public String getName() {
-    return this.getClass().toString();
+    return "Attack alla units";
   }
 
   @Override
   public String getToolTipText() {
-    return "This skill enables to attack all units on the battle map";
+    return "This skill enables to attack all units on the battle map.";
   }
 }

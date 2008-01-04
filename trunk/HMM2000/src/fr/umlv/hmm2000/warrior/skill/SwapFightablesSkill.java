@@ -45,7 +45,7 @@ public class SwapFightablesSkill implements Skill {
 
   @Override
   public String getName() {
-    return this.getClass().toString();
+    return "Swap units";
   }
 
   @Override

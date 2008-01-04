@@ -53,12 +53,11 @@ public class AttackOpponentFightableSkill implements Skill {
 
   @Override
   public String getName() {
-    return this.getClass().toString();
+    return "Attack standard";
   }
 
   @Override
   public String getToolTipText() {
-
     return "This skill enables to attack one opponent unit.";
   }
 }

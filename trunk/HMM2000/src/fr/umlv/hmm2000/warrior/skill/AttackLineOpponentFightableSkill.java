@@ -70,7 +70,7 @@ public class AttackLineOpponentFightableSkill implements Skill {
 
   @Override
   public String getName() {
-    return this.getClass().toString();
+    return "Attack line units";
   }
 
   @Override

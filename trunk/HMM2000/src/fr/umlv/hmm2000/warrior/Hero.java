@@ -78,6 +78,10 @@ public class Hero extends MovableElement {
     f.setFightableContainer(this);
     return true;
   }
+  
+  public int getSpeed() {
+    return this.speed;
+  }
 
   @Override
   public BattlePositionMap getBattlePositionManager() {

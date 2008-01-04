@@ -14,7 +14,7 @@ public class Hmm2000Tom {
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(400, 300);
     frame.setResizable(false);
-    frame.setContentPane(StartPanel.createStratPanel(hmmui));
+    frame.setContentPane(StartPanel.createStartPanel(hmmui));
     frame.setVisible(true);
 
   }

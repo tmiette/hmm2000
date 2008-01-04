@@ -10,7 +10,7 @@ import fr.umlv.hmm2000.warrior.Warrior;
 public class PanelFactory {
 
   public static JComponent getStartPanel(HMMUserInterface ui) {
-    return StartPanel.createStratPanel(ui);
+    return StartPanel.createStartPanel(ui);
   }
 
   public static JComponent getHeroPanel(Hero hero) {
