@@ -249,4 +249,11 @@ public class BattlePositionMap implements Map {
 				? this.getLocation((Fightable) element)
 				: null);
 	}
+
+	@Override
+	public void addMapForegroundElement(MapForegroundElement element, Location l) {
+
+		// TODO Auto-generated method stub
+		
+	}
 }

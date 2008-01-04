@@ -386,4 +386,11 @@ public class BattleMap implements Map {
 			}
 		}
 	}
+
+	@Override
+	public void addMapForegroundElement(MapForegroundElement element, Location l) {
+
+		// TODO Auto-generated method stub
+		
+	}
 }
