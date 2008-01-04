@@ -1,0 +1,53 @@
+package fr.umlv.hmm2000.gui.panel;
+
+import java.awt.GridLayout;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import fr.umlv.hmm2000.salesentity.SalesEntity;
+import fr.umlv.hmm2000.salesentity.Sellable;
+import fr.umlv.hmm2000.util.Pair;
+
+public class SalesEntityPanel {
+
+  private final AbstractUnitPanel abstractPanel;
+  private final JLabel items;
+
+  private static SalesEntityPanel instance = new SalesEntityPanel();
+
+  public SalesEntityPanel() {
+
+    final JPanel centerPanel = new JPanel(new GridLayout(1, 2));
+    this.items = new JLabel("items");
+    centerPanel.add(new JLabel("Items : "));
+    centerPanel.add(this.items);
+
+    this.abstractPanel = new AbstractUnitPanel("Resource :", centerPanel);
+  }
+
+  public static JPanel getPanel(SalesEntity sales) {
+    refresh(sales);
+    return instance.abstractPanel.getPanel();
+  }
+
+  private static void refresh(SalesEntity sales) {
+    instance.abstractPanel.refresh(new ImageIcon(sales.getSprite()
+        .getIconPath()), sales.getType().name(), null);
+
+    String itemsString = new String("<html><body>");
+    for (Pair<Sellable, Integer> pair : SalesEntity.createItemsList(sales
+        .getItems())) {
+      if (pair.getSecondElement() != 0) {
+        itemsString += pair.getFirstElement().getLabel() + " - "
+            + pair.getFirstElement().getPrice() + "-"
+            + +pair.getSecondElement() + "<br>";
+      }
+    }
+    itemsString += "</body></html>";
+    instance.items.setText(itemsString);
+
+  }
+
+}

@@ -204,6 +204,8 @@ public class CoreEngine {
   public static void nextDay() {
     if (CoreEngine.currentConfiguration() == CoreEngine.WORLD_CONFIG) {
       CoreEngine.roundManager.nextDay();
+      CoreEngine.displayMapForegroundElement(CoreEngine.selectionManager
+          .getSelectedElement());
     }
   }
 

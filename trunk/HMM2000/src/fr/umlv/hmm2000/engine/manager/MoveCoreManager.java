@@ -91,6 +91,8 @@ public class MoveCoreManager {
         if (element != null) {
           if (!element.encounter(new Encounter(l, this.currentSource, move
               .getStart()))) {
+            CoreEngine.displayMapForegroundElement(CoreEngine
+                .selectionManager().getSelectedElement());
             break;
           } else {
             CoreEngine.map().removeMapForegroundElement(l);

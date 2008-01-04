@@ -12,7 +12,7 @@ public class Hmm2000Tom {
     final HMMUserInterface hmmui = new LawrenceUIEngine(frame);
 
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(400, 300);
+    frame.setBounds(810, 0, 400, 300);
     frame.setResizable(false);
     frame.setContentPane(StartPanel.createStartPanel(hmmui));
     frame.setVisible(true);

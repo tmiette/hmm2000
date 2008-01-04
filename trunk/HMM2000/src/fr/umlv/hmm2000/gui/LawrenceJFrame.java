@@ -20,6 +20,7 @@ import fr.umlv.hmm2000.engine.CoreEngine;
 public class LawrenceJFrame {
 
   private final JPanel mainPanel;
+  private JPanel centerPanel;
   private final JLabel dayCount;
   private final JLabel currentPlayer;
   private final JLabel currentResources;
@@ -57,6 +58,8 @@ public class LawrenceJFrame {
     northPanel.add(northSouthPanel, BorderLayout.SOUTH);
     this.refreshNorthPanel();
 
+    this.centerPanel = new JPanel(new BorderLayout());
+
     final JPanel southPanel = new JPanel(new BorderLayout());
     southPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory
         .createEtchedBorder(), "Messages :"));
@@ -70,6 +73,7 @@ public class LawrenceJFrame {
     scroll.setPreferredSize(new Dimension(400, 100));
     southPanel.add(scroll, BorderLayout.CENTER);
     this.mainPanel.add(northPanel, BorderLayout.NORTH);
+    this.mainPanel.add(this.centerPanel, BorderLayout.CENTER);
     this.mainPanel.add(southPanel, BorderLayout.SOUTH);
     frame.setSize(400, 600);
     frame.setContentPane(this.mainPanel);
@@ -107,8 +111,14 @@ public class LawrenceJFrame {
   }
 
   public void displayCenterPanel(JPanel panel) {
-    this.mainPanel.add(panel, BorderLayout.CENTER);
+    this.eraseCenterPanel();
+    this.centerPanel.add(panel);
     this.refreshNorthPanel();
+    this.mainPanel.paintImmediately(this.mainPanel.getBounds());
+  }
+
+  public void eraseCenterPanel() {
+    this.centerPanel.removeAll();
   }
 
   public void displayMessage(String message) {

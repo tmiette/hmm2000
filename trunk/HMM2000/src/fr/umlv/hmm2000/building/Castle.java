@@ -48,17 +48,17 @@ public class Castle implements FightableContainer {
     this.factory = new HashMap<ProfilWarrior, Level>();
     this.factory.put(defaultWarrior, defaultLevel);
   }
-  
+
   public Hero getHero(Hero hero) {
 
-  	int index = this.heroes.indexOf(hero);
-  	if (index != -1) {
-			Hero h = this.heroes.get(index);
-			this.heroes.remove(index);
-			return h;
-		}
-  	return null;
-	}
+    int index = this.heroes.indexOf(hero);
+    if (index != -1) {
+      Hero h = this.heroes.get(index);
+      this.heroes.remove(index);
+      return h;
+    }
+    return null;
+  }
 
   public boolean canBuyWarrior(ProfilWarrior profil) {
 
@@ -74,9 +74,9 @@ public class Castle implements FightableContainer {
 
   public Set<ProfilWarrior> getBuildableFactories() {
 
-  	return this.factory.keySet();
+    return this.factory.keySet();
   }
-  
+
   public void upgradeFactory(ProfilWarrior profil) {
 
     if (this.factory.containsKey(profil)) {
@@ -105,7 +105,7 @@ public class Castle implements FightableContainer {
   public boolean addFightable(Fightable f)
       throws MaxNumberOfTroopsReachedException {
 
-  	if (this.troop.size() == FightableContainer.MAX_TROOP_SIZE) {
+    if (this.troop.size() == FightableContainer.MAX_TROOP_SIZE) {
       throw new MaxNumberOfTroopsReachedException(
           "The max number of troops, a heroe can contain, is reached");
     }
@@ -130,11 +130,11 @@ public class Castle implements FightableContainer {
     this.heroes.add(hero);
     return true;
   }
-  
+
   public Level getFactoryLevel(ProfilWarrior pw) {
 
-		return this.factory.get(pw);
-	}
+    return this.factory.get(pw);
+  }
 
   public List<CastleItem> getItems() {
     if (this.items == null) {
@@ -192,15 +192,13 @@ public class Castle implements FightableContainer {
 
   @Override
   public void accept(UIDisplayingVisitor visitor) {
-
-    // TODO Auto-generated method stub
-
+    visitor.visit(this);
   }
 
   @Override
   public boolean encounter(Encounter encounter) {
 
-  	if (!encounter.getSender().getPlayer().equals(this.getPlayer())) {
+    if (!encounter.getSender().getPlayer().equals(this.getPlayer())) {
       CoreEngine.startBattle(encounter.getSender(), this);
     } else {
       CoreEngine.startSwap(this, encounter.getSender());
@@ -234,25 +232,25 @@ public class Castle implements FightableContainer {
 
   @Override
   public String toString() {
-  
-  	
-  	StringBuilder sb = new StringBuilder();
-  	sb.append("Castle ");
-  	sb.append("(player, ");
-  	sb.append(this.player);
-  	sb.append(")");
-  	sb.append("(troop, ");
-  	for (Fightable warrior : this.troop) {
-			sb.append(warrior);
-			sb.append(" - ");
-		}
-  	sb.append(")");
-  	sb.append("(Factories, ");
-  	for (Entry<ProfilWarrior, Level> entries : this.factory.entrySet()) {
-			sb.append("[").append(entries.getKey()).append(",").append(entries.getValue()).append("]");
-		}
-  	sb.append(")");
-  	
-  	return sb.toString();
+
+    StringBuilder sb = new StringBuilder();
+    sb.append("Castle ");
+    sb.append("(player, ");
+    sb.append(this.player);
+    sb.append(")");
+    sb.append("(troop, ");
+    for (Fightable warrior : this.troop) {
+      sb.append(warrior);
+      sb.append(" - ");
+    }
+    sb.append(")");
+    sb.append("(Factories, ");
+    for (Entry<ProfilWarrior, Level> entries : this.factory.entrySet()) {
+      sb.append("[").append(entries.getKey()).append(",").append(
+          entries.getValue()).append("]");
+    }
+    sb.append(")");
+
+    return sb.toString();
   }
 }

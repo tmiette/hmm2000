@@ -1,5 +1,6 @@
 package fr.umlv.hmm2000.gui;
 
+import fr.umlv.hmm2000.building.Castle;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.gui.panel.PanelFactory;
 import fr.umlv.hmm2000.resource.Resource;
@@ -23,14 +24,7 @@ public class LawrenceDisplayingVisitor implements UIDisplayingVisitor {
 
   @Override
   public void visit(Resource resource) {
-    System.out.println(resource.getKind() + " :" + resource.getCurrentValue()
-        + "/" + resource.getMaxValue());
-  }
-
-  @Override
-  public void visit(SalesEntity salesEntity) {
-    System.out.println("marchant");
-    System.out.println(salesEntity.getItems());
+    this.frame.displayCenterPanel(PanelFactory.getResourcePanel(resource));
   }
 
   @Override
@@ -41,5 +35,16 @@ public class LawrenceDisplayingVisitor implements UIDisplayingVisitor {
   @Override
   public void visit(Monster monster) {
     this.frame.displayCenterPanel(PanelFactory.getMonsterPanel(monster));
+  }
+
+  @Override
+  public void visit(SalesEntity salesEntity) {
+    this.frame
+        .displayCenterPanel(PanelFactory.getSalesEntityPanel(salesEntity));
+  }
+
+  @Override
+  public void visit(Castle castle) {
+    this.frame.displayCenterPanel(PanelFactory.getCastlePanel(castle));
   }
 }

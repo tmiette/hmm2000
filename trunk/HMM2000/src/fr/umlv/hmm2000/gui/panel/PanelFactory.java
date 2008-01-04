@@ -1,10 +1,12 @@
 package fr.umlv.hmm2000.gui.panel;
 
-import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import fr.umlv.hmm2000.building.Castle;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
+import fr.umlv.hmm2000.resource.Resource;
+import fr.umlv.hmm2000.salesentity.SalesEntity;
 import fr.umlv.hmm2000.warrior.Hero;
 import fr.umlv.hmm2000.warrior.Monster;
 import fr.umlv.hmm2000.warrior.Warrior;
@@ -16,24 +18,27 @@ public class PanelFactory {
   }
 
   public static JPanel getHeroPanel(Hero hero) {
-    final JPanel p = PanelHero.getPanel(hero);
-    p.setBorder(BorderFactory.createTitledBorder(BorderFactory
-        .createEtchedBorder(), "Hero :"));
-    return p;
+    return HeroPanel.getPanel(hero);
   }
 
   public static JPanel getWarriorPanel(Warrior warrior) {
-    final JPanel p = PanelWarrior.getPanel(warrior);
-    p.setBorder(BorderFactory.createTitledBorder(BorderFactory
-        .createEtchedBorder(), "Warrior :"));
-    return p;
+    return WarriorPanel.getPanel(warrior);
+  }
+
+  public static JPanel getResourcePanel(Resource resource) {
+    return ResourcePanel.getPanel(resource);
   }
 
   public static JPanel getMonsterPanel(Monster monster) {
-    final JPanel p = PanelMonster.getPanel(monster);
-    p.setBorder(BorderFactory.createTitledBorder(BorderFactory
-        .createEtchedBorder(), "Monster :"));
-    return p;
+    return MonsterPanel.getPanel(monster);
+  }
+
+  public static JPanel getSalesEntityPanel(SalesEntity sales) {
+    return SalesEntityPanel.getPanel(sales);
+  }
+
+  public static JPanel getCastlePanel(Castle castle) {
+    return CastlePanel.getPanel(castle);
   }
 
 }

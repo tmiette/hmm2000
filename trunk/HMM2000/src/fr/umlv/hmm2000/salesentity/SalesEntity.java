@@ -39,6 +39,10 @@ public class SalesEntity implements MapForegroundElement {
   public Sprite getSprite() {
     return this.type.getSprite();
   }
+  
+  public SalesEntityEnum getType() {
+    return this.type;
+  }
 
   private static final Sellable defaultSellable = new Sellable() {
 
