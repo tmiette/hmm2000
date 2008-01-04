@@ -52,7 +52,12 @@ public class Castle implements FightableContainer {
   public Hero getHero(Hero hero) {
 
   	int index = this.heroes.indexOf(hero);
-  	return index != -1 ? this.heroes.get(index) : null;
+  	if (index != -1) {
+			Hero h = this.heroes.get(index);
+			this.heroes.remove(index);
+			return h;
+		}
+  	return null;
 	}
 
   public boolean canBuyWarrior(ProfilWarrior profil) {
