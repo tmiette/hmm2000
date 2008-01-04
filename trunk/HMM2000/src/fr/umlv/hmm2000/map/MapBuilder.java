@@ -76,7 +76,7 @@ public class MapBuilder {
     map.addMapForegroundElement(c1, new Location(14, 4));
     map.addMapForegroundElement(c2, new Location(14,5));
 
-    map.addMapForegroundElement(UnitFactory.createHero(p1, ProfilHero.ARCHER),
+    map.addMapForegroundElement(UnitFactory.createHero(Player.PLAYER_IA, ProfilHero.ARCHER),
         new Location(0, 0));
     map.addMapForegroundElement(
         UnitFactory.createHero(p1, ProfilHero.SORCERER), new Location(14, 3));
