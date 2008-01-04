@@ -25,6 +25,7 @@ public enum Sprite {
   SELECTION("selection"),
   SORCERER("sorcerer"),
   TREE("tree"),
+  TROLL("troll"),
   UNATTACKABLE("unattackable"),
   UNRECHEABLE("unrecheable"),
   WATER("water"),
