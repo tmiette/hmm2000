@@ -29,7 +29,7 @@ public class AttackOneMoreTimeSkill implements Skill {
 
   @Override
   public String getName() {
-    return "Attack one more time";
+    return "Again-Attack";
   }
 
   @Override

@@ -41,7 +41,7 @@ public class AttackAllFightablesSkill implements Skill {
 
   @Override
   public String getName() {
-    return "Attack alla units";
+    return "Big Multi-Attack";
   }
 
   @Override

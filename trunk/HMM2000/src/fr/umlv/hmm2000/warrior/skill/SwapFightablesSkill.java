@@ -45,7 +45,7 @@ public class SwapFightablesSkill implements Skill {
 
   @Override
   public String getName() {
-    return "Swap units";
+    return "Swap-Move";
   }
 
   @Override

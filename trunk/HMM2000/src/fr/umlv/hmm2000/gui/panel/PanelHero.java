@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -22,7 +23,6 @@ public class PanelHero {
   private final JLabel name;
   private final JLabel troops;
   private final JLabel player;
-  private final JLabel resources;
   private final JLabel speed;
   private final JLabel stepCount;
   private final JLabel skills;
@@ -30,14 +30,14 @@ public class PanelHero {
   private static PanelHero instance;
 
   private PanelHero() {
-    this.mainPanel = new JPanel(new BorderLayout(0, 10));
+    this.mainPanel = new JPanel(new BorderLayout());
     final JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 0));
-    final JPanel northEastPanel = new JPanel(new GridLayout(3, 1));
+    final JPanel northEastPanel = new JPanel(new GridLayout(2, 1));
     this.sprite = new JLabel();
     this.name = new JLabel("name");
     this.player = new JLabel("player");
-    this.resources = new JLabel("gold");
     final JPanel centerPanel = new JPanel(new GridLayout(4, 2));
+    centerPanel.setBorder(BorderFactory.createTitledBorder("Features :"));
     this.troops = new JLabel("troops");
     this.speed = new JLabel("speed");
     this.stepCount = new JLabel("step");
@@ -47,7 +47,6 @@ public class PanelHero {
 
     northEastPanel.add(this.name);
     northEastPanel.add(this.player);
-    northEastPanel.add(this.resources);
     northPanel.add(this.sprite);
     northPanel.add(northEastPanel);
     this.mainPanel.add(northPanel, BorderLayout.NORTH);
@@ -88,7 +87,6 @@ public class PanelHero {
     instance.sprite.setIcon(new ImageIcon(hero.getSprite().getIconPath()));
     instance.name.setText(hero.getName());
     instance.player.setText(hero.getPlayer().toString());
-    instance.resources.setText(hero.getPlayer().getResources().toString());
     instance.troops.setText(hero.getTroop().size() + "");
     instance.speed.setText(hero.getSpeed() + "");
     instance.stepCount.setText(hero.getStepCount() + "");
@@ -97,7 +95,7 @@ public class PanelHero {
       skillsString += skill.getName() + "<br>";
     }
     skillsString += "</body></html>";
-    
+
     instance.skills.setText(skillsString);
     if (CoreEngine.roundManager().currentPlayer().equals(hero.getPlayer())) {
       instance.troopsButton.setEnabled(true);

@@ -53,7 +53,7 @@ public class AttackOpponentFightableSkill implements Skill {
 
   @Override
   public String getName() {
-    return "Attack standard";
+    return "Strong-Attack";
   }
 
   @Override

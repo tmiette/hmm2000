@@ -46,8 +46,10 @@ public class LawrenceUIEngine implements HMMUserInterface {
   private fr.umlv.lawrence.Location pointerLocation;
 
   private Map map;
-  
+
   private final JFrame frame;
+
+  private LawrenceJFrame lawrenceFrame;
 
   private final InputListener inputListener = new InputListener() {
 
@@ -133,6 +135,7 @@ public class LawrenceUIEngine implements HMMUserInterface {
   public void drawMap(Map map) {
     if (this.map == Map.defaultMap) {
       this.addListeners();
+      this.initFrame();
     }
     this.map = map;
     this.currentWidth = this.map.getWidth();
@@ -157,6 +160,10 @@ public class LawrenceUIEngine implements HMMUserInterface {
     for (Sprite s : Sprite.values()) {
       s.register(this.provider);
     }
+  }
+
+  private void initFrame() {
+    this.lawrenceFrame = new LawrenceJFrame(this.frame);
   }
 
   private void initGrid() {
@@ -207,7 +214,7 @@ public class LawrenceUIEngine implements HMMUserInterface {
   @Override
   public UIDisplayingVisitor displayingVisitor() {
     if (this.displayingVisitor == null) {
-      this.displayingVisitor = new LawrenceDisplayingVisitor(this.frame);
+      this.displayingVisitor = new LawrenceDisplayingVisitor(this.lawrenceFrame);
     }
     return this.displayingVisitor;
   }

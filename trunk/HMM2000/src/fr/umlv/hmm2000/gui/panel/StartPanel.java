@@ -1,4 +1,5 @@
 package fr.umlv.hmm2000.gui.panel;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -38,7 +39,7 @@ public class StartPanel {
     // background icon
     final JLabel bgIcon = new JLabel();
     bgIcon
-        .setIcon(new ImageIcon(StartPanel.class.getResource("/icons/bg1.gif")));
+        .setIcon(new ImageIcon(StartPanel.class.getResource("/icons/bg.gif")));
 
     // main panel
     final JPanel mainPanel = new JPanel(new BorderLayout());

@@ -1,7 +1,5 @@
 package fr.umlv.hmm2000.gui;
 
-import javax.swing.JFrame;
-
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.gui.panel.PanelFactory;
 import fr.umlv.hmm2000.resource.Resource;
@@ -12,15 +10,15 @@ import fr.umlv.hmm2000.warrior.Warrior;
 
 public class LawrenceDisplayingVisitor implements UIDisplayingVisitor {
 
-  private final JFrame frame;
+  private final LawrenceJFrame frame;
 
-  public LawrenceDisplayingVisitor(JFrame frame) {
+  public LawrenceDisplayingVisitor(LawrenceJFrame frame) {
     this.frame = frame;
   }
 
   @Override
   public void visit(Hero hero) {
-    this.frame.setContentPane(PanelFactory.getHeroPanel(hero));
+    this.frame.displayCenterPanel(PanelFactory.getHeroPanel(hero));
   }
 
   @Override
@@ -37,11 +35,11 @@ public class LawrenceDisplayingVisitor implements UIDisplayingVisitor {
 
   @Override
   public void visit(Warrior warrior) {
-    this.frame.setContentPane(PanelFactory.getWarriorPanel(warrior));
+    this.frame.displayCenterPanel(PanelFactory.getWarriorPanel(warrior));
   }
 
   @Override
   public void visit(Monster monster) {
-    this.frame.setContentPane(PanelFactory.getMonsterPanel(monster));
+    this.frame.displayCenterPanel(PanelFactory.getMonsterPanel(monster));
   }
 }

@@ -36,6 +36,10 @@ public class CoreEngine {
   public static final int BATTLE_CONFIG = 4;
   public static final int SWAP_CONFIG = 8;
 
+  private static MapLevel currentMapLevel;
+
+  private static int numberOfPlayers;
+
   private static Map currentMap;
 
   private static WorldMap worldMap;
@@ -77,6 +81,8 @@ public class CoreEngine {
     WorldMap worldMap = MapBuilder.createMapTESTVERSION(level, players[0],
         players[1]);
 
+    CoreEngine.currentMapLevel = level;
+    CoreEngine.numberOfPlayers = players.length;
     CoreEngine.worldMap = worldMap;
     CoreEngine.uiEngine = uiEngine;
     CoreEngine.selectionManager = new SelectionCoreManager();
@@ -221,6 +227,14 @@ public class CoreEngine {
       FightableContainer container2) {
     CoreEngine.battleMap = new BattleMap(container1, container2);
     CoreEngine.changeCurrentMap(CoreEngine.battleMap);
+  }
+
+  public static MapLevel mapLevel() {
+    return CoreEngine.currentMapLevel;
+  }
+
+  public static int numberOfPlayers() {
+    return CoreEngine.numberOfPlayers;
   }
 
   public static Map map() {
