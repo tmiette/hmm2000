@@ -7,7 +7,7 @@ import fr.umlv.hmm2000.astar.AStar;
 import fr.umlv.hmm2000.astar.AStarResult;
 import fr.umlv.hmm2000.astar.heuristic.CheckerboardEuclideanAStarHeuristic;
 import fr.umlv.hmm2000.engine.CoreEngine;
-import fr.umlv.hmm2000.gui.Sprite;
+import fr.umlv.hmm2000.engine.guiinterface.Sprite;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.MovableElement;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
@@ -177,7 +177,7 @@ public class MoveCoreManager {
     }
   }
 
-  public class Encounter {
+  public static class Encounter {
 
     private final Location recipientLocation;
 
@@ -206,7 +206,7 @@ public class MoveCoreManager {
     }
   }
 
-  private class Step {
+  private static class Step {
 
     private final Location start;
 

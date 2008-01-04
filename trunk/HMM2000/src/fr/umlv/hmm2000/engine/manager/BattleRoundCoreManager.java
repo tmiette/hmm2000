@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.CoreEngine;
-import fr.umlv.hmm2000.gui.Sprite;
+import fr.umlv.hmm2000.engine.guiinterface.Sprite;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.util.Pair;
 import fr.umlv.hmm2000.warrior.Fightable;

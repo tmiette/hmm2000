@@ -2,7 +2,6 @@ package fr.umlv.hmm2000.engine.guiinterface;
 
 import java.util.List;
 
-import fr.umlv.hmm2000.gui.Sprite;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.Map;
 import fr.umlv.hmm2000.util.Pair;
