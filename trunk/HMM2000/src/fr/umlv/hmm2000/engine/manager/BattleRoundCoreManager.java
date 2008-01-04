@@ -89,7 +89,9 @@ public class BattleRoundCoreManager extends DayCoreManager {
 				.currentContainer())) {
 			this.nextBattlePlayer();
 			if (this.currentPlayer().equals(Player.PLAYER_IA)) {
+				System.out.println("Au tour de l'IA de jouer");
 				this.iaManager.performRound();
+				this.nextDay();
 			}
 		}
 		else if (!this.isStillAttacker(this.fightables.get(this.currentPlayer()),
@@ -97,7 +99,9 @@ public class BattleRoundCoreManager extends DayCoreManager {
 			this.newRound();
 			this.nextBattlePlayer();
 			if (this.currentPlayer().equals(Player.PLAYER_IA)) {
+				System.out.println("Au tour de l'IA de jouer");
 				this.iaManager.performRound();
+				this.nextDay();
 			}
 		}
 		this.tagAlreadyPlayed();

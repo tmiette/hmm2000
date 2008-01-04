@@ -23,53 +23,64 @@ public class BattleRoundIAManager {
 	public void performRound() {
 
 		final Fightable bestAttacker = this.getBestWarrior(this.iaTroop);
-		final Fightable defender = this.getAttackableWarrior(bestAttacker);
-		try {
-			CoreEngine.battleManager().roundManager()
-					.tagAsAlreadyPlayed(bestAttacker);
-			bestAttacker.performAttack(defender);
-			CoreEngine.battleManager().roundManager().nextDay();
+		final Fightable defender = this.getAttackableWarrior(bestAttacker, this.troop);
+		if (bestAttacker != null && defender != null) {
+			try {
+				System.out.println("IA attaque");
+				CoreEngine.battleManager().roundManager()
+						.tagAsAlreadyPlayed(bestAttacker);
+				bestAttacker.performAttack(defender);
+//				CoreEngine.battleManager().roundManager().nextDay();
+			}
+			catch (WarriorDeadException e) {
+				CoreEngine.battleManager().kill(
+						CoreEngine.map().getLocationForMapForegroundElement(defender),
+						defender);
+			}
+			catch (WarriorNotReachableException e) {
+				new AssertionError(e);
+			}
 		}
-		catch (WarriorDeadException e) {
-			CoreEngine.battleManager().kill(
-					CoreEngine.map().getLocationForMapForegroundElement(defender),
-					defender);
-		}
-		catch (WarriorNotReachableException e) {
-			new AssertionError(e);
-		}
+		
 	}
 
 	private Fightable getBestWarrior(ArrayList<Fightable> warriors) {
 
-		//warrior with maximum physical attack value
-		Fightable bestWarrior = warriors.get(0);
-		for (Fightable warrior : warriors) {
-			if (warrior.getPhysicalAttackValue() > bestWarrior
-					.getPhysicalAttackValue()) {
-				bestWarrior = warrior;
+		if (warriors.size() != 0) {
+		// warrior with maximum physical attack value
+			Fightable bestWarrior = warriors.get(0);
+			for (Fightable warrior : warriors) {
+				if (warrior.getPhysicalAttackValue() > bestWarrior
+						.getPhysicalAttackValue()) {
+					bestWarrior = warrior;
+				}
 			}
+			return bestWarrior;
 		}
-		return bestWarrior;
+		return null;
 	}
 
-	private Fightable getAttackableWarrior(Fightable warrior) {
+	private Fightable getAttackableWarrior(Fightable warrior,
+			ArrayList<Fightable> warriors) {
 
-		// list of attackable warriors
-		ArrayList<Fightable> attackables = new ArrayList<Fightable>();
-		for (Fightable w : this.troop) {
-			if (warrior.isAttackable(w)) {
-				attackables.add(w);
+		if (warriors.size() != 0) {
+			// list of attackable warriors
+			ArrayList<Fightable> attackables = new ArrayList<Fightable>();
+			for (Fightable w : warriors) {
+				if (warrior.isAttackable(w)) {
+					attackables.add(w);
+				}
 			}
-		}
-		// warrior with lower health
-		Fightable lowWarrior = attackables.get(0);
-		for (Fightable w : attackables) {
-			if (w.getCurrentHealth() < lowWarrior.getCurrentHealth()) {
-				lowWarrior = w;
+			// warrior with lower health
+			Fightable lowWarrior = attackables.get(0);
+			for (Fightable w : attackables) {
+				if (w.getCurrentHealth() < lowWarrior.getCurrentHealth()) {
+					lowWarrior = w;
+				}
 			}
+			return lowWarrior;
 		}
-		return lowWarrior;
+		return null;
 	}
 
 }
