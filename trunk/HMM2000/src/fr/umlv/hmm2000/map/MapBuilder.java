@@ -18,6 +18,7 @@ import fr.umlv.hmm2000.warrior.UnitFactory;
 import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
 import fr.umlv.hmm2000.warrior.profil.Level;
 import fr.umlv.hmm2000.warrior.profil.ProfilHero;
+import fr.umlv.hmm2000.warrior.profil.ProfilMonster;
 import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
 
 public class MapBuilder {
@@ -76,7 +77,7 @@ public class MapBuilder {
     map.addMapForegroundElement(c1, new Location(14, 4));
     map.addMapForegroundElement(c2, new Location(14,5));
 
-    map.addMapForegroundElement(UnitFactory.createHero(Player.PLAYER_IA, ProfilHero.ARCHER),
+    map.addMapForegroundElement(UnitFactory.createMonster(Player.PLAYER_IA, ProfilMonster.TROLL),
         new Location(0, 0));
     map.addMapForegroundElement(
         UnitFactory.createHero(p1, ProfilHero.SORCERER), new Location(14, 3));
