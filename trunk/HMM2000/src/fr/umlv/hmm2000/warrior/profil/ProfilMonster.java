@@ -6,7 +6,7 @@ import fr.umlv.hmm2000.warrior.UnitFactory;
 
 public enum ProfilMonster {
 
-	SKELETON(	Sprite.DEFAULT,
+	TROLL(	Sprite.TROLL,
 					new Fightable[] {
 							UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
 							UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
