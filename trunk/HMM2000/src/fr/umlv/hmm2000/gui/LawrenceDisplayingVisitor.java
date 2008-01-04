@@ -1,6 +1,9 @@
 package fr.umlv.hmm2000.gui;
 
+import javax.swing.JFrame;
+
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
+import fr.umlv.hmm2000.gui.panel.PanelFactory;
 import fr.umlv.hmm2000.resource.Resource;
 import fr.umlv.hmm2000.salesentity.SalesEntity;
 import fr.umlv.hmm2000.warrior.Hero;
@@ -9,10 +12,15 @@ import fr.umlv.hmm2000.warrior.Warrior;
 
 public class LawrenceDisplayingVisitor implements UIDisplayingVisitor {
 
+  private final JFrame frame;
+
+  public LawrenceDisplayingVisitor(JFrame frame) {
+    this.frame = frame;
+  }
+
   @Override
   public void visit(Hero hero) {
-    System.out.println(hero.getName());
-    System.out.println(hero.getPlayer().getResources());
+    this.frame.setContentPane(PanelFactory.getHeroPanel(hero));
   }
 
   @Override
@@ -29,12 +37,11 @@ public class LawrenceDisplayingVisitor implements UIDisplayingVisitor {
 
   @Override
   public void visit(Warrior warrior) {
-    System.out.println(warrior.getLabel() + "health : "
-        + warrior.getCurrentHealth() + "/" + warrior.getHealth());
+    this.frame.setContentPane(PanelFactory.getWarriorPanel(warrior));
   }
 
   @Override
   public void visit(Monster monster) {
-    System.out.println("monster");
+    this.frame.setContentPane(PanelFactory.getMonsterPanel(monster));
   }
 }

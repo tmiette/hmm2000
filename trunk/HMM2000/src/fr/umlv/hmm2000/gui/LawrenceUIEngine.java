@@ -4,8 +4,11 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JFrame;
+
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
+import fr.umlv.hmm2000.engine.guiinterface.Sprite;
 import fr.umlv.hmm2000.engine.guiinterface.UIChoicesManager;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.map.Location;
@@ -43,6 +46,8 @@ public class LawrenceUIEngine implements HMMUserInterface {
   private fr.umlv.lawrence.Location pointerLocation;
 
   private Map map;
+  
+  private final JFrame frame;
 
   private final InputListener inputListener = new InputListener() {
 
@@ -108,7 +113,8 @@ public class LawrenceUIEngine implements HMMUserInterface {
     return false;
   }
 
-  public LawrenceUIEngine() {
+  public LawrenceUIEngine(JFrame frame) {
+    this.frame = frame;
     this.map = Map.defaultMap;
     this.model = new DefaultGridModel<Sprite>(this.map.getWidth(), this.map
         .getHeight());
@@ -201,7 +207,7 @@ public class LawrenceUIEngine implements HMMUserInterface {
   @Override
   public UIDisplayingVisitor displayingVisitor() {
     if (this.displayingVisitor == null) {
-      this.displayingVisitor = new LawrenceDisplayingVisitor();
+      this.displayingVisitor = new LawrenceDisplayingVisitor(this.frame);
     }
     return this.displayingVisitor;
   }
