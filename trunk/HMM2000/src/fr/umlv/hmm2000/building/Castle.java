@@ -48,6 +48,12 @@ public class Castle implements FightableContainer {
     this.factory = new HashMap<ProfilWarrior, Level>();
     this.factory.put(defaultWarrior, defaultLevel);
   }
+  
+  public Hero getHero(Hero hero) {
+
+  	int index = this.heroes.indexOf(hero);
+  	return index != -1 ? this.heroes.get(index) : null;
+	}
 
   public boolean canBuyWarrior(ProfilWarrior profil) {
 
