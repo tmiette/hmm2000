@@ -47,7 +47,7 @@ public class ExitHeroItem implements CastleItem {
             Location freeLocation = this.freeLocationNearOf(castleLocation);
             if (freeLocation != null) {
               // taking hero from castle
-              Hero h = castle.getHero(hero);
+              Hero h = castle.removeHero(hero);
 
               // adding hero on map
               CoreEngine.map().addMapForegroundElement(h, freeLocation);

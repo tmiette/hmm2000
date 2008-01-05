@@ -32,7 +32,7 @@ public class WarriorRecruitmentItem implements CastleItem {
 		ArrayList<CastleItem> items = new ArrayList<CastleItem>();
 		items.add(CastleItem.defaultItem);
 		for (final ProfilWarrior profil : ProfilWarrior.values()) {
-			if (castle.canBuyWarrior(profil)) {
+			if (castle.canProduceWarrior(profil)) {
 				items.add(new CastleItem() {
 
 					@Override
