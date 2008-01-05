@@ -14,8 +14,8 @@ import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.map.graph.CheckerboardGraph;
 import fr.umlv.hmm2000.unit.Fightable;
 import fr.umlv.hmm2000.unit.FightableContainer;
+import fr.umlv.hmm2000.unit.exception.MaxNumberOfTroopsReachedException;
 import fr.umlv.hmm2000.util.Pair;
-import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
 
 public class BattleMap implements Map {
 

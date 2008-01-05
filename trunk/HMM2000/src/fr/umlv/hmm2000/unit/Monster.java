@@ -11,7 +11,7 @@ import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
 import fr.umlv.hmm2000.map.battle.BattlePositionMap;
 import fr.umlv.hmm2000.map.battle.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.map.battle.NoPlaceAvailableException;
-import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
+import fr.umlv.hmm2000.unit.exception.MaxNumberOfTroopsReachedException;
 
 public class Monster implements FightableContainer {
 

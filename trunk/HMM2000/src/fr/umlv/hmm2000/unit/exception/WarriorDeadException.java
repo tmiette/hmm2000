@@ -1,4 +1,4 @@
-package fr.umlv.hmm2000.warrior.exception;
+package fr.umlv.hmm2000.unit.exception;
 
 
 public class WarriorDeadException extends Exception {

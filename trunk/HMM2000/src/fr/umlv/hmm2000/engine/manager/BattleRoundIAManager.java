@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.unit.Fightable;
-import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
-import fr.umlv.hmm2000.warrior.exception.WarriorNotReachableException;
+import fr.umlv.hmm2000.unit.exception.WarriorDeadException;
+import fr.umlv.hmm2000.unit.exception.WarriorNotReachableException;
 
 public class BattleRoundIAManager {
 

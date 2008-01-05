@@ -1,7 +1,7 @@
 package fr.umlv.hmm2000.unit;
 
 import fr.umlv.hmm2000.Player;
-import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
+import fr.umlv.hmm2000.unit.exception.MaxNumberOfTroopsReachedException;
 import fr.umlv.hmm2000.warrior.profil.Level;
 import fr.umlv.hmm2000.warrior.profil.ProfilHero;
 import fr.umlv.hmm2000.warrior.profil.ProfilMonster;

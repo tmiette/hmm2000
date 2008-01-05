@@ -10,8 +10,8 @@ import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.unit.Fightable;
 import fr.umlv.hmm2000.unit.FightableContainer;
 import fr.umlv.hmm2000.unit.Hero;
-import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
-import fr.umlv.hmm2000.warrior.exception.WarriorNotReachableException;
+import fr.umlv.hmm2000.unit.exception.WarriorDeadException;
+import fr.umlv.hmm2000.unit.exception.WarriorNotReachableException;
 import fr.umlv.hmm2000.warrior.skill.Skill;
 
 public class BattleCoreManager {

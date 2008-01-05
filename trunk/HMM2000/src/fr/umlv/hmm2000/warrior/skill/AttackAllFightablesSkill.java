@@ -4,7 +4,7 @@ import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.unit.Fightable;
-import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
+import fr.umlv.hmm2000.unit.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.profil.ElementAbility;
 
 public class AttackAllFightablesSkill implements Skill {

@@ -7,10 +7,10 @@ import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
 import fr.umlv.hmm2000.resource.Resource.Kind;
 import fr.umlv.hmm2000.salesentity.Price;
+import fr.umlv.hmm2000.unit.exception.MaxNumberOfTroopsReachedException;
+import fr.umlv.hmm2000.unit.exception.WarriorDeadException;
+import fr.umlv.hmm2000.unit.exception.WarriorNotReachableException;
 import fr.umlv.hmm2000.util.Pair;
-import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
-import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
-import fr.umlv.hmm2000.warrior.exception.WarriorNotReachableException;
 import fr.umlv.hmm2000.warrior.profil.AttackBehaviour;
 import fr.umlv.hmm2000.warrior.profil.ElementAbility;
 

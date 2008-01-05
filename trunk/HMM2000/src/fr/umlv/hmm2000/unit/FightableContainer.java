@@ -5,7 +5,7 @@ import java.util.List;
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.map.battle.BattlePositionMap;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
-import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
+import fr.umlv.hmm2000.unit.exception.MaxNumberOfTroopsReachedException;
 
 public interface FightableContainer extends MapForegroundElement {
 

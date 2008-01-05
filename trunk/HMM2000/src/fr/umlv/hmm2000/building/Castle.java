@@ -18,7 +18,7 @@ import fr.umlv.hmm2000.unit.Fightable;
 import fr.umlv.hmm2000.unit.FightableContainer;
 import fr.umlv.hmm2000.unit.Hero;
 import fr.umlv.hmm2000.unit.UnitFactory;
-import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
+import fr.umlv.hmm2000.unit.exception.MaxNumberOfTroopsReachedException;
 import fr.umlv.hmm2000.warrior.profil.Level;
 import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
 
