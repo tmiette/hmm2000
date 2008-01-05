@@ -23,7 +23,12 @@ public enum Spell implements Sellable {
    * This spell enables to destroy an obstacle.
    */
   OBSTACLE_DESTRUCTION("Obstacle destruction", new Price().addResource(
-      Kind.GOLD, 5), ObstacleDestructionSpellAction.getInstance());
+      Kind.GOLD, 5), ObstacleDestructionSpellAction.getInstance()),
+  /**
+   * This spell enables to add an obstacle.
+   */
+  OBSTACLE_CONSTRUCTION("Obstacle construction", new Price().addResource(
+      Kind.GOLD, 10), ObstacleConstructionSpellAction.getInstance());
 
   private final String name;
   private final Price price;

@@ -40,6 +40,7 @@ public class ObstacleDestructionSpellAction implements SpellAction {
 
   @Override
   public void perform(final Encounter encounter) {
+    // Request a obstacle location
     CoreEngine
         .requestLocationSelection(new LocationSelectionRequester(
             new LocationSelection(
@@ -51,6 +52,7 @@ public class ObstacleDestructionSpellAction implements SpellAction {
             MapBackgroundElement oldElement = CoreEngine.map()
                 .getMapBackgroundElementAtLocation(l);
             MapBackgroundElement newElement = MapBackgroundEnum.PLAIN;
+            // Change the background element to plain
             CoreEngine.map().changeMapBackgroundElement(l, newElement);
             CoreEngine.fireSpriteRemoved(l, oldElement.getSprite());
             CoreEngine.fireSpriteAdded(l, newElement.getSprite());
