@@ -5,7 +5,7 @@ import fr.umlv.hmm2000.engine.LocationSelectionRequester;
 import fr.umlv.hmm2000.engine.LocationSelectionRequester.LocationSelection;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
-import fr.umlv.hmm2000.warrior.Fightable;
+import fr.umlv.hmm2000.unit.Fightable;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.profil.ElementAbility;
 

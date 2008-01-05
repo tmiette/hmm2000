@@ -5,9 +5,9 @@ import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.gui.panel.PanelFactory;
 import fr.umlv.hmm2000.resource.Resource;
 import fr.umlv.hmm2000.salesentity.SalesEntity;
-import fr.umlv.hmm2000.warrior.Hero;
-import fr.umlv.hmm2000.warrior.Monster;
-import fr.umlv.hmm2000.warrior.Warrior;
+import fr.umlv.hmm2000.unit.Hero;
+import fr.umlv.hmm2000.unit.Monster;
+import fr.umlv.hmm2000.unit.Warrior;
 
 public class LawrenceDisplayingVisitor implements UIDisplayingVisitor {
 

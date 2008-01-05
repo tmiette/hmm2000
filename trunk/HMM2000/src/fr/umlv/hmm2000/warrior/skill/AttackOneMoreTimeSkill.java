@@ -4,7 +4,7 @@ import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.LocationSelectionRequester;
 import fr.umlv.hmm2000.engine.LocationSelectionRequester.LocationSelection;
 import fr.umlv.hmm2000.map.Location;
-import fr.umlv.hmm2000.warrior.Fightable;
+import fr.umlv.hmm2000.unit.Fightable;
 
 public class AttackOneMoreTimeSkill implements Skill {
 

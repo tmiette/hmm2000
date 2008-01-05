@@ -7,9 +7,9 @@ import fr.umlv.hmm2000.building.Castle;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.resource.Resource;
 import fr.umlv.hmm2000.salesentity.SalesEntity;
-import fr.umlv.hmm2000.warrior.Hero;
-import fr.umlv.hmm2000.warrior.Monster;
-import fr.umlv.hmm2000.warrior.Warrior;
+import fr.umlv.hmm2000.unit.Hero;
+import fr.umlv.hmm2000.unit.Monster;
+import fr.umlv.hmm2000.unit.Warrior;
 
 public class PanelFactory {
 

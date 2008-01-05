@@ -6,7 +6,7 @@ import java.util.List;
 import fr.umlv.hmm2000.resource.ResourcesCollection;
 import fr.umlv.hmm2000.resource.Resource.Kind;
 import fr.umlv.hmm2000.salesentity.Price;
-import fr.umlv.hmm2000.warrior.Hero;
+import fr.umlv.hmm2000.unit.Hero;
 
 public class Player {
 

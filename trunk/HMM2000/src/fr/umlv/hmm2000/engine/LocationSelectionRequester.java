@@ -5,8 +5,8 @@ import fr.umlv.hmm2000.map.MovableElement;
 import fr.umlv.hmm2000.map.battle.BattleMap;
 import fr.umlv.hmm2000.map.element.MapBackgroundElement;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
-import fr.umlv.hmm2000.warrior.Fightable;
-import fr.umlv.hmm2000.warrior.FightableContainer;
+import fr.umlv.hmm2000.unit.Fightable;
+import fr.umlv.hmm2000.unit.FightableContainer;
 
 public abstract class LocationSelectionRequester {
 

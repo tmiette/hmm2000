@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import fr.umlv.hmm2000.PriceFactory;
 import fr.umlv.hmm2000.engine.CoreEngine;
-import fr.umlv.hmm2000.warrior.UnitFactory;
+import fr.umlv.hmm2000.unit.UnitFactory;
 import fr.umlv.hmm2000.warrior.profil.ProfilHero;
 
 public class HeroRecruitmentItem implements CastleItem {

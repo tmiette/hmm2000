@@ -1,4 +1,4 @@
-package fr.umlv.hmm2000.warrior;
+package fr.umlv.hmm2000.unit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,28 +8,45 @@ import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.guiinterface.Sprite;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
+import fr.umlv.hmm2000.map.MovableElement;
 import fr.umlv.hmm2000.map.battle.BattlePositionMap;
 import fr.umlv.hmm2000.map.battle.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.map.battle.NoPlaceAvailableException;
 import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
+import fr.umlv.hmm2000.warrior.skill.Skill;
 
-public class Monster implements FightableContainer {
-
-  private final Sprite sprite;
+public class Hero extends MovableElement {
 
   private final ArrayList<Fightable> troop;
 
+  private final ArrayList<Skill> skills;
+
+  private final String name;
+
   private final BattlePositionMap battlePosition;
 
-  private Player player;
+  private double stepCount;
 
-  public Monster(Player player, Sprite sprite) {
+  private int speed;
 
-    this.player = player;
-    this.sprite = sprite;
+  private Sprite sprite;
+
+  private final int attackPriority;
+
+  Hero(Player player, Sprite sprite, String name, Skill[] skills,
+      int attackPriority) {
+
+    super(player);
+    this.name = name;
     this.battlePosition = new BattlePositionMap(
         FightableContainer.MAX_TROOP_SIZE / BattlePositionMap.LINE_NUMBER);
+    this.sprite = sprite;
     this.troop = new ArrayList<Fightable>();
+    this.skills = new ArrayList<Skill>();
+    for (Skill skill : skills) {
+      this.skills.add(skill);
+    }
+    this.attackPriority = attackPriority;
   }
 
   @Override
@@ -39,6 +56,12 @@ public class Monster implements FightableContainer {
     if (this.troop.size() == FightableContainer.MAX_TROOP_SIZE) {
       throw new MaxNumberOfTroopsReachedException(
           "The max number of troops, a heroe can contain, is reached");
+    }
+
+    final int speed = f.getSpeed();
+    if (speed < this.speed || this.speed == 0) {
+      this.speed = speed;
+      this.stepCount = speed;
     }
 
     try {
@@ -55,6 +78,10 @@ public class Monster implements FightableContainer {
     f.setFightableContainer(this);
     return true;
   }
+  
+  public int getSpeed() {
+    return this.speed;
+  }
 
   @Override
   public BattlePositionMap getBattlePositionManager() {
@@ -64,7 +91,6 @@ public class Monster implements FightableContainer {
 
   @Override
   public List<Fightable> getTroop() {
-
     return this.troop;
   }
 
@@ -73,24 +99,55 @@ public class Monster implements FightableContainer {
 
     int index;
     if ((index = this.troop.indexOf(f)) != -1) {
+      int speed = this.troop.get(index).getSpeed();
       this.troop.remove(index);
+      this.battlePosition.removeMapForegroundElement(this.battlePosition
+          .getLocationForMapForegroundElement(f));
+      if (this.speed == speed) {
+        this.speed = 0;
+        for (Fightable fightable : this.troop) {
+          if (fightable.getSpeed() < this.speed || this.speed == 0) {
+            this.speed = fightable.getSpeed();
+            //this.stepCount = fightable.getSpeed();
+          }
+        }
+      }
     }
   }
 
   @Override
+  public double getStepCount() {
+
+    return this.stepCount;
+  }
+
+  @Override
+  public void setStepCount(double stepCount) {
+
+    this.stepCount = stepCount >= 0 ? stepCount : 0;
+  }
+
+  @Override
   public void accept(UIDisplayingVisitor visitor) {
+
     visitor.visit(this);
+
   }
 
   @Override
   public boolean encounter(Encounter encounter) {
-    CoreEngine.startBattle(encounter.getSender(),this);
+    if (!encounter.getSender().getPlayer().equals(this.getPlayer())) {
+      CoreEngine.startBattle(encounter.getSender(), this);
+    } else {
+      CoreEngine.startSwap(this, encounter.getSender());
+    }
     return false;
   }
 
   @Override
   public void nextDay(int day) {
-    // do nothing
+
+    this.stepCount = this.speed;
   }
 
   @Override
@@ -99,23 +156,19 @@ public class Monster implements FightableContainer {
     return this.sprite;
   }
 
-  @Override
-  public Player getPlayer() {
+  public String getName() {
 
-    return this.player;
+    return this.name;
   }
 
   @Override
-  public void setPlayer(Player player) {
+  public int getAttackPriority() {
 
-    this.player = player;
-
+    return this.attackPriority;
   }
 
-	@Override
-	public int getAttackPriority() {
-
-		return FightableContainer.PRIORITY_VERY_LOW;
-	}
+  public List<Skill> getSkills() {
+    return this.skills;
+  }
 
 }

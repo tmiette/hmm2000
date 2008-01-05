@@ -25,8 +25,8 @@ import fr.umlv.hmm2000.map.battle.BattleMap;
 import fr.umlv.hmm2000.map.battle.BattlePositionMap;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.salesentity.Sellable;
+import fr.umlv.hmm2000.unit.FightableContainer;
 import fr.umlv.hmm2000.util.Pair;
-import fr.umlv.hmm2000.warrior.FightableContainer;
 import fr.umlv.hmm2000.warrior.skill.Skill;
 
 public class CoreEngine {

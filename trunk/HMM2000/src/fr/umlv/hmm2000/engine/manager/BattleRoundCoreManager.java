@@ -7,9 +7,9 @@ import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.guiinterface.Sprite;
 import fr.umlv.hmm2000.map.Location;
+import fr.umlv.hmm2000.unit.Fightable;
+import fr.umlv.hmm2000.unit.FightableContainer;
 import fr.umlv.hmm2000.util.Pair;
-import fr.umlv.hmm2000.warrior.Fightable;
-import fr.umlv.hmm2000.warrior.FightableContainer;
 
 public class BattleRoundCoreManager extends DayCoreManager {
 

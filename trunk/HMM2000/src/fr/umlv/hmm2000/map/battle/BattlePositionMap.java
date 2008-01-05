@@ -12,7 +12,7 @@ import fr.umlv.hmm2000.map.element.MapBackgroundElement;
 import fr.umlv.hmm2000.map.element.MapBackgroundEnum;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.map.graph.CheckerboardGraph;
-import fr.umlv.hmm2000.warrior.Fightable;
+import fr.umlv.hmm2000.unit.Fightable;
 
 public class BattlePositionMap implements Map {
 

@@ -1,4 +1,4 @@
-package fr.umlv.hmm2000.warrior;
+package fr.umlv.hmm2000.unit;
 
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.salesentity.Sellable;

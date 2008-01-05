@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import fr.umlv.hmm2000.gui.LawrenceComponentFactory;
-import fr.umlv.hmm2000.warrior.Monster;
+import fr.umlv.hmm2000.unit.Monster;
 
 public class MonsterPanel {
 

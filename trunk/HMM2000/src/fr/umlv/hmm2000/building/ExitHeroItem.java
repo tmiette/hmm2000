@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.map.Location;
-import fr.umlv.hmm2000.warrior.Hero;
+import fr.umlv.hmm2000.unit.Hero;
 
 public class ExitHeroItem implements CastleItem {
 

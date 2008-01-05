@@ -12,8 +12,8 @@ import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.MovableElement;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.map.graph.CheckerboardVertex;
+import fr.umlv.hmm2000.unit.FightableContainer;
 import fr.umlv.hmm2000.util.Pair;
-import fr.umlv.hmm2000.warrior.FightableContainer;
 
 public class MoveCoreManager {
 

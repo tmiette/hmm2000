@@ -1,6 +1,6 @@
 package fr.umlv.hmm2000.warrior.profil;
 
-import fr.umlv.hmm2000.warrior.Fightable;
+import fr.umlv.hmm2000.unit.Fightable;
 
 public interface AttackBehaviour {
 

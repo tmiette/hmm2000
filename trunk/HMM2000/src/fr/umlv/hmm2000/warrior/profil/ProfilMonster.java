@@ -1,8 +1,8 @@
 package fr.umlv.hmm2000.warrior.profil;
 
 import fr.umlv.hmm2000.engine.guiinterface.Sprite;
-import fr.umlv.hmm2000.warrior.Fightable;
-import fr.umlv.hmm2000.warrior.UnitFactory;
+import fr.umlv.hmm2000.unit.Fightable;
+import fr.umlv.hmm2000.unit.UnitFactory;
 
 public enum ProfilMonster {
 

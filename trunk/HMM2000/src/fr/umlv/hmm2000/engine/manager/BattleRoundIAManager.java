@@ -3,7 +3,7 @@ package fr.umlv.hmm2000.engine.manager;
 import java.util.ArrayList;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
-import fr.umlv.hmm2000.warrior.Fightable;
+import fr.umlv.hmm2000.unit.Fightable;
 import fr.umlv.hmm2000.warrior.exception.WarriorDeadException;
 import fr.umlv.hmm2000.warrior.exception.WarriorNotReachableException;
 

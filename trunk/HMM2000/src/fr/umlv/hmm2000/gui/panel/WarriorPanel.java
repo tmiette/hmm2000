@@ -7,8 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import fr.umlv.hmm2000.gui.LawrenceComponentFactory;
+import fr.umlv.hmm2000.unit.Warrior;
 import fr.umlv.hmm2000.util.Pair;
-import fr.umlv.hmm2000.warrior.Warrior;
 import fr.umlv.hmm2000.warrior.profil.ElementaryEnum;
 
 public class WarriorPanel {

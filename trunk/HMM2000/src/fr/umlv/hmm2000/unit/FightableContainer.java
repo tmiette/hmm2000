@@ -1,4 +1,4 @@
-package fr.umlv.hmm2000.warrior;
+package fr.umlv.hmm2000.unit;
 
 import java.util.List;
 

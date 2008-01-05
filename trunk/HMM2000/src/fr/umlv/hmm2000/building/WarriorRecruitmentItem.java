@@ -6,8 +6,8 @@ import fr.umlv.hmm2000.PriceFactory;
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.manager.MoveCoreManager;
 import fr.umlv.hmm2000.map.Location;
-import fr.umlv.hmm2000.warrior.Fightable;
-import fr.umlv.hmm2000.warrior.UnitFactory;
+import fr.umlv.hmm2000.unit.Fightable;
+import fr.umlv.hmm2000.unit.UnitFactory;
 import fr.umlv.hmm2000.warrior.profil.Level;
 import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;
 
