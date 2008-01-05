@@ -62,6 +62,12 @@ public class BattleRoundCoreManager extends DayCoreManager {
     this.iaManager = initIAManager(this.player1, this.player2);
   }
 
+  /**
+   * Initializes 
+   * @param p1
+   * @param p2
+   * @return
+   */
   private BattleRoundIAManager initIAManager(Player p1, Player p2) {
 
     BattleRoundIAManager iaManager = null;
