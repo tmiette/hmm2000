@@ -53,9 +53,9 @@ public class UpgradeFactoryItem implements CastleItem {
 
 		}
 		CastleItem item = CoreEngine.requestCastleItem(items);
-		if (item != CastleItem.defaultItem) {
-			item.perform();
-		}
+		if (item != null && item != CastleItem.defaultItem) {
+      item.perform();
+    }
 	}
 
 }

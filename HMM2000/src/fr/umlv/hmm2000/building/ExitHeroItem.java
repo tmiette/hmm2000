@@ -88,7 +88,7 @@ public class ExitHeroItem implements CastleItem {
         });
       }
       CastleItem item = CoreEngine.requestCastleItem(items);
-      if (item != CastleItem.defaultItem) {
+      if (item != null && item != CastleItem.defaultItem) {
         item.perform();
       }
     }
