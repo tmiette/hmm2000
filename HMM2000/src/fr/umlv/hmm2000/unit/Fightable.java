@@ -7,37 +7,130 @@ import fr.umlv.hmm2000.unit.exception.WarriorNotReachableException;
 import fr.umlv.hmm2000.unit.profil.AttackBehaviour;
 import fr.umlv.hmm2000.unit.profil.ElementAbility;
 
+/**
+ * This interface defines behaviours of an unit which can attack and die during
+ * a war. It contains methods to hurt and be hurted during battle. A fightable
+ * must me contained by a fightable container
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public interface Fightable extends Sellable, MapForegroundElement {
 
-  public double getPhysicalAttackValue();
+	/**
+	 * Gets specific physical attack value this fightable can do
+	 * 
+	 * @return physical attack value
+	 */
+	public double getPhysicalAttackValue();
 
-  public void setPhysicalAttackValue(double attackValue);
+	/**
+	 * Sets specific physical attack value
+	 * 
+	 * @param attackValue
+	 */
+	public void setPhysicalAttackValue(double attackValue);
 
-  public void setPhysicalDefenseValue(double defenseValue);
+	/**
+	 * Sets specific physical defense value
+	 * 
+	 * @param defenseValue
+	 */
+	public void setPhysicalDefenseValue(double defenseValue);
 
-  public FightableContainer getFightableContainer();
+	/**
+	 * Gets container which own this fightable
+	 * 
+	 * @return container
+	 */
+	public FightableContainer getFightableContainer();
 
-  public double getPhysicalDefenseValue();
+	/**
+	 * Gets specific physical defense value this fightable can protect him
+	 * 
+	 * @return physical defense value
+	 */
+	public double getPhysicalDefenseValue();
 
-  public double getHealth();
+	/**
+	 * Gets starting maximum health
+	 * 
+	 * @return health value
+	 */
+	public double getHealth();
 
-  public double getCurrentHealth();
+	/**
+	 * Gets current health
+	 * 
+	 * @return health value
+	 */
+	public double getCurrentHealth();
 
-  public void performAttack(Fightable defender) throws WarriorDeadException,
-      WarriorNotReachableException;
+	/**
+	 * Specify behaviour when this fightable attacks an other one
+	 * 
+	 * @param defender
+	 *          fightable to attack
+	 * @throws WarriorDeadException
+	 *           behaviour when defender is dead
+	 * @throws WarriorNotReachableException
+	 *           behaviour if defender is not attackable
+	 */
+	public void performAttack(Fightable defender) throws WarriorDeadException,
+			WarriorNotReachableException;
 
-  public void setFightableContainer(FightableContainer container);
+	/**
+	 * Defines container of this fightable
+	 * 
+	 * @param container
+	 */
+	public void setFightableContainer(FightableContainer container);
 
-  public void hurt(double damage) throws WarriorDeadException;
+	/**
+	 * Takes damage from damage value
+	 * 
+	 * @param damage
+	 * @throws WarriorDeadException
+	 *           behaviour when this fightable is dead
+	 */
+	public void hurt(double damage) throws WarriorDeadException;
 
-  public double getId();
+	/**
+	 * Gets specific fightable id
+	 * 
+	 * @return id value
+	 */
+	public double getId();
 
-  public int getSpeed();
+	/**
+	 * Gets fightable speed on world map
+	 * 
+	 * @return speed value
+	 */
+	public int getSpeed();
 
-  public AttackBehaviour getAttackBehaviour();
-  
-  public ElementAbility getAbilities();
-  
-  public boolean isAttackable(Fightable defender);
+	/**
+	 * Gets specific attack behaviour.
+	 * 
+	 * @return attack behaviour
+	 */
+	public AttackBehaviour getAttackBehaviour();
+
+	/**
+	 * Gets elementary abilities
+	 * 
+	 * @return elementary abilities
+	 */
+	public ElementAbility getAbilities();
+
+	/**
+	 * Returns if this fightable can attack the defender
+	 * 
+	 * @param defender
+	 *          to attack
+	 * @return if this fightable can attack
+	 */
+	public boolean isAttackable(Fightable defender);
 
 }
