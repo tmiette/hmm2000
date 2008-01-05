@@ -41,7 +41,7 @@ public class LawrenceComponentFactory {
     return new ImageIcon(LawrenceComponentFactory.class.getResource("/icons/"
         + iconName));
   }
-  
+
   public static JButton createTroopsButton() {
     if (troopsButton == null) {
       troopsButton = LawrenceComponentFactory.createLawrenceButton("Troops",
@@ -67,7 +67,9 @@ public class LawrenceComponentFactory {
               LawrenceJFrame.getInstance(null).setEnableAllButtons();
               LawrenceJFrame.getInstance(null).getNextDayButton().setEnabled(
                   false);
-              CoreEngine.manageBattlePosition();
+              LawrenceJFrame.getInstance(null).getBackWorldMapButton()
+                  .setEnabled(false);
+              CoreEngine.manageCastle();
             }
           });
     }
