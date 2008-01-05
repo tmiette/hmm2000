@@ -7,8 +7,7 @@ import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
 import fr.umlv.hmm2000.map.Location;
 
 /**
- * This class defines the action which is performed when a obstacle destruction
- * occurs.
+ * This class defines the action which is performed when a teleportation occurs.
  * 
  * @author MIETTE Tom
  * @author MOURET Sebastien
@@ -38,12 +37,14 @@ public class TeleportationSpellAction implements SpellAction {
 
   @Override
   public void perform(final Encounter encounter) {
+    // Request a recheable location
     CoreEngine.requestLocationSelection(new LocationSelectionRequester(
         new LocationSelection(LocationSelectionRequester.RECHEABLE_LOCATION,
             "Where do you want to teleport yourself ?")) {
       @Override
       public void perform(Location... locations) {
         Location l = locations[0];
+        // Move the unit
         CoreEngine.map().moveMapForegroundElement(
             encounter.getSenderLocation(), l);
         CoreEngine.fireSpriteRemoved(encounter.getSenderLocation(), encounter
