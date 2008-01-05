@@ -9,6 +9,12 @@ import fr.umlv.hmm2000.util.Pair;
 
 public interface UIChoicesManager {
 
+  public static final int YES_RESPONSE = 1;
+
+  public static final int NO_RESPONSE = 2;
+
+  public int askQuestion(String title);
+
   public Sellable submit(String message, List<Pair<Sellable, Integer>> items);
 
   public Skill submit(String message, List<Skill> skills);

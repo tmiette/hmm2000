@@ -163,7 +163,7 @@ public class LawrenceUIEngine implements HMMUserInterface {
   }
 
   private void initFrame() {
-    this.lawrenceFrame = LawrenceJFrame.getInstance(this.frame);
+    this.lawrenceFrame = new LawrenceJFrame(this.frame);
   }
 
   private void initGrid() {

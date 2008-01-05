@@ -13,14 +13,12 @@ import fr.umlv.hmm2000.util.Pair;
 
 public class LawrenceChoicesManager implements UIChoicesManager {
 
-  /*
-   * private static int readInt(int min, int max) {
-   * 
-   * Scanner scanner = new Scanner(System.in); try { int value =
-   * scanner.nextInt(); while (value < min || value > max) {
-   * System.out.println("Choix incorrect."); value = scanner.nextInt(); } return
-   * value; } catch (Exception e) { return 0; } }
-   */
+  @Override
+  public int askQuestion(String title) {
+    return JOptionPane.showConfirmDialog(null, title, "Question",
+        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION ? UIChoicesManager.YES_RESPONSE
+        : UIChoicesManager.NO_RESPONSE;
+  }
 
   @Override
   public Sellable submit(String message, List<Pair<Sellable, Integer>> items) {
@@ -54,7 +52,8 @@ public class LawrenceChoicesManager implements UIChoicesManager {
 
     String skillString = (String) JOptionPane.showInputDialog(null, message,
         "Use a skill", JOptionPane.QUESTION_MESSAGE, LawrenceComponentFactory
-            .createImageIcon("aura32x32.gif"), choices.toArray(), choices.get(0));
+            .createImageIcon("aura32x32.gif"), choices.toArray(), choices
+            .get(0));
 
     int skillIndex = choices.indexOf(skillString);
 
