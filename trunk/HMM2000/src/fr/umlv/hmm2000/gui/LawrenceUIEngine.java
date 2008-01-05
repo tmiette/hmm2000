@@ -206,7 +206,7 @@ public class LawrenceUIEngine implements HMMUserInterface {
   @Override
   public UIChoicesManager choicesManager() {
     if (this.choicesManager == null) {
-      this.choicesManager = new LawrenceChoicesManager(this.lawrenceFrame);
+      this.choicesManager = new LawrenceChoicesManager();
     }
     return this.choicesManager;
   }

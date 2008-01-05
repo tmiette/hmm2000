@@ -57,6 +57,7 @@ public class AbstractUnitPanel {
   }
 
   protected JPanel getPanel() {
+    
     return this.mainPanel;
   }
 

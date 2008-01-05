@@ -1,6 +1,7 @@
 package fr.umlv.hmm2000.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -26,6 +27,7 @@ public class LawrenceJFrame {
   private final JTextArea textArea;
 
   public LawrenceJFrame(JFrame frame) {
+    frame.setSize(400, 600);
     this.mainPanel = new JPanel(new BorderLayout());
     final JPanel northPanel = new JPanel(new BorderLayout());
     northPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory
@@ -72,7 +74,7 @@ public class LawrenceJFrame {
     this.refreshNorthPanel();
 
     this.centerPanel = new JPanel(new BorderLayout());
-
+    this.centerPanel.setBackground(Color.WHITE);
     final JPanel southPanel = new JPanel(new BorderLayout());
     southPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory
         .createEtchedBorder(), "Messages :"));
@@ -88,7 +90,7 @@ public class LawrenceJFrame {
     this.mainPanel.add(northPanel, BorderLayout.NORTH);
     this.mainPanel.add(this.centerPanel, BorderLayout.CENTER);
     this.mainPanel.add(southPanel, BorderLayout.SOUTH);
-    frame.setSize(400, 600);
+
     frame.setContentPane(this.mainPanel);
   }
 
@@ -101,9 +103,10 @@ public class LawrenceJFrame {
   }
 
   public void displayCenterPanel(JPanel panel) {
+    System.err.println(panel.getSize() + "");
     this.eraseCenterPanel();
-    this.centerPanel.add(panel);
     this.refreshNorthPanel();
+    this.centerPanel.add(panel);
     this.mainPanel.paintImmediately(this.mainPanel.getBounds());
   }
 

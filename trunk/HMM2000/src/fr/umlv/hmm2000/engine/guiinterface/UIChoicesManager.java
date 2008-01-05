@@ -9,9 +9,9 @@ import fr.umlv.hmm2000.warrior.skill.Skill;
 
 public interface UIChoicesManager {
 
-  public Sellable submit(List<Pair<Sellable, Integer>> items);
+  public Sellable submit(String message, List<Pair<Sellable, Integer>> items);
 
-  public Skill submit(List<Skill> skills);
+  public Skill submit(String message, List<Skill> skills);
 
-  public CastleItem submit(List<CastleItem> items);
+  public CastleItem submit(String message, List<CastleItem> items);
 }

@@ -192,8 +192,7 @@ public class CoreEngine {
       if (element != null && element instanceof Castle) {
         Castle castle = (Castle) element;
         if (CoreEngine.roundManager.isCurrentPlayer(castle.getPlayer())) {
-          CastleItem item = CoreEngine.uiEngine.choicesManager().submit(
-              castle.getItems());
+          CastleItem item = CoreEngine.requestCastleItem(castle.getItems());
           if (item != CastleItem.defaultItem) {
             item.perform();
           }
@@ -270,15 +269,18 @@ public class CoreEngine {
   }
 
   public static Sellable requestPurchase(List<Pair<Sellable, Integer>> items) {
-    return CoreEngine.uiEngine.choicesManager().submit(items);
+    return CoreEngine.uiEngine.choicesManager().submit(
+        "Which item do you want to buy ?", items);
   }
 
   public static Skill requestSkill(List<Skill> skills) {
-    return CoreEngine.uiEngine.choicesManager().submit(skills);
+    return CoreEngine.uiEngine.choicesManager().submit(
+        "Which skill do you want to use ?", skills);
   }
 
   public static CastleItem requestCastleItem(List<CastleItem> items) {
-    return CoreEngine.uiEngine.choicesManager().submit(items);
+    return CoreEngine.uiEngine.choicesManager().submit(
+        "What do you want do to ?", items);
   }
 
   public static void displayMapForegroundElement(MapForegroundElement element) {

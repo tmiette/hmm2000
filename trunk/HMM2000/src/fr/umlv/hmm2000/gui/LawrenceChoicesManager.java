@@ -4,18 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import fr.umlv.hmm2000.building.CastleItem;
 import fr.umlv.hmm2000.engine.guiinterface.UIChoicesManager;
-import fr.umlv.hmm2000.gui.panel.ChoicePanel;
 import fr.umlv.hmm2000.salesentity.Sellable;
 import fr.umlv.hmm2000.util.Pair;
 import fr.umlv.hmm2000.warrior.skill.Skill;
 
 public class LawrenceChoicesManager implements UIChoicesManager {
-
-  private final LawrenceJFrame frame;
 
   private static int readInt(int min, int max) {
 
@@ -32,43 +29,31 @@ public class LawrenceChoicesManager implements UIChoicesManager {
     }
   }
 
-  public LawrenceChoicesManager(LawrenceJFrame frame) {
-    this.frame = frame;
-  }
-
   @Override
-  public Sellable submit(List<Pair<Sellable, Integer>> items) {
+  public Sellable submit(String message, List<Pair<Sellable, Integer>> items) {
     ArrayList<String> choices = new ArrayList<String>();
     for (Pair<Sellable, Integer> pair : items) {
-      choices.add("-" + pair.getFirstElement().getLabel() + ", q: "
-          + pair.getSecondElement() + ", p: "
-          + pair.getFirstElement().getPrice());
+      choices.add(pair.getFirstElement().getLabel() + " - price : "
+          + pair.getFirstElement().getPrice() + " - quantity : "
+          + pair.getSecondElement());
     }
 
-    JFrame f = new JFrame();
-    f.setSize(400, 500);
-    f.setContentPane(new ChoicePanel("Make a purchase :", choices,
-        LawrenceComponentFactory.createLawrenceButton("Buy",
-            "manageTroops.gif", null)).getPanel());
-    f.setVisible(true);
-    this.frame.displayCenterPanel(new ChoicePanel("Make a purchase :", choices,
-        LawrenceComponentFactory.createLawrenceButton("Buy",
-            "manageTroops.gif", null)).getPanel());
+    String purchaseString = (String) JOptionPane.showInputDialog(null,
+        message, "Make a purchase", JOptionPane.QUESTION_MESSAGE,
+        LawrenceComponentFactory.createImageIcon("buy2.gif"), choices.toArray(),
+        choices.get(0));
 
-    int purchaseIndex = LawrenceChoicesManager.readInt(0, items.size() - 1);
+    int purchaseIndex = choices.indexOf(purchaseString);
 
-    Pair<Sellable, Integer> pairSelected = items.get(purchaseIndex);
-
-    if (pairSelected == null) {
+    if (purchaseIndex == -1) {
       return null;
     } else {
-      Sellable item = pairSelected.getFirstElement();
-      return item;
+      return items.get(purchaseIndex).getFirstElement();
     }
   }
 
   @Override
-  public Skill submit(List<Skill> skills) {
+  public Skill submit(String message, List<Skill> skills) {
     int i = 0;
     for (Skill skill : skills) {
       System.out.println(i++ + "-" + skill.getName() + " : "
@@ -80,7 +65,7 @@ public class LawrenceChoicesManager implements UIChoicesManager {
   }
 
   @Override
-  public CastleItem submit(List<CastleItem> items) {
+  public CastleItem submit(String message, List<CastleItem> items) {
     int i = 0;
     for (CastleItem item : items) {
       System.out.println(i++ + "-" + item.getSuggestion());
