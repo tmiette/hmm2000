@@ -13,20 +13,47 @@ import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.util.Pair;
 
+/**
+ * This class defines a sales entity.
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class SalesEntity implements MapForegroundElement {
 
   private final SalesEntityEnum type;
   private final HashMap<Sellable, Integer> items;
 
+  /**
+   * Constructor of a sales entity.
+   * 
+   * @param type
+   *            the type of the entity.
+   */
   public SalesEntity(SalesEntityEnum type) {
     this.type = type;
     this.items = new HashMap<Sellable, Integer>();
   }
 
+  /**
+   * Add the item to the sellable items list that the sale entity sales with the
+   * specified quantity.
+   * 
+   * @param item
+   *            the item.
+   * @param quantity
+   *            the quantity.
+   */
   public void addProduct(Sellable item, int quantity) {
     this.items.put(item, quantity);
   }
 
+  /**
+   * Returns the map of the items that the sale entity sales.
+   * 
+   * @return the map of the items that the sale entity sales.
+   */
   public HashMap<Sellable, Integer> getItems() {
     return this.items;
   }
@@ -41,15 +68,23 @@ public class SalesEntity implements MapForegroundElement {
     return this.type.getSprite();
   }
 
+  /**
+   * Returns the type of the sales entity.
+   * 
+   * @return the type of the sales entity
+   */
   public SalesEntityEnum getType() {
     return this.type;
   }
 
+  /**
+   * Default sellable item.
+   */
   private static final Sellable defaultSellable = new Sellable() {
 
     @Override
     public String getLabel() {
-      return "Ne rien acheter";
+      return "Nothing";
     }
 
     @Override
@@ -59,11 +94,19 @@ public class SalesEntity implements MapForegroundElement {
 
     @Override
     public void acquire(Encounter encounter) {
-      throw new UnsupportedOperationException();
+      throw new UnsupportedOperationException("This item cannot be bought");
     }
 
   };
 
+  /**
+   * Returns the list of the items that the sale entity sales corresponding to
+   * the hash map.
+   * 
+   * @param itemsMap
+   *            the hash map.
+   * @return the list of the items.
+   */
   public static ArrayList<Pair<Sellable, Integer>> createItemsList(
       HashMap<Sellable, Integer> itemsMap) {
 
@@ -78,12 +121,25 @@ public class SalesEntity implements MapForegroundElement {
     return itemsList;
   }
 
+  /**
+   * This enum defines all the types of sales entities.
+   * 
+   * @author MIETTE Tom
+   * @author MOURET Sebastien
+   * 
+   */
   public enum SalesEntityEnum implements Spritable {
     MERCHANT(Sprite.MERCHANT),
     BARRACKS(Sprite.BARRACKS);
 
     private final Sprite sprite;
 
+    /**
+     * Constructor of the enum.
+     * 
+     * @param sprite
+     *            sprite of the enum.
+     */
     private SalesEntityEnum(Sprite sprite) {
       this.sprite = sprite;
     }
