@@ -48,9 +48,6 @@ public class LawrenceComponentFactory {
           "sword20x20.gif", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              LawrenceJFrame.getInstance(null).setEnableAllButtons();
-              LawrenceJFrame.getInstance(null).getNextDayButton().setEnabled(
-                  false);
               CoreEngine.manageBattlePosition();
             }
           });
@@ -64,11 +61,6 @@ public class LawrenceComponentFactory {
           "castle20x20.gif", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              LawrenceJFrame.getInstance(null).setEnableAllButtons();
-              LawrenceJFrame.getInstance(null).getNextDayButton().setEnabled(
-                  false);
-              LawrenceJFrame.getInstance(null).getBackWorldMapButton()
-                  .setEnabled(false);
               CoreEngine.manageCastle();
             }
           });

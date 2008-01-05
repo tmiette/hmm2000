@@ -21,29 +21,14 @@ import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 
 public class LawrenceJFrame {
 
-  private static LawrenceJFrame instance;
   private final JPanel mainPanel;
   private JPanel centerPanel;
   private final JLabel dayCount;
   private final JLabel currentPlayer;
   private final JLabel currentResources;
   private final JTextArea textArea;
-  private final JButton quitButton;
-  private final JButton nextDayButton;
-  private final JButton backWorldMapButton;
 
-  public static LawrenceJFrame getInstance(JFrame frame) {
-    if (instance == null) {
-      if (frame != null) {
-        instance = new LawrenceJFrame(frame);
-      } else {
-        instance = new LawrenceJFrame(new JFrame());
-      }
-    }
-    return instance;
-  }
-
-  private LawrenceJFrame(JFrame frame) {
+  public LawrenceJFrame(JFrame frame) {
     frame.setSize(400, 600);
     this.mainPanel = new JPanel(new BorderLayout());
     final JPanel northPanel = new JPanel(new BorderLayout());
@@ -71,35 +56,33 @@ public class LawrenceJFrame {
     northCenterPanel.add(this.currentResources);
     final JPanel northSouthPanel = new JPanel();
 
-    this.quitButton = LawrenceComponentFactory.createLawrenceButton("Quit",
-        "quit20x20.png", new ActionListener() {
+    final JButton quitButton = LawrenceComponentFactory.createLawrenceButton(
+        "Quit", "quit20x20.png", new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
             System.exit(0);
           }
         });
-    this.nextDayButton = LawrenceComponentFactory.createLawrenceButton(
-        "Next day", "forward20x20.png", new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            CoreEngine.nextDay();
-            refreshNorthPanel();
-          }
-        });
-    this.backWorldMapButton = LawrenceComponentFactory.createLawrenceButton(
-        "Back", "rewind20x20.png", new ActionListener() {
+    final JButton nextDayButton = LawrenceComponentFactory
+        .createLawrenceButton("Next day", "forward20x20.png",
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                CoreEngine.nextDay();
+                refreshNorthPanel();
+              }
+            });
+    final JButton backWorldMapButton = LawrenceComponentFactory
+        .createLawrenceButton("Back", "rewind20x20.png", new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
             CoreEngine.backToWorldMap();
-            setEnableAllButtons();
-            backWorldMapButton.setEnabled(false);
             refreshNorthPanel();
           }
         });
-    this.backWorldMapButton.setEnabled(false);
-    northSouthPanel.add(this.quitButton);
-    northSouthPanel.add(this.nextDayButton);
-    northSouthPanel.add(this.backWorldMapButton);
+    northSouthPanel.add(quitButton);
+    northSouthPanel.add(nextDayButton);
+    northSouthPanel.add(backWorldMapButton);
     northPanel.add(northNorthPanel, BorderLayout.NORTH);
     northPanel.add(northCenterPanel, BorderLayout.CENTER);
     northPanel.add(northSouthPanel, BorderLayout.SOUTH);
@@ -132,24 +115,6 @@ public class LawrenceJFrame {
         .toString());
     this.currentResources.setText(CoreEngine.roundManager().currentPlayer()
         .getResources().toString());
-  }
-
-  public void setEnableAllButtons() {
-    this.backWorldMapButton.setEnabled(true);
-    this.nextDayButton.setEnabled(true);
-    this.quitButton.setEnabled(true);
-  }
-
-  public JButton getBackWorldMapButton() {
-    return this.backWorldMapButton;
-  }
-
-  public JButton getNextDayButton() {
-    return this.nextDayButton;
-  }
-
-  public JButton getQuitButton() {
-    return this.quitButton;
   }
 
   public void displayCenterPanel(JPanel panel) {

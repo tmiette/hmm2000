@@ -63,8 +63,11 @@ public class AttackOpponentFightableSkill implements Skill {
 							defender);
 					CoreEngine.battleManager().kill(l, defender);
 				}
-				// Next round
-				CoreEngine.battleManager().roundManager().nextDay();
+		        // Battle ended
+		        if (CoreEngine.battleManager() != null) {
+		          // Next round
+		          CoreEngine.battleManager().roundManager().nextDay();
+		        }
 			}
 		});
 

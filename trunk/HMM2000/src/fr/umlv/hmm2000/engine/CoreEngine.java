@@ -8,6 +8,7 @@ import fr.umlv.hmm2000.building.Castle;
 import fr.umlv.hmm2000.building.CastleItem;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.engine.guiinterface.Sprite;
+import fr.umlv.hmm2000.engine.guiinterface.UIChoicesManager;
 import fr.umlv.hmm2000.engine.manager.BattleCoreManager;
 import fr.umlv.hmm2000.engine.manager.BattlePositionCoreManager;
 import fr.umlv.hmm2000.engine.manager.DayCoreManager;
@@ -61,6 +62,14 @@ public class CoreEngine {
 
   private static SwapCoreManager swapManager;
 
+  private static boolean battleAlreadyStarted;
+
+  private static FightableContainer managerContainer;
+
+  private static FightableContainer firstContainer;
+
+  private static FightableContainer secondContainer;
+
   private static LocationSelectionRequester locationRequester;
 
   private CoreEngine() {
@@ -109,7 +118,12 @@ public class CoreEngine {
   public static void backToWorldMap() {
     if (CoreEngine.currentMap != CoreEngine.worldMap
         && CoreEngine.currentConfiguration() != CoreEngine.BATTLE_CONFIG) {
-      CoreEngine.changeCurrentMap(CoreEngine.worldMap);
+      if (CoreEngine.battleAlreadyStarted) {
+        CoreEngine.startBattle(CoreEngine.firstContainer,
+            CoreEngine.secondContainer);
+      } else {
+        CoreEngine.changeCurrentMap(CoreEngine.worldMap);
+      }
     }
   }
 
@@ -206,18 +220,57 @@ public class CoreEngine {
   }
 
   public static void nextDay() {
-    if (CoreEngine.currentConfiguration() == CoreEngine.WORLD_CONFIG) {
-      CoreEngine.roundManager.nextDay();
-      CoreEngine.displayMapForegroundElement(CoreEngine.selectionManager
-          .getSelectedElement());
+    if (CoreEngine.currentConfiguration() != CoreEngine.WORLD_CONFIG) {
+      CoreEngine.backToWorldMap();
     }
+    CoreEngine.roundManager.nextDay();
+    CoreEngine.displayMapForegroundElement(CoreEngine.selectionManager
+        .getSelectedElement());
   }
 
   public static void startBattle(FightableContainer attacker,
       FightableContainer defender) {
     CoreEngine.battleMap = new BattleMap(attacker, defender);
     CoreEngine.changeCurrentMap(CoreEngine.battleMap);
-    CoreEngine.battleManager = new BattleCoreManager(attacker, defender);
+
+    if ((CoreEngine.battleAlreadyStarted = CoreEngine
+        .manageBattlePositionBeforeBattle(attacker, defender))) {
+      CoreEngine.battlePositionMap = CoreEngine.managerContainer
+          .getBattlePositionManager();
+      CoreEngine.changeCurrentMap(CoreEngine.battlePositionMap);
+    } else {
+      CoreEngine.battleAlreadyStarted = false;
+      CoreEngine.battleManager = new BattleCoreManager(attacker, defender);
+    }
+  }
+
+  private static boolean manageBattlePositionBeforeBattle(
+      FightableContainer attacker, FightableContainer defender) {
+    if (attacker.getAttackPriority() == FightableContainer.PRIORITY_MEDIUM
+        || defender.getAttackPriority() == FightableContainer.PRIORITY_MEDIUM) {
+
+      CoreEngine.firstContainer = attacker;
+      CoreEngine.secondContainer = defender;
+      if (attacker.getAttackPriority() == FightableContainer.PRIORITY_MEDIUM) {
+        CoreEngine.managerContainer = CoreEngine.firstContainer;
+      } else {
+        CoreEngine.managerContainer = CoreEngine.secondContainer;
+      }
+
+      if (CoreEngine.battleAlreadyStarted) {
+        return false;
+      } else {
+        if (CoreEngine.uiEngine.choicesManager().askQuestion(
+            CoreEngine.managerContainer.getPlayer()
+                + " : do you want do manage your units ?") == UIChoicesManager.YES_RESPONSE) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    } else {
+      return false;
+    }
   }
 
   public static void endBattle(FightableContainer winner,
