@@ -6,10 +6,23 @@ import fr.umlv.hmm2000.engine.LocationSelectionRequester.LocationSelection;
 import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
 import fr.umlv.hmm2000.map.Location;
 
+/**
+ * This class defines the action which is performed when a obstacle destruction
+ * occurs.
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class TeleportationSpellAction implements SpellAction {
 
   private static TeleportationSpellAction instance;
 
+  /**
+   * Returns the single element of this action.
+   * 
+   * @return singleton element.
+   */
   public static TeleportationSpellAction getInstance() {
     if (TeleportationSpellAction.instance == null) {
       TeleportationSpellAction.instance = new TeleportationSpellAction();
@@ -17,6 +30,9 @@ public class TeleportationSpellAction implements SpellAction {
     return TeleportationSpellAction.instance;
   }
 
+  /**
+   * Default constructor.
+   */
   private TeleportationSpellAction() {
   }
 
@@ -24,7 +40,7 @@ public class TeleportationSpellAction implements SpellAction {
   public void perform(final Encounter encounter) {
     CoreEngine.requestLocationSelection(new LocationSelectionRequester(
         new LocationSelection(LocationSelectionRequester.RECHEABLE_LOCATION,
-            "Où voulez-vous vous téléportez ?")) {
+            "Where do you want to teleport yourself ?")) {
       @Override
       public void perform(Location... locations) {
         Location l = locations[0];
