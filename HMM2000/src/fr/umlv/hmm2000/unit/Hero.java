@@ -127,12 +127,12 @@ public class Hero extends MovableElement {
 		int index;
 		if ((index = this.troop.indexOf(f)) != -1) {
 
+			int speed = this.troop.get(index).getSpeed();
 			// removing unit from troop
 			this.troop.remove(index);
 			this.battlePosition.removeMapForegroundElement(this.battlePosition
 					.getLocationForMapForegroundElement(f));
 			// updating speed
-			int speed = this.troop.get(index).getSpeed();
 			if (this.speed == speed) {
 				this.speed = 0;
 				for (Fightable fightable : this.troop) {

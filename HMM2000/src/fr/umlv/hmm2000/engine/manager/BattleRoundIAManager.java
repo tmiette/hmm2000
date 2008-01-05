@@ -11,6 +11,7 @@ public class BattleRoundIAManager {
 
 	private final ArrayList<Fightable> iaTroop;
 
+	//Troop to attack
 	private final ArrayList<Fightable> troop;
 
 	public BattleRoundIAManager(ArrayList<Fightable> iaTroop,
@@ -27,11 +28,16 @@ public class BattleRoundIAManager {
 		if (bestAttacker != null && defender != null) {
 			try {
 				System.out.println("IA attaque");
-				CoreEngine.battleManager().roundManager()
-						.tagAsAlreadyPlayed(bestAttacker);
+				System.out.println("troupe ia : " + this.iaTroop);
+				System.out.println("troupe a attaquer : " + this.troop );
 				bestAttacker.performAttack(defender);
+				CoreEngine.battleManager().roundManager()
+				.tagAsAlreadyPlayed(bestAttacker);
 			}
 			catch (WarriorDeadException e) {
+				System.out.println("IA tue " + defender);
+				CoreEngine.battleManager().roundManager()
+				.tagAsAlreadyPlayed(bestAttacker);
 				CoreEngine.battleManager().kill(
 						CoreEngine.map().getLocationForMapForegroundElement(defender),
 						defender);
