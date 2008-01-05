@@ -1,7 +1,6 @@
-package fr.umlv.hmm2000;
+package fr.umlv.hmm2000.salesentity;
 
 import fr.umlv.hmm2000.resource.Resource.Kind;
-import fr.umlv.hmm2000.salesentity.Price;
 import fr.umlv.hmm2000.warrior.profil.Level;
 import fr.umlv.hmm2000.warrior.profil.ProfilHero;
 import fr.umlv.hmm2000.warrior.profil.ProfilWarrior;

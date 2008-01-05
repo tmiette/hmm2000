@@ -2,10 +2,10 @@ package fr.umlv.hmm2000.building;
 
 import java.util.ArrayList;
 
-import fr.umlv.hmm2000.PriceFactory;
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.manager.MoveCoreManager;
 import fr.umlv.hmm2000.map.Location;
+import fr.umlv.hmm2000.salesentity.PriceFactory;
 import fr.umlv.hmm2000.unit.Fightable;
 import fr.umlv.hmm2000.unit.UnitFactory;
 import fr.umlv.hmm2000.warrior.profil.Level;

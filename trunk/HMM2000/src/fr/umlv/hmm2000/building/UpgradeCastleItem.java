@@ -1,6 +1,6 @@
 package fr.umlv.hmm2000.building;
 
-import fr.umlv.hmm2000.PriceFactory;
+import fr.umlv.hmm2000.salesentity.PriceFactory;
 import fr.umlv.hmm2000.warrior.profil.Level;
 
 public class UpgradeCastleItem implements CastleItem {
