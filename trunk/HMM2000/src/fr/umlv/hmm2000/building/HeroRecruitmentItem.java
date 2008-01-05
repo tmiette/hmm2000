@@ -39,7 +39,7 @@ public class HeroRecruitmentItem implements CastleItem {
 
         @Override
         public void perform() {
-
+//TODO enlever !
           if (!castle.getPlayer().spend(PriceFactory.getHeroPrice(profil))) {
             castle.addHero(UnitFactory.createHero(castle.getPlayer(), profil));
           } else {

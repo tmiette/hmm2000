@@ -14,246 +14,263 @@ import fr.umlv.hmm2000.util.Pair;
 
 public class BattleRoundCoreManager extends DayCoreManager {
 
-  private final Player player1;
+	private final Player player1;
 
-  private final Player player2;
+	private final Player player2;
 
-  private final FightableContainer player1Container;
+	private final FightableContainer player1Container;
 
-  private final FightableContainer player2Container;
+	private final FightableContainer player2Container;
 
-  private final HashMap<FightableContainer, Boolean> containers;
+	private final HashMap<FightableContainer, Boolean> containers;
 
-  private final HashMap<FightableContainer, Location> containersLocations;
+	private final HashMap<FightableContainer, Location> containersLocations;
 
-  private final HashMap<Player, ArrayList<Fightable>> fightables;
+	private final HashMap<Player, ArrayList<Fightable>> fightables;
 
-  private final ArrayList<Fightable> player1Fightables;
+	private final ArrayList<Fightable> player1Fightables;
 
-  private final ArrayList<Fightable> player2Fightables;
+	private final ArrayList<Fightable> player2Fightables;
 
-  private final ArrayList<Pair<Location, Sprite>> sprites;
+	private final ArrayList<Pair<Location, Sprite>> sprites;
 
-  private final BattleRoundIAManager iaManager;
+	private final BattleRoundIAManager iaManager;
 
-  private int roundCounter;
+	private int roundCounter;
 
-  public BattleRoundCoreManager(FightableContainer attacker,
-      FightableContainer defender, Player attackerPlayer, Player defenderPlayer) {
+	public BattleRoundCoreManager(FightableContainer attacker,
+																FightableContainer defender,
+																Player attackerPlayer,
+																Player defenderPlayer) {
 
-    super(attackerPlayer, defenderPlayer);
-    this.sprites = new ArrayList<Pair<Location, Sprite>>();
-    this.player1 = attackerPlayer;
-    this.player2 = defenderPlayer;
-    this.player1Container = attacker;
-    this.player2Container = defender;
-    this.containers = new HashMap<FightableContainer, Boolean>();
-    this.containersLocations = new HashMap<FightableContainer, Location>();
-    this.containersLocations.put(this.player1Container, CoreEngine.map()
-        .getLocationForMapForegroundElement(this.player1Container));
-    this.containersLocations.put(this.player2Container, CoreEngine.map()
-        .getLocationForMapForegroundElement(this.player2Container));
-    this.fightables = new HashMap<Player, ArrayList<Fightable>>();
-    this.player1Fightables = new ArrayList<Fightable>();
-    this.player2Fightables = new ArrayList<Fightable>();
-    this.newRound();
-    CoreEngine.fireSpriteAdded(this.containersLocations
-        .get(this.player1Container), Sprite.YOURTURN);
-    this.iaManager = initIAManager(this.player1, this.player2);
-  }
+		super(attackerPlayer, defenderPlayer);
+		this.sprites = new ArrayList<Pair<Location, Sprite>>();
+		this.player1 = attackerPlayer;
+		this.player2 = defenderPlayer;
+		this.player1Container = attacker;
+		this.player2Container = defender;
+		this.containers = new HashMap<FightableContainer, Boolean>();
+		this.containersLocations = new HashMap<FightableContainer, Location>();
+		this.containersLocations.put(this.player1Container, CoreEngine.map()
+				.getLocationForMapForegroundElement(this.player1Container));
+		this.containersLocations.put(this.player2Container, CoreEngine.map()
+				.getLocationForMapForegroundElement(this.player2Container));
+		this.fightables = new HashMap<Player, ArrayList<Fightable>>();
+		this.player1Fightables = new ArrayList<Fightable>();
+		this.player2Fightables = new ArrayList<Fightable>();
+		this.newRound();
+		CoreEngine.fireSpriteAdded(this.containersLocations
+				.get(this.player1Container), Sprite.YOURTURN);
+		this.iaManager = initIAManager(this.player1, this.player2);
+	}
 
-  /**
-   * Initializes 
-   * @param p1
-   * @param p2
-   * @return
-   */
-  private BattleRoundIAManager initIAManager(Player p1, Player p2) {
+	/**
+	 * Initializes an Artificial Intelligence manager if either player1 or player2
+	 * is an AI player
+	 * 
+	 * @param p1 player1
+	 * @param p2 player2
+	 * @return the AI manager
+	 */
+	private BattleRoundIAManager initIAManager(Player p1, Player p2) {
 
-    BattleRoundIAManager iaManager = null;
-    if (this.player1.equals(Player.PLAYER_IA)) {
-      iaManager = new BattleRoundIAManager(this.fightables.get(this.player1),
-          this.fightables.get(this.player2));
-    } else if (this.player2.equals(Player.PLAYER_IA)) {
-      iaManager = new BattleRoundIAManager(this.fightables.get(this.player2),
-          this.fightables.get(this.player1));
-    }
-    return iaManager;
-  }
+		BattleRoundIAManager iaManager = null;
+		if (this.player1.equals(Player.PLAYER_IA)) {
+			iaManager = new BattleRoundIAManager(this.fightables.get(this.player1),
+					(ArrayList<Fightable>)this.player2Container.getTroop());
+		}
+		else if (this.player2.equals(Player.PLAYER_IA)) {
+			iaManager = new BattleRoundIAManager(this.fightables.get(this.player2),
+					(ArrayList<Fightable>)this.player1Container.getTroop());
+		}
+		return iaManager;
+	}
 
-  @Override
-  public void nextDay() {
+	@Override
+	public void nextDay() {
 
-    this.untagAlreadyPlayed();
-    if (this.opponentContainer().getTroop().size() == 0) {
-      CoreEngine.fireMessage(this.opponentContainer() + " loose the figth.",
-          HMMUserInterface.WARNING_MESSAGE);
-      CoreEngine.endBattle(this.currentContainer(), this.opponentContainer());
-      return;
-    }
-    if (this.isStillAttacker(this.fightables.get(this.opponentPlayer()), this
-        .currentContainer())) {
-      this.nextBattlePlayer();
-      if (this.currentPlayer().equals(Player.PLAYER_IA)) {
-        this.iaManager.performRound();
-        this.nextDay();
-        return;
-      }
-    } else if (!this.isStillAttacker(this.fightables.get(this.currentPlayer()),
-        this.opponentContainer())) {
-      this.newRound();
-      this.nextBattlePlayer();
-      if (this.currentPlayer().equals(Player.PLAYER_IA)) {
-        this.iaManager.performRound();
-        this.nextDay();
-        return;
-      }
-    }
-    this.tagAlreadyPlayed();
-  }
+		this.untagAlreadyPlayed();
+		if (this.opponentContainer().getTroop().size() == 0) {
+			CoreEngine.fireMessage(this.opponentContainer() + " loose the figth.",
+					HMMUserInterface.WARNING_MESSAGE);
+			CoreEngine.endBattle(this.currentContainer(), this.opponentContainer());
+			return;
+		}
+		if (this.isStillAttacker(this.fightables.get(this.opponentPlayer()), this
+				.currentContainer())) {
+			this.nextBattlePlayer();
+//			if (this.currentPlayer().equals(Player.PLAYER_IA)) {
+//				this.iaManager.performRound();
+//				this.nextDay();
+//				return;
+//			}
+		}
+		else if (!this.isStillAttacker(this.fightables.get(this.currentPlayer()),
+				this.opponentContainer())) {
+			this.newRound();
+			this.nextBattlePlayer();
+//			if (this.currentPlayer().equals(Player.PLAYER_IA)) {
+//				this.iaManager.performRound();
+//				this.nextDay();
+//				return;
+//			}
+		}
+		if (this.currentPlayer().equals(Player.PLAYER_IA)) {
+			this.iaManager.performRound();
+			this.nextDay();
+			return;
+		}
+		this.tagAlreadyPlayed();
+	}
 
-  private void nextBattlePlayer() {
-    this.nextPlayer();
-    CoreEngine.fireSpriteAdded(this.containersLocations.get(this
-        .currentContainer()), Sprite.YOURTURN);
-    CoreEngine.fireSpriteRemoved(this.containersLocations.get(this
-        .opponentContainer()), Sprite.YOURTURN);
-    CoreEngine.fireMessage(this.currentContainer() + " has to attack !",
-        HMMUserInterface.INFO_MESSAGE);
-  }
+	private void nextBattlePlayer() {
 
-  private void newRound() {
-    this.containers.put(this.player1Container, false);
-    this.containers.put(this.player2Container, false);
-    this.player1Fightables.clear();
-    this.player2Fightables.clear();
-    this.player1Fightables.addAll(this.player1Container.getTroop());
-    this.player2Fightables.addAll(this.player2Container.getTroop());
-    this.fightables.put(this.player1, this.player1Fightables);
-    this.fightables.put(this.player2, this.player2Fightables);
-    CoreEngine.fireMessage("Round " + ++this.roundCounter + ".",
-        HMMUserInterface.INFO_MESSAGE);
-  }
+		this.nextPlayer();
+		CoreEngine.fireSpriteAdded(this.containersLocations.get(this
+				.currentContainer()), Sprite.YOURTURN);
+		CoreEngine.fireSpriteRemoved(this.containersLocations.get(this
+				.opponentContainer()), Sprite.YOURTURN);
+		CoreEngine.fireMessage(this.currentContainer() + " has to attack !",
+				HMMUserInterface.INFO_MESSAGE);
+	}
 
-  public boolean hasAlreadyPlayed(Fightable f) {
+	private void newRound() {
 
-    return !this.fightables.get(this.currentPlayer()).contains(f);
-  }
+		this.containers.put(this.player1Container, false);
+		this.containers.put(this.player2Container, false);
+		this.player1Fightables.clear();
+		this.player2Fightables.clear();
+		this.player1Fightables.addAll(this.player1Container.getTroop());
+		this.player2Fightables.addAll(this.player2Container.getTroop());
+		this.fightables.put(this.player1, this.player1Fightables);
+		this.fightables.put(this.player2, this.player2Fightables);
+		CoreEngine.fireMessage("Round " + ++this.roundCounter + ".",
+				HMMUserInterface.INFO_MESSAGE);
+	}
 
-  public boolean hasAlreadyPlayed(FightableContainer f) {
+	public boolean hasAlreadyPlayed(Fightable f) {
 
-    return this.containers.get(f);
-  }
+		return !this.fightables.get(this.currentPlayer()).contains(f);
+	}
 
-  public void tagAsAlreadyPlayed(Fightable f) {
+	public boolean hasAlreadyPlayed(FightableContainer f) {
 
-    this.fightables.get(this.currentPlayer()).remove(f);
-  }
+		return this.containers.get(f);
+	}
 
-  public void tagAsNotAlreadyPlayed(Fightable f) {
+	public void tagAsAlreadyPlayed(Fightable f) {
 
-    if (this.hasAlreadyPlayed(f)) {
-      this.fightables.get(this.currentPlayer()).add(f);
-    }
-  }
+		this.fightables.get(this.currentPlayer()).remove(f);
+	}
 
-  public void tagAsAlreadyPlayed(FightableContainer f) {
+	public void tagAsNotAlreadyPlayed(Fightable f) {
 
-    this.containers.put(f, true);
-  }
+		if (this.hasAlreadyPlayed(f)) {
+			this.fightables.get(this.currentPlayer()).add(f);
+		}
+	}
 
-  public void kill(Fightable f) {
+	public void tagAsAlreadyPlayed(FightableContainer f) {
 
-    this.fightables.get(this.opponentPlayer()).remove(f);
-  }
+		this.containers.put(f, true);
+	}
 
-  public void tagUnattackable(Fightable f) {
+	public void kill(Fightable f) {
 
-    this.sprites.clear();
-    for (Fightable opponentFightable : this.opponentContainer().getTroop()) {
-      if (!f.isAttackable(opponentFightable)) {
-        Location l = CoreEngine.map().getLocationForMapForegroundElement(
-            opponentFightable);
-        this.sprites.add(new Pair<Location, Sprite>(l, Sprite.UNATTACKABLE));
-      }
-    }
-    CoreEngine.fireSpritesAdded(this.sprites);
-  }
+		this.fightables.get(this.opponentPlayer()).remove(f);
+	}
 
-  public void untagUnattackable() {
+	public void tagUnattackable(Fightable f) {
 
-    this.sprites.clear();
-    for (Fightable opponentFightable : this.opponentContainer().getTroop()) {
-      Location l = CoreEngine.map().getLocationForMapForegroundElement(
-          opponentFightable);
-      this.sprites.add(new Pair<Location, Sprite>(l, Sprite.UNATTACKABLE));
-    }
-    CoreEngine.fireSpritesRemoved(this.sprites);
-  }
+		this.sprites.clear();
+		for (Fightable opponentFightable : this.opponentContainer().getTroop()) {
+			if (!f.isAttackable(opponentFightable)) {
+				Location l = CoreEngine.map().getLocationForMapForegroundElement(
+						opponentFightable);
+				this.sprites.add(new Pair<Location, Sprite>(l, Sprite.UNATTACKABLE));
+			}
+		}
+		CoreEngine.fireSpritesAdded(this.sprites);
+	}
 
-  private void tagAlreadyPlayed() {
+	public void untagUnattackable() {
 
-    this.sprites.clear();
-    for (Fightable f : this.currentContainer().getTroop()) {
-      if (!this.fightables.get(this.currentPlayer()).contains(f)) {
-        this.sprites.add(new Pair<Location, Sprite>(CoreEngine.map()
-            .getLocationForMapForegroundElement(f), Sprite.ALREADY));
-      }
-    }
-    CoreEngine.fireSpritesAdded(this.sprites);
-  }
+		this.sprites.clear();
+		for (Fightable opponentFightable : this.opponentContainer().getTroop()) {
+			Location l = CoreEngine.map().getLocationForMapForegroundElement(
+					opponentFightable);
+			this.sprites.add(new Pair<Location, Sprite>(l, Sprite.UNATTACKABLE));
+		}
+		CoreEngine.fireSpritesRemoved(this.sprites);
+	}
 
-  private void untagAlreadyPlayed() {
-    this.sprites.clear();
-    for (Fightable f : this.currentContainer().getTroop()) {
-      this.sprites.add(new Pair<Location, Sprite>(CoreEngine.map()
-          .getLocationForMapForegroundElement(f), Sprite.ALREADY));
-    }
-    for (Fightable f : this.opponentContainer().getTroop()) {
-      this.sprites.add(new Pair<Location, Sprite>(CoreEngine.map()
-          .getLocationForMapForegroundElement(f), Sprite.UNATTACKABLE));
-    }
-    CoreEngine.fireSpritesRemoved(this.sprites);
-  }
+	private void tagAlreadyPlayed() {
 
-  private boolean isStillAttacker(ArrayList<Fightable> attackers,
-      FightableContainer defender) {
+		this.sprites.clear();
+		for (Fightable f : this.currentContainer().getTroop()) {
+			if (!this.fightables.get(this.currentPlayer()).contains(f)) {
+				this.sprites.add(new Pair<Location, Sprite>(CoreEngine.map()
+						.getLocationForMapForegroundElement(f), Sprite.ALREADY));
+			}
+		}
+		CoreEngine.fireSpritesAdded(this.sprites);
+	}
 
-    for (Fightable attackerFightable : attackers) {
-      for (Fightable opponentFightable : defender.getTroop()) {
-        if (attackerFightable.isAttackable(opponentFightable)) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
+	private void untagAlreadyPlayed() {
 
-  public Player opponentPlayer() {
+		this.sprites.clear();
+		for (Fightable f : this.currentContainer().getTroop()) {
+			this.sprites.add(new Pair<Location, Sprite>(CoreEngine.map()
+					.getLocationForMapForegroundElement(f), Sprite.ALREADY));
+		}
+		for (Fightable f : this.opponentContainer().getTroop()) {
+			this.sprites.add(new Pair<Location, Sprite>(CoreEngine.map()
+					.getLocationForMapForegroundElement(f), Sprite.UNATTACKABLE));
+		}
+		CoreEngine.fireSpritesRemoved(this.sprites);
+	}
 
-    if (this.currentPlayer().equals(this.player1)) {
-      return player2;
-    } else {
-      return player1;
-    }
-  }
+	private boolean isStillAttacker(ArrayList<Fightable> attackers,
+			FightableContainer defender) {
 
-  public FightableContainer currentContainer() {
+		for (Fightable attackerFightable : attackers) {
+			for (Fightable opponentFightable : defender.getTroop()) {
+				if (attackerFightable.isAttackable(opponentFightable)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
-    if (this.currentPlayer().equals(this.player1)) {
-      return player1Container;
-    } else {
-      return player2Container;
-    }
-  }
+	public Player opponentPlayer() {
 
-  public FightableContainer opponentContainer() {
+		if (this.currentPlayer().equals(this.player1)) {
+			return player2;
+		}
+		else {
+			return player1;
+		}
+	}
 
-    if (this.currentPlayer().equals(this.player1)) {
-      return player2Container;
-    } else {
-      return player1Container;
-    }
-  }
+	public FightableContainer currentContainer() {
+
+		if (this.currentPlayer().equals(this.player1)) {
+			return player1Container;
+		}
+		else {
+			return player2Container;
+		}
+	}
+
+	public FightableContainer opponentContainer() {
+
+		if (this.currentPlayer().equals(this.player1)) {
+			return player2Container;
+		}
+		else {
+			return player1Container;
+		}
+	}
 
 }
