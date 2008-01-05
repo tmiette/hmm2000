@@ -89,13 +89,13 @@ public class BattleRoundCoreManager extends DayCoreManager {
 	@Override
 	public void nextDay() {
 
-		this.untagAlreadyPlayed();
 		if (this.opponentContainer().getTroop().size() == 0) {
 			CoreEngine.fireMessage(this.opponentContainer() + " loose the figth.",
 					HMMUserInterface.WARNING_MESSAGE);
 			CoreEngine.endBattle(this.currentContainer(), this.opponentContainer());
 			return;
 		}
+		this.untagAlreadyPlayed();
 		if (this.isStillAttacker(this.fightables.get(this.opponentPlayer()), this
 				.currentContainer())) {
 			this.nextBattlePlayer();
