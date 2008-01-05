@@ -197,7 +197,7 @@ public class CoreEngine {
         Castle castle = (Castle) element;
         if (CoreEngine.roundManager.isCurrentPlayer(castle.getPlayer())) {
           CastleItem item = CoreEngine.requestCastleItem(castle.getItems());
-          if (item != CastleItem.defaultItem) {
+          if (item != null && item != CastleItem.defaultItem) {
             item.perform();
           }
         }
