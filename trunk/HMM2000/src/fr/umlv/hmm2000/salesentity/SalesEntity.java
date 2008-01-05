@@ -103,6 +103,7 @@ public class SalesEntity implements MapForegroundElement {
 
     ArrayList<Pair<Sellable, Integer>> purchases = SalesEntity
         .createItemsList(this.items);
+    CoreEngine.fireMessage("Que voulez-vous acheter ?");
     Sellable item = CoreEngine.requestPurchase(purchases);
     
     if (item != null && item != SalesEntity.defaultSellable) {
