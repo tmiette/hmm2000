@@ -1,4 +1,4 @@
-package fr.umlv.hmm2000.map.battle;
+package fr.umlv.hmm2000.map.battle.exception;
 
 
 public class LocationAlreadyOccupedException extends Exception {
