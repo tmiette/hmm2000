@@ -37,7 +37,8 @@ public class StartPanel {
 
     // background icon
     final JLabel bgIcon = new JLabel();
-    bgIcon.setIcon(LawrenceComponentFactory.createImageIcon("bg.gif"));
+    bgIcon.setIcon(LawrenceComponentFactory
+        .createImageIcon("background400x300.gif"));
 
     // main panel
     final JPanel mainPanel = new JPanel(new BorderLayout());
@@ -45,7 +46,8 @@ public class StartPanel {
 
     // label with the welcoming image
     final JLabel headerIcon = new JLabel();
-    headerIcon.setIcon(LawrenceComponentFactory.createImageIcon("header.gif"));
+    headerIcon.setIcon(LawrenceComponentFactory
+        .createImageIcon("header380x70.gif"));
     mainPanel.add(headerIcon, BorderLayout.NORTH);
 
     // panel with map levels informations
@@ -109,37 +111,39 @@ public class StartPanel {
     // panel with action buttons
     final JPanel buttonsPanel = new JPanel();
     buttonsPanel.setOpaque(false);
-    final JButton quitButton = new JButton("Quit");
-    quitButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        System.exit(0);
-      }
-    });
-    final JButton startButton = new JButton("Start");
-    startButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        try {
-          final Player[] players = new Player[(Integer) playersComboBox
-              .getSelectedItem()];
-          for (int i = 0; i < players.length; i++) {
-            players[i] = new Player(i);
+    final JButton quitButton = LawrenceComponentFactory.createLawrenceButton(
+        "Quit", "quit20x20.png", new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            System.exit(0);
           }
-          final MapLevel level = (MapLevel) list.getSelectedValue();
-          CoreEngine.startNewCoreEngine(level, ui, players);
-        } catch (FileNotFoundException e1) {
-          // the map file does not exist
-          throw new AssertionError(e1);
-        } catch (InvalidPlayersNumberException e1) {
-          // this map can be played with the number of player
-          throw new AssertionError(e1);
-        } catch (IOException e1) {
-          // io exception
-          throw new AssertionError(e1);
-        }
-      }
-    });
+        });
+
+    final JButton startButton = LawrenceComponentFactory.createLawrenceButton(
+        "Start", "aura20x20.png", new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            try {
+              final Player[] players = new Player[(Integer) playersComboBox
+                  .getSelectedItem()];
+              for (int i = 0; i < players.length; i++) {
+                players[i] = new Player(i);
+              }
+              final MapLevel level = (MapLevel) list.getSelectedValue();
+              CoreEngine.startNewCoreEngine(level, ui, players);
+            } catch (FileNotFoundException e1) {
+              // the map file does not exist
+              throw new AssertionError(e1);
+            } catch (InvalidPlayersNumberException e1) {
+              // this map can be played with the number of player
+              throw new AssertionError(e1);
+            } catch (IOException e1) {
+              // io exception
+              throw new AssertionError(e1);
+            }
+          }
+        });
+
     buttonsPanel.add(quitButton);
     buttonsPanel.add(startButton);
     mainPanel.add(buttonsPanel, BorderLayout.SOUTH);

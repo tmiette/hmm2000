@@ -21,7 +21,7 @@ public class LawrenceChoicesManager implements UIChoicesManager {
    * System.out.println("Choix incorrect."); value = scanner.nextInt(); } return
    * value; } catch (Exception e) { return 0; } }
    */
-  
+
   @Override
   public Sellable submit(String message, List<Pair<Sellable, Integer>> items) {
     ArrayList<String> choices = new ArrayList<String>();
@@ -33,8 +33,8 @@ public class LawrenceChoicesManager implements UIChoicesManager {
 
     String purchaseString = (String) JOptionPane.showInputDialog(null, message,
         "Make a purchase", JOptionPane.QUESTION_MESSAGE,
-        LawrenceComponentFactory.createImageIcon("buy.gif"), choices.toArray(),
-        choices.get(0));
+        LawrenceComponentFactory.createImageIcon("treasure32x32.gif"), choices
+            .toArray(), choices.get(0));
 
     int purchaseIndex = choices.indexOf(purchaseString);
 
@@ -54,7 +54,7 @@ public class LawrenceChoicesManager implements UIChoicesManager {
 
     String skillString = (String) JOptionPane.showInputDialog(null, message,
         "Use a skill", JOptionPane.QUESTION_MESSAGE, LawrenceComponentFactory
-            .createImageIcon("skill.gif"), choices.toArray(), choices.get(0));
+            .createImageIcon("aura32x32.gif"), choices.toArray(), choices.get(0));
 
     int skillIndex = choices.indexOf(skillString);
 
@@ -75,7 +75,7 @@ public class LawrenceChoicesManager implements UIChoicesManager {
 
     String itemString = (String) JOptionPane.showInputDialog(null, message,
         "Manage castle", JOptionPane.QUESTION_MESSAGE, LawrenceComponentFactory
-            .createImageIcon("castleItem.gif"), choices.toArray(), choices
+            .createImageIcon("castle32x32.gif"), choices.toArray(), choices
             .get(0));
 
     int itemIndex = choices.indexOf(itemString);

@@ -289,6 +289,7 @@ public class CoreEngine {
 
   public static void displayMapForegroundElement(MapForegroundElement element) {
     element.accept(CoreEngine.uiEngine.displayingVisitor());
+    element.accept(CoreEngine.uiEngine.displayingVisitor());
   }
 
   public static void fireMessage(String message, int level) {

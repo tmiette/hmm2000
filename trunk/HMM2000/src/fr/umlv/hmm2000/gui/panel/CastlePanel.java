@@ -1,8 +1,6 @@
 package fr.umlv.hmm2000.gui.panel;
 
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -41,20 +39,8 @@ public class CastlePanel {
         .createLawrenceBoldLabel("Heroes : "));
     centerPanel.add(this.heroes);
 
-    this.troopsButton = LawrenceComponentFactory.createLawrenceButton("Troops",
-        "manageTroops.gif", new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            CoreEngine.manageBattlePosition();
-          }
-        });
-    this.castleButton = LawrenceComponentFactory.createLawrenceButton("Castle",
-        "manageCastle.gif", new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            CoreEngine.manageCastle();
-          }
-        });
+    this.troopsButton = LawrenceComponentFactory.createTroopsButton();
+    this.castleButton = LawrenceComponentFactory.createCastleButton();
 
     this.abstractPanel = new AbstractUnitPanel("Castle :", centerPanel,
         this.troopsButton, this.castleButton);
