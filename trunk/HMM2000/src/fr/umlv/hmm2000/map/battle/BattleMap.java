@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
+import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.Map;
 import fr.umlv.hmm2000.map.element.MapBackgroundElement;
@@ -325,15 +326,16 @@ public class BattleMap implements Map {
           } catch (ArrayIndexOutOfBoundsException e) {
             new AssertionError(e);
           } catch (LocationAlreadyOccupedException e) {
-          	new AssertionError(e);
+            new AssertionError(e);
           } catch (NoPlaceAvailableException e) {
-          	new AssertionError(e);
+            new AssertionError(e);
           } catch (MaxNumberOfTroopsReachedException e) {
-          	new AssertionError(e);
+            new AssertionError(e);
           }
           return true;
         } else {
-          CoreEngine.fireMessage("Vous devez avoir au moins une unité.");
+          CoreEngine.fireMessage("You have to keep at least one unit.",
+              HMMUserInterface.WARNING_MESSAGE);
           return false;
         }
       }

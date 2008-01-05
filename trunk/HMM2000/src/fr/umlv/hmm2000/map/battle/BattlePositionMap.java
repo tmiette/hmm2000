@@ -20,7 +20,7 @@ public class BattlePositionMap implements Map {
 
 	public static final int LINE_NUMBER = 2;
 	
-	private static final int FIRST_LINE = 0;
+	//private static final int FIRST_LINE = 0;
 	
 	private static final int SECOND_LINE = 1;
 
