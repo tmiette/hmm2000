@@ -30,7 +30,6 @@ public class BattleRoundIAManager {
 				CoreEngine.battleManager().roundManager()
 						.tagAsAlreadyPlayed(bestAttacker);
 				bestAttacker.performAttack(defender);
-//				CoreEngine.battleManager().roundManager().nextDay();
 			}
 			catch (WarriorDeadException e) {
 				CoreEngine.battleManager().kill(
