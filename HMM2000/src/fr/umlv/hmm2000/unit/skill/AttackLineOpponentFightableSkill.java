@@ -9,72 +9,93 @@ import fr.umlv.hmm2000.unit.Fightable;
 import fr.umlv.hmm2000.unit.exception.WarriorDeadException;
 import fr.umlv.hmm2000.unit.profil.ElementAbility;
 
+/**
+ * Capacity to attack either a second line unit or entire first line
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class AttackLineOpponentFightableSkill implements Skill {
 
-  private final ElementAbility abilities;
+	// Additionnal elementaries attacks
+	private final ElementAbility abilities;
 
-  private final double physical;
+	// Skill's physical damage capacity
+	private final double physical;
 
-  public AttackLineOpponentFightableSkill(ElementAbility abilities,
-      double physical) {
-    this.abilities = abilities;
-    this.physical = physical;
-  }
+	public AttackLineOpponentFightableSkill(ElementAbility abilities,
+																					double physical) {
 
-  @Override
-  public void perform() {
+		this.abilities = abilities;
+		this.physical = physical;
+	}
 
-    CoreEngine.requestLocationSelection(new LocationSelectionRequester(
-        new LocationSelection(
-            LocationSelectionRequester.BATTLE_OPPONENT_FIGHTABLE_LOCATION,
-            "Qui voulez vous attaquer ?")) {
+	@Override
+	public void perform() {
 
-      @Override
-      public void perform(Location... locations) {
+		// Requesting unit location to attack
+		CoreEngine.requestLocationSelection(new LocationSelectionRequester(
+				new LocationSelection(
+						LocationSelectionRequester.BATTLE_OPPONENT_FIGHTABLE_LOCATION,
+						"Qui voulez vous attaquer ?")) {
 
-        Location defenderLocation = locations[0];
-        MapForegroundElement mfe = CoreEngine.map()
-            .getMapForegroundElementAtLocation(defenderLocation);
+			@Override
+			public void perform(Location... locations) {
 
-        Fightable defender = (Fightable) mfe;
-        double elementaryDamage = abilities.getDamage(defender.getAbilities());
+				Location defenderLocation = locations[0];
+				MapForegroundElement mfe = CoreEngine.map()
+						.getMapForegroundElementAtLocation(defenderLocation);
 
-        if (defender.getFightableContainer().getBattlePositionManager()
-            .isInSecondLine(defender)) {
-          try {
-            defender.hurt(physical + elementaryDamage
-                - defender.getPhysicalDefenseValue());
+				Fightable defender = (Fightable) mfe;
+				double elementaryDamage = abilities.getDamage(defender.getAbilities());
 
-          } catch (WarriorDeadException e) {
-            Location l = CoreEngine.map().getLocationForMapForegroundElement(
-                defender);
-            CoreEngine.battleManager().kill(l, defender);
-          }
-        } else {
-          for (Fightable f : defender.getFightableContainer()
-              .getBattlePositionManager().getFightableOnFirstLine()) {
-            try {
-              f.hurt(physical + elementaryDamage - f.getPhysicalDefenseValue());
+				if (defender.getFightableContainer().getBattlePositionManager()
+						.isInSecondLine(defender)) {
+					try {
+						// Hurt one second line unit
+						defender.hurt(physical + elementaryDamage
+								- defender.getPhysicalDefenseValue());
 
-            } catch (WarriorDeadException e) {
-              Location l = CoreEngine.map().getLocationForMapForegroundElement(
-                  f);
-              CoreEngine.battleManager().kill(l, f);
-            }
-          }
-        }
-        CoreEngine.battleManager().roundManager().nextDay();
-      }
-    });
-  }
+					}
+					catch (WarriorDeadException e) {
+						// Removing dead unit from view
+						Location l = CoreEngine.map().getLocationForMapForegroundElement(
+								defender);
+						CoreEngine.battleManager().kill(l, defender);
+					}
+				}
+				else {
+					// Hurting first line units
+					for (Fightable f : defender.getFightableContainer()
+							.getBattlePositionManager().getFightableOnFirstLine()) {
+						try {
+							f.hurt(physical + elementaryDamage - f.getPhysicalDefenseValue());
 
-  @Override
-  public String getName() {
-    return "Multi-Attack";
-  }
+						}
+						catch (WarriorDeadException e) {
+						// Removing dead unit from view
+							Location l = CoreEngine.map().getLocationForMapForegroundElement(
+									f);
+							CoreEngine.battleManager().kill(l, f);
+						}
+					}
+				}
+				// Next round
+				CoreEngine.battleManager().roundManager().nextDay();
+			}
+		});
+	}
 
-  @Override
-  public String getToolTipText() {
-    return "This skill enables to attack either all opponent units in the first line of one opponent unit in the second line.";
-  }
+	@Override
+	public String getName() {
+
+		return "Multi-Attack";
+	}
+
+	@Override
+	public String getToolTipText() {
+
+		return "This skill enables to attack either all opponent units in the first line of one opponent unit in the second line.";
+	}
 }
