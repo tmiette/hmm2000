@@ -63,6 +63,7 @@ public class WarriorRecruitmentItem implements CastleItem {
 				});
 			}
 		}
+	// Adding items to choose manager
 		CastleItem item = CoreEngine.requestCastleItem(items);
 		if (item != null && item != CastleItem.defaultItem) {
       item.perform();

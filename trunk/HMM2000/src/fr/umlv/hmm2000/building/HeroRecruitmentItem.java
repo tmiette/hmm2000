@@ -8,8 +8,16 @@ import fr.umlv.hmm2000.salesentity.PriceFactory;
 import fr.umlv.hmm2000.unit.UnitFactory;
 import fr.umlv.hmm2000.unit.profil.ProfilHero;
 
+/**
+ * This class permits to the player to buy a new hero from castle
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class HeroRecruitmentItem implements CastleItem {
 
+	// Player's castle
 	private final Castle castle;
 
 	public HeroRecruitmentItem(Castle castle) {
@@ -20,7 +28,7 @@ public class HeroRecruitmentItem implements CastleItem {
 	@Override
 	public String getSuggestion() {
 
-		return "Recruter un héros";
+		return "Buy a new hero";
 	}
 
 	@Override
@@ -40,8 +48,7 @@ public class HeroRecruitmentItem implements CastleItem {
 				@Override
 				public void perform() {
 
-					// TODO enlever !
-					if (!castle.getPlayer().spend(PriceFactory.getHeroPrice(profil))) {
+					if (castle.getPlayer().spend(PriceFactory.getHeroPrice(profil))) {
 						castle.addHero(UnitFactory.createHero(castle.getPlayer(), profil));
 					}
 					else {
@@ -52,6 +59,7 @@ public class HeroRecruitmentItem implements CastleItem {
 
 			});
 		}
+		// Adding items to choose manager
 		CastleItem item = CoreEngine.requestCastleItem(items);
 		if (item != null && item != CastleItem.defaultItem) {
 			item.perform();

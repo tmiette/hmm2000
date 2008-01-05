@@ -5,12 +5,21 @@ import java.util.ArrayList;
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.map.Location;
+import fr.umlv.hmm2000.map.Map;
 import fr.umlv.hmm2000.map.element.MapBackgroundElement;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.unit.Hero;
 
+/**
+ * This class permits to the castle's player to take its heroes out on map.
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class ExitHeroItem implements CastleItem {
 
+	// Player's castle
 	private final Castle castle;
 
 	public ExitHeroItem(Castle castle) {
@@ -21,7 +30,7 @@ public class ExitHeroItem implements CastleItem {
 	@Override
 	public String getSuggestion() {
 
-		return "Prendre un Hero";
+		return "Take a hero out";
 	}
 
 	@Override
@@ -79,20 +88,44 @@ public class ExitHeroItem implements CastleItem {
 						for (int x = -2; x < 2; x++) {
 							for (int y = -2; y < 2; y++) {
 								newLocation = new Location(X + x, Y + y);
-								MapBackgroundElement withoutBGElt = CoreEngine.map().getMapBackgroundElementAtLocation(
-										newLocation);
-								MapForegroundElement withoutFBElt = CoreEngine.map().getMapForegroundElementAtLocation(
-										newLocation);
-								if (withoutBGElt != null && withoutFBElt == null && withoutBGElt.getWeight() > 0) {
+								Map map = CoreEngine.map();
+								MapBackgroundElement withoutBGElt = map
+										.getMapBackgroundElementAtLocation(newLocation);
+								MapForegroundElement withoutFBElt = map
+										.getMapForegroundElementAtLocation(newLocation);
+
+								if (validLocationOnMap(newLocation, map)
+										&& withoutBGElt != null && withoutFBElt == null
+										&& withoutBGElt.getWeight() > 0) {
+									// Free location avalaible
 									return newLocation;
 								}
 							}
 						}
-						return newLocation;
+						return null;
+					}
+
+					/**
+					 * Tests location validity on specific map
+					 * 
+					 * @param l
+					 *          location to test
+					 * @param map
+					 * @return if location is contained in map
+					 */
+					private boolean validLocationOnMap(Location l, Map map) {
+
+						int X = l.getX();
+						int Y = l.getY();
+						if (X >= 0 && X < map.getHeight() && Y >= 0 && Y < map.getWidth()) {
+							return true;
+						}
+						return false;
 					}
 
 				});
 			}
+			// Adding items to choose manager
 			CastleItem item = CoreEngine.requestCastleItem(items);
 			if (item != null && item != CastleItem.defaultItem) {
 				item.perform();
