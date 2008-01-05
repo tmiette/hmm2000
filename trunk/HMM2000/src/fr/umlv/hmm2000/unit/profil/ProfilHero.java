@@ -11,66 +11,106 @@ import fr.umlv.hmm2000.unit.skill.AttackOpponentFightableSkill;
 import fr.umlv.hmm2000.unit.skill.Skill;
 import fr.umlv.hmm2000.unit.skill.SwapFightablesSkill;
 
+/**
+ * Represents default values for a hero. A monster owns an icon and warriors
+ * troop
+ * 
+ * @author sebastienmouret
+ * 
+ */
 public enum ProfilHero {
 
-  ARCHER(Sprite.ARCHER, new Fightable[] {
-      UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
-      UnitFactory.createWarrior(ProfilWarrior.GRUNT, Level.LEVEL_1),
-      UnitFactory.createWarrior(ProfilWarrior.WIZZARD, Level.LEVEL_1) },
-      new Skill[] { new AttackLineOpponentFightableSkill(new ElementAbility()
-          .addAbility(ElementaryEnum.FIRE, 25, 0), 10) },
-      FightableContainer.PRIORITY_LOW),
-  LORD_OF_WAR(Sprite.LORDOFWAR, new Fightable[] {
-      UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
-      UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
-      UnitFactory.createWarrior(ProfilWarrior.WIZZARD, Level.LEVEL_1) },
-      new Skill[] { new SwapFightablesSkill(), new AttackOneMoreTimeSkill() },
-      FightableContainer.PRIORITY_MEDIUM),
-  SORCERER(Sprite.SORCERER, new Fightable[] {
-      UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
-      UnitFactory.createWarrior(ProfilWarrior.GRUNT, Level.LEVEL_1),
-      UnitFactory.createWarrior(ProfilWarrior.WIZZARD, Level.LEVEL_1) },
-      new Skill[] {
-          new AttackAllFightablesSkill(new ElementAbility().addAbility(
-              ElementaryEnum.FIRE, 15, 0), 0),
-          new AttackOpponentFightableSkill(new ElementAbility().addAbility(
-              ElementaryEnum.FIRE, 50, 0), 0) },
-      FightableContainer.PRIORITY_LOW);
+	ARCHER(	Sprite.ARCHER,
+					new Fightable[] {
+							UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
+							UnitFactory.createWarrior(ProfilWarrior.GRUNT, Level.LEVEL_1),
+							UnitFactory.createWarrior(ProfilWarrior.WIZZARD, Level.LEVEL_1) },
+					new Skill[] { new AttackLineOpponentFightableSkill(
+							new ElementAbility().addAbility(ElementaryEnum.FIRE, 25, 0), 10) },
+					FightableContainer.PRIORITY_LOW),
+	LORD_OF_WAR(Sprite.LORDOFWAR,
+							new Fightable[] {
+									UnitFactory
+											.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
+									UnitFactory
+											.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
+									UnitFactory.createWarrior(ProfilWarrior.WIZZARD,
+											Level.LEVEL_1) },
+							new Skill[] { new SwapFightablesSkill(),
+									new AttackOneMoreTimeSkill() },
+							FightableContainer.PRIORITY_MEDIUM),
+	SORCERER(	Sprite.SORCERER,
+						new Fightable[] {
+								UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
+								UnitFactory.createWarrior(ProfilWarrior.GRUNT, Level.LEVEL_1),
+								UnitFactory.createWarrior(ProfilWarrior.WIZZARD, Level.LEVEL_1) },
+						new Skill[] {
+								new AttackAllFightablesSkill(new ElementAbility().addAbility(
+										ElementaryEnum.FIRE, 15, 0), 0),
+								new AttackOpponentFightableSkill(new ElementAbility()
+										.addAbility(ElementaryEnum.FIRE, 50, 0), 0) },
+						FightableContainer.PRIORITY_LOW);
 
-  private final Sprite sprite;
+	// Icon to display on map
+	private final Sprite sprite;
 
-  private final Fightable[] units;
+	// His troop
+	private final Fightable[] units;
 
-  private final Skill[] skills;
+	// Skills he can use during battle
+	private final Skill[] skills;
 
-  private final int attackPriority;
+	// Specify who start to attack
+	private final int attackPriority;
 
-  private ProfilHero(Sprite sprite, Fightable[] units, Skill[] skills,
-      int attackPriority) {
+	private ProfilHero(	Sprite sprite,
+											Fightable[] units,
+											Skill[] skills,
+											int attackPriority) {
 
-    this.sprite = sprite;
-    this.units = units;
-    this.skills = skills;
-    this.attackPriority = attackPriority;
-  }
+		this.sprite = sprite;
+		this.units = units;
+		this.skills = skills;
+		this.attackPriority = attackPriority;
+	}
 
-  public Sprite getSprite() {
+	/**
+	 * Gets icon representing hero
+	 * 
+	 * @return sprite
+	 */
+	public Sprite getSprite() {
 
-    return this.sprite;
-  }
+		return this.sprite;
+	}
 
-  public Fightable[] getUnits() {
+	/**
+	 * Gets troop owned by hero
+	 * 
+	 * @return troop
+	 */
+	public Fightable[] getUnits() {
 
-    return this.units;
-  }
+		return this.units;
+	}
 
-  public Skill[] getSkills() {
+	/**
+	 * Gets default skills owned by hero
+	 * 
+	 * @return skills
+	 */
+	public Skill[] getSkills() {
 
-    return this.skills;
-  }
+		return this.skills;
+	}
 
-  public int getAttackPriority() {
+	/**
+	 * Gets default attack priority
+	 * 
+	 * @return attack priority
+	 */
+	public int getAttackPriority() {
 
-    return this.attackPriority;
-  }
+		return this.attackPriority;
+	}
 }

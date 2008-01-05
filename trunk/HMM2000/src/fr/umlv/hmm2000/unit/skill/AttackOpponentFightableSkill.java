@@ -9,55 +9,76 @@ import fr.umlv.hmm2000.unit.Fightable;
 import fr.umlv.hmm2000.unit.exception.WarriorDeadException;
 import fr.umlv.hmm2000.unit.profil.ElementAbility;
 
+/**
+ * Capability to attack an opponent during battle
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class AttackOpponentFightableSkill implements Skill {
 
-  private final ElementAbility abilities;
+	// Additionnal elementaries attacks
+	private final ElementAbility abilities;
 
-  private final double physical;
+	// Skill's physical damage capacity
+	private final double physical;
 
-  public AttackOpponentFightableSkill(ElementAbility abilities, double physical) {
-    this.abilities = abilities;
-    this.physical = physical;
-  }
+	public AttackOpponentFightableSkill(ElementAbility abilities,
+																			double physical) {
 
-  @Override
-  public void perform() {
+		this.abilities = abilities;
+		this.physical = physical;
+	}
 
-    CoreEngine.requestLocationSelection(new LocationSelectionRequester(
-        new LocationSelection(
-            LocationSelectionRequester.BATTLE_OPPONENT_FIGHTABLE_LOCATION,
-            "Qui voulez vous attaquer ?")) {
+	@Override
+	public void perform() {
 
-      @Override
-      public void perform(Location... locations) {
+		// Requesting unit location to attack
+		CoreEngine.requestLocationSelection(new LocationSelectionRequester(
+				new LocationSelection(
+						LocationSelectionRequester.BATTLE_OPPONENT_FIGHTABLE_LOCATION,
+						"Qui voulez vous attaquer ?")) {
 
-        Location defenderLocation = locations[0];
-        MapForegroundElement mfe = CoreEngine.map()
-            .getMapForegroundElementAtLocation(defenderLocation);
+			@Override
+			public void perform(Location... locations) {
 
-        Fightable defender = (Fightable) mfe;
-        double elementaryDamage = abilities.getDamage(defender.getAbilities());
-        try {
-          defender.hurt(physical + elementaryDamage
-              - defender.getPhysicalDefenseValue());
-        } catch (WarriorDeadException e) {
-          Location l = CoreEngine.map().getLocationForMapForegroundElement(
-              defender);
-          CoreEngine.battleManager().kill(l, defender);
-        }
-        CoreEngine.battleManager().roundManager().nextDay();
-      }
-    });
+				// Unit location to attack
+				Location defenderLocation = locations[0];
 
-  }
+				// Retrieving unit to attack from map
+				MapForegroundElement mfe = CoreEngine.map()
+						.getMapForegroundElementAtLocation(defenderLocation);
 
-  @Override
-  public String getName() {
-    return "Strong-Attack";
-  }
+				Fightable defender = (Fightable) mfe;
+				double elementaryDamage = abilities.getDamage(defender.getAbilities());
+				try {
+					// Attacking the defender
+					defender.hurt(physical + elementaryDamage
+							- defender.getPhysicalDefenseValue());
+				}
+				catch (WarriorDeadException e) {
+					// Removing unit from view
+					Location l = CoreEngine.map().getLocationForMapForegroundElement(
+							defender);
+					CoreEngine.battleManager().kill(l, defender);
+				}
+				// Next round
+				CoreEngine.battleManager().roundManager().nextDay();
+			}
+		});
 
-  @Override
-  public String getToolTipText() {
-    return "This skill enables to attack one opponent unit.";
-  }
+	}
+
+	@Override
+	public String getName() {
+
+		return "Strong-Attack";
+	}
+
+	@Override
+	public String getToolTipText() {
+
+		return "This skill enables to attack one opponent unit.";
+	}
 }
