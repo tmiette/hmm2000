@@ -232,12 +232,10 @@ public class BattleMap implements Map {
 
     Team team = getTeam(l);
     if (team == null) {
-      System.out.println("pas d'equipe ici : " + l);
       return null;
     }
     // location is owned by the container (hero...)
     else if (this.container.get(team).getFirstElement().equals(l)) {
-      System.out.println("position du hero");
       return this.container.get(team).getSecondElement();
     } else {
       Location newLocation = getBattlePositionLocation(l, team);
