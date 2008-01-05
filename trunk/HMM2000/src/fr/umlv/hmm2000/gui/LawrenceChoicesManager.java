@@ -1,15 +1,21 @@
 package fr.umlv.hmm2000.gui;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.JFrame;
+
 import fr.umlv.hmm2000.building.CastleItem;
 import fr.umlv.hmm2000.engine.guiinterface.UIChoicesManager;
+import fr.umlv.hmm2000.gui.panel.ChoicePanel;
 import fr.umlv.hmm2000.salesentity.Sellable;
 import fr.umlv.hmm2000.util.Pair;
 import fr.umlv.hmm2000.warrior.skill.Skill;
 
 public class LawrenceChoicesManager implements UIChoicesManager {
+
+  private final LawrenceJFrame frame;
 
   private static int readInt(int min, int max) {
 
@@ -26,14 +32,28 @@ public class LawrenceChoicesManager implements UIChoicesManager {
     }
   }
 
+  public LawrenceChoicesManager(LawrenceJFrame frame) {
+    this.frame = frame;
+  }
+
   @Override
   public Sellable submit(List<Pair<Sellable, Integer>> items) {
-    int i = 0;
+    ArrayList<String> choices = new ArrayList<String>();
     for (Pair<Sellable, Integer> pair : items) {
-      System.out.println(i++ + "-" + pair.getFirstElement().getLabel()
-          + ", q: " + pair.getSecondElement() + ", p: "
+      choices.add("-" + pair.getFirstElement().getLabel() + ", q: "
+          + pair.getSecondElement() + ", p: "
           + pair.getFirstElement().getPrice());
     }
+
+    JFrame f = new JFrame();
+    f.setSize(400, 500);
+    f.setContentPane(new ChoicePanel("Make a purchase :", choices,
+        LawrenceComponentFactory.createLawrenceButton("Buy",
+            "manageTroops.gif", null)).getPanel());
+    f.setVisible(true);
+    this.frame.displayCenterPanel(new ChoicePanel("Make a purchase :", choices,
+        LawrenceComponentFactory.createLawrenceButton("Buy",
+            "manageTroops.gif", null)).getPanel());
 
     int purchaseIndex = LawrenceChoicesManager.readInt(0, items.size() - 1);
 
