@@ -15,7 +15,6 @@ import fr.umlv.hmm2000.salesentity.SalesEntity.SalesEntityEnum;
 import fr.umlv.hmm2000.salesentity.spell.Spell;
 import fr.umlv.hmm2000.warrior.Hero;
 import fr.umlv.hmm2000.warrior.UnitFactory;
-import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
 import fr.umlv.hmm2000.warrior.profil.Level;
 import fr.umlv.hmm2000.warrior.profil.ProfilHero;
 import fr.umlv.hmm2000.warrior.profil.ProfilMonster;
