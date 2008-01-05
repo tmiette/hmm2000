@@ -2,7 +2,7 @@ package fr.umlv.hmm2000.unit;
 
 import java.util.List;
 
-import fr.umlv.hmm2000.Player;
+import fr.umlv.hmm2000.engine.Player;
 import fr.umlv.hmm2000.map.battle.BattlePositionMap;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.unit.exception.MaxNumberOfTroopsReachedException;

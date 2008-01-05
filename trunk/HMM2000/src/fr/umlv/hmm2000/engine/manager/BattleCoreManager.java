@@ -2,8 +2,8 @@ package fr.umlv.hmm2000.engine.manager;
 
 import java.util.ArrayList;
 
-import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.CoreEngine;
+import fr.umlv.hmm2000.engine.Player;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;

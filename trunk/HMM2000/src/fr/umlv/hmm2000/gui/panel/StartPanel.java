@@ -21,8 +21,8 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.CoreEngine;
+import fr.umlv.hmm2000.engine.Player;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.gui.LawrenceComponentFactory;
 import fr.umlv.hmm2000.map.InvalidPlayersNumberException;

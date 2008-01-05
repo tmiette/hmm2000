@@ -1,4 +1,4 @@
-package fr.umlv.hmm2000;
+package fr.umlv.hmm2000.engine;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.Map.Entry;
 
-import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.CoreEngine;
+import fr.umlv.hmm2000.engine.Player;
 import fr.umlv.hmm2000.engine.guiinterface.Sprite;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;

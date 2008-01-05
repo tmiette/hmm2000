@@ -5,8 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
 
-import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.building.Castle;
+import fr.umlv.hmm2000.engine.Player;
 import fr.umlv.hmm2000.map.element.MapBackgroundEnum;
 import fr.umlv.hmm2000.resource.Resource;
 import fr.umlv.hmm2000.resource.Resource.Kind;

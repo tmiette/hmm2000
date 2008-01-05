@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
-import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.building.Castle;
 import fr.umlv.hmm2000.building.CastleItem;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
