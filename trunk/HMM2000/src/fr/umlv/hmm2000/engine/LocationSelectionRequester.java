@@ -2,9 +2,9 @@ package fr.umlv.hmm2000.engine;
 
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.MovableElement;
+import fr.umlv.hmm2000.map.battle.BattleMap;
 import fr.umlv.hmm2000.map.element.MapBackgroundElement;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
-import fr.umlv.hmm2000.war.BattleMap;
 import fr.umlv.hmm2000.warrior.Fightable;
 import fr.umlv.hmm2000.warrior.FightableContainer;
 

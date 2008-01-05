@@ -21,11 +21,11 @@ import fr.umlv.hmm2000.map.Map;
 import fr.umlv.hmm2000.map.MapBuilder;
 import fr.umlv.hmm2000.map.MapLevel;
 import fr.umlv.hmm2000.map.WorldMap;
+import fr.umlv.hmm2000.map.battle.BattleMap;
+import fr.umlv.hmm2000.map.battle.BattlePositionMap;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.salesentity.Sellable;
 import fr.umlv.hmm2000.util.Pair;
-import fr.umlv.hmm2000.war.BattleMap;
-import fr.umlv.hmm2000.war.BattlePositionMap;
 import fr.umlv.hmm2000.warrior.FightableContainer;
 import fr.umlv.hmm2000.warrior.skill.Skill;
 
@@ -93,6 +93,7 @@ public class CoreEngine {
 
     CoreEngine.currentMap = worldMap;
     CoreEngine.uiEngine.drawMap(worldMap);
+    CoreEngine.selectionManager.perform(new Location(0, 0));
   }
 
   private static void changeCurrentMap(Map map) {

@@ -35,7 +35,7 @@ public class DayCoreManager {
   }
 
   public void nextDay() {
-    System.out.println("next day");
+    CoreEngine.fireMessage("Next day.");
     this.nextPlayer();
     if (this.currentPlayerIndex == 0) {
       for (MapForegroundElement element : CoreEngine.map()

@@ -2,8 +2,8 @@ package fr.umlv.hmm2000.engine.manager;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.map.Location;
+import fr.umlv.hmm2000.map.battle.BattleMap;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
-import fr.umlv.hmm2000.war.BattleMap;
 import fr.umlv.hmm2000.warrior.Fightable;
 
 public class SwapCoreManager {
