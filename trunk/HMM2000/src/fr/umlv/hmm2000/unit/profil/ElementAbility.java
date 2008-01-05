@@ -5,51 +5,86 @@ import java.util.Map.Entry;
 
 import fr.umlv.hmm2000.util.Pair;
 
+/**
+ * This class represent elementaries attack/defense abilities for a specific
+ * fightable
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class ElementAbility {
 
-    private final HashMap<ElementaryEnum, Pair<Integer, Integer>> abilities;
+	// To a ability name corresponding a pair of attack/defense values
+	private final HashMap<ElementaryEnum, Pair<Integer, Integer>> abilities;
 
-    public ElementAbility() {
+	public ElementAbility() {
 
-	this.abilities = initAbilities();
-    }
-
-    public ElementAbility addAbility(ElementaryEnum element, int attackAbility,
-	    int defenseAbility) {
-
-	Pair<Integer, Integer> pair = this.abilities.get(element);
-	if (pair != null) {
-	    this.abilities.remove(element);
-	    this.abilities.put(element, new Pair<Integer, Integer>(
-		    attackAbility, defenseAbility));
+		this.abilities = initAbilities();
 	}
-	return this;
-    }
 
-    private HashMap<ElementaryEnum, Pair<Integer, Integer>> initAbilities() {
+	/**
+	 * Adds a new ability to the hashmap
+	 * 
+	 * @param element
+	 *          name ability
+	 * @param attackAbility
+	 *          attack ability value
+	 * @param defenseAbility
+	 *          defense ability value
+	 * @return new ability
+	 */
+	public ElementAbility addAbility(ElementaryEnum element, int attackAbility,
+			int defenseAbility) {
 
-	HashMap<ElementaryEnum, Pair<Integer, Integer>> abilities = new HashMap<ElementaryEnum, Pair<Integer, Integer>>();
-	for (ElementaryEnum elt : ElementaryEnum.values()) {
-	    abilities.put(elt, new Pair<Integer, Integer>(0, 0));
+		Pair<Integer, Integer> pair = this.abilities.get(element);
+		if (pair != null) {
+			this.abilities.remove(element);
+			this.abilities.put(element, new Pair<Integer, Integer>(attackAbility,
+					defenseAbility));
+		}
+		return this;
 	}
-	return abilities;
-    }
 
-    public Pair<Integer, Integer> getAbility(ElementaryEnum element) {
+	/**
+	 * Initializes abilities with all elementary enum name and defaults
+	 * attack/defense values
+	 * 
+	 * @return default abilities
+	 */
+	private HashMap<ElementaryEnum, Pair<Integer, Integer>> initAbilities() {
 
-	return this.abilities.get(element);
-    }
-
-    public int getDamage(ElementAbility ability) {
-
-	int damageCount = 0;
-	for (Entry<ElementaryEnum, Pair<Integer, Integer>> entry : this.abilities
-		.entrySet()) {
-	    Pair<Integer, Integer> defensePair = ability.getAbility(entry
-		    .getKey());
-	    damageCount += entry.getValue().getFirstElement()
-		    * (100 - defensePair.getSecondElement()) / 100;
+		HashMap<ElementaryEnum, Pair<Integer, Integer>> abilities = new HashMap<ElementaryEnum, Pair<Integer, Integer>>();
+		for (ElementaryEnum elt : ElementaryEnum.values()) {
+			abilities.put(elt, new Pair<Integer, Integer>(0, 0));
+		}
+		return abilities;
 	}
-	return damageCount;
-    }
+
+	/**
+	 * Gets a pair attack/defense value corresponding ability name
+	 * @param element ability name
+	 * @return pair attack/defense corresponding
+	 */
+	public Pair<Integer, Integer> getAbility(ElementaryEnum element) {
+
+		return this.abilities.get(element);
+	}
+
+	/**
+	 * Gets damage value corresponding to an attack with ability given
+	 * @param ability 
+	 * @return damage value
+	 */
+	public int getDamage(ElementAbility ability) {
+
+		int damageCount = 0;
+		for (Entry<ElementaryEnum, Pair<Integer, Integer>> entry : this.abilities
+				.entrySet()) {
+			Pair<Integer, Integer> defensePair = ability.getAbility(entry.getKey());
+			damageCount += entry.getValue().getFirstElement()
+					* (100 - defensePair.getSecondElement()) / 100;
+		}
+		return damageCount;
+	}
 }
