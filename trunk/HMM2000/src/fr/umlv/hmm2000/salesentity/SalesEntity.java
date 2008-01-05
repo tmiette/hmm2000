@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
+import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.engine.guiinterface.Spritable;
 import fr.umlv.hmm2000.engine.guiinterface.Sprite;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
@@ -39,7 +40,7 @@ public class SalesEntity implements MapForegroundElement {
   public Sprite getSprite() {
     return this.type.getSprite();
   }
-  
+
   public SalesEntityEnum getType() {
     return this.type;
   }
@@ -103,9 +104,8 @@ public class SalesEntity implements MapForegroundElement {
 
     ArrayList<Pair<Sellable, Integer>> purchases = SalesEntity
         .createItemsList(this.items);
-    CoreEngine.fireMessage("Que voulez-vous acheter ?");
     Sellable item = CoreEngine.requestPurchase(purchases);
-    
+
     if (item != null && item != SalesEntity.defaultSellable) {
       if (encounter.getSender().getPlayer().spend(item.getPrice())) {
         int quantity = this.items.get(item);
@@ -117,10 +117,9 @@ public class SalesEntity implements MapForegroundElement {
         }
         item.acquire(encounter);
       } else {
-        CoreEngine.fireMessage("Vous n'avez pas assez de ressource.");
+        CoreEngine.fireMessage("You don't have enough resources.",
+            HMMUserInterface.WARNING_MESSAGE);
       }
-    } else {
-      CoreEngine.fireMessage("Vous n'avez rien acheter.");
     }
 
     return false;

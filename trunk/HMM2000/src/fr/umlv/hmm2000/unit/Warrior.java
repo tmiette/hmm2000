@@ -1,6 +1,7 @@
 package fr.umlv.hmm2000.unit;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
+import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.engine.guiinterface.Sprite;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
@@ -38,7 +39,7 @@ public class Warrior implements Fightable {
   private ElementAbility abilities;
 
   private AttackBehaviour attackBehaviour;
-  
+
   Warrior(String label, Sprite sprite, double physicalAttackValue,
       double physicalDefenseValue, double health, int speed,
       ElementAbility abilities, AttackBehaviour attackBehaviour) {
@@ -69,7 +70,8 @@ public class Warrior implements Fightable {
         encounter.getSender().getPlayer().addResource(pair.getFirstElement(),
             pair.getSecondElement());
       }
-      CoreEngine.fireMessage("Vous avez trop d'unité.");
+      CoreEngine.fireMessage(encounter.getSender()
+          + " cannot recruit unit anymore.", HMMUserInterface.WARNING_MESSAGE);
     }
   }
 

@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
+import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 
 public class LawrenceJFrame {
 
@@ -103,7 +104,6 @@ public class LawrenceJFrame {
   }
 
   public void displayCenterPanel(JPanel panel) {
-    System.err.println(panel.getSize() + "");
     this.eraseCenterPanel();
     this.refreshNorthPanel();
     this.centerPanel.add(panel);
@@ -114,7 +114,21 @@ public class LawrenceJFrame {
     this.centerPanel.removeAll();
   }
 
-  public void displayMessage(String message) {
+  public void displayMessage(String message, int level) {
+    switch (level) {
+    case HMMUserInterface.INFO_MESSAGE:
+      this.textArea.setForeground(Color.BLACK);
+      break;
+    case HMMUserInterface.WARNING_MESSAGE:
+      this.textArea.setForeground(Color.RED);
+      break;
+    case HMMUserInterface.ERROR_MESSAGE:
+      this.textArea.setForeground(Color.BLUE);
+      break;
+    default:
+      this.textArea.setForeground(Color.BLACK);
+      break;
+    }
     this.textArea.append("\n");
     this.textArea.append(message);
   }

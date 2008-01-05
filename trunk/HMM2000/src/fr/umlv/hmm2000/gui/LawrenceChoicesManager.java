@@ -2,7 +2,6 @@ package fr.umlv.hmm2000.gui;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
@@ -14,21 +13,15 @@ import fr.umlv.hmm2000.warrior.skill.Skill;
 
 public class LawrenceChoicesManager implements UIChoicesManager {
 
-  private static int readInt(int min, int max) {
-
-    Scanner scanner = new Scanner(System.in);
-    try {
-      int value = scanner.nextInt();
-      while (value < min || value > max) {
-        System.out.println("Choix incorrect.");
-        value = scanner.nextInt();
-      }
-      return value;
-    } catch (Exception e) {
-      return 0;
-    }
-  }
-
+  /*
+   * private static int readInt(int min, int max) {
+   * 
+   * Scanner scanner = new Scanner(System.in); try { int value =
+   * scanner.nextInt(); while (value < min || value > max) {
+   * System.out.println("Choix incorrect."); value = scanner.nextInt(); } return
+   * value; } catch (Exception e) { return 0; } }
+   */
+  
   @Override
   public Sellable submit(String message, List<Pair<Sellable, Integer>> items) {
     ArrayList<String> choices = new ArrayList<String>();
@@ -38,9 +31,9 @@ public class LawrenceChoicesManager implements UIChoicesManager {
           + pair.getSecondElement());
     }
 
-    String purchaseString = (String) JOptionPane.showInputDialog(null,
-        message, "Make a purchase", JOptionPane.QUESTION_MESSAGE,
-        LawrenceComponentFactory.createImageIcon("buy2.gif"), choices.toArray(),
+    String purchaseString = (String) JOptionPane.showInputDialog(null, message,
+        "Make a purchase", JOptionPane.QUESTION_MESSAGE,
+        LawrenceComponentFactory.createImageIcon("buy.gif"), choices.toArray(),
         choices.get(0));
 
     int purchaseIndex = choices.indexOf(purchaseString);
@@ -54,24 +47,44 @@ public class LawrenceChoicesManager implements UIChoicesManager {
 
   @Override
   public Skill submit(String message, List<Skill> skills) {
-    int i = 0;
+    ArrayList<String> choices = new ArrayList<String>();
     for (Skill skill : skills) {
-      System.out.println(i++ + "-" + skill.getName() + " : "
-          + skill.getToolTipText());
+      choices.add(skill.getName() + " - " + skill.getToolTipText());
     }
 
-    int skillIndex = LawrenceChoicesManager.readInt(0, skills.size() - 1);
-    return skills.get(skillIndex);
+    String skillString = (String) JOptionPane.showInputDialog(null, message,
+        "Use a skill", JOptionPane.QUESTION_MESSAGE, LawrenceComponentFactory
+            .createImageIcon("skill.gif"), choices.toArray(), choices.get(0));
+
+    int skillIndex = choices.indexOf(skillString);
+
+    if (skillIndex == -1) {
+      return null;
+    } else {
+      return skills.get(skillIndex);
+    }
+
   }
 
   @Override
   public CastleItem submit(String message, List<CastleItem> items) {
-    int i = 0;
+    ArrayList<String> choices = new ArrayList<String>();
     for (CastleItem item : items) {
-      System.out.println(i++ + "-" + item.getSuggestion());
+      choices.add(item.getSuggestion());
     }
 
-    int itemIndex = LawrenceChoicesManager.readInt(0, items.size() - 1);
-    return items.get(itemIndex);
+    String itemString = (String) JOptionPane.showInputDialog(null, message,
+        "Manage castle", JOptionPane.QUESTION_MESSAGE, LawrenceComponentFactory
+            .createImageIcon("castleItem.gif"), choices.toArray(), choices
+            .get(0));
+
+    int itemIndex = choices.indexOf(itemString);
+
+    if (itemIndex == -1) {
+      return null;
+    } else {
+      return items.get(itemIndex);
+    }
+
   }
 }

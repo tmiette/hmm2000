@@ -93,13 +93,18 @@ public class CoreEngine {
 
     CoreEngine.currentMap = worldMap;
     CoreEngine.uiEngine.drawMap(worldMap);
-    CoreEngine.selectionManager.perform(new Location(0, 0));
+    CoreEngine.selectionManager.perform(CoreEngine.currentMap
+        .getLocationForMapForegroundElement(CoreEngine.currentMap
+            .getMapForegroundElements().get(0)));
   }
 
   private static void changeCurrentMap(Map map) {
     CoreEngine.uiEngine.eraseMap();
     CoreEngine.currentMap = map;
     CoreEngine.uiEngine.drawMap(map);
+    CoreEngine.selectionManager.perform(CoreEngine.currentMap
+        .getLocationForMapForegroundElement(CoreEngine.currentMap
+            .getMapForegroundElements().get(0)));
   }
 
   public static void backToWorldMap() {
@@ -287,8 +292,8 @@ public class CoreEngine {
     element.accept(CoreEngine.uiEngine.displayingVisitor());
   }
 
-  public static void fireMessage(String message) {
-    CoreEngine.uiEngine.displayMessage(message);
+  public static void fireMessage(String message, int level) {
+    CoreEngine.uiEngine.displayMessage(message, level);
   }
 
   public static void fireSpriteAdded(Location location, Sprite sprite) {

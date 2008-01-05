@@ -1,5 +1,6 @@
 package fr.umlv.hmm2000.engine;
 
+import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.MovableElement;
 import fr.umlv.hmm2000.map.battle.BattleMap;
@@ -37,7 +38,7 @@ public abstract class LocationSelectionRequester {
 
   private void askForNextSelection() {
     CoreEngine.fireMessage(this.selections[this.currentLocationsNumber]
-        .getLabel());
+        .getLabel(), HMMUserInterface.INFO_MESSAGE);
   }
 
   public void submitLocation(Location l) {
@@ -104,7 +105,8 @@ public abstract class LocationSelectionRequester {
       this.locations[this.currentLocationsNumber] = l;
       this.currentLocationsNumber++;
     } else {
-      CoreEngine.fireMessage("Selection incorrecte, veuillez recommencer.");
+      CoreEngine.fireMessage("Invalid selection, please choose another one.",
+          HMMUserInterface.WARNING_MESSAGE);
     }
 
     if (this.currentLocationsNumber != this.selections.length) {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.CoreEngine;
+import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 
 public class DayCoreManager {
@@ -35,9 +36,9 @@ public class DayCoreManager {
   }
 
   public void nextDay() {
-    CoreEngine.fireMessage("Next day.");
     this.nextPlayer();
     if (this.currentPlayerIndex == 0) {
+      CoreEngine.fireMessage("Next day.", HMMUserInterface.INFO_MESSAGE);
       for (MapForegroundElement element : CoreEngine.map()
           .getMapForegroundElements()) {
         element.nextDay(this.currentDay);
@@ -50,6 +51,8 @@ public class DayCoreManager {
   }
 
   protected void nextPlayer() {
+    CoreEngine.fireMessage("Next player. Current player is now : "
+        + this.currentPlayer, HMMUserInterface.INFO_MESSAGE);
     this.currentPlayerIndex++;
     if (this.currentPlayerIndex == this.players.size()) {
       this.currentPlayerIndex = 0;

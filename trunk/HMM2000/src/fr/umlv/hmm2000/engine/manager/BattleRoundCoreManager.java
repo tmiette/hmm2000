@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.CoreEngine;
+import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.engine.guiinterface.Sprite;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.unit.Fightable;
@@ -77,8 +78,8 @@ public class BattleRoundCoreManager extends DayCoreManager {
 
     this.untagAlreadyPlayed();
     if (this.opponentContainer().getTroop().size() == 0) {
-      CoreEngine
-          .fireMessage(this.opponentContainer() + " a perdu la bataille.");
+      CoreEngine.fireMessage(this.opponentContainer() + " loose the figth.",
+          HMMUserInterface.WARNING_MESSAGE);
       CoreEngine.endBattle(this.currentContainer(), this.opponentContainer());
       return;
     }
@@ -106,13 +107,11 @@ public class BattleRoundCoreManager extends DayCoreManager {
   }
 
   private void nextBattlePlayer() {
-
     this.nextPlayer();
     CoreEngine.fireSpriteAdded(this.containersLocations.get(this
         .currentContainer()), Sprite.YOURTURN);
     CoreEngine.fireSpriteRemoved(this.containersLocations.get(this
         .opponentContainer()), Sprite.YOURTURN);
-    CoreEngine.fireMessage(this.currentContainer() + " attaque.");
   }
 
   private void newRound() {
@@ -125,7 +124,6 @@ public class BattleRoundCoreManager extends DayCoreManager {
     this.player2Fightables.addAll(this.player2Container.getTroop());
     this.fightables.put(this.player1, this.player1Fightables);
     this.fightables.put(this.player2, this.player2Fightables);
-    CoreEngine.fireMessage(this.currentContainer() + " attaque.");
   }
 
   public boolean hasAlreadyPlayed(Fightable f) {

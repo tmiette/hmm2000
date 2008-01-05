@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.CoreEngine;
+import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.unit.Fightable;
@@ -65,10 +66,13 @@ public class BattleCoreManager {
             this.roundManager.tagAsAlreadyPlayed(attackerWarrior);
             this.kill(l, defenderWarrior);
           } catch (WarriorNotReachableException e) {
-            CoreEngine.fireMessage("Vous ne pouvez pas attaquer cette unité.");
+            CoreEngine.fireMessage("You cannot attack this unit.",
+                HMMUserInterface.WARNING_MESSAGE);
           }
         } else {
-          CoreEngine.fireMessage(attackerWarrior + "ne peut pas attaquer.");
+          CoreEngine.fireMessage(attackerWarrior
+              + " cannot attack anymore in this round.",
+              HMMUserInterface.WARNING_MESSAGE);
         }
       }
     }
@@ -92,7 +96,7 @@ public class BattleCoreManager {
         skills.add(Skill.defaultSkill);
         skills.addAll(hero.getSkills());
         Skill skill = CoreEngine.requestSkill(skills);
-        if (skill != Skill.defaultSkill) {
+        if (skill != null && skill != Skill.defaultSkill) {
           this.roundManager.tagAsAlreadyPlayed(hero);
           skill.perform();
         }
