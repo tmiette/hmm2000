@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import fr.umlv.hmm2000.gui.LawrenceComponentFactory;
 import fr.umlv.hmm2000.warrior.Monster;
 
 public class MonsterPanel {
@@ -17,8 +18,9 @@ public class MonsterPanel {
   public MonsterPanel() {
 
     final JPanel centerPanel = new JPanel(new GridLayout(1, 2));
-    this.troops = new JLabel("troops");
-    centerPanel.add(new JLabel("Units : "));
+    this.troops = LawrenceComponentFactory.createLawrenceBasicLabel(null);
+    centerPanel.add(LawrenceComponentFactory
+        .createLawrenceBoldLabel("Units : "));
     centerPanel.add(this.troops);
     this.abstractPanel = new AbstractUnitPanel("Monster :", centerPanel);
   }

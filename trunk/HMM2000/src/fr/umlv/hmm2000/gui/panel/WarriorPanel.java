@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import fr.umlv.hmm2000.gui.LawrenceComponentFactory;
 import fr.umlv.hmm2000.util.Pair;
 import fr.umlv.hmm2000.warrior.Warrior;
 import fr.umlv.hmm2000.warrior.profil.ElementaryEnum;
@@ -23,20 +24,25 @@ public class WarriorPanel {
   private WarriorPanel() {
 
     final JPanel centerPanel = new JPanel(new GridLayout(5, 2));
-    this.health = new JLabel("health");
-    this.speed = new JLabel("speed");
-    this.attack = new JLabel("attack");
-    this.defense = new JLabel("defense");
-    this.abilities = new JLabel("abilities");
-    centerPanel.add(new JLabel("Health : "));
+    this.health = LawrenceComponentFactory.createLawrenceBasicLabel(null);
+    this.speed = LawrenceComponentFactory.createLawrenceBasicLabel(null);
+    this.attack = LawrenceComponentFactory.createLawrenceBasicLabel(null);
+    this.defense = LawrenceComponentFactory.createLawrenceBasicLabel(null);
+    this.abilities = LawrenceComponentFactory.createLawrenceBasicLabel(null);
+    centerPanel.add(LawrenceComponentFactory
+        .createLawrenceBoldLabel("Health : "));
     centerPanel.add(this.health);
-    centerPanel.add(new JLabel("Speed : "));
+    centerPanel.add(LawrenceComponentFactory
+        .createLawrenceBoldLabel("Speed : "));
     centerPanel.add(this.speed);
-    centerPanel.add(new JLabel("Physical attack : "));
+    centerPanel.add(LawrenceComponentFactory
+        .createLawrenceBoldLabel("Physical attack : "));
     centerPanel.add(this.attack);
-    centerPanel.add(new JLabel("Physical defense : "));
+    centerPanel.add(LawrenceComponentFactory
+        .createLawrenceBoldLabel("Physical defense : "));
     centerPanel.add(this.defense);
-    centerPanel.add(new JLabel("Abilities : "));
+    centerPanel.add(LawrenceComponentFactory
+        .createLawrenceBoldLabel("Abilities : "));
     centerPanel.add(this.abilities);
 
     this.abstractPanel = new AbstractUnitPanel("Warrior :", centerPanel);

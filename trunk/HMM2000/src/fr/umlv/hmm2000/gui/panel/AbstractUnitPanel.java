@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import fr.umlv.hmm2000.gui.LawrenceComponentFactory;
+
 public class AbstractUnitPanel {
 
   private final JPanel mainPanel;
@@ -27,9 +29,9 @@ public class AbstractUnitPanel {
     final JPanel northEastPanel = new JPanel(new GridLayout(2, 1));
     this.sprite = new JLabel();
     this.sprite.setPreferredSize(new Dimension(80, 45));
-    this.name = new JLabel("name");
+    this.name = LawrenceComponentFactory.createLawrenceBoldLabel("name");
     this.name.setPreferredSize(new Dimension(150, 20));
-    this.player = new JLabel("player");
+    this.player = LawrenceComponentFactory.createLawrenceBoldLabel("player");
     this.player.setPreferredSize(new Dimension(150, 20));
     this.features = features;
     this.features.setBorder(BorderFactory.createTitledBorder("Features :"));

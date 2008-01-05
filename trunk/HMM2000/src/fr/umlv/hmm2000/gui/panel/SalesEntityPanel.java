@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import fr.umlv.hmm2000.gui.LawrenceComponentFactory;
 import fr.umlv.hmm2000.salesentity.SalesEntity;
 import fr.umlv.hmm2000.salesentity.Sellable;
 import fr.umlv.hmm2000.util.Pair;
@@ -20,11 +21,12 @@ public class SalesEntityPanel {
   public SalesEntityPanel() {
 
     final JPanel centerPanel = new JPanel(new GridLayout(1, 2));
-    this.items = new JLabel("items");
-    centerPanel.add(new JLabel("Items : "));
+    this.items = LawrenceComponentFactory.createLawrenceBasicLabel(null);
+    centerPanel.add(LawrenceComponentFactory
+        .createLawrenceBoldLabel("Items : "));
     centerPanel.add(this.items);
 
-    this.abstractPanel = new AbstractUnitPanel("Resource :", centerPanel);
+    this.abstractPanel = new AbstractUnitPanel("Sales entity :", centerPanel);
   }
 
   public static JPanel getPanel(SalesEntity sales) {

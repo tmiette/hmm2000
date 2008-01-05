@@ -221,7 +221,7 @@ public class LawrenceUIEngine implements HMMUserInterface {
 
   @Override
   public void displayMessage(String message) {
-    System.out.println(message);
+    this.lawrenceFrame.displayMessage(message);
   }
 
   @Override

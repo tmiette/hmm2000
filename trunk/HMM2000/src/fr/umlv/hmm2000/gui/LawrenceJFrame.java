@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,11 +31,11 @@ public class LawrenceJFrame {
     northPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory
         .createEtchedBorder(), "Infos :"));
     final JPanel northNorthPanel = new JPanel(new GridLayout(3, 1));
-    final JLabel mapLevel = new JLabel("Map : "
-        + CoreEngine.mapLevel().toString());
-    final JLabel nbPlayers = new JLabel("Players : "
-        + CoreEngine.numberOfPlayers());
-    this.dayCount = new JLabel();
+    final JLabel mapLevel = LawrenceComponentFactory
+        .createLawrenceBoldLabel("Map : " + CoreEngine.mapLevel().toString());
+    final JLabel nbPlayers = LawrenceComponentFactory
+        .createLawrenceBoldLabel("Players : " + CoreEngine.numberOfPlayers());
+    this.dayCount = LawrenceComponentFactory.createLawrenceBoldLabel(null);
     northNorthPanel.add(mapLevel);
     northNorthPanel.add(nbPlayers);
     northNorthPanel.add(this.dayCount);
@@ -44,15 +43,29 @@ public class LawrenceJFrame {
     final JPanel northCenterPanel = new JPanel(new GridLayout(2, 1));
     northCenterPanel.setBorder(BorderFactory
         .createTitledBorder("Current player :"));
-    this.currentPlayer = new JLabel();
+    this.currentPlayer = LawrenceComponentFactory.createLawrenceBoldLabel(null);
     this.currentPlayer.setHorizontalAlignment(JLabel.CENTER);
-    this.currentResources = new JLabel();
+    this.currentResources = LawrenceComponentFactory
+        .createLawrenceBoldLabel(null);
     this.currentResources.setHorizontalAlignment(JLabel.CENTER);
     northCenterPanel.add(this.currentPlayer);
     northCenterPanel.add(this.currentResources);
     final JPanel northSouthPanel = new JPanel();
-    northSouthPanel.add(this.createQuitButton());
-    northSouthPanel.add(this.createNextDayButton());
+    northSouthPanel.add(LawrenceComponentFactory.createLawrenceButton("Quit",
+        "quit.png", new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            System.exit(0);
+          }
+        }));
+    northSouthPanel.add(LawrenceComponentFactory.createLawrenceButton(
+        "Next day", "nextDay.png", new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            CoreEngine.nextDay();
+            refreshNorthPanel();
+          }
+        }));
     northPanel.add(northNorthPanel, BorderLayout.NORTH);
     northPanel.add(northCenterPanel, BorderLayout.CENTER);
     northPanel.add(northSouthPanel, BorderLayout.SOUTH);
@@ -77,29 +90,6 @@ public class LawrenceJFrame {
     this.mainPanel.add(southPanel, BorderLayout.SOUTH);
     frame.setSize(400, 600);
     frame.setContentPane(this.mainPanel);
-  }
-
-  private JButton createQuitButton() {
-    final JButton b = new JButton("Quit");
-    b.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        System.exit(0);
-      }
-    });
-    return b;
-  }
-
-  private JButton createNextDayButton() {
-    final JButton b = new JButton("Next Day");
-    b.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        CoreEngine.nextDay();
-        refreshNorthPanel();
-      }
-    });
-    return b;
   }
 
   private void refreshNorthPanel() {

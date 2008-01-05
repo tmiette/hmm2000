@@ -1,7 +1,6 @@
 package fr.umlv.hmm2000.gui.panel;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -11,7 +10,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -26,6 +24,7 @@ import javax.swing.event.ListSelectionListener;
 import fr.umlv.hmm2000.Player;
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
+import fr.umlv.hmm2000.gui.LawrenceComponentFactory;
 import fr.umlv.hmm2000.map.InvalidPlayersNumberException;
 import fr.umlv.hmm2000.map.MapLevel;
 
@@ -38,8 +37,7 @@ public class StartPanel {
 
     // background icon
     final JLabel bgIcon = new JLabel();
-    bgIcon
-        .setIcon(new ImageIcon(StartPanel.class.getResource("/icons/bg.gif")));
+    bgIcon.setIcon(LawrenceComponentFactory.createImageIcon("bg.gif"));
 
     // main panel
     final JPanel mainPanel = new JPanel(new BorderLayout());
@@ -47,8 +45,7 @@ public class StartPanel {
 
     // label with the welcoming image
     final JLabel headerIcon = new JLabel();
-    headerIcon.setIcon(new ImageIcon(StartPanel.class
-        .getResource("/icons/header.gif")));
+    headerIcon.setIcon(LawrenceComponentFactory.createImageIcon("header.gif"));
     mainPanel.add(headerIcon, BorderLayout.NORTH);
 
     // panel with map levels informations
@@ -56,7 +53,8 @@ public class StartPanel {
     centerPanel.setOpaque(false);
 
     // label with header text
-    final JLabel headerLabel = StartPanel.createLabel("Select a map");
+    final JLabel headerLabel = LawrenceComponentFactory
+        .createLawrenceBoldLabel("Select a map");
     headerLabel.setHorizontalAlignment(JLabel.CENTER);
     centerPanel.add(headerLabel, BorderLayout.NORTH);
 
@@ -67,12 +65,15 @@ public class StartPanel {
     // panel with difficulty and players details
     final JPanel detailsPanel = new JPanel(new GridLayout(2, 2, 5, 5));
     detailsPanel.setOpaque(false);
-    final JLabel difficultyLabel = StartPanel.createLabel(null);
+    final JLabel difficultyLabel = LawrenceComponentFactory
+        .createLawrenceBoldLabel(null);
     difficultyLabel.setPreferredSize(new Dimension(50, 20));
     final JComboBox playersComboBox = new JComboBox();
-    detailsPanel.add(StartPanel.createLabel("Difficulty : "));
+    detailsPanel.add(LawrenceComponentFactory
+        .createLawrenceBoldLabel("Difficulty : "));
     detailsPanel.add(difficultyLabel);
-    detailsPanel.add(StartPanel.createLabel("Players : "));
+    detailsPanel.add(LawrenceComponentFactory
+        .createLawrenceBoldLabel("Players : "));
     detailsPanel.add(playersComboBox);
 
     // creates the list of map levels available
@@ -150,12 +151,6 @@ public class StartPanel {
     pane.add(bgIcon, Integer.valueOf(1));
 
     return pane;
-  }
-
-  private static JLabel createLabel(String text) {
-    JLabel label = new JLabel(text);
-    label.setForeground(Color.BLACK);
-    return label;
   }
 
 }

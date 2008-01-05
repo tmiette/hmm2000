@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import fr.umlv.hmm2000.gui.LawrenceComponentFactory;
 import fr.umlv.hmm2000.resource.Resource;
 
 public class ResourcePanel {
@@ -21,20 +22,25 @@ public class ResourcePanel {
   public ResourcePanel() {
 
     final JPanel centerPanel = new JPanel(new GridLayout(5, 2));
-    this.value = new JLabel("value");
-    this.period = new JLabel("period");
-    this.additon = new JLabel("additon");
-    this.counter = new JLabel("counter");
-    this.behaviour = new JLabel("behaviour");
-    centerPanel.add(new JLabel("Value : "));
+    this.value = LawrenceComponentFactory.createLawrenceBasicLabel(null);
+    this.period = LawrenceComponentFactory.createLawrenceBasicLabel(null);
+    this.additon = LawrenceComponentFactory.createLawrenceBasicLabel(null);
+    this.counter = LawrenceComponentFactory.createLawrenceBasicLabel(null);
+    this.behaviour = LawrenceComponentFactory.createLawrenceBasicLabel(null);
+    centerPanel.add(LawrenceComponentFactory
+        .createLawrenceBoldLabel("Value : "));
     centerPanel.add(this.value);
-    centerPanel.add(new JLabel("Period : "));
+    centerPanel.add(LawrenceComponentFactory
+        .createLawrenceBoldLabel("Period : "));
     centerPanel.add(this.period);
-    centerPanel.add(new JLabel("Addition : "));
+    centerPanel.add(LawrenceComponentFactory
+        .createLawrenceBoldLabel("Addition : "));
     centerPanel.add(this.additon);
-    centerPanel.add(new JLabel("Counter : "));
+    centerPanel.add(LawrenceComponentFactory
+        .createLawrenceBoldLabel("Counter : "));
     centerPanel.add(this.counter);
-    centerPanel.add(new JLabel("Behaviour : "));
+    centerPanel.add(LawrenceComponentFactory
+        .createLawrenceBoldLabel("Behaviour : "));
     centerPanel.add(this.behaviour);
 
     this.abstractPanel = new AbstractUnitPanel("Resource :", centerPanel);

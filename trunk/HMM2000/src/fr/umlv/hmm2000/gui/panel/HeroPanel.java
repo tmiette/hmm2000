@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
+import fr.umlv.hmm2000.gui.LawrenceComponentFactory;
 import fr.umlv.hmm2000.warrior.Hero;
 import fr.umlv.hmm2000.warrior.skill.Skill;
 
@@ -26,35 +27,33 @@ public class HeroPanel {
   public HeroPanel() {
 
     final JPanel centerPanel = new JPanel(new GridLayout(4, 2));
-    this.troops = new JLabel("troops");
-    this.speed = new JLabel("speed");
-    this.stepCount = new JLabel("step");
-    this.skills = new JLabel("skills");
-    centerPanel.add(new JLabel("Units : "));
+    this.troops = LawrenceComponentFactory.createLawrenceBasicLabel(null);
+    this.speed = LawrenceComponentFactory.createLawrenceBasicLabel(null);
+    this.stepCount = LawrenceComponentFactory.createLawrenceBasicLabel(null);
+    this.skills = LawrenceComponentFactory.createLawrenceBasicLabel(null);
+    centerPanel.add(LawrenceComponentFactory
+        .createLawrenceBoldLabel("Units : "));
     centerPanel.add(this.troops);
-    centerPanel.add(new JLabel("Speed : "));
+    centerPanel.add(LawrenceComponentFactory
+        .createLawrenceBoldLabel("Speed : "));
     centerPanel.add(this.speed);
-    centerPanel.add(new JLabel("Steps remaining : "));
+    centerPanel.add(LawrenceComponentFactory
+        .createLawrenceBoldLabel("Steps remaining : "));
     centerPanel.add(this.stepCount);
-    centerPanel.add(new JLabel("Skills : "));
+    centerPanel.add(LawrenceComponentFactory
+        .createLawrenceBoldLabel("Skills : "));
     centerPanel.add(this.skills);
 
-    this.troopsButton = this.battlePositionButton();
+    this.troopsButton = LawrenceComponentFactory.createLawrenceButton("Troops",
+        "manageTroops.gif", new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            CoreEngine.manageBattlePosition();
+          }
+        });
 
     this.abstractPanel = new AbstractUnitPanel("Hero :", centerPanel,
         this.troopsButton);
-  }
-
-  private JButton battlePositionButton() {
-    final JButton b = new JButton("Troops");
-    b.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        CoreEngine.manageBattlePosition();
-      }
-    });
-
-    return b;
   }
 
   public static JPanel getPanel(Hero hero) {
