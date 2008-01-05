@@ -9,9 +9,9 @@ import fr.umlv.hmm2000.engine.guiinterface.Sprite;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
 import fr.umlv.hmm2000.map.MovableElement;
-import fr.umlv.hmm2000.war.BattlePositionMap;
-import fr.umlv.hmm2000.war.exception.LocationAlreadyOccupedException;
-import fr.umlv.hmm2000.war.exception.NoPlaceAvailableException;
+import fr.umlv.hmm2000.map.battle.BattlePositionMap;
+import fr.umlv.hmm2000.map.battle.LocationAlreadyOccupedException;
+import fr.umlv.hmm2000.map.battle.NoPlaceAvailableException;
 import fr.umlv.hmm2000.warrior.exception.MaxNumberOfTroopsReachedException;
 import fr.umlv.hmm2000.warrior.skill.Skill;
 

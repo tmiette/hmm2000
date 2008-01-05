@@ -1,7 +1,7 @@
 package fr.umlv.hmm2000.warrior.profil;
 
 import fr.umlv.hmm2000.engine.guiinterface.Sprite;
-import fr.umlv.hmm2000.war.BattlePositionMap;
+import fr.umlv.hmm2000.map.battle.BattlePositionMap;
 import fr.umlv.hmm2000.warrior.Fightable;
 
 public enum ProfilWarrior {
