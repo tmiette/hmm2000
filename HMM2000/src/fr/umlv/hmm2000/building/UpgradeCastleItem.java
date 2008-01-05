@@ -6,7 +6,8 @@ import fr.umlv.hmm2000.salesentity.PriceFactory;
 import fr.umlv.hmm2000.unit.profil.Level;
 
 /**
- * This class permit to the player to upgrade default factory's castle.
+ * This class permit to the player to upgrade default level factory's castle.
+ * 
  * @author MIETTE Tom
  * @author MOURET Sebastien
  * 
@@ -33,7 +34,7 @@ public class UpgradeCastleItem implements CastleItem {
 		// Next level possible for default castle factory
 		Level level = castle.getNextFactoryLevel(Castle.defaultWarrior);
 		if (level != null) {
-			if (!castle.getPlayer().spend(
+			if (castle.getPlayer().spend(
 					PriceFactory.getWarriorFactoryPrice(Castle.defaultWarrior, level))) {
 				castle.upgradeFactory(Castle.defaultWarrior);
 			}
