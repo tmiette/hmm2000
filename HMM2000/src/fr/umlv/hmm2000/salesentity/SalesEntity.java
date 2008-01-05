@@ -14,7 +14,7 @@ import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.util.Pair;
 
 /**
- * This class defines a sales entity.
+ * This class representes a sales entity.
  * 
  * @author MIETTE Tom
  * @author MOURET Sebastien
