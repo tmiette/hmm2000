@@ -45,7 +45,7 @@ public class Castle implements FightableContainer {
 	// Troops layout on battle map
 	private final BattlePositionMap battlePosition;
 
-	// Factories build in the castle
+	// Factories built in the castle
 	private final HashMap<ProfilWarrior, Level> factory;
 
 	// Actions permitted by castle
@@ -124,7 +124,7 @@ public class Castle implements FightableContainer {
 	 * 
 	 * @return set of warrior profil
 	 */
-	public Set<ProfilWarrior> getBuildableFactories() {
+	public Set<ProfilWarrior> getFactoryBuilt() {
 
 		return this.factory.keySet();
 	}
@@ -248,6 +248,7 @@ public class Castle implements FightableContainer {
 			items.add(new UpgradeCastleItem(this));
 			items.add(new UpgradeFactoryItem(this));
 			items.add(new ExitHeroItem(this));
+			items.add(new CreateNewFactoryItem(this));
 		}
 		return this.items;
 	}
@@ -330,7 +331,7 @@ public class Castle implements FightableContainer {
 	}
 
 	/**
-	 * Gets level correspondind to factory
+	 * Gets level and factory corresponding
 	 * 
 	 * @return
 	 */

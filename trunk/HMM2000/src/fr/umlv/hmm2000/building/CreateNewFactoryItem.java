@@ -5,22 +5,14 @@ import java.util.ArrayList;
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.salesentity.PriceFactory;
-import fr.umlv.hmm2000.unit.profil.Level;
 import fr.umlv.hmm2000.unit.profil.ProfilWarrior;
 
-/**
- * This class permits to a player to upgrade a unit factory level in his castle.
- * Higher factory level is stronger warrior produced are.
- * 
- * @author sebastienmouret
- * 
- */
-public class UpgradeFactoryItem implements CastleItem {
+public class CreateNewFactoryItem implements CastleItem {
 
 	// Player's castle
 	private final Castle castle;
 
-	public UpgradeFactoryItem(Castle castle) {
+	public CreateNewFactoryItem(Castle castle) {
 
 		this.castle = castle;
 	}
@@ -28,7 +20,7 @@ public class UpgradeFactoryItem implements CastleItem {
 	@Override
 	public String getSuggestion() {
 
-		return "Upgrade a building";
+		return "Build new factory";
 	}
 
 	@Override
@@ -39,8 +31,8 @@ public class UpgradeFactoryItem implements CastleItem {
 		items.add(CastleItem.defaultItem);
 		// Avalaible factories
 		for (final ProfilWarrior profil : ProfilWarrior.values()) {
-			if (castle.canProduceWarrior(profil)
-					&& !profil.equals(Castle.defaultWarrior)) {
+			// Factories not yet built in castle
+			if (!castle.getFactoryBuilt().contains(profil)) {
 				items.add(new CastleItem() {
 
 					@Override
@@ -52,25 +44,16 @@ public class UpgradeFactoryItem implements CastleItem {
 					@Override
 					public void perform() {
 
-						// Next level possible for default castle factory
-						Level level = castle.getNextFactoryLevel(profil);
-
-						if (level != null) {
-							if (castle.getPlayer().spend(
-									PriceFactory.getWarriorFactoryPrice(profil, level))) {
-								UpgradeFactoryItem.this.castle.upgradeFactory(profil);
-							}
-							else {
-								CoreEngine.fireMessage("You don't have enough resources.",
-										HMMUserInterface.WARNING_MESSAGE);
-							}
+						if (castle.getPlayer().spend(
+								PriceFactory
+										.getWarriorFactoryPrice(profil, Castle.defaultLevel))) {
+							// Build the factory specified
+							castle.buildFactory(profil);
 						}
 						else {
-							CoreEngine.fireMessage(
-									"Level too high. You have already the best level.",
+							CoreEngine.fireMessage("You don't have enough resources.",
 									HMMUserInterface.WARNING_MESSAGE);
 						}
-
 					}
 
 				});
@@ -82,6 +65,10 @@ public class UpgradeFactoryItem implements CastleItem {
 		if (item != null && item != CastleItem.defaultItem) {
 			item.perform();
 		}
+
+		// Refreshing the view
+		CoreEngine.selectionManager().perform(
+				CoreEngine.map().getLocationForMapForegroundElement(castle));
 	}
 
 }

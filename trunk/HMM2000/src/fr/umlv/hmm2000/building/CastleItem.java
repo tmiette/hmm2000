@@ -1,21 +1,40 @@
 package fr.umlv.hmm2000.building;
 
+/**
+ * This interface specify an available action when player select the castle.F
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public interface CastleItem {
 
-  public String getSuggestion();
+	/**
+	 * Returns a message displayed in choice message list.
+	 * @return message
+	 */
+	public String getSuggestion();
 
-  public void perform();
+	/**
+	 * Performs action when player choose this item.
+	 */
+	public void perform();
 
-  public static final CastleItem defaultItem = new CastleItem() {
+	/**
+	 * Default item : do nothing
+	 */
+	public static final CastleItem defaultItem = new CastleItem() {
 
-    @Override
-    public String getSuggestion() {
-      return "Ne rien faire";
-    }
+		@Override
+		public String getSuggestion() {
 
-    @Override
-    public void perform() {
-      throw new UnsupportedOperationException();
-    }
-  };
+			return "Nothing";
+		}
+
+		@Override
+		public void perform() {
+
+			throw new UnsupportedOperationException();
+		}
+	};
 }
