@@ -19,7 +19,7 @@ public class UpgradeFactoryItem implements CastleItem {
 	@Override
 	public String getSuggestion() {
 
-		return "Quelle batiment souhaitez vous amŽliorer";
+		return "Quelle batiment souhaitez vous amï¿½liorer";
 	}
 
 	@Override

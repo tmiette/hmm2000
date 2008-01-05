@@ -16,7 +16,7 @@ public class UpgradeCastleItem implements CastleItem {
   @Override
   public String getSuggestion() {
     
-  	return "Amliorer le chateau";
+  	return "Amï¿½liorer le chateau";
   }
 
   @Override
