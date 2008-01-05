@@ -28,7 +28,7 @@ public class UpgradeFactoryItem implements CastleItem {
 		ArrayList<CastleItem> items = new ArrayList<CastleItem>();
 		items.add(CastleItem.defaultItem);
 		for (final ProfilWarrior profil : ProfilWarrior.values()) {
-			if (UpgradeFactoryItem.this.castle.canBuyWarrior(profil)) {
+			if (UpgradeFactoryItem.this.castle.canProduceWarrior(profil)) {
 				items.add(new CastleItem() {
 
 					@Override
