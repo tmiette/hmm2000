@@ -51,8 +51,6 @@ public class DayCoreManager {
   }
 
   protected void nextPlayer() {
-    CoreEngine.fireMessage("Next player. Current player is now : "
-        + this.currentPlayer, HMMUserInterface.INFO_MESSAGE);
     this.currentPlayerIndex++;
     if (this.currentPlayerIndex == this.players.size()) {
       this.currentPlayerIndex = 0;

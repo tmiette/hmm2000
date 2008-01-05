@@ -36,6 +36,8 @@ public class BattleRoundCoreManager extends DayCoreManager {
 
   private final BattleRoundIAManager iaManager;
 
+  private int roundCounter;
+
   public BattleRoundCoreManager(FightableContainer attacker,
       FightableContainer defender, Player attackerPlayer, Player defenderPlayer) {
 
@@ -87,7 +89,6 @@ public class BattleRoundCoreManager extends DayCoreManager {
         .currentContainer())) {
       this.nextBattlePlayer();
       if (this.currentPlayer().equals(Player.PLAYER_IA)) {
-        System.out.println("Au tour de l'IA de jouer");
         this.iaManager.performRound();
         this.nextDay();
         return;
@@ -97,7 +98,6 @@ public class BattleRoundCoreManager extends DayCoreManager {
       this.newRound();
       this.nextBattlePlayer();
       if (this.currentPlayer().equals(Player.PLAYER_IA)) {
-        System.out.println("Au tour de l'IA de jouer");
         this.iaManager.performRound();
         this.nextDay();
         return;
@@ -112,10 +112,11 @@ public class BattleRoundCoreManager extends DayCoreManager {
         .currentContainer()), Sprite.YOURTURN);
     CoreEngine.fireSpriteRemoved(this.containersLocations.get(this
         .opponentContainer()), Sprite.YOURTURN);
+    CoreEngine.fireMessage(this.currentContainer() + " has to attack !",
+        HMMUserInterface.INFO_MESSAGE);
   }
 
   private void newRound() {
-
     this.containers.put(this.player1Container, false);
     this.containers.put(this.player2Container, false);
     this.player1Fightables.clear();
@@ -124,6 +125,8 @@ public class BattleRoundCoreManager extends DayCoreManager {
     this.player2Fightables.addAll(this.player2Container.getTroop());
     this.fightables.put(this.player1, this.player1Fightables);
     this.fightables.put(this.player2, this.player2Fightables);
+    CoreEngine.fireMessage("Round " + ++this.roundCounter + ".",
+        HMMUserInterface.INFO_MESSAGE);
   }
 
   public boolean hasAlreadyPlayed(Fightable f) {
