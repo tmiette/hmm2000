@@ -128,14 +128,24 @@ public class Castle implements FightableContainer {
 
 		return this.factory.keySet();
 	}
+	
+	/**
+	 * Gets next possible level for a given factory
+	 * @param profil factory
+	 * @return next level
+	 */
+	public Level getNextFactoryLevel(ProfilWarrior profil) {
 
+		return this.factory.get(profil).getNextLevel();
+	}
+	
 	/**
 	 * Upgrade level of an existing factory
 	 * 
 	 * @param profil
 	 *          warrior profil
 	 */
-	public void upgradeFactory(ProfilWarrior profil) {
+	public boolean upgradeFactory(ProfilWarrior profil) {
 
 		if (this.factory.containsKey(profil)) {
 			// Old level
@@ -144,7 +154,10 @@ public class Castle implements FightableContainer {
 			// New level
 			Level nextLevel = level.getNextLevel();
 			this.factory.put(profil, nextLevel == null ? level : nextLevel);
+			
+			return true;
 		}
+		return false;
 	}
 
 	/**

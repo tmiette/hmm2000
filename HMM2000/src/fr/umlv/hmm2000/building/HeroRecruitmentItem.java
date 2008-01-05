@@ -10,50 +10,56 @@ import fr.umlv.hmm2000.unit.profil.ProfilHero;
 
 public class HeroRecruitmentItem implements CastleItem {
 
-  private final Castle castle;
+	private final Castle castle;
 
-  public HeroRecruitmentItem(Castle castle) {
+	public HeroRecruitmentItem(Castle castle) {
 
-    this.castle = castle;
-  }
+		this.castle = castle;
+	}
 
-  @Override
-  public String getSuggestion() {
+	@Override
+	public String getSuggestion() {
 
-    return "Recruter un héros";
-  }
+		return "Recruter un héros";
+	}
 
-  @Override
-  public void perform() {
+	@Override
+	public void perform() {
 
-    ArrayList<CastleItem> items = new ArrayList<CastleItem>();
-    items.add(CastleItem.defaultItem);
-    for (final ProfilHero profil : ProfilHero.values()) {
-      items.add(new CastleItem() {
+		ArrayList<CastleItem> items = new ArrayList<CastleItem>();
+		items.add(CastleItem.defaultItem);
+		for (final ProfilHero profil : ProfilHero.values()) {
+			items.add(new CastleItem() {
 
-        @Override
-        public String getSuggestion() {
+				@Override
+				public String getSuggestion() {
 
-          return profil.name();
-        }
+					return profil.name();
+				}
 
-        @Override
-        public void perform() {
-//TODO enlever !
-          if (!castle.getPlayer().spend(PriceFactory.getHeroPrice(profil))) {
-            castle.addHero(UnitFactory.createHero(castle.getPlayer(), profil));
-          } else {
-            CoreEngine.fireMessage("You don't have enough resources.",
-                HMMUserInterface.WARNING_MESSAGE);
-          }
-        }
+				@Override
+				public void perform() {
 
-      });
-    }
-    CastleItem item = CoreEngine.requestCastleItem(items);
-    if (item != null && item != CastleItem.defaultItem) {
-      item.perform();
-    }
-  }
+					// TODO enlever !
+					if (!castle.getPlayer().spend(PriceFactory.getHeroPrice(profil))) {
+						castle.addHero(UnitFactory.createHero(castle.getPlayer(), profil));
+					}
+					else {
+						CoreEngine.fireMessage("You don't have enough resources.",
+								HMMUserInterface.WARNING_MESSAGE);
+					}
+				}
+
+			});
+		}
+		CastleItem item = CoreEngine.requestCastleItem(items);
+		if (item != null && item != CastleItem.defaultItem) {
+			item.perform();
+		}
+
+		// Refreshing the view
+		CoreEngine.selectionManager().perform(
+				CoreEngine.map().getLocationForMapForegroundElement(castle));
+	}
 
 }
