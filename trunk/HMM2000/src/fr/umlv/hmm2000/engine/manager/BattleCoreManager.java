@@ -3,7 +3,6 @@ package fr.umlv.hmm2000.engine.manager;
 import java.util.ArrayList;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
-import fr.umlv.hmm2000.engine.Player;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
@@ -18,22 +17,20 @@ public class BattleCoreManager {
 
   private final BattleRoundCoreManager roundManager;
 
-  private final FightableContainer attacker;
+  private FightableContainer attacker;
 
-  private final FightableContainer defender;
+  private FightableContainer defender;
 
   private final ArrayList<Fightable> warriors;
 
   public BattleCoreManager(FightableContainer attacker,
       FightableContainer defender) {
-    this.attacker = attacker;
-    this.defender = defender;
+    this.orderContainers(attacker, defender);
     this.warriors = new ArrayList<Fightable>();
-    this.warriors.addAll(attacker.getTroop());
-    this.warriors.addAll(defender.getTroop());
-    Player[] players = this.orderPlayer();
-    this.roundManager = new BattleRoundCoreManager(attacker, defender,
-        players[0], players[1]);
+    this.warriors.addAll(this.attacker.getTroop());
+    this.warriors.addAll(this.defender.getTroop());
+    this.roundManager = new BattleRoundCoreManager(this.attacker,
+        this.defender, this.attacker.getPlayer(), this.defender.getPlayer());
   }
 
   public void perform(Location l) {
@@ -63,7 +60,7 @@ public class BattleCoreManager {
             this.roundManager.tagAsAlreadyPlayed(attackerWarrior);
             this.roundManager.nextDay();
           } catch (WarriorDeadException e) {
-          	System.out.println("Joueur tue : " + defenderWarrior);
+            System.out.println("Joueur tue : " + defenderWarrior);
             this.roundManager.tagAsAlreadyPlayed(attackerWarrior);
             this.kill(l, defenderWarrior);
           } catch (WarriorNotReachableException e) {
@@ -112,19 +109,14 @@ public class BattleCoreManager {
     this.roundManager.nextDay();
   }
 
-  private Player[] orderPlayer() {
-    Player[] players = new Player[2];
-    Player attacker = this.attacker.getPlayer();
-    Player defender = this.defender.getPlayer();
-
-    /*
-     * if (this.attacker.getAttackPriority() <
-     * this.defender.getAttackPriority()) { players[0] = defender; players[1] =
-     * attacker; } else { players[0] = attacker; players[1] = defender; }
-     */
-    players[0] = attacker;
-    players[1] = defender;
-    return players;
+  private void orderContainers(FightableContainer c1, FightableContainer c2) {
+    if (c1.getAttackPriority() >= c2.getAttackPriority()) {
+      this.attacker = c1;
+      this.defender = c2;
+    } else {
+      this.attacker = c2;
+      this.defender = c1;
+    }
   }
 
   public BattleRoundCoreManager roundManager() {
