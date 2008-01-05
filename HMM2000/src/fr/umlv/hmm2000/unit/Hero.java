@@ -24,7 +24,7 @@ import fr.umlv.hmm2000.unit.skill.Skill;
  */
 public class Hero extends MovableElement {
 
-	// his army
+	// His army
 	private final ArrayList<Fightable> troop;
 
 	// Skills he can use during battle
@@ -32,19 +32,19 @@ public class Hero extends MovableElement {
 
 	private final String name;
 
-	// troops layout on battle map
+	// Troops layout on battle map
 	private final BattlePositionMap battlePosition;
 
-	// steps left to do on world map
+	// Steps left to do on world map
 	private double stepCount;
 
-	// default steps
+	// Default steps
 	private int speed;
 
-	// icon to display on map
+	// Icon to display on map
 	private Sprite sprite;
 
-	// specify who start to attack
+	// Specify who start to attack
 	private final int attackPriority;
 
 	Hero(	Player player,
