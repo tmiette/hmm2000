@@ -10,7 +10,7 @@ import fr.umlv.hmm2000.unit.Hero;
 
 public class Player {
 
-	public static final Player PLAYER_IA = new Player(-1);
+	public static final Player AI = new Player(-1);
 
 	private final int id;
 

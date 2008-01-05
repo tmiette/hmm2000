@@ -76,7 +76,7 @@ public class MapBuilder {
     map.addMapForegroundElement(c1, new Location(14, 4));
     map.addMapForegroundElement(c2, new Location(14,5));
 
-    map.addMapForegroundElement(UnitFactory.createMonster(Player.PLAYER_IA, ProfilMonster.TROLL),
+    map.addMapForegroundElement(UnitFactory.createMonster(Player.AI, ProfilMonster.TROLL),
         new Location(0, 0));
     map.addMapForegroundElement(
         UnitFactory.createHero(p1, ProfilHero.SORCERER), new Location(14, 3));
