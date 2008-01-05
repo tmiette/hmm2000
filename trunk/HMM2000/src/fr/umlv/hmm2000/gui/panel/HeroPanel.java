@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.gui.LawrenceComponentFactory;
 import fr.umlv.hmm2000.unit.Hero;
-import fr.umlv.hmm2000.warrior.skill.Skill;
+import fr.umlv.hmm2000.unit.skill.Skill;
 
 public class HeroPanel {
 

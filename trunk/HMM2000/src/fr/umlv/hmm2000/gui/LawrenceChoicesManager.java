@@ -8,8 +8,8 @@ import javax.swing.JOptionPane;
 import fr.umlv.hmm2000.building.CastleItem;
 import fr.umlv.hmm2000.engine.guiinterface.UIChoicesManager;
 import fr.umlv.hmm2000.salesentity.Sellable;
+import fr.umlv.hmm2000.unit.skill.Skill;
 import fr.umlv.hmm2000.util.Pair;
-import fr.umlv.hmm2000.warrior.skill.Skill;
 
 public class LawrenceChoicesManager implements UIChoicesManager {
 

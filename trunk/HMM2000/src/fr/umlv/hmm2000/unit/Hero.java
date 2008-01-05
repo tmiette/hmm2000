@@ -13,7 +13,7 @@ import fr.umlv.hmm2000.map.battle.BattlePositionMap;
 import fr.umlv.hmm2000.map.battle.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.map.battle.NoPlaceAvailableException;
 import fr.umlv.hmm2000.unit.exception.MaxNumberOfTroopsReachedException;
-import fr.umlv.hmm2000.warrior.skill.Skill;
+import fr.umlv.hmm2000.unit.skill.Skill;
 
 public class Hero extends MovableElement {
 

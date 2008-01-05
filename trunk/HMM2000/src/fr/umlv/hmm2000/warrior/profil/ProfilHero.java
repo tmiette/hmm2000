@@ -4,12 +4,12 @@ import fr.umlv.hmm2000.engine.guiinterface.Sprite;
 import fr.umlv.hmm2000.unit.Fightable;
 import fr.umlv.hmm2000.unit.FightableContainer;
 import fr.umlv.hmm2000.unit.UnitFactory;
-import fr.umlv.hmm2000.warrior.skill.AttackAllFightablesSkill;
-import fr.umlv.hmm2000.warrior.skill.AttackLineOpponentFightableSkill;
-import fr.umlv.hmm2000.warrior.skill.AttackOneMoreTimeSkill;
-import fr.umlv.hmm2000.warrior.skill.AttackOpponentFightableSkill;
-import fr.umlv.hmm2000.warrior.skill.Skill;
-import fr.umlv.hmm2000.warrior.skill.SwapFightablesSkill;
+import fr.umlv.hmm2000.unit.skill.AttackAllFightablesSkill;
+import fr.umlv.hmm2000.unit.skill.AttackLineOpponentFightableSkill;
+import fr.umlv.hmm2000.unit.skill.AttackOneMoreTimeSkill;
+import fr.umlv.hmm2000.unit.skill.AttackOpponentFightableSkill;
+import fr.umlv.hmm2000.unit.skill.Skill;
+import fr.umlv.hmm2000.unit.skill.SwapFightablesSkill;
 
 public enum ProfilHero {
 

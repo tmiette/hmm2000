@@ -1,4 +1,4 @@
-package fr.umlv.hmm2000.warrior.skill;
+package fr.umlv.hmm2000.unit.skill;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.LocationSelectionRequester;

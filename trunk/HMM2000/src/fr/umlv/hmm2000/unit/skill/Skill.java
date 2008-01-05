@@ -1,4 +1,4 @@
-package fr.umlv.hmm2000.warrior.skill;
+package fr.umlv.hmm2000.unit.skill;
 
 public interface Skill {
   public String getName();
