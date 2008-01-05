@@ -56,7 +56,7 @@ public class CastlePanel {
         .getIconPath()), "CASTLE", castle.getPlayer().toString());
     instance.troops.setText(castle.getTroop().size() + "");
     String factoriesString = new String("<html><body>");
-    for (ProfilWarrior profil : castle.getBuildableFactories()) {
+    for (ProfilWarrior profil : castle.getFactoryBuilt()) {
       factoriesString += profil.name() + "-"
           + castle.getFactoryLevel(profil).name() + "<br>";
     }
