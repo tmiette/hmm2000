@@ -1,16 +1,21 @@
 package fr.umlv.hmm2000.gui;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import fr.umlv.hmm2000.engine.CoreEngine;
+
 public class LawrenceComponentFactory {
 
   private static final Font BOLD_FONT = new Font(null, Font.BOLD, 12);
   private static final Font BASIC_FONT = new Font(null, Font.PLAIN, 12);
+  private static JButton troopsButton;
+  private static JButton castleButton;
 
   public static JButton createLawrenceButton(String text, String iconName,
       ActionListener listener) {
@@ -35,6 +40,38 @@ public class LawrenceComponentFactory {
   public static ImageIcon createImageIcon(String iconName) {
     return new ImageIcon(LawrenceComponentFactory.class.getResource("/icons/"
         + iconName));
+  }
+  
+  public static JButton createTroopsButton() {
+    if (troopsButton == null) {
+      troopsButton = LawrenceComponentFactory.createLawrenceButton("Troops",
+          "sword20x20.gif", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              LawrenceJFrame.getInstance(null).setEnableAllButtons();
+              LawrenceJFrame.getInstance(null).getNextDayButton().setEnabled(
+                  false);
+              CoreEngine.manageBattlePosition();
+            }
+          });
+    }
+    return troopsButton;
+  }
+
+  public static JButton createCastleButton() {
+    if (castleButton == null) {
+      castleButton = LawrenceComponentFactory.createLawrenceButton("Castle",
+          "castle20x20.gif", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              LawrenceJFrame.getInstance(null).setEnableAllButtons();
+              LawrenceJFrame.getInstance(null).getNextDayButton().setEnabled(
+                  false);
+              CoreEngine.manageBattlePosition();
+            }
+          });
+    }
+    return castleButton;
   }
 
 }
