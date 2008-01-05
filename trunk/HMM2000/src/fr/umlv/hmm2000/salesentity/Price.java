@@ -6,26 +6,50 @@ import fr.umlv.hmm2000.resource.ResourcesCollection;
 import fr.umlv.hmm2000.resource.Resource.Kind;
 import fr.umlv.hmm2000.util.Pair;
 
+/**
+ * This class represents a price for a sellable element.
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class Price {
 
-	private final ResourcesCollection resources;
+  private final ResourcesCollection resources;
 
-	public Price() {
-		this.resources = new ResourcesCollection();
-	}
+  /**
+   * Default constructor.
+   */
+  public Price() {
+    this.resources = new ResourcesCollection();
+  }
 
-	public Price addResource(Kind kind, int value) {
-		this.resources.addResource(kind, value);
-		return this;
-	}
+  /**
+   * Add a resources with the specified value to the current price.
+   * 
+   * @param kind
+   *            the kind of the resource.
+   * @param value
+   *            the value of the resource required.
+   * @return the new price.
+   */
+  public Price addResource(Kind kind, int value) {
+    this.resources.addResource(kind, value);
+    return this;
+  }
 
-	public List<Pair<Kind, Integer>> getResourcesList() {
-		return this.resources.notNullResourceList();
-	}
-	
-	@Override
-	public String toString() {
-		return this.resources.toString();
-	}
+  /**
+   * Returns the list of resources with theirs values required for the price.
+   * 
+   * @return the list.
+   */
+  public List<Pair<Kind, Integer>> getResourcesList() {
+    return this.resources.notNullResourceList();
+  }
+
+  @Override
+  public String toString() {
+    return this.resources.toString();
+  }
 
 }
