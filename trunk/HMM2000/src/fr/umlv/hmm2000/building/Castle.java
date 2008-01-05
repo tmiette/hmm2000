@@ -61,6 +61,11 @@ public class Castle implements FightableContainer {
 
 		this.player = player;
 		this.troop = new ArrayList<Fightable>(FightableContainer.MAX_TROOP_SIZE);
+		this.heroes = new ArrayList<Hero>();
+		this.battlePosition = new BattlePositionMap(
+				FightableContainer.MAX_TROOP_SIZE / BattlePositionMap.LINE_NUMBER);
+		this.factory = new HashMap<ProfilWarrior, Level>();
+		this.factory.put(defaultWarrior, defaultLevel);
 		try {
 			// Adding default unit
 			this
@@ -69,11 +74,6 @@ public class Castle implements FightableContainer {
 		catch (MaxNumberOfTroopsReachedException e) {
 			new AssertionError(e);
 		}
-		this.heroes = new ArrayList<Hero>();
-		this.battlePosition = new BattlePositionMap(
-				FightableContainer.MAX_TROOP_SIZE / BattlePositionMap.LINE_NUMBER);
-		this.factory = new HashMap<ProfilWarrior, Level>();
-		this.factory.put(defaultWarrior, defaultLevel);
 	}
 
 	/**
