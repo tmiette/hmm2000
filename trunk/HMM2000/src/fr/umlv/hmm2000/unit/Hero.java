@@ -200,6 +200,10 @@ public class Hero extends MovableElement {
 		return this.attackPriority;
 	}
 
+	/**
+	 * Gets list of hero skills.
+	 * @return hero skills
+	 */
 	public List<Skill> getSkills() {
 
 		return this.skills;
