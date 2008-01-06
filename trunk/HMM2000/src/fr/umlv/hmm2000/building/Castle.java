@@ -359,7 +359,10 @@ public class Castle implements FightableContainer {
 	 */
 	private void unitTransfert(FightableContainer from, FightableContainer to) {
 
+		System.out.println("source troop : " + from.getTroop());
+		System.out.println("dest troop : " + to.getTroop());
 		List<Fightable> list = from.getTroop();
+		System.out.println("list size : " + list.size());
 		for (int i = 0; i < list.size() - 1; i++) {
 			try {
 				Fightable f = list.get(i);
