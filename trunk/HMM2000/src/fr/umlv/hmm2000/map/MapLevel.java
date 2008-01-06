@@ -18,7 +18,7 @@ public enum MapLevel {
 				"Zarock",
 				Difficulty.NORMAL,
 				2,
-				6),
+				3),
 	MAP3(	"map/map1.map",
 				"NoneMap2",
 				Difficulty.HARD,

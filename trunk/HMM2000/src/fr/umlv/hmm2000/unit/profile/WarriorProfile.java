@@ -21,8 +21,8 @@ public enum WarriorProfile {
 	FLIGHT(	Sprite.FLIGHT,
 					10,
 					10,
-					50,
 					30,
+					50,
 					new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10)
 							.addAbility(ElementaryEnum.LIGHTNING, 10, 10),
 					new AttackBehaviour() {
@@ -35,8 +35,8 @@ public enum WarriorProfile {
 
 					}),
 	GRUNT(Sprite.GRUNT,
-				10,
-				10,
+				20,
+				20,
 				50,
 				20,
 				new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10)
@@ -56,9 +56,9 @@ public enum WarriorProfile {
 
 				}),
 	WIZZARD(Sprite.WIZZARD,
-					10,
-					10,
-					50,
+					1,
+					1,
+					70,
 					10,
 					new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10)
 							.addAbility(ElementaryEnum.LIGHTNING, 10, 10),

@@ -25,10 +25,10 @@ public class PriceFactory {
    */
   public static Price getWarriorPrice(WarriorProfile profile, Level level) {
     Price price = new Price();
-    int gold = (2 * (int) profile.getHealth() + 3 * (int) profile
-        .getPhysicalDefenseValue()) / 10;
+    double gold = (int) profile.getHealth();
     gold = gold * (int) level.getRatio();
-    price.addResource(Kind.GOLD, gold);
+    gold = gold / 3;
+    price.addResource(Kind.GOLD, (int)gold);
     return price;
   }
 
@@ -43,10 +43,8 @@ public class PriceFactory {
    */
   public static Price getWarriorFactoryPrice(WarriorProfile profile, Level level) {
     Price price = new Price();
-    int gold = (2 * (int) profile.getHealth() + 3 * (int) profile
-        .getPhysicalDefenseValue()) / 10;
+    int gold = (2 * (int) profile.getHealth());
     gold = gold * (int) level.getRatio();
-    gold = gold * 2;
     price.addResource(Kind.GOLD, gold);
     return price;
   }
@@ -63,9 +61,10 @@ public class PriceFactory {
   public static Price getHeroPrice(HeroProfile profile) {
     Price price = new Price();
     int gold = (2 * (int) profile.getAttackPriority() + 3 * (int) profile
-        .getUnits().length) / 10;
+        .getUnits().length);
     gold = gold * 2;
     price.addResource(Kind.GOLD, gold);
+    System.out.println("price hero : " + price);
     return price;
   }
 }
