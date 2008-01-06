@@ -18,11 +18,11 @@ import fr.umlv.hmm2000.engine.manager.SwapCoreManager;
 import fr.umlv.hmm2000.map.InvalidPlayersNumberException;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.Map;
+import fr.umlv.hmm2000.map.MapBuilder;
 import fr.umlv.hmm2000.map.MapLevel;
 import fr.umlv.hmm2000.map.WorldMap;
 import fr.umlv.hmm2000.map.battle.BattleMap;
 import fr.umlv.hmm2000.map.battle.BattlePositionMap;
-import fr.umlv.hmm2000.map.builder.MapBuilder;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.salesentity.Sellable;
 import fr.umlv.hmm2000.unit.FightableContainer;
@@ -106,7 +106,7 @@ public class CoreEngine {
     CoreEngine.selectionManager.perform(CoreEngine.currentMap
         .getLocationForMapForegroundElement(CoreEngine.currentMap
             .getMapForegroundElements().get(0)));
-    CoreEngine.game = new Game(players, CoreEngine.worldMap);
+    CoreEngine.game = new Game(players);
   }
 
   private static void changeCurrentMap(Map map) {
