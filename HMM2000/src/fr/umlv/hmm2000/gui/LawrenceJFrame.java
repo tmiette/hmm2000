@@ -19,6 +19,14 @@ import javax.swing.JTextArea;
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 
+/**
+ * This class represent the frame used with lawrence in the same time of the
+ * default lawrence frame.
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class LawrenceJFrame {
 
   private final JPanel mainPanel;
@@ -28,6 +36,12 @@ public class LawrenceJFrame {
   private final JLabel currentResources;
   private final JTextArea textArea;
 
+  /**
+   * Constructor of the frame with its default attributes.
+   * 
+   * @param frame
+   *            the swing frame in which the lawrence frame is displayed.
+   */
   public LawrenceJFrame(JFrame frame) {
     frame.setSize(400, 600);
     this.mainPanel = new JPanel(new BorderLayout());
@@ -109,6 +123,10 @@ public class LawrenceJFrame {
     frame.setContentPane(this.mainPanel);
   }
 
+  /**
+   * Resfresh the informations panel of lawrence frame when the features panel
+   * change.
+   */
   private void refreshNorthPanel() {
     this.dayCount.setText("Day : " + CoreEngine.roundManager().currentDay());
     this.currentPlayer.setText(CoreEngine.roundManager().currentPlayer()
@@ -117,17 +135,27 @@ public class LawrenceJFrame {
         .getResources().toString());
   }
 
+  /**
+   * Change the features panel of the lawrence frame.
+   * 
+   * @param panel
+   *            the new panel.
+   */
   public void displayCenterPanel(JPanel panel) {
-    this.eraseCenterPanel();
+    this.centerPanel.removeAll();
     this.refreshNorthPanel();
     this.centerPanel.add(panel);
     this.mainPanel.paintImmediately(this.mainPanel.getBounds());
   }
 
-  public void eraseCenterPanel() {
-    this.centerPanel.removeAll();
-  }
-
+  /**
+   * Displays a message in the text area of the lawrence frame.
+   * 
+   * @param message
+   *            the message.
+   * @param level
+   *            the level of the message.
+   */
   public void displayMessage(String message, int level) {
     switch (level) {
     case HMMUserInterface.INFO_MESSAGE:

@@ -11,6 +11,13 @@ import fr.umlv.hmm2000.unit.Warrior;
 import fr.umlv.hmm2000.unit.profile.ElementaryEnum;
 import fr.umlv.hmm2000.util.Pair;
 
+/**
+ * This class the panel which display warrior features.
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class WarriorPanel {
 
   private final AbstractUnitPanel abstractPanel;
@@ -21,6 +28,9 @@ public class WarriorPanel {
   private final JLabel abilities;
   private static WarriorPanel instance = new WarriorPanel();
 
+  /**
+   * Default constructor.
+   */
   private WarriorPanel() {
 
     final JPanel centerPanel = new JPanel(new GridLayout(5, 2));
@@ -48,11 +58,24 @@ public class WarriorPanel {
     this.abstractPanel = new AbstractUnitPanel("Warrior :", centerPanel);
   }
 
-  static JPanel getPanel(Warrior warrior) {
+  /**
+   * Returns the panel.
+   * 
+   * @param warrior
+   *            warrior.
+   * @return the panel.
+   */
+  public static JPanel getPanel(Warrior warrior) {
     refresh(warrior);
     return WarriorPanel.instance.abstractPanel.getPanel();
   }
 
+  /**
+   * Refresh the panel with a new warrior.
+   * 
+   * @param warrior
+   *            the warrior.
+   */
   private static void refresh(Warrior warrior) {
     instance.abstractPanel.refresh(new ImageIcon(warrior.getSprite()
         .getIconPath()), warrior.getLabel(), warrior.getFightableContainer()

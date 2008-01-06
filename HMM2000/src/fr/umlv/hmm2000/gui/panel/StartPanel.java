@@ -28,6 +28,13 @@ import fr.umlv.hmm2000.gui.LawrenceComponentFactory;
 import fr.umlv.hmm2000.map.InvalidPlayersNumberException;
 import fr.umlv.hmm2000.map.MapLevel;
 
+/**
+ * This class initialize the welcoming panel.
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class StartPanel {
 
   public static JComponent createStartPanel(final HMMUserInterface ui) {

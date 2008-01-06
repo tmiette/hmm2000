@@ -12,6 +12,13 @@ import fr.umlv.hmm2000.gui.LawrenceComponentFactory;
 import fr.umlv.hmm2000.unit.Hero;
 import fr.umlv.hmm2000.unit.skill.Skill;
 
+/**
+ * This class the panel which display hero features.
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class HeroPanel {
 
   private final AbstractUnitPanel abstractPanel;
@@ -22,6 +29,9 @@ public class HeroPanel {
   private final JButton troopsButton;
   private static HeroPanel instance = new HeroPanel();
 
+  /**
+   * Default constructor.
+   */
   public HeroPanel() {
 
     final JPanel centerPanel = new JPanel(new GridLayout(4, 2));
@@ -48,11 +58,24 @@ public class HeroPanel {
         this.troopsButton);
   }
 
+  /**
+   * Returns the panel.
+   * 
+   * @param hero
+   *            hero.
+   * @return the panel.
+   */
   public static JPanel getPanel(Hero hero) {
     refresh(hero);
     return instance.abstractPanel.getPanel();
   }
 
+  /**
+   * Refresh the panel with a new hero.
+   * 
+   * @param hero
+   *            the hero.
+   */
   private static void refresh(Hero hero) {
     instance.abstractPanel.refresh(
         new ImageIcon(hero.getSprite().getIconPath()), hero.getName(), hero

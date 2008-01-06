@@ -11,6 +11,13 @@ import fr.umlv.hmm2000.salesentity.Sellable;
 import fr.umlv.hmm2000.unit.skill.Skill;
 import fr.umlv.hmm2000.util.Pair;
 
+/**
+ * This class represent the user interface choice manager used with lawrence.
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class LawrenceChoicesManager implements UIChoicesManager {
 
   @Override

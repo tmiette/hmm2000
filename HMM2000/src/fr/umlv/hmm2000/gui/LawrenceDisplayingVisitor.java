@@ -9,10 +9,24 @@ import fr.umlv.hmm2000.unit.Hero;
 import fr.umlv.hmm2000.unit.Monster;
 import fr.umlv.hmm2000.unit.Warrior;
 
+/**
+ * This class represent the user interface displaying visitor used with
+ * lawrence. This visitor display features of the unit in a panel.
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class LawrenceDisplayingVisitor implements UIDisplayingVisitor {
 
   private final LawrenceJFrame frame;
 
+  /**
+   * Constructor of the visitor.
+   * 
+   * @param frame
+   *            the frame in which features are displayed.
+   */
   public LawrenceDisplayingVisitor(LawrenceJFrame frame) {
     this.frame = frame;
   }
