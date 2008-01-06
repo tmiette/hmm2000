@@ -57,7 +57,8 @@ public class Castle implements FightableContainer {
 	// Default warrior a castle can create
 	private final WarriorProfile defaultFactory;
 
-	public Castle(Player player, WarriorProfile profile) {
+	public Castle(Player player,
+								WarriorProfile profile) {
 
 		this.player = player;
 		this.defaultFactory = profile;
@@ -69,8 +70,8 @@ public class Castle implements FightableContainer {
 		this.factory.put(this.defaultFactory, defaultLevel);
 		try {
 			// Adding default unit
-			this
-					.addFightable(UnitFactory.createWarrior(this.defaultFactory, defaultLevel));
+			this.addFightable(UnitFactory.createWarrior(this.defaultFactory,
+					defaultLevel));
 		}
 		catch (MaxNumberOfTroopsReachedException e) {
 			new AssertionError(e);
@@ -129,17 +130,19 @@ public class Castle implements FightableContainer {
 
 		return this.factory.keySet();
 	}
-	
+
 	/**
 	 * Gets next possible level for a given factory
-	 * @param profile factory
+	 * 
+	 * @param profile
+	 *          factory
 	 * @return next level
 	 */
 	public Level getNextFactoryLevel(WarriorProfile profile) {
 
 		return this.factory.get(profile).getNextLevel();
 	}
-	
+
 	/**
 	 * Upgrade level of an existing factory
 	 * 
@@ -155,7 +158,7 @@ public class Castle implements FightableContainer {
 			// New level
 			Level nextLevel = level.getNextLevel();
 			this.factory.put(profile, nextLevel == null ? level : nextLevel);
-			
+
 			return true;
 		}
 		return false;
@@ -312,34 +315,60 @@ public class Castle implements FightableContainer {
 		if (!encounter.getSender().getPlayer().equals(this.getPlayer())) {
 			if (this.heroes.size() > 0) {
 				Hero hero = this.chooseHero(this.heroes);
-				this.transfertUnits(this, hero);
+				this.unitTransfert(this, hero);
 				CoreEngine.startBattle(encounter.getSender(), hero);
+				System.out.println("nb unit hero : " + hero.getTroop().size());
+				// Warrior is dead if he hasn't unit left
 				if (hero.getTroop().size() == 0) {
+					System.out.println("end battle");
+					// Castle loose game should end
 					CoreEngine.endBattle(encounter.getSender(), this);
 				}
 			}
 			else {
-			CoreEngine.startBattle(encounter.getSender(), this);
+				CoreEngine.startBattle(encounter.getSender(), this);
 			}
-			
+
 		}
 		else {
 			CoreEngine.startSwap(this, encounter.getSender());
 		}
 		return false;
 	}
-	
+
+	/**
+	 * Chooses hero to protect castle during battle.
+	 * 
+	 * @param heroes
+	 *          castle heroes
+	 * @return best hero defender
+	 */
 	private Hero chooseHero(ArrayList<Hero> heroes) {
+
 		return heroes.size() > 0 ? heroes.get(0) : null;
 	}
-	
-	private void transfertUnits(FightableContainer from, FightableContainer to) {
 
-		for (Fightable fightable : from.getTroop()) {
+	/**
+	 * Transfer units from fightable container from to fightable container to.
+	 * Leaves one unit in the source container.
+	 * 
+	 * @param from
+	 *          source container
+	 * @param to
+	 *          destination container
+	 */
+	private void unitTransfert(FightableContainer from, FightableContainer to) {
+
+		List<Fightable> list = from.getTroop();
+		for (int i = 0; i < list.size() - 1; i++) {
 			try {
-				to.addFightable(fightable);
+				Fightable f = list.get(i);
+				System.out.println("transfert de : " + f);
+				to.addFightable(f);
+				this.removeFightable(f);
 			}
 			catch (MaxNumberOfTroopsReachedException e) {
+				System.out.println(e);
 				return;
 			}
 		}
@@ -400,10 +429,11 @@ public class Castle implements FightableContainer {
 
 	/**
 	 * Gets default factory containing in castle.
+	 * 
 	 * @return default factoril
 	 */
 	public WarriorProfile getDefaultFactory() {
-	
+
 		return this.defaultFactory;
 	}
 }

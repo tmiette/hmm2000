@@ -279,8 +279,10 @@ public class CoreEngine {
     CoreEngine.battleManager = null;
     CoreEngine.changeCurrentMap(CoreEngine.worldMap);
     Location l = CoreEngine.map().getLocationForMapForegroundElement(looser);
-    CoreEngine.map().removeMapForegroundElement(l);
-    CoreEngine.uiEngine.eraseSprite(l, looser.getSprite());
+    if (l != null) {
+    	CoreEngine.map().removeMapForegroundElement(l);
+      CoreEngine.uiEngine.eraseSprite(l, looser.getSprite());
+		}
     if (looser instanceof Castle) {
       CoreEngine.game.playerLost(looser.getPlayer());
     }
