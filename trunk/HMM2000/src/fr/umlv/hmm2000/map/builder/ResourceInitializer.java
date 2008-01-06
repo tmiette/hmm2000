@@ -3,7 +3,6 @@ package fr.umlv.hmm2000.map.builder;
 import java.io.LineNumberReader;
 
 import fr.umlv.hmm2000.resource.Resource;
-import fr.umlv.hmm2000.resource.Resource.Kind;
 
 /**
  * This class defines an initializer of resources elements.
@@ -18,7 +17,7 @@ public class ResourceInitializer implements MapForegroundElementInitializer {
   public Resource initialize(LineNumberReader lnr, String[] data) {
     if (data.length >= 6) {
       try {
-        return new Resource(decodeKind(data[0].charAt(0)), Integer
+        return new Resource(Translator.decodeKind(data[0].charAt(0)), Integer
             .parseInt(data[1]), Integer.parseInt(data[2]), Integer
             .parseInt(data[3]), Integer.parseInt(data[4]),
             decodeBehaviour(Integer.parseInt(data[5])));
@@ -29,22 +28,6 @@ public class ResourceInitializer implements MapForegroundElementInitializer {
       }
     }
     return null;
-  }
-
-  /**
-   * Translates a character to a resource kind.
-   * 
-   * @param c
-   *            the character.
-   * @return the resource kind.
-   */
-  private Kind decodeKind(char c) {
-    switch (c) {
-    case 'G':
-      return Kind.GOLD;
-    default:
-      return Kind.GOLD;
-    }
   }
 
   /**

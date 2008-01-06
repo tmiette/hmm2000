@@ -155,9 +155,7 @@ public class MapBuilder {
       String[] line, Player... players) {
     // Tests if the line is valid
     if (line.length >= 3) {
-      System.err.println(line[0].charAt(0));
       try {
-
         // Init elements parameters
         MapForegroundElement e = null;
         int x = Integer.parseInt(line[1]);
