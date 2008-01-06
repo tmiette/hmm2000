@@ -13,6 +13,13 @@ import fr.umlv.hmm2000.unit.exception.WarriorDeadException;
 import fr.umlv.hmm2000.unit.exception.WarriorNotReachableException;
 import fr.umlv.hmm2000.unit.skill.Skill;
 
+/**
+ * This class is the manager of the battle map.
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class BattleCoreManager {
 
   private final BattleRoundCoreManager roundManager;
@@ -23,6 +30,14 @@ public class BattleCoreManager {
 
   private final ArrayList<Fightable> warriors;
 
+  /**
+   * Constructor of a battle manager.
+   * 
+   * @param attacker
+   *            the attacker fightable container.
+   * @param defender
+   *            the defender fightable container.
+   */
   public BattleCoreManager(FightableContainer attacker,
       FightableContainer defender) {
     this.orderContainers(attacker, defender);
@@ -33,6 +48,12 @@ public class BattleCoreManager {
         this.defender, this.attacker.getPlayer(), this.defender.getPlayer());
   }
 
+  /**
+   * Perform action depending of the location.
+   * 
+   * @param l
+   *            the location.
+   */
   public void perform(Location l) {
 
     MapForegroundElement attackerElement = CoreEngine.selectionManager()
@@ -76,6 +97,9 @@ public class BattleCoreManager {
     }
   }
 
+  /**
+   * Method called when a unit is selected on the battle map.
+   */
   public void select() {
     this.roundManager.untagUnattackable();
     MapForegroundElement element = CoreEngine.selectionManager()
@@ -102,6 +126,14 @@ public class BattleCoreManager {
     }
   }
 
+  /**
+   * Remove a unit from the battle map when is killed.
+   * 
+   * @param l
+   *            the location of the unit.
+   * @param f
+   *            the unit.
+   */
   public void kill(Location l, Fightable f) {
     this.roundManager.kill(f);
     CoreEngine.map().removeMapForegroundElement(l);
@@ -109,6 +141,14 @@ public class BattleCoreManager {
     this.roundManager.nextDay();
   }
 
+  /**
+   * Decides which fightable container start the battle.
+   * 
+   * @param c1
+   *            the first fightable container.
+   * @param c2
+   *            the second fightable container.
+   */
   private void orderContainers(FightableContainer c1, FightableContainer c2) {
     if (c1.getAttackPriority() >= c2.getAttackPriority()) {
       this.attacker = c1;
@@ -119,6 +159,11 @@ public class BattleCoreManager {
     }
   }
 
+  /**
+   * Returns the days manager of the battle.
+   * 
+   * @return the days manager of the battle.
+   */
   public BattleRoundCoreManager roundManager() {
     return this.roundManager;
   }

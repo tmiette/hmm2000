@@ -4,11 +4,21 @@ import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 
+/**
+ * This class is the manager of the battle position map.
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class BattlePositionCoreManager {
 
-  public BattlePositionCoreManager() {
-  }
-
+  /**
+   * Perform action depending of the location.
+   * 
+   * @param l
+   *            the location.
+   */
   public void perform(Location l) {
 
     if (!CoreEngine.selectionManager().getSelectedLocation().equals(l)) {
@@ -25,6 +35,14 @@ public class BattlePositionCoreManager {
     }
   }
 
+  /**
+   * Swap two different sprites from the user interface manager/
+   * 
+   * @param from
+   *            from location.
+   * @param to
+   *            to location.
+   */
   private void swap(Location from, Location to) {
     MapForegroundElement fromElement = CoreEngine.map()
         .getMapForegroundElementAtLocation(to);

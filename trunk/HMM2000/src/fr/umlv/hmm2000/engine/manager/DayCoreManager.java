@@ -7,6 +7,13 @@ import fr.umlv.hmm2000.engine.Player;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 
+/**
+ * This class is the manager of the days.
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class DayCoreManager {
 
   private Player currentPlayer;
@@ -17,6 +24,12 @@ public class DayCoreManager {
 
   private final ArrayList<Player> players;
 
+  /**
+   * Constructor of the days manager.
+   * 
+   * @param players
+   *            number of players in the game.
+   */
   public DayCoreManager(Player... players) {
     this.players = new ArrayList<Player>();
     for (Player p : players) {
@@ -27,14 +40,27 @@ public class DayCoreManager {
     this.currentDay = 1;
   }
 
+  /**
+   * Returns the current player.
+   * 
+   * @return the current player.
+   */
   public Player currentPlayer() {
     return this.currentPlayer;
   }
 
+  /**
+   * Returns the current day number.
+   * 
+   * @return the current day number.
+   */
   public int currentDay() {
     return this.currentDay;
   }
 
+  /**
+   * Go to the following day.
+   */
   public void nextDay() {
     this.nextPlayer();
     if (this.currentPlayerIndex == 0) {
@@ -46,10 +72,20 @@ public class DayCoreManager {
     }
   }
 
+  /**
+   * Returns if a player is the current player.
+   * 
+   * @param player
+   *            the player.
+   * @return if a player is the current player.
+   */
   public boolean isCurrentPlayer(Player player) {
     return this.currentPlayer.equals(player);
   }
 
+  /**
+   * Go to the next player.
+   */
   protected void nextPlayer() {
     this.currentPlayerIndex++;
     if (this.currentPlayerIndex == this.players.size()) {

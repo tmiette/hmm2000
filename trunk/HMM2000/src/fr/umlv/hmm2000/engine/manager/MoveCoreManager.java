@@ -15,6 +15,13 @@ import fr.umlv.hmm2000.map.graph.CheckerboardVertex;
 import fr.umlv.hmm2000.unit.FightableContainer;
 import fr.umlv.hmm2000.util.Pair;
 
+/**
+ * This class is the manager of movement of movable units.
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class MoveCoreManager {
 
   private final CheckerboardEuclideanAStarHeuristic heuristic;
@@ -25,12 +32,21 @@ public class MoveCoreManager {
 
   private final ArrayList<Pair<Location, Sprite>> sprites;
 
+  /**
+   * Default constructor.
+   */
   public MoveCoreManager() {
     this.heuristic = new CheckerboardEuclideanAStarHeuristic();
     this.currentSteps = new ArrayList<Step>();
     this.sprites = new ArrayList<Pair<Location, Sprite>>();
   }
 
+  /**
+   * Perform action depending of the location.
+   * 
+   * @param location
+   *            the location.
+   */
   public void perform(Location location) {
 
     if (CoreEngine.selectionManager().getSelectedLocation() != null
@@ -50,6 +66,12 @@ public class MoveCoreManager {
     }
   }
 
+  /**
+   * Creates a movement.
+   * 
+   * @param location
+   *            the recheable location.
+   */
   private void createCurrentMoveEvent(Location location) {
     Location start = CoreEngine.selectionManager().getSelectedLocation();
     if (start != null) {
@@ -82,6 +104,9 @@ public class MoveCoreManager {
     }
   }
 
+  /**
+   * Perform the movements and move the unit on the map step by step.
+   */
   private void performCurrentMoveEvent() {
     for (Step move : this.currentSteps) {
       if (move.isRecheable()) {
@@ -114,6 +139,9 @@ public class MoveCoreManager {
     }
   }
 
+  /**
+   * Erases current movements.
+   */
   public void clearCurrentMoveEvent() {
     if (this.currentSteps.size() != 0) {
       this.eraseMoveSteps();
@@ -121,6 +149,12 @@ public class MoveCoreManager {
     }
   }
 
+  /**
+   * Initialize the movements with balanced locations returned by a star.
+   * 
+   * @param balancedLocations
+   *            the balanced locations.
+   */
   private void initMoves(ArrayList<Pair<Location, Double>> balancedLocations) {
 
     this.currentSteps.clear();
@@ -148,6 +182,9 @@ public class MoveCoreManager {
     }
   }
 
+  /**
+   * Displays the sprites of the current movements.
+   */
   private void displayCurrentSteps() {
     this.sprites.clear();
     for (Step move : this.currentSteps) {
@@ -161,6 +198,9 @@ public class MoveCoreManager {
     CoreEngine.fireSpritesAdded(this.sprites);
   }
 
+  /**
+   * Erases the sprites of the current movements.
+   */
   private void eraseMoveSteps() {
     this.sprites.clear();
     for (Step move : this.currentSteps) {
@@ -171,14 +211,26 @@ public class MoveCoreManager {
     CoreEngine.fireSpritesRemoved(this.sprites);
   }
 
+  /**
+   * Slow the move between two steps.
+   */
   private static void slow() {
     try {
-      Thread.sleep(50);
+      Thread.sleep(100);
     } catch (InterruptedException e) {
       throw new AssertionError();
     }
   }
 
+  /**
+   * 
+   * This class represents a encounter event when a movable unit encounter
+   * another foreground element.
+   * 
+   * @author MIETTE Tom
+   * @author MOURET Sebastien
+   * 
+   */
   public static class Encounter {
 
     private final Location recipientLocation;
@@ -187,6 +239,16 @@ public class MoveCoreManager {
 
     private final Location senderLocation;
 
+    /**
+     * Constructor of the encounter event.
+     * 
+     * @param recipientLocation
+     *            the recipient location.
+     * @param sender
+     *            the movable element.
+     * @param senderLocation
+     *            the movable element location.
+     */
     public Encounter(Location recipientLocation, FightableContainer sender,
         Location senderLocation) {
       this.recipientLocation = recipientLocation;
@@ -195,19 +257,42 @@ public class MoveCoreManager {
 
     }
 
+    /**
+     * Returns the movable element.
+     * 
+     * @return the movable element.
+     */
     public FightableContainer getSender() {
       return this.sender;
     }
 
+    /**
+     * Returns the movable element location.
+     * 
+     * @return the movable element location.
+     */
     public Location getSenderLocation() {
       return this.senderLocation;
     }
 
+    /**
+     * Returns the recipient location.
+     * 
+     * @return the recipient location.
+     */
     public Location getRecipientLocation() {
       return this.recipientLocation;
     }
   }
 
+  /**
+   * 
+   * This class represents a step of a movement.
+   * 
+   * @author MIETTE Tom
+   * @author MOURET Sebastien
+   * 
+   */
   private static class Step {
 
     private final Location start;
@@ -220,6 +305,20 @@ public class MoveCoreManager {
 
     private final double remainingStepCount;
 
+    /**
+     * Constructor of a step.
+     * 
+     * @param start
+     *            the start location.
+     * @param end
+     *            the end location.
+     * @param weight
+     *            the cost of the step.
+     * @param recheable
+     *            if the step is recheable.
+     * @param remainingCost
+     *            the remaining cost for the movement.
+     */
     private Step(Location start, Location end, double weight,
         boolean recheable, double remainingCost) {
       this.start = start;
@@ -229,22 +328,47 @@ public class MoveCoreManager {
       this.remainingStepCount = remainingCost;
     }
 
+    /**
+     * Returns the start location.
+     * 
+     * @return the start location.
+     */
     public Location getStart() {
       return this.start;
     }
 
+    /**
+     * Returns the end location.
+     * 
+     * @return the end location.
+     */
     public Location getEnd() {
       return this.end;
     }
 
+    /**
+     * Returns the cost of the step.
+     * 
+     * @return the cost of the step.
+     */
     public double getWeight() {
       return this.weight;
     }
 
+    /**
+     * Returns if the step is reacheable depending of the remaining cost.
+     * 
+     * @return if the step is reacheable depending of the remaining cost.
+     */
     public boolean isRecheable() {
       return this.recheable;
     }
 
+    /**
+     * Returns the remaining cost for the movement.
+     * 
+     * @return the remaining cost for the movement.
+     */
     public double getRemainingStepCount() {
       return this.remainingStepCount;
     }
