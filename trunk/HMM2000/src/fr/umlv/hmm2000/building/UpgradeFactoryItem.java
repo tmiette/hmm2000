@@ -82,6 +82,10 @@ public class UpgradeFactoryItem implements CastleItem {
 		if (item != null && item != CastleItem.defaultItem) {
 			item.perform();
 		}
+
+		// Refreshing the view
+		CoreEngine.selectionManager().perform(
+				CoreEngine.map().getLocationForMapForegroundElement(castle));
 	}
 
 }
