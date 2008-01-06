@@ -37,7 +37,11 @@ public enum Sprite {
   UNRECHEABLE("unrecheable"),
   WATER("water"),
   WIZZARD("wizzard"),
-  YOURTURN("yourturn");
+  YOURTURN("yourturn"),
+  MUMMY("mummy"),
+  ZOMBIE("zombie"),
+  VAMPIRE("vampire"),
+  DEAMON("deamon");
 
   private final String spritePath;
 
