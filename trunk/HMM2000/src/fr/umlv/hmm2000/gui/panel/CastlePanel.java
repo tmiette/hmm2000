@@ -13,6 +13,13 @@ import fr.umlv.hmm2000.gui.LawrenceComponentFactory;
 import fr.umlv.hmm2000.unit.Hero;
 import fr.umlv.hmm2000.unit.profile.WarriorProfile;
 
+/**
+ * This class the panel which display castle features.
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class CastlePanel {
 
   private final AbstractUnitPanel abstractPanel;
@@ -23,6 +30,9 @@ public class CastlePanel {
   private final JButton castleButton;
   private static CastlePanel instance = new CastlePanel();
 
+  /**
+   * Default constructor.
+   */
   public CastlePanel() {
 
     final JPanel centerPanel = new JPanel(new GridLayout(3, 2));
@@ -46,11 +56,24 @@ public class CastlePanel {
         this.troopsButton, this.castleButton);
   }
 
+  /**
+   * Returns the panel.
+   * 
+   * @param castle
+   *            castle.
+   * @return the panel.
+   */
   public static JPanel getPanel(Castle castle) {
     refresh(castle);
     return instance.abstractPanel.getPanel();
   }
 
+  /**
+   * Refresh the panel with a new castle.
+   * 
+   * @param castle
+   *            the castle.
+   */
   private static void refresh(Castle castle) {
     instance.abstractPanel.refresh(new ImageIcon(castle.getSprite()
         .getIconPath()), "CASTLE", castle.getPlayer().toString());

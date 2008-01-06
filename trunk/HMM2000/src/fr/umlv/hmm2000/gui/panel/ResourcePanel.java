@@ -9,6 +9,13 @@ import javax.swing.JPanel;
 import fr.umlv.hmm2000.gui.LawrenceComponentFactory;
 import fr.umlv.hmm2000.resource.Resource;
 
+/**
+ * This class the panel which display resource features.
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class ResourcePanel {
 
   private final AbstractUnitPanel abstractPanel;
@@ -19,6 +26,9 @@ public class ResourcePanel {
   private final JLabel behaviour;
   private static ResourcePanel instance = new ResourcePanel();
 
+  /**
+   * Default constructor.
+   */
   public ResourcePanel() {
 
     final JPanel centerPanel = new JPanel(new GridLayout(5, 2));
@@ -46,11 +56,24 @@ public class ResourcePanel {
     this.abstractPanel = new AbstractUnitPanel("Resource :", centerPanel);
   }
 
+  /**
+   * Returns the panel.
+   * 
+   * @param resource
+   *            the resource.
+   * @return the panel.
+   */
   public static JPanel getPanel(Resource resource) {
     refresh(resource);
     return instance.abstractPanel.getPanel();
   }
 
+  /**
+   * Refresh the panel with a new resource.
+   * 
+   * @param resource
+   *            the resource.
+   */
   private static void refresh(Resource resource) {
     instance.abstractPanel.refresh(new ImageIcon(resource.getSprite()
         .getIconPath()), resource.getKind().name(), null);

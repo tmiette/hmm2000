@@ -13,6 +13,13 @@ import javax.swing.JPanel;
 
 import fr.umlv.hmm2000.gui.LawrenceComponentFactory;
 
+/**
+ * This class the panel which display default features for a unit.
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class AbstractUnitPanel {
 
   private final JPanel mainPanel;
@@ -21,6 +28,16 @@ public class AbstractUnitPanel {
   private final JLabel player;
   private JPanel features;
 
+  /**
+   * Constructor a the panel.
+   * 
+   * @param title
+   *            the name of the unit.
+   * @param features
+   *            the features panel of the unit.
+   * @param buttons
+   *            the buttons list.
+   */
   protected AbstractUnitPanel(String title, JPanel features, JButton... buttons) {
     this.mainPanel = new JPanel(new BorderLayout());
     this.mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory
@@ -50,14 +67,28 @@ public class AbstractUnitPanel {
     this.refresh(null, "", "");
   }
 
+  /**
+   * Refresh the panel with new informations.
+   * 
+   * @param icon
+   *            the new icon.
+   * @param name
+   *            the new name.
+   * @param player
+   *            the new player.
+   */
   protected void refresh(ImageIcon icon, String name, String player) {
     this.sprite.setIcon(icon);
     this.name.setText(name);
     this.player.setText(player);
   }
 
+  /**
+   * Returns the panel.
+   * 
+   * @return the panel.
+   */
   protected JPanel getPanel() {
-    
     return this.mainPanel;
   }
 
