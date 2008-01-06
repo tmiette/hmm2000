@@ -34,7 +34,7 @@ import fr.umlv.hmm2000.unit.profil.ProfilWarrior;
 public class Castle implements FightableContainer {
 
 	// Owner player
-	private final Player player;
+	private Player player;
 
 	// Troop created by castle and factories
 	private final ArrayList<Fightable> troop;
@@ -296,7 +296,7 @@ public class Castle implements FightableContainer {
 	@Override
 	public void setPlayer(Player player) {
 
-		// do nothing
+		this.player = player;
 
 	}
 
@@ -316,6 +316,11 @@ public class Castle implements FightableContainer {
 			CoreEngine.startSwap(this, encounter.getSender());
 		}
 		return false;
+	}
+	
+	private void transfertUnits(FightableContainer from, FightableContainer to) {
+
+		
 	}
 
 	@Override
