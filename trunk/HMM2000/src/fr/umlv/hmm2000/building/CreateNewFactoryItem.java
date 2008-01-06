@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.salesentity.PriceFactory;
-import fr.umlv.hmm2000.unit.profil.ProfilWarrior;
+import fr.umlv.hmm2000.unit.profil.WarriorProfile;
 
 public class CreateNewFactoryItem implements CastleItem {
 
@@ -30,7 +30,7 @@ public class CreateNewFactoryItem implements CastleItem {
 		ArrayList<CastleItem> items = new ArrayList<CastleItem>();
 		items.add(CastleItem.defaultItem);
 		// Avalaible factories
-		for (final ProfilWarrior profil : ProfilWarrior.values()) {
+		for (final WarriorProfile profil : WarriorProfile.values()) {
 			// Factories not yet built in castle
 			if (!castle.getFactoryBuilt().contains(profil)) {
 				items.add(new CastleItem() {

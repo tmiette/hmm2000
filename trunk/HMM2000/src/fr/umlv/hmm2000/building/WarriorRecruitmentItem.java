@@ -9,7 +9,7 @@ import fr.umlv.hmm2000.salesentity.PriceFactory;
 import fr.umlv.hmm2000.unit.Fightable;
 import fr.umlv.hmm2000.unit.UnitFactory;
 import fr.umlv.hmm2000.unit.profil.Level;
-import fr.umlv.hmm2000.unit.profil.ProfilWarrior;
+import fr.umlv.hmm2000.unit.profil.WarriorProfile;
 
 public class WarriorRecruitmentItem implements CastleItem {
 
@@ -31,7 +31,7 @@ public class WarriorRecruitmentItem implements CastleItem {
 
 		ArrayList<CastleItem> items = new ArrayList<CastleItem>();
 		items.add(CastleItem.defaultItem);
-		for (final ProfilWarrior profil : ProfilWarrior.values()) {
+		for (final WarriorProfile profil : WarriorProfile.values()) {
 			if (castle.canProduceWarrior(profil)) {
 				items.add(new CastleItem() {
 

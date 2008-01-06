@@ -20,7 +20,7 @@ import fr.umlv.hmm2000.unit.Hero;
 import fr.umlv.hmm2000.unit.UnitFactory;
 import fr.umlv.hmm2000.unit.exception.MaxNumberOfTroopsReachedException;
 import fr.umlv.hmm2000.unit.profil.Level;
-import fr.umlv.hmm2000.unit.profil.ProfilWarrior;
+import fr.umlv.hmm2000.unit.profil.WarriorProfile;
 
 /**
  * This class represents a castle and its factories. It can produce figthable
@@ -46,7 +46,7 @@ public class Castle implements FightableContainer {
 	private final BattlePositionMap battlePosition;
 
 	// Factories built in the castle
-	private final HashMap<ProfilWarrior, Level> factory;
+	private final HashMap<WarriorProfile, Level> factory;
 
 	// Actions permitted by castle
 	private ArrayList<CastleItem> items;
@@ -55,9 +55,9 @@ public class Castle implements FightableContainer {
 	public final static Level defaultLevel = Level.LEVEL_1;
 
 	// Default warrior a castle can create
-	private final ProfilWarrior defaultFactory;
+	private final WarriorProfile defaultFactory;
 
-	public Castle(Player player, ProfilWarrior profile) {
+	public Castle(Player player, WarriorProfile profile) {
 
 		this.player = player;
 		this.defaultFactory = profile;
@@ -65,7 +65,7 @@ public class Castle implements FightableContainer {
 		this.heroes = new ArrayList<Hero>();
 		this.battlePosition = new BattlePositionMap(
 				FightableContainer.MAX_TROOP_SIZE / BattlePositionMap.LINE_NUMBER);
-		this.factory = new HashMap<ProfilWarrior, Level>();
+		this.factory = new HashMap<WarriorProfile, Level>();
 		this.factory.put(this.defaultFactory, defaultLevel);
 		try {
 			// Adding default unit
@@ -102,7 +102,7 @@ public class Castle implements FightableContainer {
 	 *          warrior type to produce
 	 * @return possibity to produce
 	 */
-	public boolean canProduceWarrior(ProfilWarrior profil) {
+	public boolean canProduceWarrior(WarriorProfile profil) {
 
 		return this.factory.containsKey(profil);
 	}
@@ -113,7 +113,7 @@ public class Castle implements FightableContainer {
 	 * @param profil
 	 *          factory type
 	 */
-	public void buildFactory(ProfilWarrior profil) {
+	public void buildFactory(WarriorProfile profil) {
 
 		if (!this.factory.containsKey(profil)) {
 			this.factory.put(profil, defaultLevel);
@@ -125,7 +125,7 @@ public class Castle implements FightableContainer {
 	 * 
 	 * @return set of warrior profil
 	 */
-	public Set<ProfilWarrior> getFactoryBuilt() {
+	public Set<WarriorProfile> getFactoryBuilt() {
 
 		return this.factory.keySet();
 	}
@@ -135,7 +135,7 @@ public class Castle implements FightableContainer {
 	 * @param profil factory
 	 * @return next level
 	 */
-	public Level getNextFactoryLevel(ProfilWarrior profil) {
+	public Level getNextFactoryLevel(WarriorProfile profil) {
 
 		return this.factory.get(profil).getNextLevel();
 	}
@@ -146,7 +146,7 @@ public class Castle implements FightableContainer {
 	 * @param profil
 	 *          warrior profil
 	 */
-	public boolean upgradeFactory(ProfilWarrior profil) {
+	public boolean upgradeFactory(WarriorProfile profil) {
 
 		if (this.factory.containsKey(profil)) {
 			// Old level
@@ -169,7 +169,7 @@ public class Castle implements FightableContainer {
 	 * @return creation possibility
 	 * @throws MaxNumberOfTroopsReachedException
 	 */
-	public boolean createWarrior(ProfilWarrior profil)
+	public boolean createWarrior(WarriorProfile profil)
 			throws MaxNumberOfTroopsReachedException {
 
 		if (this.canProduceWarrior(profil)) {
@@ -229,7 +229,7 @@ public class Castle implements FightableContainer {
 	 *          factory type
 	 * @return specific level factory
 	 */
-	public Level getFactoryLevel(ProfilWarrior pw) {
+	public Level getFactoryLevel(WarriorProfile pw) {
 
 		return this.factory.get(pw);
 	}
@@ -363,7 +363,7 @@ public class Castle implements FightableContainer {
 	 * 
 	 * @return
 	 */
-	public HashMap<ProfilWarrior, Level> getFactory() {
+	public HashMap<WarriorProfile, Level> getFactory() {
 
 		return this.factory;
 	}
@@ -389,7 +389,7 @@ public class Castle implements FightableContainer {
 		}
 		sb.append(")");
 		sb.append("(Factories, ");
-		for (Entry<ProfilWarrior, Level> entries : this.factory.entrySet()) {
+		for (Entry<WarriorProfile, Level> entries : this.factory.entrySet()) {
 			sb.append("[").append(entries.getKey()).append(",").append(
 					entries.getValue()).append("]");
 		}
@@ -402,7 +402,7 @@ public class Castle implements FightableContainer {
 	 * Gets default factory containing in castle.
 	 * @return default factoril
 	 */
-	public ProfilWarrior getDefaultFactory() {
+	public WarriorProfile getDefaultFactory() {
 	
 		return this.defaultFactory;
 	}

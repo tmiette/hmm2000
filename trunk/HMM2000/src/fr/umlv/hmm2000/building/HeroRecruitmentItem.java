@@ -6,7 +6,7 @@ import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.salesentity.PriceFactory;
 import fr.umlv.hmm2000.unit.UnitFactory;
-import fr.umlv.hmm2000.unit.profil.ProfilHero;
+import fr.umlv.hmm2000.unit.profil.HeroProfile;
 
 /**
  * This class permits to the player to buy a new hero from castle
@@ -36,7 +36,7 @@ public class HeroRecruitmentItem implements CastleItem {
 
 		ArrayList<CastleItem> items = new ArrayList<CastleItem>();
 		items.add(CastleItem.defaultItem);
-		for (final ProfilHero profil : ProfilHero.values()) {
+		for (final HeroProfile profil : HeroProfile.values()) {
 			items.add(new CastleItem() {
 
 				@Override
