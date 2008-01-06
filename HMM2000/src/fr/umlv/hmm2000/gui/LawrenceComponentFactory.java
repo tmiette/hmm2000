@@ -14,8 +14,6 @@ public class LawrenceComponentFactory {
 
   private static final Font BOLD_FONT = new Font(null, Font.BOLD, 12);
   private static final Font BASIC_FONT = new Font(null, Font.PLAIN, 12);
-  private static JButton troopsButton;
-  private static JButton castleButton;
 
   public static JButton createLawrenceButton(String text, String iconName,
       ActionListener listener) {
@@ -43,29 +41,23 @@ public class LawrenceComponentFactory {
   }
 
   public static JButton createTroopsButton() {
-    if (troopsButton == null) {
-      troopsButton = LawrenceComponentFactory.createLawrenceButton("Troops",
-          "sword20x20.gif", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-              CoreEngine.manageBattlePosition();
-            }
-          });
-    }
-    return troopsButton;
+    return LawrenceComponentFactory.createLawrenceButton("Troops",
+        "sword20x20.gif", new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            CoreEngine.manageBattlePosition();
+          }
+        });
   }
 
   public static JButton createCastleButton() {
-    if (castleButton == null) {
-      castleButton = LawrenceComponentFactory.createLawrenceButton("Castle",
-          "castle20x20.gif", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-              CoreEngine.manageCastle();
-            }
-          });
-    }
-    return castleButton;
+    return LawrenceComponentFactory.createLawrenceButton("Castle",
+        "castle20x20.gif", new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            CoreEngine.manageCastle();
+          }
+        });
   }
 
 }

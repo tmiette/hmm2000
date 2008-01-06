@@ -8,6 +8,7 @@ import fr.umlv.hmm2000.unit.Fightable;
 import fr.umlv.hmm2000.unit.FightableContainer;
 import fr.umlv.hmm2000.unit.UnitFactory;
 import fr.umlv.hmm2000.unit.exception.MaxNumberOfTroopsReachedException;
+import fr.umlv.hmm2000.unit.profil.ProfilWarrior;
 
 /**
  * This class defines an initializer of castles elements.
@@ -26,6 +27,20 @@ public class CastleInitializer implements MapForegroundElementInitializer {
             .decodeWarriorProfile(data[0].charAt(0)));
         if (data.length >= 2) {
           for (String s : data[1].split(",")) {
+            String[] subData = s.split(":");
+            if (subData.length >= 2) {
+              ProfilWarrior p = Translator.decodeWarriorProfile(subData[0]
+                  .charAt(0));
+              c.buildFactory(p);
+              int level = Integer.parseInt(subData[1]);
+              for (int i = 1; i < level; i++) {
+                c.upgradeFactory(p);
+              }
+            }
+          }
+        }
+        if (data.length >= 3) {
+          for (String s : data[2].split(",")) {
             decodeFightable(c, s.split(":"));
           }
         }
