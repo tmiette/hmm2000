@@ -22,7 +22,7 @@ public enum MonsterProfile {
       new Fightable[] { UnitFactory.createWarrior(WarriorProfile.VAMPIRE,
           Level.LEVEL_1) }),
   MUMMY(Sprite.MUMMY, FightableContainer.PRIORITY_VERY_LOW,
-      new Fightable[] { UnitFactory.createWarrior(WarriorProfile.FLIGHT,
+      new Fightable[] { UnitFactory.createWarrior(WarriorProfile.PIRATE,
           Level.LEVEL_1) });
 
   // Icon to display on map

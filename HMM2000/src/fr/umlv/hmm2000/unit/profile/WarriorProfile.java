@@ -84,6 +84,19 @@ public enum WarriorProfile {
               && bpmDefenser.isInFirstLine(defender);
         }
 
+      }),
+  PIRATE(Sprite.PIRATE, 1, 1, 70, 10,
+      new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10).addAbility(
+          ElementaryEnum.LIGHTNING, 10, 10), new AttackBehaviour() {
+
+        @Override
+        public boolean isAttackable(Fightable attacker, Fightable defender) {
+
+          BattlePositionMap bpm = defender.getFightableContainer()
+              .getBattlePositionManager();
+          return bpm.isInFirstLine(defender);
+        }
+
       });
 
   // Icon to display on map
