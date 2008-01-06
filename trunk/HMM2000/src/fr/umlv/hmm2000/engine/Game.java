@@ -26,7 +26,7 @@ public class Game {
 
 		removeAllPlayerUnitsFromMap(player, CoreEngine.map());
 		CoreEngine.fireMessage(player + "lost.", HMMUserInterface.INFO_MESSAGE);
-		this.players.remove(players);
+		this.players.remove(player);
 		if (this.players.size() == 1) {
 			this.playerWon(this.players.get(0));
 		}
@@ -48,7 +48,7 @@ public class Game {
 				if (mfe instanceof FightableContainer) {
 					FightableContainer f = (FightableContainer)mfe;
 					if (f.getPlayer().equals(player)) {
-						map.removeMapForegroundElement(location);
+						CoreEngine.endBattle(null, f);
 					}
 				}
 			}
