@@ -12,13 +12,11 @@ import fr.umlv.hmm2000.unit.FightableContainer;
 public class Game {
 
 	private final ArrayList<Player> players;
-	private final Map gameMap;
 	
 	
-	public Game(Player[] players, Map map) {
+	public Game(Player[] players) {
 
 		this.players = new ArrayList<Player>(players.length);
-		this.gameMap = map;
 		for (int i = 0; i < players.length; i++) {
 			this.players.add(players[i]);
 		}
@@ -26,17 +24,21 @@ public class Game {
 	
 	public void playerLost(Player player) {
 
-		removeAllPlayerUnitsFromMap(player, this.gameMap);
+		removeAllPlayerUnitsFromMap(player, CoreEngine.map());
 		CoreEngine.fireMessage(player + "lost.", HMMUserInterface.INFO_MESSAGE);
 		this.players.remove(players);
+		if (this.players.size() == 1) {
+			this.playerWon(this.players.get(0));
+		}
 	}
 	
-	public void playerWon(Player player) {
+	private void playerWon(Player player) {
 
 		CoreEngine.fireMessage(player + " won the game !", HMMUserInterface.INFO_MESSAGE);
+		//TODO on fait quoi une fois gagne
 	}
 	
-	public void removeAllPlayerUnitsFromMap(Player player, Map map) {
+	private void removeAllPlayerUnitsFromMap(Player player, Map map) {
 
 		Location location = null;
 		for (int x = 0; x < map.getHeight(); x++) {
