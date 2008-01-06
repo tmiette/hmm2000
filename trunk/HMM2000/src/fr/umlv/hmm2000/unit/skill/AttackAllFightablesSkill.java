@@ -5,7 +5,7 @@ import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.unit.Fightable;
 import fr.umlv.hmm2000.unit.exception.WarriorDeadException;
-import fr.umlv.hmm2000.unit.profil.ElementAbility;
+import fr.umlv.hmm2000.unit.profile.ElementAbility;
 
 /**
  * Capacity to attack all units on battle map

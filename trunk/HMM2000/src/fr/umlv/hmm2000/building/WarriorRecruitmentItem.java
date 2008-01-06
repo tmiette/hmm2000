@@ -8,8 +8,8 @@ import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.salesentity.PriceFactory;
 import fr.umlv.hmm2000.unit.Fightable;
 import fr.umlv.hmm2000.unit.UnitFactory;
-import fr.umlv.hmm2000.unit.profil.Level;
-import fr.umlv.hmm2000.unit.profil.WarriorProfile;
+import fr.umlv.hmm2000.unit.profile.Level;
+import fr.umlv.hmm2000.unit.profile.WarriorProfile;
 
 public class WarriorRecruitmentItem implements CastleItem {
 

@@ -1,9 +1,9 @@
 package fr.umlv.hmm2000.salesentity;
 
 import fr.umlv.hmm2000.resource.Resource.Kind;
-import fr.umlv.hmm2000.unit.profil.Level;
-import fr.umlv.hmm2000.unit.profil.HeroProfile;
-import fr.umlv.hmm2000.unit.profil.WarriorProfile;
+import fr.umlv.hmm2000.unit.profile.HeroProfile;
+import fr.umlv.hmm2000.unit.profile.Level;
+import fr.umlv.hmm2000.unit.profile.WarriorProfile;
 
 /**
  * This class is a factory different for prices.

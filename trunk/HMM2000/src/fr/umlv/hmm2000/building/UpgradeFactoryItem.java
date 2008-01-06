@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.salesentity.PriceFactory;
-import fr.umlv.hmm2000.unit.profil.Level;
-import fr.umlv.hmm2000.unit.profil.WarriorProfile;
+import fr.umlv.hmm2000.unit.profile.Level;
+import fr.umlv.hmm2000.unit.profile.WarriorProfile;
 
 /**
  * This class permits to a player to upgrade a unit factory level in his castle.

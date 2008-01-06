@@ -6,7 +6,7 @@ import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.salesentity.PriceFactory;
 import fr.umlv.hmm2000.unit.UnitFactory;
-import fr.umlv.hmm2000.unit.profil.HeroProfile;
+import fr.umlv.hmm2000.unit.profile.HeroProfile;
 
 /**
  * This class permits to the player to buy a new hero from castle

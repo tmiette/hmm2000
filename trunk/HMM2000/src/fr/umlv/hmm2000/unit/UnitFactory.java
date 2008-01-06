@@ -2,10 +2,10 @@ package fr.umlv.hmm2000.unit;
 
 import fr.umlv.hmm2000.engine.Player;
 import fr.umlv.hmm2000.unit.exception.MaxNumberOfTroopsReachedException;
-import fr.umlv.hmm2000.unit.profil.Level;
-import fr.umlv.hmm2000.unit.profil.HeroProfile;
-import fr.umlv.hmm2000.unit.profil.MonsterProfile;
-import fr.umlv.hmm2000.unit.profil.WarriorProfile;
+import fr.umlv.hmm2000.unit.profile.HeroProfile;
+import fr.umlv.hmm2000.unit.profile.Level;
+import fr.umlv.hmm2000.unit.profile.MonsterProfile;
+import fr.umlv.hmm2000.unit.profile.WarriorProfile;
 
 /**
  * This class permits to create specifics units

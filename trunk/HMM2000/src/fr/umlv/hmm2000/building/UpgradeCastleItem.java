@@ -3,7 +3,7 @@ package fr.umlv.hmm2000.building;
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.salesentity.PriceFactory;
-import fr.umlv.hmm2000.unit.profil.Level;
+import fr.umlv.hmm2000.unit.profile.Level;
 
 /**
  * This class permit to the player to upgrade default level factory's castle.
