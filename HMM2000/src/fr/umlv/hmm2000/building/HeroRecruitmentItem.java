@@ -36,20 +36,20 @@ public class HeroRecruitmentItem implements CastleItem {
 
 		ArrayList<CastleItem> items = new ArrayList<CastleItem>();
 		items.add(CastleItem.defaultItem);
-		for (final HeroProfile profil : HeroProfile.values()) {
+		for (final HeroProfile profile : HeroProfile.values()) {
 			items.add(new CastleItem() {
 
 				@Override
 				public String getSuggestion() {
 
-					return profil.name();
+					return profile.name();
 				}
 
 				@Override
 				public void perform() {
 
-					if (castle.getPlayer().spend(PriceFactory.getHeroPrice(profil))) {
-						castle.addHero(UnitFactory.createHero(castle.getPlayer(), profil));
+					if (castle.getPlayer().spend(PriceFactory.getHeroPrice(profile))) {
+						castle.addHero(UnitFactory.createHero(castle.getPlayer(), profile));
 					}
 					else {
 						CoreEngine.fireMessage("You don't have enough resources.",

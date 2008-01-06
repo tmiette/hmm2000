@@ -17,15 +17,15 @@ public class PriceFactory {
   /**
    * Returns a price for a warrior.
    * 
-   * @param profil
+   * @param profile
    *            the profile of the warrior.
    * @param level
    *            the level of the warrior
    * @return the price.
    */
-  public static Price getWarriorPrice(WarriorProfile profil, Level level) {
+  public static Price getWarriorPrice(WarriorProfile profile, Level level) {
     Price price = new Price();
-    int gold = (2 * (int) profil.getHealth() + 3 * (int) profil
+    int gold = (2 * (int) profile.getHealth() + 3 * (int) profile
         .getPhysicalDefenseValue()) / 10;
     gold = gold * (int) level.getRatio();
     price.addResource(Kind.GOLD, gold);
@@ -35,15 +35,15 @@ public class PriceFactory {
   /**
    * Returns a price for a warrior factory.
    * 
-   * @param profil
+   * @param profile
    *            the profile of the warrior built in the factory.
    * @param level
    *            the level of the factory.
    * @return the price.
    */
-  public static Price getWarriorFactoryPrice(WarriorProfile profil, Level level) {
+  public static Price getWarriorFactoryPrice(WarriorProfile profile, Level level) {
     Price price = new Price();
-    int gold = (2 * (int) profil.getHealth() + 3 * (int) profil
+    int gold = (2 * (int) profile.getHealth() + 3 * (int) profile
         .getPhysicalDefenseValue()) / 10;
     gold = gold * (int) level.getRatio();
     gold = gold * 2;
@@ -54,15 +54,15 @@ public class PriceFactory {
   /**
    * Returns a price for a hero.
    * 
-   * @param profil
+   * @param profile
    *            the profile of the hero.
    * @param level
    *            the level of the hero.
    * @return the price.
    */
-  public static Price getHeroPrice(HeroProfile profil) {
+  public static Price getHeroPrice(HeroProfile profile) {
     Price price = new Price();
-    int gold = (2 * (int) profil.getAttackPriority() + 3 * (int) profil
+    int gold = (2 * (int) profile.getAttackPriority() + 3 * (int) profile
         .getUnits().length) / 10;
     gold = gold * 2;
     price.addResource(Kind.GOLD, gold);

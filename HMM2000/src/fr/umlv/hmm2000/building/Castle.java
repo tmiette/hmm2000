@@ -98,32 +98,32 @@ public class Castle implements FightableContainer {
 	/**
 	 * Returns if castle can produce warrior thanks to its factories
 	 * 
-	 * @param profil
+	 * @param profile
 	 *          warrior type to produce
 	 * @return possibity to produce
 	 */
-	public boolean canProduceWarrior(WarriorProfile profil) {
+	public boolean canProduceWarrior(WarriorProfile profile) {
 
-		return this.factory.containsKey(profil);
+		return this.factory.containsKey(profile);
 	}
 
 	/**
 	 * Adds a new factory in castle
 	 * 
-	 * @param profil
+	 * @param profile
 	 *          factory type
 	 */
-	public void buildFactory(WarriorProfile profil) {
+	public void buildFactory(WarriorProfile profile) {
 
-		if (!this.factory.containsKey(profil)) {
-			this.factory.put(profil, defaultLevel);
+		if (!this.factory.containsKey(profile)) {
+			this.factory.put(profile, defaultLevel);
 		}
 	}
 
 	/**
 	 * Gets all factories contained in castle
 	 * 
-	 * @return set of warrior profil
+	 * @return set of warrior profile
 	 */
 	public Set<WarriorProfile> getFactoryBuilt() {
 
@@ -132,29 +132,29 @@ public class Castle implements FightableContainer {
 	
 	/**
 	 * Gets next possible level for a given factory
-	 * @param profil factory
+	 * @param profile factory
 	 * @return next level
 	 */
-	public Level getNextFactoryLevel(WarriorProfile profil) {
+	public Level getNextFactoryLevel(WarriorProfile profile) {
 
-		return this.factory.get(profil).getNextLevel();
+		return this.factory.get(profile).getNextLevel();
 	}
 	
 	/**
 	 * Upgrade level of an existing factory
 	 * 
-	 * @param profil
-	 *          warrior profil
+	 * @param profile
+	 *          warrior profile
 	 */
-	public boolean upgradeFactory(WarriorProfile profil) {
+	public boolean upgradeFactory(WarriorProfile profile) {
 
-		if (this.factory.containsKey(profil)) {
+		if (this.factory.containsKey(profile)) {
 			// Old level
-			Level level = this.factory.get(profil);
-			this.factory.remove(profil);
+			Level level = this.factory.get(profile);
+			this.factory.remove(profile);
 			// New level
 			Level nextLevel = level.getNextLevel();
-			this.factory.put(profil, nextLevel == null ? level : nextLevel);
+			this.factory.put(profile, nextLevel == null ? level : nextLevel);
 			
 			return true;
 		}
@@ -164,17 +164,17 @@ public class Castle implements FightableContainer {
 	/**
 	 * Produce a warrior in castle if it contains the specific factory
 	 * 
-	 * @param profil
+	 * @param profile
 	 *          warrior type to produce
 	 * @return creation possibility
 	 * @throws MaxNumberOfTroopsReachedException
 	 */
-	public boolean createWarrior(WarriorProfile profil)
+	public boolean createWarrior(WarriorProfile profile)
 			throws MaxNumberOfTroopsReachedException {
 
-		if (this.canProduceWarrior(profil)) {
-			Level level = this.factory.get(profil);
-			this.addFightable(UnitFactory.createWarrior(profil, level));
+		if (this.canProduceWarrior(profile)) {
+			Level level = this.factory.get(profile);
+			this.addFightable(UnitFactory.createWarrior(profile, level));
 			return true;
 		}
 		return false;
