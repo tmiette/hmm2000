@@ -63,7 +63,7 @@ public interface FightableContainer extends MapForegroundElement {
 	public BattlePositionMap getBattlePositionManager();
 
 	/**
-	 * Gets player owns the fughtable container
+	 * Gets player owns the fightable container
 	 * 
 	 * @return
 	 */
@@ -78,7 +78,7 @@ public interface FightableContainer extends MapForegroundElement {
 	public void setPlayer(Player player);
 
 	/**
-	 * Gets specific attack priority to choose who will start batlle first
+	 * Gets specific attack priority to choose who will start battle first
 	 * 
 	 * @return attack priority value
 	 */

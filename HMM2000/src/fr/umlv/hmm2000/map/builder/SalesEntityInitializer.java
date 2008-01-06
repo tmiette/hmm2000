@@ -1,10 +1,8 @@
 package fr.umlv.hmm2000.map.builder;
 
-import java.io.IOException;
 import java.io.LineNumberReader;
 
 import fr.umlv.hmm2000.salesentity.SalesEntity;
-import fr.umlv.hmm2000.salesentity.SalesEntity.SalesEntityEnum;
 import fr.umlv.hmm2000.unit.Fightable;
 import fr.umlv.hmm2000.unit.UnitFactory;
 
@@ -21,38 +19,19 @@ public class SalesEntityInitializer implements MapForegroundElementInitializer {
   public SalesEntity initialize(LineNumberReader lnr, String[] data) {
     if (data.length >= 1) {
       try {
-        SalesEntity sales = new SalesEntity(decodeKind(data[0].charAt(0)));
-        String s;
-        while ((s = lnr.readLine()) != null && s.charAt(0) == '-') {
-          decodeSellable(sales, s.split(";"));
+        SalesEntity sales = new SalesEntity(Translator.decodeSalesEntity(data[0]
+            .charAt(0)));
+        for (int i = 1; i < data.length; i++) {
+          decodeSellable(sales, data[i].split(","));
         }
         return sales;
       } catch (IndexOutOfBoundsException e) {
-      } catch (IOException e) {
       } catch (NumberFormatException e) {
         new IllegalArgumentException("Syntax error on line "
             + lnr.getLineNumber() + ".", e);
       }
     }
     return null;
-  }
-
-  /**
-   * Translates a character to a sales entity kind.
-   * 
-   * @param c
-   *            the character.
-   * @return the sales entity kind.
-   */
-  private SalesEntityEnum decodeKind(char c) {
-    switch (c) {
-    case 'M':
-      return SalesEntityEnum.MERCHANT;
-    case 'B':
-      return SalesEntityEnum.BARRACKS;
-    default:
-      return SalesEntityEnum.MERCHANT;
-    }
   }
 
   /**
@@ -107,10 +86,10 @@ public class SalesEntityInitializer implements MapForegroundElementInitializer {
   private void decodeBarracksItem(SalesEntity sales, String[] data) {
     if (data.length >= 3) {
       try {
-        int q = Integer.parseInt(data[1]);
+        int q = Integer.parseInt(data[2]);
         Fightable w = UnitFactory.createWarrior(Translator
-            .decodeProfile(data[0].charAt(0)), Translator.decodeLevel(data[1]
-            .charAt(0)));
+            .decodeWarriorProfile(data[0].charAt(0)), Translator
+            .decodeLevel(data[1].charAt(0)));
         sales.addProduct(w, q);
       } catch (NumberFormatException e) {
       } catch (IndexOutOfBoundsException e) {

@@ -2,34 +2,32 @@ package fr.umlv.hmm2000.map.builder;
 
 import java.io.LineNumberReader;
 
-import fr.umlv.hmm2000.building.Castle;
 import fr.umlv.hmm2000.engine.Player;
 import fr.umlv.hmm2000.unit.Fightable;
 import fr.umlv.hmm2000.unit.FightableContainer;
+import fr.umlv.hmm2000.unit.Monster;
 import fr.umlv.hmm2000.unit.UnitFactory;
 import fr.umlv.hmm2000.unit.exception.MaxNumberOfTroopsReachedException;
 
 /**
- * This class defines an initializer of castles elements.
+ * This class defines an initializer of monsters elements.
  * 
  * @author MIETTE Tom
  * @author MOURET Sebastien
  * 
  */
-public class CastleInitializer implements MapForegroundElementInitializer {
+public class MonsterInitializer implements MapForegroundElementInitializer {
 
   @Override
-  public Castle initialize(LineNumberReader lnr, String[] data) {
+  public Monster initialize(LineNumberReader lnr, String[] data) {
     if (data.length >= 1) {
       try {
-        Castle c = new Castle(Player.AI, Translator
-            .decodeWarriorProfile(data[0].charAt(0)));
-        if (data.length >= 2) {
-          for (String s : data[1].split(",")) {
-            decodeFightable(c, s.split(":"));
-          }
+        Monster m = UnitFactory.createMonster(Player.AI, Translator
+            .decodeMonsterProfile(data[0].charAt(0)));
+        for (int i = 1; i < data.length; i++) {
+          decodeFightable(m, data[i].split(","));
         }
-        return c;
+        return m;
       } catch (IndexOutOfBoundsException e) {
       } catch (NumberFormatException e) {
         new IllegalArgumentException("Syntax error on line "
