@@ -4,6 +4,13 @@ import java.net.URL;
 
 import fr.umlv.lawrence.svg.SVGImageProvider;
 
+/**
+ * This enum represents all the sprite used in the game.
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public enum Sprite {
 
   ALREADY("alreadyAttack"),
@@ -34,15 +41,32 @@ public enum Sprite {
 
   private final String spritePath;
 
+  /**
+   * Constructor of the enum.
+   * 
+   * @param spritePath
+   *            name of the sprite.
+   */
   private Sprite(String spritePath) {
     this.spritePath = spritePath;
   }
 
+  /**
+   * Registers the SVG image to the provider.
+   * 
+   * @param provider
+   *            the provider.
+   */
   public void register(SVGImageProvider<Sprite> provider) {
-    provider.registerImage(this, Sprite.class
-        .getResource("/sprites/" + spritePath + ".svg"));
+    provider.registerImage(this, Sprite.class.getResource("/sprites/"
+        + spritePath + ".svg"));
   }
 
+  /**
+   * Returns the path of the PNG icon.
+   * 
+   * @return the path of the PNG icon.
+   */
   public URL getIconPath() {
     return Sprite.class.getResource("/icons/" + this.spritePath + ".png");
   }
