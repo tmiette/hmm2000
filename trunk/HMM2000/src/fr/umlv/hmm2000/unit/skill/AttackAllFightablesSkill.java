@@ -48,13 +48,13 @@ public class AttackAllFightablesSkill implements Skill {
               defender);
           CoreEngine.battleManager().kill(l, defender);
         }
-        // Battle ended
-        if (CoreEngine.battleManager() != null) {
-          // Next round
-          CoreEngine.battleManager().roundManager().nextDay();
-
-        }
       }
+    }
+    // Battle ended
+    if (CoreEngine.battleManager() != null) {
+      // Next round
+      CoreEngine.battleManager().roundManager().nextDay();
+
     }
   }
 

@@ -62,6 +62,12 @@ public class AttackLineOpponentFightableSkill implements Skill {
                 defender);
             CoreEngine.battleManager().kill(l, defender);
           }
+          // Battle ended
+          if (CoreEngine.battleManager() != null) {
+            // Next round
+            CoreEngine.battleManager().roundManager().nextDay();
+
+          }
         } else {
           // Hurting first line units
           for (Fightable f : defender.getFightableContainer()
@@ -75,12 +81,12 @@ public class AttackLineOpponentFightableSkill implements Skill {
               CoreEngine.battleManager().kill(l, f);
             }
           }
-        }
-        // Battle ended
-        if (CoreEngine.battleManager() != null) {
-          // Next round
-          CoreEngine.battleManager().roundManager().nextDay();
+          // Battle ended
+          if (CoreEngine.battleManager() != null) {
+            // Next round
+            CoreEngine.battleManager().roundManager().nextDay();
 
+          }
         }
       }
     });
