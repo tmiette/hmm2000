@@ -1,68 +1,167 @@
 package fr.umlv.hmm2000.map;
 
+/**
+ * This enum contains elements to create a new map.
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public enum MapLevel {
 
-  MAP1("map/map1.map", "TestMap", Difficulty.EASY, 2, 4),
-  MAP2("map/map1.map", "NoneMap1", Difficulty.NORMAL, 2, 6),
-  MAP3("map/map1.map", "NoneMap2", Difficulty.HARD, 2, 12),
-  MAP4("map/map1.map", "NoneMap1", Difficulty.EASY, 2, 2),
-  MAP5("map/map1.map", "NoneMap1", Difficulty.HARD, 2, 4),
-  MAP6("map/map1.map", "NoneMap1", Difficulty.NORMAL, 2, 8),
-  MAP7("map/map1.map", "NoneMap1", Difficulty.HARD, 2, 4),
-  MAP8("map/map1.map", "NoneMap1", Difficulty.EASY, 2, 3),
-  MAP9("map/map1.map", "NoneMap1", Difficulty.HARD, 2, 4),
-  MAP10("map/map1.map", "NoneMap1", Difficulty.EASY, 2, 4),
-  MAP11("map/map1.map", "NoneMap1", Difficulty.EASY, 2, 4),
-  MAP12("map/map1.map", "NoneMap1", Difficulty.NORMAL, 2, 4),
-  MAP13("map/map1.map", "NoneMap1", Difficulty.EASY, 2, 4),;
-  
-  public enum Difficulty {
-    EASY,
-    NORMAL,
-    HARD;
-  }
+	MAP1(	"map/map1.map",
+				"TestMap",
+				Difficulty.EASY,
+				2,
+				4),
+	MAP2(	"map/map1.map",
+				"NoneMap1",
+				Difficulty.NORMAL,
+				2,
+				6),
+	MAP3(	"map/map1.map",
+				"NoneMap2",
+				Difficulty.HARD,
+				2,
+				12),
+	MAP4(	"map/map1.map",
+				"NoneMap1",
+				Difficulty.EASY,
+				2,
+				2),
+	MAP5(	"map/map1.map",
+				"NoneMap1",
+				Difficulty.HARD,
+				2,
+				4),
+	MAP6(	"map/map1.map",
+				"NoneMap1",
+				Difficulty.NORMAL,
+				2,
+				8),
+	MAP7(	"map/map1.map",
+				"NoneMap1",
+				Difficulty.HARD,
+				2,
+				4),
+	MAP8(	"map/map1.map",
+				"NoneMap1",
+				Difficulty.EASY,
+				2,
+				3),
+	MAP9(	"map/map1.map",
+				"NoneMap1",
+				Difficulty.HARD,
+				2,
+				4),
+	MAP10("map/map1.map",
+				"NoneMap1",
+				Difficulty.EASY,
+				2,
+				4),
+	MAP11("map/map1.map",
+				"NoneMap1",
+				Difficulty.EASY,
+				2,
+				4),
+	MAP12("map/map1.map",
+				"NoneMap1",
+				Difficulty.NORMAL,
+				2,
+				4),
+	MAP13("map/map1.map",
+				"NoneMap1",
+				Difficulty.EASY,
+				2,
+				4), ;
 
-  private final String mapFile;
+	public enum Difficulty {
+		EASY,
+		NORMAL,
+		HARD;
+	}
 
-  private final String name;
+	// Map file to decode
+	private final String mapFile;
 
-  private final Difficulty difficulty;
+	// Map name to display in game menu
+	private final String name;
 
-  private final int minPlayerNumber;
+	// Map difficulty
+	private final Difficulty difficulty;
 
-  private final int maxPlayerNumber;
+	// Minimum player number
+	private final int minPlayerNumber;
 
-  private MapLevel(String mapFile, String name, Difficulty difficulty,
-      int minPlayerNumber, int maxPlayerNumber) {
-    this.mapFile = mapFile;
-    this.name = name;
-    this.difficulty = difficulty;
-    this.minPlayerNumber = minPlayerNumber;
-    this.maxPlayerNumber = maxPlayerNumber;
-  }
+	// Maximum player number
+	private final int maxPlayerNumber;
 
-  public String getMapFile() {
-    return this.mapFile;
-  }
+	private MapLevel(	String mapFile,
+										String name,
+										Difficulty difficulty,
+										int minPlayerNumber,
+										int maxPlayerNumber) {
 
-  public String getName() {
-    return this.name;
-  }
+		this.mapFile = mapFile;
+		this.name = name;
+		this.difficulty = difficulty;
+		this.minPlayerNumber = minPlayerNumber;
+		this.maxPlayerNumber = maxPlayerNumber;
+	}
 
-  public Difficulty getDifficulty() {
-    return this.difficulty;
-  }
+	/**
+	 * Gets the map file string.
+	 * 
+	 * @return file name
+	 */
+	public String getMapFile() {
 
-  public int getMinPlayerNumber() {
-    return this.minPlayerNumber;
-  }
+		return this.mapFile;
+	}
 
-  public int getMaxPlayerNumber() {
-    return this.maxPlayerNumber;
-  }
-  
-  @Override
-  public String toString() {
-    return this.name;
-  }
+	/**
+	 * Gets the map name.
+	 * 
+	 * @return map name
+	 */
+	public String getName() {
+
+		return this.name;
+	}
+
+	/**
+	 * Gets the map difficulty
+	 * 
+	 * @return map difficulty
+	 */
+	public Difficulty getDifficulty() {
+
+		return this.difficulty;
+	}
+
+	/**
+	 * Gets minimum player value the map can contain.
+	 * 
+	 * @return minimun player number
+	 */
+	public int getMinPlayerNumber() {
+
+		return this.minPlayerNumber;
+	}
+
+	/**
+	 * Gets maximum player value the map can contain.
+	 * 
+	 * @return maximum player value
+	 */
+	public int getMaxPlayerNumber() {
+
+		return this.maxPlayerNumber;
+	}
+
+	@Override
+	public String toString() {
+
+		return this.name;
+	}
 }
