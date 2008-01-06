@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
+import fr.umlv.hmm2000.salesentity.Price;
 import fr.umlv.hmm2000.salesentity.PriceFactory;
 import fr.umlv.hmm2000.unit.profile.Level;
 import fr.umlv.hmm2000.unit.profile.WarriorProfile;
@@ -39,23 +40,24 @@ public class UpgradeFactoryItem implements CastleItem {
 		items.add(CastleItem.defaultItem);
 		// Avalaible factories
 		for (final WarriorProfile profile : WarriorProfile.values()) {
+		// Next level possible for factory
+			final Level level = castle.getNextFactoryLevel(profile);
+			
 			if (castle.canProduceWarrior(profile)
-					&& !profile.equals(castle.getDefaultFactory())) {
+					&& !profile.equals(castle.getDefaultFactory()) && level != null) {
 				items.add(new CastleItem() {
 
 					@Override
 					public String getSuggestion() {
 
-						return profile.name() + " factory.";
+						Price price = PriceFactory.getWarriorFactoryPrice(profile, level);
+						return profile.name() + " factory, price : " + price.toString();
 					}
 
 					@Override
 					public void perform() {
 
-						// Next level possible for default castle factory
-						Level level = castle.getNextFactoryLevel(profile);
-
-						if (level != null) {
+						
 							if (castle.getPlayer().spend(
 									PriceFactory.getWarriorFactoryPrice(profile, level))) {
 								UpgradeFactoryItem.this.castle.upgradeFactory(profile);
@@ -64,12 +66,6 @@ public class UpgradeFactoryItem implements CastleItem {
 								CoreEngine.fireMessage("You don't have enough resources.",
 										HMMUserInterface.WARNING_MESSAGE);
 							}
-						}
-						else {
-							CoreEngine.fireMessage(
-									"Level too high. You have already the best level.",
-									HMMUserInterface.WARNING_MESSAGE);
-						}
 
 					}
 
@@ -87,5 +83,4 @@ public class UpgradeFactoryItem implements CastleItem {
 		CoreEngine.selectionManager().perform(
 				CoreEngine.map().getLocationForMapForegroundElement(castle));
 	}
-
 }

@@ -25,7 +25,11 @@ public class UpgradeCastleItem implements CastleItem {
 	@Override
 	public String getSuggestion() {
 
-		return "Upgrade castle";
+		// Next level possible for default castle factory
+		Level level = castle.getNextFactoryLevel(castle.getDefaultFactory());
+		return "Upgrade castle, price : "
+				+ PriceFactory
+						.getWarriorFactoryPrice(castle.getDefaultFactory(), level);
 	}
 
 	@Override
@@ -35,7 +39,8 @@ public class UpgradeCastleItem implements CastleItem {
 		Level level = castle.getNextFactoryLevel(castle.getDefaultFactory());
 		if (level != null) {
 			if (castle.getPlayer().spend(
-					PriceFactory.getWarriorFactoryPrice(castle.getDefaultFactory(), level))) {
+					PriceFactory
+							.getWarriorFactoryPrice(castle.getDefaultFactory(), level))) {
 				castle.upgradeFactory(castle.getDefaultFactory());
 			}
 			else {
