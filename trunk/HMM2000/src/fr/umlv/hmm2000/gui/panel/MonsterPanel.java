@@ -55,7 +55,7 @@ public class MonsterPanel {
    */
   private static void refresh(Monster monster) {
     instance.abstractPanel.refresh(new ImageIcon(monster.getSprite()
-        .getIconPath()), "MONSTER", monster.getPlayer().toString());
+        .getIconPath()), monster.getName(), monster.getPlayer().toString());
     instance.troops.setText(monster.getTroop().size() + "");
   }
 

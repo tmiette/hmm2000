@@ -9,159 +9,93 @@ package fr.umlv.hmm2000.map;
  */
 public enum MapLevel {
 
-	MAP1(	"map/map1.map",
-				"Sins",
-				Difficulty.EASY,
-				2,
-				4),
-	MAP2(	"map/map2.map",
-				"Zarock",
-				Difficulty.NORMAL,
-				2,
-				3),
-	MAP3(	"map/map1.map",
-				"NoneMap2",
-				Difficulty.HARD,
-				2,
-				12),
-	MAP4(	"map/map1.map",
-				"NoneMap1",
-				Difficulty.EASY,
-				2,
-				2),
-	MAP5(	"map/map1.map",
-				"NoneMap1",
-				Difficulty.HARD,
-				2,
-				4),
-	MAP6(	"map/map1.map",
-				"NoneMap1",
-				Difficulty.NORMAL,
-				2,
-				8),
-	MAP7(	"map/map1.map",
-				"NoneMap1",
-				Difficulty.HARD,
-				2,
-				4),
-	MAP8(	"map/map1.map",
-				"NoneMap1",
-				Difficulty.EASY,
-				2,
-				3),
-	MAP9(	"map/map1.map",
-				"NoneMap1",
-				Difficulty.HARD,
-				2,
-				4),
-	MAP10("map/map1.map",
-				"NoneMap1",
-				Difficulty.EASY,
-				2,
-				4),
-	MAP11("map/map1.map",
-				"NoneMap1",
-				Difficulty.EASY,
-				2,
-				4),
-	MAP12("map/map1.map",
-				"NoneMap1",
-				Difficulty.NORMAL,
-				2,
-				4),
-	MAP13("map/map1.map",
-				"NoneMap1",
-				Difficulty.EASY,
-				2,
-				4), ;
+  MAP1("map/map1.map", "Sins", Difficulty.EASY, 2, 2),
+  MAP2("map/map2.map", "Zarock", Difficulty.NORMAL, 2, 3);
 
-	public enum Difficulty {
-		EASY,
-		NORMAL,
-		HARD;
-	}
+  public enum Difficulty {
+    EASY,
+    NORMAL,
+    HARD;
+  }
 
-	// Map file to decode
-	private final String mapFile;
+  // Map file to decode
+  private final String mapFile;
 
-	// Map name to display in game menu
-	private final String name;
+  // Map name to display in game menu
+  private final String name;
 
-	// Map difficulty
-	private final Difficulty difficulty;
+  // Map difficulty
+  private final Difficulty difficulty;
 
-	// Minimum player number
-	private final int minPlayerNumber;
+  // Minimum player number
+  private final int minPlayerNumber;
 
-	// Maximum player number
-	private final int maxPlayerNumber;
+  // Maximum player number
+  private final int maxPlayerNumber;
 
-	private MapLevel(	String mapFile,
-										String name,
-										Difficulty difficulty,
-										int minPlayerNumber,
-										int maxPlayerNumber) {
+  private MapLevel(String mapFile, String name, Difficulty difficulty,
+      int minPlayerNumber, int maxPlayerNumber) {
 
-		this.mapFile = mapFile;
-		this.name = name;
-		this.difficulty = difficulty;
-		this.minPlayerNumber = minPlayerNumber;
-		this.maxPlayerNumber = maxPlayerNumber;
-	}
+    this.mapFile = mapFile;
+    this.name = name;
+    this.difficulty = difficulty;
+    this.minPlayerNumber = minPlayerNumber;
+    this.maxPlayerNumber = maxPlayerNumber;
+  }
 
-	/**
-	 * Gets the map file string.
-	 * 
-	 * @return file name
-	 */
-	public String getMapFile() {
+  /**
+   * Gets the map file string.
+   * 
+   * @return file name
+   */
+  public String getMapFile() {
 
-		return this.mapFile;
-	}
+    return this.mapFile;
+  }
 
-	/**
-	 * Gets the map name.
-	 * 
-	 * @return map name
-	 */
-	public String getName() {
+  /**
+   * Gets the map name.
+   * 
+   * @return map name
+   */
+  public String getName() {
 
-		return this.name;
-	}
+    return this.name;
+  }
 
-	/**
-	 * Gets the map difficulty
-	 * 
-	 * @return map difficulty
-	 */
-	public Difficulty getDifficulty() {
+  /**
+   * Gets the map difficulty
+   * 
+   * @return map difficulty
+   */
+  public Difficulty getDifficulty() {
 
-		return this.difficulty;
-	}
+    return this.difficulty;
+  }
 
-	/**
-	 * Gets minimum player value the map can contain.
-	 * 
-	 * @return minimun player number
-	 */
-	public int getMinPlayerNumber() {
+  /**
+   * Gets minimum player value the map can contain.
+   * 
+   * @return minimun player number
+   */
+  public int getMinPlayerNumber() {
 
-		return this.minPlayerNumber;
-	}
+    return this.minPlayerNumber;
+  }
 
-	/**
-	 * Gets maximum player value the map can contain.
-	 * 
-	 * @return maximum player value
-	 */
-	public int getMaxPlayerNumber() {
+  /**
+   * Gets maximum player value the map can contain.
+   * 
+   * @return maximum player value
+   */
+  public int getMaxPlayerNumber() {
 
-		return this.maxPlayerNumber;
-	}
+    return this.maxPlayerNumber;
+  }
 
-	@Override
-	public String toString() {
+  @Override
+  public String toString() {
 
-		return this.name;
-	}
+    return this.name;
+  }
 }
