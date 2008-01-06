@@ -38,27 +38,27 @@ public class UpgradeFactoryItem implements CastleItem {
 		ArrayList<CastleItem> items = new ArrayList<CastleItem>();
 		items.add(CastleItem.defaultItem);
 		// Avalaible factories
-		for (final WarriorProfile profil : WarriorProfile.values()) {
-			if (castle.canProduceWarrior(profil)
-					&& !profil.equals(castle.getDefaultFactory())) {
+		for (final WarriorProfile profile : WarriorProfile.values()) {
+			if (castle.canProduceWarrior(profile)
+					&& !profile.equals(castle.getDefaultFactory())) {
 				items.add(new CastleItem() {
 
 					@Override
 					public String getSuggestion() {
 
-						return profil.name() + " factory.";
+						return profile.name() + " factory.";
 					}
 
 					@Override
 					public void perform() {
 
 						// Next level possible for default castle factory
-						Level level = castle.getNextFactoryLevel(profil);
+						Level level = castle.getNextFactoryLevel(profile);
 
 						if (level != null) {
 							if (castle.getPlayer().spend(
-									PriceFactory.getWarriorFactoryPrice(profil, level))) {
-								UpgradeFactoryItem.this.castle.upgradeFactory(profil);
+									PriceFactory.getWarriorFactoryPrice(profile, level))) {
+								UpgradeFactoryItem.this.castle.upgradeFactory(profile);
 							}
 							else {
 								CoreEngine.fireMessage("You don't have enough resources.",

@@ -17,23 +17,23 @@ import fr.umlv.hmm2000.unit.profile.WarriorProfile;
 public class UnitFactory {
 
     /**
-     * Creates a warrior thanks to specific profil and level
+     * Creates a warrior thanks to specific profile and level
      * 
-     * @param profil
+     * @param profile
      *                enum which specify warrior type
      * @param level
      *                enum which specify warrior level
      * @return new warrior
      */
-    public static Fightable createWarrior(WarriorProfile profil, Level level) {
+    public static Fightable createWarrior(WarriorProfile profile, Level level) {
 
 	// applying ratio corresponding to level
 	final double ratio = level.getRatio();
-	return new Warrior(profil.name(), profil.getSprite(), profil
+	return new Warrior(profile.name(), profile.getSprite(), profile
 		.getPhysicalAttackValue()
-		* ratio, profil.getPhysicalDefenseValue() * ratio, profil
+		* ratio, profile.getPhysicalDefenseValue() * ratio, profile
 		.getHealth()
-		* ratio, profil.getSpeed(), profil.getAbilities(), profil
+		* ratio, profile.getSpeed(), profile.getAbilities(), profile
 		.getAttackBahaviour());
 
     }
@@ -43,15 +43,15 @@ public class UnitFactory {
      * 
      * @param player
      *                hero owner
-     * @param profil
-     *                enum which specify the hero profil
+     * @param profile
+     *                enum which specify the hero profile
      * @return new hero
      */
-    public static Hero createHero(Player player, HeroProfile profil) {
+    public static Hero createHero(Player player, HeroProfile profile) {
 
-	Hero h = new Hero(player, profil.getSprite(), profil.name(), profil
-		.getSkills(), profil.getAttackPriority());
-	for (Fightable fightable : profil.getUnits()) {
+	Hero h = new Hero(player, profile.getSprite(), profile.name(), profile
+		.getSkills(), profile.getAttackPriority());
+	for (Fightable fightable : profile.getUnits()) {
 	    try {
 		h.addFightable(fightable);
 	    } catch (MaxNumberOfTroopsReachedException e) {
@@ -66,14 +66,14 @@ public class UnitFactory {
      * 
      * @param player
      *                monster owner
-     * @param profil
-     *                enum which specify the monster profil
+     * @param profile
+     *                enum which specify the monster profile
      * @return new monster
      */
-    public static Monster createMonster(Player player, MonsterProfile profil) {
+    public static Monster createMonster(Player player, MonsterProfile profile) {
 
-	Monster m = new Monster(player, profil.getSprite(), profil.getAttackPriority());
-	for (Fightable fightable : profil.getUnits()) {
+	Monster m = new Monster(player, profile.getSprite(), profile.getAttackPriority());
+	for (Fightable fightable : profile.getUnits()) {
 	    try {
 		m.addFightable(fightable);
 	    } catch (MaxNumberOfTroopsReachedException e) {

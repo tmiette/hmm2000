@@ -31,25 +31,25 @@ public class WarriorRecruitmentItem implements CastleItem {
 
 		ArrayList<CastleItem> items = new ArrayList<CastleItem>();
 		items.add(CastleItem.defaultItem);
-		for (final WarriorProfile profil : WarriorProfile.values()) {
-			if (castle.canProduceWarrior(profil)) {
+		for (final WarriorProfile profile : WarriorProfile.values()) {
+			if (castle.canProduceWarrior(profile)) {
 				items.add(new CastleItem() {
 
 					@Override
 					public String getSuggestion() {
 
-						// TODO un tostring de profil et level + prix
-						return profil.name() + castle.getFactoryLevel(profil);
+						// TODO un tostring de profile et level + prix
+						return profile.name() + castle.getFactoryLevel(profile);
 					}
 
 					@Override
 					public void perform() {
 
-						Level level = castle.getFactoryLevel(profil);
+						Level level = castle.getFactoryLevel(profile);
 						if (castle.getPlayer().spend(
-								PriceFactory.getWarriorPrice(profil, level))) {
+								PriceFactory.getWarriorPrice(profile, level))) {
 							
-							Fightable warrior = UnitFactory.createWarrior(profil, level);
+							Fightable warrior = UnitFactory.createWarrior(profile, level);
 							Location castleLocation = CoreEngine.map()
 									.getLocationForMapForegroundElement(castle);
 							// warrior is acquired by castle

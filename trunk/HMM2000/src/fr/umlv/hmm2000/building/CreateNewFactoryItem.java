@@ -30,15 +30,15 @@ public class CreateNewFactoryItem implements CastleItem {
 		ArrayList<CastleItem> items = new ArrayList<CastleItem>();
 		items.add(CastleItem.defaultItem);
 		// Avalaible factories
-		for (final WarriorProfile profil : WarriorProfile.values()) {
+		for (final WarriorProfile profile : WarriorProfile.values()) {
 			// Factories not yet built in castle
-			if (!castle.getFactoryBuilt().contains(profil)) {
+			if (!castle.getFactoryBuilt().contains(profile)) {
 				items.add(new CastleItem() {
 
 					@Override
 					public String getSuggestion() {
 
-						return profil.name() + " factory.";
+						return profile.name() + " factory.";
 					}
 
 					@Override
@@ -46,9 +46,9 @@ public class CreateNewFactoryItem implements CastleItem {
 
 						if (castle.getPlayer().spend(
 								PriceFactory
-										.getWarriorFactoryPrice(profil, Castle.defaultLevel))) {
+										.getWarriorFactoryPrice(profile, Castle.defaultLevel))) {
 							// Build the factory specified
-							castle.buildFactory(profil);
+							castle.buildFactory(profile);
 						}
 						else {
 							CoreEngine.fireMessage("You don't have enough resources.",
