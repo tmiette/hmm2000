@@ -14,172 +14,180 @@ import fr.umlv.hmm2000.unit.Fightable;
  */
 public enum WarriorProfile {
 
-	/*
-	 * Enum default values description : TYPE(sprite, physicalAttackValue,
-	 * physycalDefenseValue, health, speed, abilities, attack behaviour)
-	 */
-	FLIGHT(	Sprite.FLIGHT,
-					10,
-					10,
-					30,
-					50,
-					new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10)
-							.addAbility(ElementaryEnum.LIGHTNING, 10, 10),
-					new AttackBehaviour() {
+  /*
+   * Enum default values description : TYPE(sprite, physicalAttackValue,
+   * physycalDefenseValue, health, speed, abilities, attack behaviour)
+   */
+  FLIGHT(Sprite.FLIGHT, 10, 10, 30, 50,
+      new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10).addAbility(
+          ElementaryEnum.LIGHTNING, 10, 10), new AttackBehaviour() {
 
-						@Override
-						public boolean isAttackable(Fightable attacker, Fightable defender) {
+        @Override
+        public boolean isAttackable(Fightable attacker, Fightable defender) {
 
-							return true;
-						}
+          return true;
+        }
 
-					}),
-	GRUNT(Sprite.GRUNT,
-				20,
-				20,
-				50,
-				20,
-				new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10)
-						.addAbility(ElementaryEnum.LIGHTNING, 10, 10),
-				new AttackBehaviour() {
+      }),
+  GRUNT(Sprite.GRUNT, 20, 20, 50, 20,
+      new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10).addAbility(
+          ElementaryEnum.LIGHTNING, 10, 10), new AttackBehaviour() {
 
-					@Override
-					public boolean isAttackable(Fightable attacker, Fightable defender) {
+        @Override
+        public boolean isAttackable(Fightable attacker, Fightable defender) {
 
-						BattlePositionMap bpmDefenser = defender.getFightableContainer()
-								.getBattlePositionManager();
-						BattlePositionMap bpmAttacker = attacker.getFightableContainer()
-								.getBattlePositionManager();
-						return bpmAttacker.isInFirstLine(attacker)
-								&& bpmDefenser.isInFirstLine(defender);
-					}
+          BattlePositionMap bpmDefenser = defender.getFightableContainer()
+              .getBattlePositionManager();
+          BattlePositionMap bpmAttacker = attacker.getFightableContainer()
+              .getBattlePositionManager();
+          return bpmAttacker.isInFirstLine(attacker)
+              && bpmDefenser.isInFirstLine(defender);
+        }
 
-				}),
-	WIZZARD(Sprite.WIZZARD,
-					1,
-					1,
-					70,
-					10,
-					new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10)
-							.addAbility(ElementaryEnum.LIGHTNING, 10, 10),
-					new AttackBehaviour() {
+      }),
+  WIZZARD(Sprite.WIZZARD, 1, 1, 70, 10,
+      new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10).addAbility(
+          ElementaryEnum.LIGHTNING, 10, 10), new AttackBehaviour() {
 
-						@Override
-						public boolean isAttackable(Fightable attacker, Fightable defender) {
+        @Override
+        public boolean isAttackable(Fightable attacker, Fightable defender) {
 
-							BattlePositionMap bpm = defender.getFightableContainer()
-									.getBattlePositionManager();
-							return bpm.isInFirstLine(defender);
-						}
+          BattlePositionMap bpm = defender.getFightableContainer()
+              .getBattlePositionManager();
+          return bpm.isInFirstLine(defender);
+        }
 
-					});
+      }),
+  VAMPIRE(Sprite.VAMPIRE, 10, 10, 30, 50,
+      new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10).addAbility(
+          ElementaryEnum.LIGHTNING, 10, 10), new AttackBehaviour() {
 
-	// Icon to display on map
-	private final Sprite sprite;
+        @Override
+        public boolean isAttackable(Fightable attacker, Fightable defender) {
 
-	// Physical attack value
-	private final double physicalAttackValue;
+          return true;
+        }
 
-	// Physical defense value
-	private final double physicalDefenseValue;
+      }),
+  DEAMON(Sprite.DEAMON, 20, 20, 50, 20,
+      new ElementAbility().addAbility(ElementaryEnum.FIRE, 10, 10).addAbility(
+          ElementaryEnum.LIGHTNING, 10, 10), new AttackBehaviour() {
 
-	// Default health
-	private final double health;
+        @Override
+        public boolean isAttackable(Fightable attacker, Fightable defender) {
 
-	// Default speed
-	private final int speed;
+          BattlePositionMap bpmDefenser = defender.getFightableContainer()
+              .getBattlePositionManager();
+          BattlePositionMap bpmAttacker = attacker.getFightableContainer()
+              .getBattlePositionManager();
+          return bpmAttacker.isInFirstLine(attacker)
+              && bpmDefenser.isInFirstLine(defender);
+        }
 
-	// Abilities to attack other unit
-	private final ElementAbility abilities;
+      });
 
-	// Capacity to attack other unit
-	private final AttackBehaviour attackBahaviour;
+  // Icon to display on map
+  private final Sprite sprite;
 
-	private WarriorProfile(Sprite sprite,
-												double physicalAttackValue,
-												double physicalDefenseValue,
-												double health,
-												int speed,
-												ElementAbility abilities,
-												AttackBehaviour attackBahaviour) {
+  // Physical attack value
+  private final double physicalAttackValue;
 
-		this.sprite = sprite;
-		this.physicalAttackValue = physicalAttackValue;
-		this.physicalDefenseValue = physicalDefenseValue;
-		this.health = health;
-		this.speed = speed;
-		this.abilities = abilities;
-		this.attackBahaviour = attackBahaviour;
-	}
+  // Physical defense value
+  private final double physicalDefenseValue;
 
-	/**
-	 * Gets icon representing warrior
-	 * 
-	 * @return sprite
-	 */
-	public Sprite getSprite() {
+  // Default health
+  private final double health;
 
-		return this.sprite;
-	}
+  // Default speed
+  private final int speed;
 
-	/**
-	 * Gets warrior specific physical attack value
-	 * 
-	 * @return physical attack value
-	 */
-	public double getPhysicalAttackValue() {
+  // Abilities to attack other unit
+  private final ElementAbility abilities;
 
-		return this.physicalAttackValue;
-	}
+  // Capacity to attack other unit
+  private final AttackBehaviour attackBahaviour;
 
-	/**
-	 * Gets warrior specific physical defense value
-	 * 
-	 * @return physical defense value
-	 */
-	public double getPhysicalDefenseValue() {
+  private WarriorProfile(Sprite sprite, double physicalAttackValue,
+      double physicalDefenseValue, double health, int speed,
+      ElementAbility abilities, AttackBehaviour attackBahaviour) {
 
-		return this.physicalDefenseValue;
-	}
+    this.sprite = sprite;
+    this.physicalAttackValue = physicalAttackValue;
+    this.physicalDefenseValue = physicalDefenseValue;
+    this.health = health;
+    this.speed = speed;
+    this.abilities = abilities;
+    this.attackBahaviour = attackBahaviour;
+  }
 
-	/**
-	 * Gets warrior specific health
-	 * 
-	 * @return default health
-	 */
-	public double getHealth() {
+  /**
+   * Gets icon representing warrior
+   * 
+   * @return sprite
+   */
+  public Sprite getSprite() {
 
-		return this.health;
-	}
+    return this.sprite;
+  }
 
-	/**
-	 * Gets warrior specific speed
-	 * 
-	 * @return warrior speed
-	 */
-	public int getSpeed() {
+  /**
+   * Gets warrior specific physical attack value
+   * 
+   * @return physical attack value
+   */
+  public double getPhysicalAttackValue() {
 
-		return this.speed;
-	}
+    return this.physicalAttackValue;
+  }
 
-	/**
-	 * Gets abilities owned by warrior
-	 * 
-	 * @return abilites
-	 */
-	public ElementAbility getAbilities() {
+  /**
+   * Gets warrior specific physical defense value
+   * 
+   * @return physical defense value
+   */
+  public double getPhysicalDefenseValue() {
 
-		return this.abilities;
-	}
+    return this.physicalDefenseValue;
+  }
 
-	/**
-	 * Gets warrior specific attack capacity
-	 * 
-	 * @return attack capacity
-	 */
-	public AttackBehaviour getAttackBahaviour() {
+  /**
+   * Gets warrior specific health
+   * 
+   * @return default health
+   */
+  public double getHealth() {
 
-		return this.attackBahaviour;
-	}
+    return this.health;
+  }
+
+  /**
+   * Gets warrior specific speed
+   * 
+   * @return warrior speed
+   */
+  public int getSpeed() {
+
+    return this.speed;
+  }
+
+  /**
+   * Gets abilities owned by warrior
+   * 
+   * @return abilites
+   */
+  public ElementAbility getAbilities() {
+
+    return this.abilities;
+  }
+
+  /**
+   * Gets warrior specific attack capacity
+   * 
+   * @return attack capacity
+   */
+  public AttackBehaviour getAttackBahaviour() {
+
+    return this.attackBahaviour;
+  }
 
 }
