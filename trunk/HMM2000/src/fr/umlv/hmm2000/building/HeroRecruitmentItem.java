@@ -47,7 +47,7 @@ public class HeroRecruitmentItem implements CastleItem {
 
 				@Override
 				public void perform() {
-
+System.out.println(PriceFactory.getHeroPrice(profile));
 					if (castle.getPlayer().spend(PriceFactory.getHeroPrice(profile))) {
 						castle.addHero(UnitFactory.createHero(castle.getPlayer(), profile));
 					}
