@@ -42,12 +42,13 @@ public class HeroRecruitmentItem implements CastleItem {
 				@Override
 				public String getSuggestion() {
 
-					return profile.name();
+					
+					return profile.name() + ", price : " + PriceFactory.getHeroPrice(profile);
 				}
 
 				@Override
 				public void perform() {
-System.out.println(PriceFactory.getHeroPrice(profile));
+
 					if (castle.getPlayer().spend(PriceFactory.getHeroPrice(profile))) {
 						castle.addHero(UnitFactory.createHero(castle.getPlayer(), profile));
 					}

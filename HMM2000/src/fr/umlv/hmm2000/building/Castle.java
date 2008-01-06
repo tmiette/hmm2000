@@ -140,7 +140,11 @@ public class Castle implements FightableContainer {
 	 */
 	public Level getNextFactoryLevel(WarriorProfile profile) {
 
-		return this.factory.get(profile).getNextLevel();
+		Level level = this.factory.get(profile);
+		if (level != null) {
+			level = level.getNextLevel();
+		}
+		return level;
 	}
 
 	/**

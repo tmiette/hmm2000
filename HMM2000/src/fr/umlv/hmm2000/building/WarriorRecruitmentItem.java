@@ -47,15 +47,18 @@ public class WarriorRecruitmentItem implements CastleItem {
 					@Override
 					public String getSuggestion() {
 
-						// TODO un tostring de profile et level + prix
-						return profile.name() + castle.getFactoryLevel(profile);
+						Level level = castle.getFactoryLevel(profile);
+						return profile.toString() + ", level : " + level.toString()
+								+ ", price : "
+								+ PriceFactory.getWarriorPrice(profile, level).toString();
 					}
 
 					@Override
 					public void perform() {
 
 						Level level = castle.getFactoryLevel(profile);
-						System.out.println("prix  " + PriceFactory.getWarriorPrice(profile, level));
+						System.out.println("prix  "
+								+ PriceFactory.getWarriorPrice(profile, level));
 						if (castle.getPlayer().spend(
 								PriceFactory.getWarriorPrice(profile, level))) {
 

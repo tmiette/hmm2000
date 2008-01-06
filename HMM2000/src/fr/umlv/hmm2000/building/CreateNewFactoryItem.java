@@ -38,7 +38,8 @@ public class CreateNewFactoryItem implements CastleItem {
 					@Override
 					public String getSuggestion() {
 
-						return profile.name() + " factory.";
+						return profile.name() + " factory, price : " + PriceFactory
+						.getWarriorFactoryPrice(profile, Castle.defaultLevel);
 					}
 
 					@Override
@@ -70,5 +71,4 @@ public class CreateNewFactoryItem implements CastleItem {
 		CoreEngine.selectionManager().perform(
 				CoreEngine.map().getLocationForMapForegroundElement(castle));
 	}
-
 }
