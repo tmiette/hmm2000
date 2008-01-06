@@ -173,11 +173,11 @@ public class CoreEngine {
     CoreEngine.battleManager = null;
     CoreEngine.changeCurrentMap(CoreEngine.worldMap);
     Location l = CoreEngine.map().getLocationForMapForegroundElement(looser);
-    if (l != null) {
+    if (l != null && !(looser instanceof Castle)) {
       CoreEngine.map().removeMapForegroundElement(l);
       CoreEngine.uiEngine.eraseSprite(l, looser.getSprite());
-    } else if (looser instanceof Castle || l == null) {
-      CoreEngine.game.playerLost(looser.getPlayer());
+    } else {
+      CoreEngine.game.loose(looser.getPlayer());
     }
   }
 
@@ -557,9 +557,20 @@ public class CoreEngine {
   }
 
   /**
+   * Remove a player of the game.
+   * 
+   * @param player
+   *            the player.
+   */
+  public static void renounce() {
+    CoreEngine.game.loose(CoreEngine.roundManager.currentPlayer());
+  }
+
+  /**
    * Default constructor.
    */
   private CoreEngine() {
 
   }
+
 }

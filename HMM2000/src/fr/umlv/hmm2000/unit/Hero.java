@@ -9,6 +9,7 @@ import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.engine.guiinterface.Sprite;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
+import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.MovableElement;
 import fr.umlv.hmm2000.map.battle.BattlePositionMap;
 import fr.umlv.hmm2000.map.battle.exception.LocationAlreadyOccupedException;
@@ -180,6 +181,9 @@ public class Hero extends MovableElement {
     } else {
       CoreEngine.fireMessage(this.getPlayer() + " : you cannot pay " + this
           + " anymore. This hero leave.", HMMUserInterface.WARNING_MESSAGE);
+      Location l = CoreEngine.map().getLocationForMapForegroundElement(this);
+      CoreEngine.map().removeMapForegroundElement(l);
+      CoreEngine.fireSpriteRemoved(l, this.sprite);
     }
   }
 
