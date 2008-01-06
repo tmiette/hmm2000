@@ -283,8 +283,8 @@ public class CoreEngine {
     	CoreEngine.map().removeMapForegroundElement(l);
       CoreEngine.uiEngine.eraseSprite(l, looser.getSprite());
 		}
-    if (looser instanceof Castle) {
-      CoreEngine.game.playerLost(looser.getPlayer());
+    else {
+    	CoreEngine.game.playerLost(looser.getPlayer());
     }
   }
 
