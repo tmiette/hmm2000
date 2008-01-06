@@ -23,7 +23,7 @@ public class WarriorRecruitmentItem implements CastleItem {
 	@Override
 	public String getSuggestion() {
 
-		return "Recruter un guerrier";
+		return "Buy new warrior";
 	}
 
 	@Override
