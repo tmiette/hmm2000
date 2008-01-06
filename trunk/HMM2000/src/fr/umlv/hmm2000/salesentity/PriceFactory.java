@@ -64,7 +64,6 @@ public class PriceFactory {
         .getUnits().length);
     gold = gold * 2;
     price.addResource(Kind.GOLD, gold);
-    System.out.println("price hero : " + price);
     return price;
   }
 }
