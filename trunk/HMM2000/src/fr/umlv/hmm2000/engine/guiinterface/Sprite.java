@@ -41,7 +41,8 @@ public enum Sprite {
   MUMMY("mummy"),
   ZOMBIE("zombie"),
   VAMPIRE("vampire"),
-  DEAMON("deamon");
+  DEAMON("deamon"),
+  PIRATE("pirate");
 
   private final String spritePath;
 

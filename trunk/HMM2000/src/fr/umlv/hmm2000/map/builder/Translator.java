@@ -49,6 +49,12 @@ public class Translator {
       return WarriorProfile.WIZZARD;
     case 'F':
       return WarriorProfile.FLIGHT;
+    case 'P':
+      return WarriorProfile.PIRATE;
+    case 'V':
+      return WarriorProfile.VAMPIRE;
+    case 'D':
+      return WarriorProfile.DEAMON;
     default:
       return WarriorProfile.GRUNT;
     }
@@ -113,7 +119,7 @@ public class Translator {
       return MonsterProfile.TROLL;
     }
   }
-  
+
   /**
    * Translates a character to a sales entity kind.
    * 
@@ -131,7 +137,7 @@ public class Translator {
       return SalesEntityEnum.MERCHANT;
     }
   }
-  
+
   /**
    * Translates a character to a hero profile.
    * 
