@@ -55,21 +55,22 @@ public class Castle implements FightableContainer {
 	public final static Level defaultLevel = Level.LEVEL_1;
 
 	// Default warrior a castle can create
-	public final static ProfilWarrior defaultWarrior = ProfilWarrior.GRUNT;
+	private final ProfilWarrior defaultFactory;
 
-	public Castle(Player player) {
+	public Castle(Player player, ProfilWarrior profile) {
 
 		this.player = player;
+		this.defaultFactory = profile;
 		this.troop = new ArrayList<Fightable>(FightableContainer.MAX_TROOP_SIZE);
 		this.heroes = new ArrayList<Hero>();
 		this.battlePosition = new BattlePositionMap(
 				FightableContainer.MAX_TROOP_SIZE / BattlePositionMap.LINE_NUMBER);
 		this.factory = new HashMap<ProfilWarrior, Level>();
-		this.factory.put(defaultWarrior, defaultLevel);
+		this.factory.put(this.defaultFactory, defaultLevel);
 		try {
 			// Adding default unit
 			this
-					.addFightable(UnitFactory.createWarrior(defaultWarrior, defaultLevel));
+					.addFightable(UnitFactory.createWarrior(this.defaultFactory, defaultLevel));
 		}
 		catch (MaxNumberOfTroopsReachedException e) {
 			new AssertionError(e);
