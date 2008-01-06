@@ -40,7 +40,7 @@ public class UpgradeFactoryItem implements CastleItem {
 		// Avalaible factories
 		for (final ProfilWarrior profil : ProfilWarrior.values()) {
 			if (castle.canProduceWarrior(profil)
-					&& !profil.equals(Castle.defaultWarrior)) {
+					&& !profil.equals(castle.getDefaultFactory())) {
 				items.add(new CastleItem() {
 
 					@Override

@@ -25,7 +25,7 @@ import fr.umlv.hmm2000.unit.profil.ProfilWarrior;
 /**
  * This class represents a castle and its factories. It can produce figthable
  * thank to its factories, it can be attacked by fightable container and produce
- * heroes.
+ * heroes. Factory can create a fightable thanks to it type.
  * 
  * @author MIETTE Tom
  * @author MOURET Sebastien
@@ -369,5 +369,14 @@ public class Castle implements FightableContainer {
 		sb.append(")");
 
 		return sb.toString();
+	}
+
+	/**
+	 * Gets default factory containing in castle.
+	 * @return default factoril
+	 */
+	public ProfilWarrior getDefaultFactory() {
+	
+		return this.defaultFactory;
 	}
 }
