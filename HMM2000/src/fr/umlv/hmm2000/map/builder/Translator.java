@@ -4,9 +4,9 @@ import fr.umlv.hmm2000.resource.Resource.Kind;
 import fr.umlv.hmm2000.salesentity.SalesEntity.SalesEntityEnum;
 import fr.umlv.hmm2000.salesentity.spell.Spell;
 import fr.umlv.hmm2000.unit.profil.Level;
-import fr.umlv.hmm2000.unit.profil.ProfilHero;
-import fr.umlv.hmm2000.unit.profil.ProfilMonster;
-import fr.umlv.hmm2000.unit.profil.ProfilWarrior;
+import fr.umlv.hmm2000.unit.profil.HeroProfile;
+import fr.umlv.hmm2000.unit.profil.MonsterProfile;
+import fr.umlv.hmm2000.unit.profil.WarriorProfile;
 
 /**
  * This class enables to translate some characters to java object using during
@@ -41,16 +41,16 @@ public class Translator {
    *            the character.
    * @return the profile.
    */
-  protected static ProfilWarrior decodeWarriorProfile(char c) {
+  protected static WarriorProfile decodeWarriorProfile(char c) {
     switch (c) {
     case 'G':
-      return ProfilWarrior.GRUNT;
+      return WarriorProfile.GRUNT;
     case 'W':
-      return ProfilWarrior.WIZZARD;
+      return WarriorProfile.WIZZARD;
     case 'F':
-      return ProfilWarrior.FLIGHT;
+      return WarriorProfile.FLIGHT;
     default:
-      return ProfilWarrior.GRUNT;
+      return WarriorProfile.GRUNT;
     }
   }
 
@@ -101,16 +101,16 @@ public class Translator {
    *            the character.
    * @return the monster profile.
    */
-  protected static ProfilMonster decodeMonsterProfile(char c) {
+  protected static MonsterProfile decodeMonsterProfile(char c) {
     switch (c) {
     case 'T':
-      return ProfilMonster.TROLL;
+      return MonsterProfile.TROLL;
     case 'M':
-      return ProfilMonster.MUMMY;
+      return MonsterProfile.MUMMY;
     case 'Z':
-      return ProfilMonster.ZOMBIE;
+      return MonsterProfile.ZOMBIE;
     default:
-      return ProfilMonster.TROLL;
+      return MonsterProfile.TROLL;
     }
   }
   
@@ -139,16 +139,16 @@ public class Translator {
    *            the character.
    * @return the hero profile.
    */
-  protected static ProfilHero decodeHeroProfile(char c) {
+  protected static HeroProfile decodeHeroProfile(char c) {
     switch (c) {
     case 'L':
-      return ProfilHero.LORD_OF_WAR;
+      return HeroProfile.LORD_OF_WAR;
     case 'A':
-      return ProfilHero.ARCHER;
+      return HeroProfile.ARCHER;
     case 'S':
-      return ProfilHero.SORCERER;
+      return HeroProfile.SORCERER;
     default:
-      return ProfilHero.LORD_OF_WAR;
+      return HeroProfile.LORD_OF_WAR;
     }
   }
 

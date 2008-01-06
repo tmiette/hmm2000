@@ -13,20 +13,20 @@ import fr.umlv.hmm2000.unit.UnitFactory;
  * @author MOURET Sebastien
  * 
  */
-public enum ProfilMonster {
+public enum MonsterProfile {
 
 	TROLL(Sprite.TROLL,
 				FightableContainer.PRIORITY_VERY_LOW,
 				new Fightable[] {
-						UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1) }),
+						UnitFactory.createWarrior(WarriorProfile.FLIGHT, Level.LEVEL_1) }),
 	ZOMBIE(	Sprite.DEFAULT,
 					FightableContainer.PRIORITY_VERY_LOW,
 					new Fightable[] {
-							UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1) }),
+							UnitFactory.createWarrior(WarriorProfile.FLIGHT, Level.LEVEL_1) }),
 	MUMMY(Sprite.DEFAULT,
 				FightableContainer.PRIORITY_VERY_LOW,
 				new Fightable[] {
-						UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1) });
+						UnitFactory.createWarrior(WarriorProfile.FLIGHT, Level.LEVEL_1) });
 
 	// Icon to display on map
 	private final Sprite sprite;
@@ -37,7 +37,7 @@ public enum ProfilMonster {
 	// Specify who start to attack
 	private final int attackPriority;
 
-	private ProfilMonster(Sprite sprite,
+	private MonsterProfile(Sprite sprite,
 												int attackPriority,
 												Fightable[] units) {
 

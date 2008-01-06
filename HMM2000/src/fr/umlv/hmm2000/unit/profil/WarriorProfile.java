@@ -12,7 +12,7 @@ import fr.umlv.hmm2000.unit.Fightable;
  * @author MOURET Sebastien
  * 
  */
-public enum ProfilWarrior {
+public enum WarriorProfile {
 
 	/*
 	 * Enum default values description : TYPE(sprite, physicalAttackValue,
@@ -95,7 +95,7 @@ public enum ProfilWarrior {
 	// Capacity to attack other unit
 	private final AttackBehaviour attackBahaviour;
 
-	private ProfilWarrior(Sprite sprite,
+	private WarriorProfile(Sprite sprite,
 												double physicalAttackValue,
 												double physicalDefenseValue,
 												double health,

@@ -11,7 +11,7 @@ import fr.umlv.hmm2000.building.Castle;
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.gui.LawrenceComponentFactory;
 import fr.umlv.hmm2000.unit.Hero;
-import fr.umlv.hmm2000.unit.profil.ProfilWarrior;
+import fr.umlv.hmm2000.unit.profil.WarriorProfile;
 
 public class CastlePanel {
 
@@ -56,7 +56,7 @@ public class CastlePanel {
         .getIconPath()), "CASTLE", castle.getPlayer().toString());
     instance.troops.setText(castle.getTroop().size() + "");
     String factoriesString = new String("<html><body>");
-    for (ProfilWarrior profil : castle.getFactoryBuilt()) {
+    for (WarriorProfile profil : castle.getFactoryBuilt()) {
       factoriesString += profil.name() + "-"
           + castle.getFactoryLevel(profil).name() + "<br>";
     }

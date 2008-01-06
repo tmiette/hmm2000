@@ -3,9 +3,9 @@ package fr.umlv.hmm2000.unit;
 import fr.umlv.hmm2000.engine.Player;
 import fr.umlv.hmm2000.unit.exception.MaxNumberOfTroopsReachedException;
 import fr.umlv.hmm2000.unit.profil.Level;
-import fr.umlv.hmm2000.unit.profil.ProfilHero;
-import fr.umlv.hmm2000.unit.profil.ProfilMonster;
-import fr.umlv.hmm2000.unit.profil.ProfilWarrior;
+import fr.umlv.hmm2000.unit.profil.HeroProfile;
+import fr.umlv.hmm2000.unit.profil.MonsterProfile;
+import fr.umlv.hmm2000.unit.profil.WarriorProfile;
 
 /**
  * This class permits to create specifics units
@@ -25,7 +25,7 @@ public class UnitFactory {
      *                enum which specify warrior level
      * @return new warrior
      */
-    public static Fightable createWarrior(ProfilWarrior profil, Level level) {
+    public static Fightable createWarrior(WarriorProfile profil, Level level) {
 
 	// applying ratio corresponding to level
 	final double ratio = level.getRatio();
@@ -47,7 +47,7 @@ public class UnitFactory {
      *                enum which specify the hero profil
      * @return new hero
      */
-    public static Hero createHero(Player player, ProfilHero profil) {
+    public static Hero createHero(Player player, HeroProfile profil) {
 
 	Hero h = new Hero(player, profil.getSprite(), profil.name(), profil
 		.getSkills(), profil.getAttackPriority());
@@ -70,7 +70,7 @@ public class UnitFactory {
      *                enum which specify the monster profil
      * @return new monster
      */
-    public static Monster createMonster(Player player, ProfilMonster profil) {
+    public static Monster createMonster(Player player, MonsterProfile profil) {
 
 	Monster m = new Monster(player, profil.getSprite(), profil.getAttackPriority());
 	for (Fightable fightable : profil.getUnits()) {
