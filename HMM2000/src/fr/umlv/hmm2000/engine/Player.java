@@ -92,6 +92,6 @@ public class Player {
 
   @Override
   public String toString() {
-    return "Player : " + this.id;
+    return "Player " + this.id;
   }
 }

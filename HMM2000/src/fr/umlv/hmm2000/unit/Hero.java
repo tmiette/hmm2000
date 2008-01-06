@@ -189,6 +189,7 @@ public class Hero extends MovableElement {
     return this.sprite;
   }
 
+  @Override
   public String getName() {
 
     return this.name;
@@ -208,6 +209,11 @@ public class Hero extends MovableElement {
   public List<Skill> getSkills() {
 
     return this.skills;
+  }
+
+  @Override
+  public String toString() {
+    return this.name;
   }
 
 }

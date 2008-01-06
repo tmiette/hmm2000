@@ -76,7 +76,7 @@ public class CastlePanel {
    */
   private static void refresh(Castle castle) {
     instance.abstractPanel.refresh(new ImageIcon(castle.getSprite()
-        .getIconPath()), "CASTLE", castle.getPlayer().toString());
+        .getIconPath()), castle.getName(), castle.getPlayer().toString());
     instance.troops.setText(castle.getTroop().size() + "");
     String factoriesString = new String("<html><body>");
     for (WarriorProfile profile : castle.getFactoryBuilt()) {
