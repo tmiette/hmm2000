@@ -32,11 +32,11 @@ public class UpgradeCastleItem implements CastleItem {
 	public void perform() {
 
 		// Next level possible for default castle factory
-		Level level = castle.getNextFactoryLevel(Castle.defaultWarrior);
+		Level level = castle.getNextFactoryLevel(castle.getDefaultFactory());
 		if (level != null) {
 			if (castle.getPlayer().spend(
-					PriceFactory.getWarriorFactoryPrice(Castle.defaultWarrior, level))) {
-				castle.upgradeFactory(Castle.defaultWarrior);
+					PriceFactory.getWarriorFactoryPrice(castle.getDefaultFactory(), level))) {
+				castle.upgradeFactory(castle.getDefaultFactory());
 			}
 			else {
 				CoreEngine.fireMessage("You don't have enough resources.",
