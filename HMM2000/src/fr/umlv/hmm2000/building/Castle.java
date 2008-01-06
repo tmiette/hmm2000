@@ -310,7 +310,18 @@ public class Castle implements FightableContainer {
 	public boolean encounter(Encounter encounter) {
 
 		if (!encounter.getSender().getPlayer().equals(this.getPlayer())) {
+			if (this.heroes.size() > 0) {
+				Hero hero = this.chooseHero(this.heroes);
+				this.transfertUnits(this, hero);
+				CoreEngine.startBattle(encounter.getSender(), hero);
+				if (hero.getTroop().size() == 0) {
+					CoreEngine.endBattle(encounter.getSender(), this);
+				}
+			}
+			else {
 			CoreEngine.startBattle(encounter.getSender(), this);
+			}
+			
 		}
 		else {
 			CoreEngine.startSwap(this, encounter.getSender());
@@ -318,9 +329,20 @@ public class Castle implements FightableContainer {
 		return false;
 	}
 	
+	private Hero chooseHero(ArrayList<Hero> heroes) {
+		return heroes.size() > 0 ? heroes.get(0) : null;
+	}
+	
 	private void transfertUnits(FightableContainer from, FightableContainer to) {
 
-		
+		for (Fightable fightable : from.getTroop()) {
+			try {
+				to.addFightable(fightable);
+			}
+			catch (MaxNumberOfTroopsReachedException e) {
+				return;
+			}
+		}
 	}
 
 	@Override
