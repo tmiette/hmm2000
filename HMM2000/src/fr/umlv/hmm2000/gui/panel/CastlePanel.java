@@ -11,7 +11,7 @@ import fr.umlv.hmm2000.building.Castle;
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.gui.LawrenceComponentFactory;
 import fr.umlv.hmm2000.unit.Hero;
-import fr.umlv.hmm2000.unit.profil.WarriorProfile;
+import fr.umlv.hmm2000.unit.profile.WarriorProfile;
 
 public class CastlePanel {
 

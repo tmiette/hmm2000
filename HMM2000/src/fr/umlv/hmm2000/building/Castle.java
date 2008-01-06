@@ -19,8 +19,8 @@ import fr.umlv.hmm2000.unit.FightableContainer;
 import fr.umlv.hmm2000.unit.Hero;
 import fr.umlv.hmm2000.unit.UnitFactory;
 import fr.umlv.hmm2000.unit.exception.MaxNumberOfTroopsReachedException;
-import fr.umlv.hmm2000.unit.profil.Level;
-import fr.umlv.hmm2000.unit.profil.WarriorProfile;
+import fr.umlv.hmm2000.unit.profile.Level;
+import fr.umlv.hmm2000.unit.profile.WarriorProfile;
 
 /**
  * This class represents a castle and its factories. It can produce figthable

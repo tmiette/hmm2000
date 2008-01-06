@@ -8,7 +8,7 @@ import fr.umlv.hmm2000.unit.Fightable;
 import fr.umlv.hmm2000.unit.FightableContainer;
 import fr.umlv.hmm2000.unit.UnitFactory;
 import fr.umlv.hmm2000.unit.exception.MaxNumberOfTroopsReachedException;
-import fr.umlv.hmm2000.unit.profil.WarriorProfile;
+import fr.umlv.hmm2000.unit.profile.WarriorProfile;
 
 /**
  * This class defines an initializer of castles elements.

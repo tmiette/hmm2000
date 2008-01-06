@@ -3,10 +3,10 @@ package fr.umlv.hmm2000.map.builder;
 import fr.umlv.hmm2000.resource.Resource.Kind;
 import fr.umlv.hmm2000.salesentity.SalesEntity.SalesEntityEnum;
 import fr.umlv.hmm2000.salesentity.spell.Spell;
-import fr.umlv.hmm2000.unit.profil.Level;
-import fr.umlv.hmm2000.unit.profil.HeroProfile;
-import fr.umlv.hmm2000.unit.profil.MonsterProfile;
-import fr.umlv.hmm2000.unit.profil.WarriorProfile;
+import fr.umlv.hmm2000.unit.profile.HeroProfile;
+import fr.umlv.hmm2000.unit.profile.Level;
+import fr.umlv.hmm2000.unit.profile.MonsterProfile;
+import fr.umlv.hmm2000.unit.profile.WarriorProfile;
 
 /**
  * This class enables to translate some characters to java object using during
