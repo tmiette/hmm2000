@@ -81,7 +81,6 @@ public class BattleCoreManager {
             this.roundManager.tagAsAlreadyPlayed(attackerWarrior);
             this.roundManager.nextDay();
           } catch (WarriorDeadException e) {
-            System.out.println("Joueur tue : " + defenderWarrior);
             this.roundManager.tagAsAlreadyPlayed(attackerWarrior);
             this.kill(l, defenderWarrior);
           } catch (WarriorNotReachableException e) {

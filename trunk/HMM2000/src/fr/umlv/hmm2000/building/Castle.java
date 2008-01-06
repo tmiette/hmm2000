@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-import java.util.Map.Entry;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.Player;
@@ -393,26 +392,7 @@ public class Castle implements FightableContainer {
 
   @Override
   public String toString() {
-
-    StringBuilder sb = new StringBuilder();
-    sb.append("Castle ");
-    sb.append("(player, ");
-    sb.append(this.player);
-    sb.append(")");
-    sb.append("(troop, ");
-    for (Fightable warrior : this.troop) {
-      sb.append(warrior);
-      sb.append(" - ");
-    }
-    sb.append(")");
-    sb.append("(Factories, ");
-    for (Entry<WarriorProfile, Level> entries : this.factory.entrySet()) {
-      sb.append("[").append(entries.getKey()).append(",").append(
-          entries.getValue()).append("]");
-    }
-    sb.append(")");
-
-    return sb.toString();
+    return "CASTLE";
   }
 
   /**

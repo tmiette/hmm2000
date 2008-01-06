@@ -119,7 +119,7 @@ public class StartPanel {
     final JPanel buttonsPanel = new JPanel();
     buttonsPanel.setOpaque(false);
     final JButton quitButton = LawrenceComponentFactory.createLawrenceButton(
-        "Quit", "quit20x20.png", new ActionListener() {
+        "Quit", "quit20x20.png", "Quit the game.", new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
             System.exit(0);
@@ -127,7 +127,7 @@ public class StartPanel {
         });
 
     final JButton startButton = LawrenceComponentFactory.createLawrenceButton(
-        "Start", "aura20x20.png", new ActionListener() {
+        "Start", "aura20x20.png", "Start the game.", new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
             try {

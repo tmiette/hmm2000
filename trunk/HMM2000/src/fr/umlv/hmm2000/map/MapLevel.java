@@ -9,7 +9,7 @@ package fr.umlv.hmm2000.map;
  */
 public enum MapLevel {
 
-  MAP1("map/map1.map", "Sins", Difficulty.EASY, 2, 2),
+  MAP1("map/map1.map", "Sins", Difficulty.EASY, 2, 3),
   MAP2("map/map2.map", "Zarock", Difficulty.NORMAL, 2, 3);
 
   public enum Difficulty {

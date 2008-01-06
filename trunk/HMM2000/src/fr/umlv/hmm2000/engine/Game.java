@@ -18,68 +18,65 @@ import fr.umlv.hmm2000.unit.FightableContainer;
  */
 public class Game {
 
-	// Game players
-	private final ArrayList<Player> players;
+  // Game players
+  private final ArrayList<Player> players;
 
-	public Game(Player[] players) {
+  public Game(Player[] players) {
+    this.players = new ArrayList<Player>(players.length);
+    for (int i = 0; i < players.length; i++) {
+      this.players.add(players[i]);
+    }
+  }
 
-		this.players = new ArrayList<Player>(players.length);
-		for (int i = 0; i < players.length; i++) {
-			this.players.add(players[i]);
-		}
-	}
+  /**
+   * Displays message to player who lost. If one player left in game, he wins.
+   * 
+   * @param player
+   *            who lost game
+   */
+  public void loose(Player player) {
+    // Removing all units from map (sprites included)
+    removeAllPlayerFightableContainer(player, CoreEngine.map());
+    // Displaying lost message
+    CoreEngine.fireMessage(player + " looses the game.",
+        HMMUserInterface.WARNING_MESSAGE);
+    this.players.remove(player);
+    CoreEngine.roundManager().removePlayer(player);
+    // Player wins
+    if (this.players.size() == 1) {
+      this.win(this.players.get(0));
+    }
+  }
 
-	/**
-	 * Displays message to player who lost. If one player left in game, he wins.
-	 * 
-	 * @param player
-	 *          who lost game
-	 */
-	public void playerLost(Player player) {
+  /**
+   * Manages the behaviour of player who wins game.
+   * 
+   * @param player
+   *            who wins
+   */
+  private void win(Player player) {
+    CoreEngine.fireMessage(player + " wins the game !",
+        HMMUserInterface.WARNING_MESSAGE);
+  }
 
-		// Removing all units from map (sprites included)
-		removeAllPlayerUnitsFromMap(player, CoreEngine.map());
-		// Displaying lost message
-		CoreEngine.fireMessage(player + "lost.", HMMUserInterface.INFO_MESSAGE);
-		this.players.remove(player);
-		// Player wins
-		if (this.players.size() == 1) {
-			this.playerWon(this.players.get(0));
-		}
-	}
-
-	/**
-	 * Manages the behaviour of player who wins game.
-	 * 
-	 * @param player
-	 *          who wins
-	 */
-	private void playerWon(Player player) {
-
-		CoreEngine.fireMessage(player + " won the game !",
-				HMMUserInterface.INFO_MESSAGE);
-	}
-
-	/**
-	 * Removes all looser units from map.
-	 * @param player looser
-	 * @param map to clean
-	 */
-	private void removeAllPlayerUnitsFromMap(Player player, Map map) {
-
-		Location location = null;
-		for (int x = 0; x < map.getHeight(); x++) {
-			for (int y = 0; y < map.getWidth(); y++) {
-				location = new Location(x, y);
-				MapForegroundElement mfe = map
-						.getMapForegroundElementAtLocation(location);
-				if (mfe instanceof FightableContainer) {
-					FightableContainer f = (FightableContainer) mfe;
-					if (f.getPlayer().equals(player)) {
-						CoreEngine.endBattle(null, f);
-					}
-				}
-			}
-		}
-	}
+  /**
+   * Removes all looser units from map.
+   * 
+   * @param player
+   *            looser
+   * @param map
+   *            to clean
+   */
+  private void removeAllPlayerFightableContainer(Player player, Map map) {
+    for (MapForegroundElement element : map.getMapForegroundElements()) {
+      if (element instanceof FightableContainer) {
+        FightableContainer f = (FightableContainer) element;
+        if (f.getPlayer().equals(player)) {
+          Location l = CoreEngine.map().getLocationForMapForegroundElement(f);
+          CoreEngine.map().removeMapForegroundElement(l);
+          CoreEngine.fireSpriteRemoved(l, f.getSprite());
+        }
+      }
+    }
+  }
 }

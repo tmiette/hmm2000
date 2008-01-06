@@ -3,7 +3,6 @@ package fr.umlv.hmm2000.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
@@ -34,7 +32,7 @@ public class LawrenceJFrame {
   private final JLabel dayCount;
   private final JLabel currentPlayer;
   private final JLabel currentResources;
-  private final JTextArea textArea;
+  private final JLabel textArea;
 
   /**
    * Constructor of the frame with its default attributes.
@@ -71,15 +69,24 @@ public class LawrenceJFrame {
     final JPanel northSouthPanel = new JPanel();
 
     final JButton quitButton = LawrenceComponentFactory.createLawrenceButton(
-        "Quit", "quit20x20.png", new ActionListener() {
+        "Q", "quit20x20.png", "Quit the game.", new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
             System.exit(0);
           }
         });
+    final JButton renounceButton = LawrenceComponentFactory
+        .createLawrenceButton("R", "aura_red20x20.png",
+            "Current player renounces.", new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                CoreEngine.renounce();
+                refreshNorthPanel();
+              }
+            });
     final JButton nextDayButton = LawrenceComponentFactory
-        .createLawrenceButton("Next day", "forward20x20.png",
-            new ActionListener() {
+        .createLawrenceButton("N", "forward20x20.png",
+            "Go to the following day.", new ActionListener() {
               @Override
               public void actionPerformed(ActionEvent e) {
                 CoreEngine.nextDay();
@@ -87,14 +94,16 @@ public class LawrenceJFrame {
               }
             });
     final JButton backWorldMapButton = LawrenceComponentFactory
-        .createLawrenceButton("Back", "rewind20x20.png", new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-            CoreEngine.backToWorldMap();
-            refreshNorthPanel();
-          }
-        });
+        .createLawrenceButton("W", "rewind20x20.png", "Back to the main map.",
+            new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                CoreEngine.backToWorldMap();
+                refreshNorthPanel();
+              }
+            });
     northSouthPanel.add(quitButton);
+    northSouthPanel.add(renounceButton);
     northSouthPanel.add(nextDayButton);
     northSouthPanel.add(backWorldMapButton);
     northPanel.add(northNorthPanel, BorderLayout.NORTH);
@@ -107,14 +116,14 @@ public class LawrenceJFrame {
     final JPanel southPanel = new JPanel(new BorderLayout());
     southPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory
         .createEtchedBorder(), "Messages :"));
-    this.textArea = new JTextArea("Welcome to HMM 2000.");
-    this.textArea.setAutoscrolls(true);
-    this.textArea.setEditable(false);
-    this.textArea.setFont(new Font(null, Font.BOLD, 12));
+    this.textArea = new JLabel("<html><body>");
+    this.textArea.setBackground(Color.WHITE);
     final JScrollPane scroll = new JScrollPane(this.textArea,
         JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
         JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     scroll.setPreferredSize(new Dimension(400, 100));
+    scroll.setAutoscrolls(true);
+    scroll.setBackground(Color.WHITE);
     southPanel.add(scroll, BorderLayout.CENTER);
     this.mainPanel.add(northPanel, BorderLayout.NORTH);
     this.mainPanel.add(this.centerPanel, BorderLayout.CENTER);
@@ -157,21 +166,22 @@ public class LawrenceJFrame {
    *            the level of the message.
    */
   public void displayMessage(String message, int level) {
+    String color = new String();
     switch (level) {
     case HMMUserInterface.INFO_MESSAGE:
-      this.textArea.setForeground(Color.BLACK);
+      color = "#000000";
       break;
     case HMMUserInterface.WARNING_MESSAGE:
-      this.textArea.setForeground(Color.RED);
+      color = "#FF0000";
       break;
     case HMMUserInterface.ERROR_MESSAGE:
-      this.textArea.setForeground(Color.BLUE);
+      color = "#FFFFFF";
       break;
     default:
-      this.textArea.setForeground(Color.BLACK);
+      color = "#000000";
       break;
     }
-    this.textArea.append("\n");
-    this.textArea.append(message);
+    this.textArea.setText(this.textArea.getText() + "<br><font color=" + color
+        + ">" + message + "</font>");
   }
 }

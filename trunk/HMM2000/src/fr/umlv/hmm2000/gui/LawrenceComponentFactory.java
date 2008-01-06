@@ -34,9 +34,10 @@ public class LawrenceComponentFactory {
    * @return the button.
    */
   public static JButton createLawrenceButton(String text, String iconName,
-      ActionListener listener) {
+      String toolTipText, ActionListener listener) {
     final JButton b = new JButton(text, LawrenceComponentFactory
         .createImageIcon(iconName));
+    b.setToolTipText(toolTipText);
     b.addActionListener(listener);
     return b;
   }
@@ -87,7 +88,7 @@ public class LawrenceComponentFactory {
    */
   public static JButton createTroopsButton() {
     return LawrenceComponentFactory.createLawrenceButton("Troops",
-        "sword20x20.gif", new ActionListener() {
+        "sword20x20.gif", "Manage troops.", new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
             CoreEngine.manageBattlePosition();
@@ -103,7 +104,7 @@ public class LawrenceComponentFactory {
    */
   public static JButton createCastleButton() {
     return LawrenceComponentFactory.createLawrenceButton("Castle",
-        "castle20x20.gif", new ActionListener() {
+        "castle20x20.gif", "Manage castle", new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
             CoreEngine.manageCastle();

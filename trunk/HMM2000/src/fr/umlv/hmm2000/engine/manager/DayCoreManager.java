@@ -95,4 +95,18 @@ public class DayCoreManager {
     this.currentPlayer = this.players.get(this.currentPlayerIndex);
   }
 
+  /**
+   * Removes a player from the day manager when it looses.
+   * 
+   * @param player
+   *            the player.
+   */
+  public void removePlayer(Player player) {
+    if (isCurrentPlayer(player)) {
+      this.nextDay();
+      this.players.remove(player);
+    } else {
+      this.players.remove(player);
+    }
+  }
 }
