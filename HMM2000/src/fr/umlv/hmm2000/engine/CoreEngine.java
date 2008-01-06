@@ -71,6 +71,8 @@ public class CoreEngine {
   private static FightableContainer secondContainer;
 
   private static LocationSelectionRequester locationRequester;
+  
+  private static Game game;
 
   private CoreEngine() {
 
@@ -104,6 +106,7 @@ public class CoreEngine {
     CoreEngine.selectionManager.perform(CoreEngine.currentMap
         .getLocationForMapForegroundElement(CoreEngine.currentMap
             .getMapForegroundElements().get(0)));
+    CoreEngine.game = new Game(players, CoreEngine.worldMap);
   }
 
   private static void changeCurrentMap(Map map) {
@@ -280,6 +283,9 @@ public class CoreEngine {
     Location l = CoreEngine.map().getLocationForMapForegroundElement(looser);
     CoreEngine.map().removeMapForegroundElement(l);
     CoreEngine.uiEngine.eraseSprite(l, looser.getSprite());
+    if (looser instanceof Castle) {
+			CoreEngine.game.playerLost(looser.getPlayer());
+		}
   }
 
   public static void startSwap(FightableContainer container1,
