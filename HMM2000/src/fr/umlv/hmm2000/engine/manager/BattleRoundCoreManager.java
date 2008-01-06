@@ -14,6 +14,13 @@ import fr.umlv.hmm2000.unit.Fightable;
 import fr.umlv.hmm2000.unit.FightableContainer;
 import fr.umlv.hmm2000.util.Pair;
 
+/**
+ * This class is the rounds manager in a battle.
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public class BattleRoundCoreManager extends DayCoreManager {
 
   private final Player player1;
@@ -42,6 +49,18 @@ public class BattleRoundCoreManager extends DayCoreManager {
 
   private boolean aiAlreadyWin;
 
+  /**
+   * Constructor of the manager.
+   * 
+   * @param attacker
+   *            the attacker fightable container.
+   * @param defender
+   *            the defender fightable container.
+   * @param attackerPlayer
+   *            the attacker player.
+   * @param defenderPlayer
+   *            the defender player.
+   */
   public BattleRoundCoreManager(FightableContainer attacker,
       FightableContainer defender, Player attackerPlayer, Player defenderPlayer) {
 
@@ -127,6 +146,9 @@ public class BattleRoundCoreManager extends DayCoreManager {
     this.tagAlreadyPlayed();
   }
 
+  /**
+   * Go to the next player in the battle.
+   */
   private void nextBattlePlayer() {
 
     this.nextPlayer();
@@ -138,8 +160,10 @@ public class BattleRoundCoreManager extends DayCoreManager {
         HMMUserInterface.INFO_MESSAGE);
   }
 
+  /**
+   * Starts a new round.
+   */
   private void newRound() {
-
     this.containers.put(this.player1Container, false);
     this.containers.put(this.player2Container, false);
     this.player1Fightables.clear();
@@ -152,40 +176,80 @@ public class BattleRoundCoreManager extends DayCoreManager {
         HMMUserInterface.INFO_MESSAGE);
   }
 
+  /**
+   * Returns if a unit has already played during the current round.
+   * 
+   * @param f
+   *            the unit
+   * @return if a unit has already played during the current round.
+   */
   public boolean hasAlreadyPlayed(Fightable f) {
-
     return !this.fightables.get(this.currentPlayer()).contains(f);
   }
 
+  /**
+   * Returns if a fightable container has already played during the current
+   * round.
+   * 
+   * @param f
+   *            the fightable container
+   * @return if a fightable container has already played during the current
+   *         round.
+   */
   public boolean hasAlreadyPlayed(FightableContainer f) {
 
     return this.containers.get(f);
   }
 
+  /**
+   * Marks a unit has already player.
+   * 
+   * @param f
+   *            the unit.
+   */
   public void tagAsAlreadyPlayed(Fightable f) {
-
     this.fightables.get(this.currentPlayer()).remove(f);
   }
 
+  /**
+   * Marks a unit has no already player.
+   * 
+   * @param f
+   *            the unit.
+   */
   public void tagAsNotAlreadyPlayed(Fightable f) {
-
     if (this.hasAlreadyPlayed(f)) {
       this.fightables.get(this.currentPlayer()).add(f);
     }
   }
 
+  /**
+   * Marks a fightable container has already player.
+   * 
+   * @param f
+   *            the unit.
+   */
   public void tagAsAlreadyPlayed(FightableContainer f) {
-
     this.containers.put(f, true);
   }
 
+  /**
+   * Remove a unit from the manger when it is killed.
+   * 
+   * @param f
+   *            the unit.
+   */
   public void kill(Fightable f) {
-
     this.fightables.get(this.opponentPlayer()).remove(f);
   }
 
+  /**
+   * Add a sprite to all units which are not attackable for an attacker unit.
+   * 
+   * @param f
+   *            the attacker unit.
+   */
   public void tagUnattackable(Fightable f) {
-
     this.sprites.clear();
     for (Fightable opponentFightable : this.opponentContainer().getTroop()) {
       if (!f.isAttackable(opponentFightable)) {
@@ -197,6 +261,9 @@ public class BattleRoundCoreManager extends DayCoreManager {
     CoreEngine.fireSpritesAdded(this.sprites);
   }
 
+  /**
+   * Erase a sprite to all units which are not attackable.
+   */
   public void untagUnattackable() {
 
     this.sprites.clear();
@@ -208,8 +275,10 @@ public class BattleRoundCoreManager extends DayCoreManager {
     CoreEngine.fireSpritesRemoved(this.sprites);
   }
 
+  /**
+   * Add a sprite to all unit which have already played.
+   */
   private void tagAlreadyPlayed() {
-
     this.sprites.clear();
     for (Fightable f : this.currentContainer().getTroop()) {
       if (!this.fightables.get(this.currentPlayer()).contains(f)) {
@@ -220,6 +289,9 @@ public class BattleRoundCoreManager extends DayCoreManager {
     CoreEngine.fireSpritesAdded(this.sprites);
   }
 
+  /**
+   * Remove a sprite to all unit which have already played.
+   */
   private void untagAlreadyPlayed() {
 
     this.sprites.clear();
@@ -234,6 +306,15 @@ public class BattleRoundCoreManager extends DayCoreManager {
     CoreEngine.fireSpritesRemoved(this.sprites);
   }
 
+  /**
+   * Returns if the attacker fightable container has a unit which can attack.
+   * 
+   * @param attackers
+   *            attacker units.
+   * @param defender
+   *            defender units
+   * @return if the attacker fightable container has a unit which can attack.
+   */
   private boolean isStillAttacker(ArrayList<Fightable> attackers,
       FightableContainer defender) {
 
@@ -247,6 +328,11 @@ public class BattleRoundCoreManager extends DayCoreManager {
     return false;
   }
 
+  /**
+   * Returns the opponent player.
+   * 
+   * @return the opponent player.
+   */
   public Player opponentPlayer() {
 
     if (this.currentPlayer().equals(this.player1)) {
@@ -256,6 +342,11 @@ public class BattleRoundCoreManager extends DayCoreManager {
     }
   }
 
+  /**
+   * Returns the current player.
+   * 
+   * @return the current player.
+   */
   public FightableContainer currentContainer() {
 
     if (this.currentPlayer().equals(this.player1)) {
@@ -265,6 +356,11 @@ public class BattleRoundCoreManager extends DayCoreManager {
     }
   }
 
+  /**
+   * Returns the opponent fightable container.
+   * 
+   * @return the opponent fightable container.
+   */
   public FightableContainer opponentContainer() {
 
     if (this.currentPlayer().equals(this.player1)) {
