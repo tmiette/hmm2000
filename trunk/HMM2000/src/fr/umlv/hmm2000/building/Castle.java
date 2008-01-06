@@ -317,13 +317,6 @@ public class Castle implements FightableContainer {
 				Hero hero = this.chooseHero(this.heroes);
 				this.unitTransfert(this, hero);
 				CoreEngine.startBattle(encounter.getSender(), hero);
-				System.out.println("nb unit hero : " + hero.getTroop().size());
-				// Warrior is dead if he hasn't unit left
-				if (hero.getTroop().size() == 0) {
-					System.out.println("end battle");
-					// Castle loose game should end
-					CoreEngine.endBattle(encounter.getSender(), this);
-				}
 			}
 			else {
 				CoreEngine.startBattle(encounter.getSender(), this);

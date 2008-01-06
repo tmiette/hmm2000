@@ -58,7 +58,6 @@ public class Game {
 
 		CoreEngine.fireMessage(player + " won the game !",
 				HMMUserInterface.INFO_MESSAGE);
-		// TODO on fait quoi une fois gagne
 	}
 
 	/**
