@@ -9,6 +9,14 @@ import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.unit.Fightable;
 import fr.umlv.hmm2000.unit.FightableContainer;
 
+/**
+ * This class represents an object with perform an action after asking the user
+ * different locations.
+ * 
+ * @author MIETTE Tom
+ * @author MOURET Sebastien
+ * 
+ */
 public abstract class LocationSelectionRequester {
 
   public static final int ANY_LOCATION = 1;
@@ -26,6 +34,12 @@ public abstract class LocationSelectionRequester {
 
   private LocationSelection[] selections;
 
+  /**
+   * Constructor of the requester.
+   * 
+   * @param selections
+   *            the selections requested.
+   */
   public LocationSelectionRequester(LocationSelection... selections) {
     if (selections.length == 0) {
       throw new IllegalArgumentException("must request more than 0 selection.");
@@ -36,11 +50,20 @@ public abstract class LocationSelectionRequester {
     this.askForNextSelection();
   }
 
+  /**
+   * Asks for the next selection.
+   */
   private void askForNextSelection() {
     CoreEngine.fireMessage(this.selections[this.currentLocationsNumber]
         .getLabel(), HMMUserInterface.INFO_MESSAGE);
   }
 
+  /**
+   * Tests if the location returned is correct for the current needed location.
+   * 
+   * @param l
+   *            the location.
+   */
   public void submitLocation(Location l) {
 
     MapForegroundElement foregroundElement = CoreEngine.map()
@@ -118,27 +141,62 @@ public abstract class LocationSelectionRequester {
 
   }
 
+  /**
+   * Method called when all the requested location are returned.
+   */
   private void perform() {
     this.perform(this.locations);
     CoreEngine.clearLocationSelection();
   }
 
+  /**
+   * Method called when all the requested location are returned
+   * 
+   * @param locations
+   *            the locations.
+   */
   public abstract void perform(Location... locations);
 
+  /**
+   * 
+   * This class represents a selection needed for a requester.
+   * 
+   * @author MIETTE Tom
+   * @author MOURET Sebastien
+   * 
+   */
   public static class LocationSelection {
 
     private final int typeofSelection;
     private final String label;
 
+    /**
+     * Constructor of the selection.
+     * 
+     * @param typeofSelection
+     *            the type of location needed.
+     * @param label
+     *            the label for asking this location.
+     */
     public LocationSelection(int typeofSelection, String label) {
       this.typeofSelection = typeofSelection;
       this.label = label;
     }
 
+    /**
+     * Returns the type of location needed.
+     * 
+     * @return the type of location needed.
+     */
     public int getTypeofSelection() {
       return this.typeofSelection;
     }
 
+    /**
+     * Returns the label for the selection.
+     * 
+     * @return the label for the selection.
+     */
     public String getLabel() {
       return this.label;
     }
