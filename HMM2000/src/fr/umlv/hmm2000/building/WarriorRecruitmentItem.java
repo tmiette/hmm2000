@@ -57,8 +57,6 @@ public class WarriorRecruitmentItem implements CastleItem {
 					public void perform() {
 
 						Level level = castle.getFactoryLevel(profile);
-						System.out.println("prix  "
-								+ PriceFactory.getWarriorPrice(profile, level));
 						if (castle.getPlayer().spend(
 								PriceFactory.getWarriorPrice(profile, level))) {
 
