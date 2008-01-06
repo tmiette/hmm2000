@@ -18,24 +18,15 @@ public enum ProfilMonster {
 	TROLL(Sprite.TROLL,
 				FightableContainer.PRIORITY_VERY_LOW,
 				new Fightable[] {
-						UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
-						UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
-						UnitFactory.createWarrior(ProfilWarrior.GRUNT, Level.LEVEL_1),
-						UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
-						UnitFactory.createWarrior(ProfilWarrior.GRUNT, Level.LEVEL_1),
-						UnitFactory.createWarrior(ProfilWarrior.WIZZARD, Level.LEVEL_1) }),
+						UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1) }),
 	ZOMBIE(	Sprite.DEFAULT,
 					FightableContainer.PRIORITY_VERY_LOW,
 					new Fightable[] {
-							UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
-							UnitFactory.createWarrior(ProfilWarrior.GRUNT, Level.LEVEL_1),
-							UnitFactory.createWarrior(ProfilWarrior.WIZZARD, Level.LEVEL_1) }),
+							UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1) }),
 	MUMMY(Sprite.DEFAULT,
 				FightableContainer.PRIORITY_VERY_LOW,
 				new Fightable[] {
-						UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1),
-						UnitFactory.createWarrior(ProfilWarrior.GRUNT, Level.LEVEL_1),
-						UnitFactory.createWarrior(ProfilWarrior.WIZZARD, Level.LEVEL_1) });
+						UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_1) });
 
 	// Icon to display on map
 	private final Sprite sprite;

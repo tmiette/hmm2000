@@ -17,7 +17,7 @@ public class ResourceInitializer implements MapForegroundElementInitializer {
   public Resource initialize(LineNumberReader lnr, String[] data) {
     if (data.length >= 6) {
       try {
-        return new Resource(Translator.decodeKind(data[0].charAt(0)), Integer
+        return new Resource(Translator.decodeResourceKind(data[0].charAt(0)), Integer
             .parseInt(data[1]), Integer.parseInt(data[2]), Integer
             .parseInt(data[3]), Integer.parseInt(data[4]),
             decodeBehaviour(Integer.parseInt(data[5])));

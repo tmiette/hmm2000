@@ -71,7 +71,7 @@ public class CoreEngine {
   private static FightableContainer secondContainer;
 
   private static LocationSelectionRequester locationRequester;
-  
+
   private static Game game;
 
   private CoreEngine() {
@@ -87,9 +87,7 @@ public class CoreEngine {
       throw new InvalidPlayersNumberException(level, players.length);
     }
 
-    // TODO builder
-    WorldMap worldMap = MapBuilder.createMapTESTVERSION(level, players[0],
-        players[1]);
+    WorldMap worldMap = MapBuilder.createMap(level, players);
 
     CoreEngine.currentMapLevel = level;
     CoreEngine.numberOfPlayers = players.length;
@@ -284,8 +282,8 @@ public class CoreEngine {
     CoreEngine.map().removeMapForegroundElement(l);
     CoreEngine.uiEngine.eraseSprite(l, looser.getSprite());
     if (looser instanceof Castle) {
-			CoreEngine.game.playerLost(looser.getPlayer());
-		}
+      CoreEngine.game.playerLost(looser.getPlayer());
+    }
   }
 
   public static void startSwap(FightableContainer container1,

@@ -1,8 +1,11 @@
 package fr.umlv.hmm2000.map.builder;
 
 import fr.umlv.hmm2000.resource.Resource.Kind;
+import fr.umlv.hmm2000.salesentity.SalesEntity.SalesEntityEnum;
 import fr.umlv.hmm2000.salesentity.spell.Spell;
 import fr.umlv.hmm2000.unit.profil.Level;
+import fr.umlv.hmm2000.unit.profil.ProfilHero;
+import fr.umlv.hmm2000.unit.profil.ProfilMonster;
 import fr.umlv.hmm2000.unit.profil.ProfilWarrior;
 
 /**
@@ -22,7 +25,7 @@ public class Translator {
    *            the character.
    * @return the resource kind.
    */
-  protected static Kind decodeKind(char c) {
+  protected static Kind decodeResourceKind(char c) {
     switch (c) {
     case 'G':
       return Kind.GOLD;
@@ -38,7 +41,7 @@ public class Translator {
    *            the character.
    * @return the profile.
    */
-  protected static ProfilWarrior decodeProfile(char c) {
+  protected static ProfilWarrior decodeWarriorProfile(char c) {
     switch (c) {
     case 'G':
       return ProfilWarrior.GRUNT;
@@ -88,6 +91,64 @@ public class Translator {
       return Level.LEVEL_3;
     default:
       return Level.LEVEL_1;
+    }
+  }
+
+  /**
+   * Translates a character to a monster profile.
+   * 
+   * @param c
+   *            the character.
+   * @return the monster profile.
+   */
+  protected static ProfilMonster decodeMonsterProfile(char c) {
+    switch (c) {
+    case 'T':
+      return ProfilMonster.TROLL;
+    case 'M':
+      return ProfilMonster.MUMMY;
+    case 'Z':
+      return ProfilMonster.ZOMBIE;
+    default:
+      return ProfilMonster.TROLL;
+    }
+  }
+  
+  /**
+   * Translates a character to a sales entity kind.
+   * 
+   * @param c
+   *            the character.
+   * @return the sales entity kind.
+   */
+  public static SalesEntityEnum decodeSalesEntity(char c) {
+    switch (c) {
+    case 'M':
+      return SalesEntityEnum.MERCHANT;
+    case 'B':
+      return SalesEntityEnum.BARRACKS;
+    default:
+      return SalesEntityEnum.MERCHANT;
+    }
+  }
+  
+  /**
+   * Translates a character to a hero profile.
+   * 
+   * @param c
+   *            the character.
+   * @return the hero profile.
+   */
+  protected static ProfilHero decodeHeroProfile(char c) {
+    switch (c) {
+    case 'L':
+      return ProfilHero.LORD_OF_WAR;
+    case 'A':
+      return ProfilHero.ARCHER;
+    case 'S':
+      return ProfilHero.SORCERER;
+    default:
+      return ProfilHero.LORD_OF_WAR;
     }
   }
 

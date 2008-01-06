@@ -12,15 +12,8 @@ import fr.umlv.hmm2000.map.MapLevel;
 import fr.umlv.hmm2000.map.WorldMap;
 import fr.umlv.hmm2000.map.element.MapBackgroundEnum;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
-import fr.umlv.hmm2000.salesentity.SalesEntity;
-import fr.umlv.hmm2000.salesentity.SalesEntity.SalesEntityEnum;
-import fr.umlv.hmm2000.salesentity.spell.Spell;
+import fr.umlv.hmm2000.unit.FightableContainer;
 import fr.umlv.hmm2000.unit.Hero;
-import fr.umlv.hmm2000.unit.UnitFactory;
-import fr.umlv.hmm2000.unit.profil.Level;
-import fr.umlv.hmm2000.unit.profil.ProfilHero;
-import fr.umlv.hmm2000.unit.profil.ProfilMonster;
-import fr.umlv.hmm2000.unit.profil.ProfilWarrior;
 
 /**
  * This class permits to build a world map. This map is the default game map. It
@@ -34,10 +27,11 @@ import fr.umlv.hmm2000.unit.profil.ProfilWarrior;
 public class MapBuilder {
 
   private static Player[] players;
-  private static int playerIndex;
   public static final ResourceInitializer resourcesInitializer = new ResourceInitializer();
   public static final CastleInitializer castleInitializer = new CastleInitializer();
   public static final SalesEntityInitializer salesInitializer = new SalesEntityInitializer();
+  public static final MonsterInitializer monsterInitializer = new MonsterInitializer();
+  public static final HeroInitializer heroInitializer = new HeroInitializer();
 
   /**
    * Gets the world map. The maplevel corresponds to the world map size and the
@@ -79,11 +73,21 @@ public class MapBuilder {
     return map;
   }
 
-  private static Player nextPlayer() {
-    if (playerIndex >= players.length) {
-      return null;
+  /**
+   * Set the player of a fightable container if it exists.
+   * 
+   * @param c
+   *            the fightable container.
+   * @param player
+   *            the id of the player.
+   * @return if the player exists.
+   */
+  private static boolean setPlayer(FightableContainer c, int player) {
+    if (players != null && player >= 0 && player < players.length) {
+      c.setPlayer(players[player]);
+      return true;
     }
-    return players[playerIndex++];
+    return false;
   }
 
   /**
@@ -151,18 +155,29 @@ public class MapBuilder {
     }
   }
 
+  /**
+   * Decodes and adds a foreground element to the map.
+   * 
+   * @param lnr
+   *            the line reader.
+   * @param map
+   *            the map.
+   * @param line
+   *            the line to read.
+   */
   private static void decodeDataLine(LineNumberReader lnr, WorldMap map,
-      String[] line, Player... players) {
+      String[] line) {
     // Tests if the line is valid
-    if (line.length >= 3) {
+    if (line.length >= 4) {
       try {
         // Init elements parameters
         MapForegroundElement e = null;
         int x = Integer.parseInt(line[1]);
         int y = Integer.parseInt(line[2]);
-        String[] data = new String[line.length - 3];
+        int p = Integer.parseInt(line[3]);
+        String[] data = new String[line.length - 4];
         for (int i = 0; i < data.length; i++) {
-          data[i] = line[i + 3];
+          data[i] = line[i + 4];
         }
 
         // Init element depending on its class
@@ -171,17 +186,40 @@ public class MapBuilder {
           e = resourcesInitializer.initialize(lnr, data);
           break;
         case 'C':
-          Player p = nextPlayer();
-          System.err.println(p);
-          if (p != null) {
-            Castle c = castleInitializer.initialize(lnr, data);
-            c.setPlayer(p);
+          Castle c = castleInitializer.initialize(lnr, data);
+          if (setPlayer(c, p)) {
             e = c;
           }
           break;
         case 'S':
           e = salesInitializer.initialize(lnr, data);
           break;
+        case 'M':
+          e = monsterInitializer.initialize(lnr, data);
+          break;
+        case 'H':
+          Hero h = heroInitializer.initialize(lnr, data);
+          if (setPlayer(h, p)) {
+            e = h;
+          }
+          break;
+        case 'P':
+          try {
+            if (players != null && p >= 0 && p < players.length) {
+              for (int i = 0; i < data.length; i++) {
+                String[] subData = data[i].split(",");
+                if (subData.length >= 2) {
+                  players[p].addResource(Translator
+                      .decodeResourceKind(subData[0].charAt(0)), Integer
+                      .parseInt(subData[1]));
+                }
+              }
+            }
+          } catch (IndexOutOfBoundsException e1) {
+          } catch (NumberFormatException e1) {
+            new IllegalArgumentException("Syntax error on line "
+                + lnr.getLineNumber() + ".", e1);
+          }
         default:
           break;
         }
@@ -189,7 +227,11 @@ public class MapBuilder {
         // Adds the foreground element
         if (e != null && x >= 0 && x < map.getHeight() && y >= 0
             && y < map.getWidth()) {
-          map.addMapForegroundElement(e, new Location(x, y));
+          Location l = new Location(x, y);
+          if (map.getMapBackgroundElementAtLocation(l).getWeight() != 0
+              && map.getMapForegroundElementAtLocation(l) == null) {
+            map.addMapForegroundElement(e, new Location(x, y));
+          }
         }
       } catch (NumberFormatException e) {
         new IllegalArgumentException("Syntax error on line "
@@ -197,33 +239,4 @@ public class MapBuilder {
       }
     }
   }
-
-  public static WorldMap createMapTESTVERSION(MapLevel level, Player p1,
-      Player p2) throws FileNotFoundException, IOException {
-
-    WorldMap map = createMap(level, p1, p2);
-
-    map.addMapForegroundElement(UnitFactory.createMonster(Player.AI,
-        ProfilMonster.TROLL), new Location(0, 0));
-    map.addMapForegroundElement(
-        UnitFactory.createHero(p1, ProfilHero.SORCERER), new Location(14, 3));
-    Hero spiderman = UnitFactory.createHero(p2, ProfilHero.LORD_OF_WAR);
-
-    map.addMapForegroundElement(spiderman, new Location(1, 2));
-
-    SalesEntity m = new SalesEntity(SalesEntityEnum.MERCHANT);
-    m.addProduct(Spell.TELEPORTATION, 2);
-    m.addProduct(Spell.OBSTACLE_DESTRUCTION, 1);
-    map.addMapForegroundElement(m, new Location(2, 2));
-
-    SalesEntity b = new SalesEntity(SalesEntityEnum.BARRACKS);
-    b.addProduct(UnitFactory
-        .createWarrior(ProfilWarrior.WIZZARD, Level.LEVEL_3), 1);
-    b.addProduct(
-        UnitFactory.createWarrior(ProfilWarrior.FLIGHT, Level.LEVEL_2), 2);
-    map.addMapForegroundElement(b, new Location(2, 5));
-
-    return map;
-  }
-
 }
