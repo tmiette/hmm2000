@@ -15,65 +15,60 @@ import fr.umlv.hmm2000.unit.UnitFactory;
  */
 public enum MonsterProfile {
 
-	TROLL(Sprite.TROLL,
-				FightableContainer.PRIORITY_VERY_LOW,
-				new Fightable[] {
-						UnitFactory.createWarrior(WarriorProfile.FLIGHT, Level.LEVEL_1) }),
-	ZOMBIE(	Sprite.DEFAULT,
-					FightableContainer.PRIORITY_VERY_LOW,
-					new Fightable[] {
-							UnitFactory.createWarrior(WarriorProfile.FLIGHT, Level.LEVEL_1) }),
-	MUMMY(Sprite.DEFAULT,
-				FightableContainer.PRIORITY_VERY_LOW,
-				new Fightable[] {
-						UnitFactory.createWarrior(WarriorProfile.FLIGHT, Level.LEVEL_1) });
+  TROLL(Sprite.TROLL, FightableContainer.PRIORITY_VERY_LOW,
+      new Fightable[] { UnitFactory.createWarrior(WarriorProfile.DEAMON,
+          Level.LEVEL_1) }),
+  ZOMBIE(Sprite.ZOMBIE, FightableContainer.PRIORITY_VERY_LOW,
+      new Fightable[] { UnitFactory.createWarrior(WarriorProfile.VAMPIRE,
+          Level.LEVEL_1) }),
+  MUMMY(Sprite.MUMMY, FightableContainer.PRIORITY_VERY_LOW,
+      new Fightable[] { UnitFactory.createWarrior(WarriorProfile.FLIGHT,
+          Level.LEVEL_1) });
 
-	// Icon to display on map
-	private final Sprite sprite;
+  // Icon to display on map
+  private final Sprite sprite;
 
-	// His troop
-	private final Fightable[] units;
+  // His troop
+  private final Fightable[] units;
 
-	// Specify who start to attack
-	private final int attackPriority;
+  // Specify who start to attack
+  private final int attackPriority;
 
-	private MonsterProfile(Sprite sprite,
-												int attackPriority,
-												Fightable[] units) {
+  private MonsterProfile(Sprite sprite, int attackPriority, Fightable[] units) {
 
-		this.sprite = sprite;
-		this.units = units;
-		this.attackPriority = attackPriority;
-	}
+    this.sprite = sprite;
+    this.units = units;
+    this.attackPriority = attackPriority;
+  }
 
-	/**
-	 * Gets icon representing monster
-	 * 
-	 * @return sprite
-	 */
-	public Sprite getSprite() {
+  /**
+   * Gets icon representing monster
+   * 
+   * @return sprite
+   */
+  public Sprite getSprite() {
 
-		return this.sprite;
-	}
+    return this.sprite;
+  }
 
-	/**
-	 * Gets troop owned by monster
-	 * 
-	 * @return
-	 */
-	public Fightable[] getUnits() {
+  /**
+   * Gets troop owned by monster
+   * 
+   * @return
+   */
+  public Fightable[] getUnits() {
 
-		return this.units;
-	}
+    return this.units;
+  }
 
-	/**
-	 * Gets default attack priority
-	 * 
-	 * @return attack priority
-	 */
-	public int getAttackPriority() {
+  /**
+   * Gets default attack priority
+   * 
+   * @return attack priority
+   */
+  public int getAttackPriority() {
 
-		return this.attackPriority;
-	}
+    return this.attackPriority;
+  }
 
 }
