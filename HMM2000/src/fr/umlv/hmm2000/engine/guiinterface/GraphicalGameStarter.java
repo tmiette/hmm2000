@@ -203,14 +203,16 @@ public class GraphicalGameStarter {
       }
     };
     File[] files = temp.listFiles(filter);
-    String[] paths = new String[files.length];
-    for (int i = 0; i < paths.length; i++) {
-      paths[i] = files[i].getName();
-    }
-    if (paths.length > 0) {
-      return (String) JOptionPane.showInputDialog(null,
-          "Which saved game do you want to load ?", "Use a skill",
-          JOptionPane.QUESTION_MESSAGE, null, paths, paths[0]);
+    if (files != null) {
+      String[] paths = new String[files.length];
+      for (int i = 0; i < paths.length; i++) {
+        paths[i] = files[i].getName();
+      }
+      if (paths.length > 0) {
+        return (String) JOptionPane.showInputDialog(null,
+            "Which saved game do you want to load ?", "Use a skill",
+            JOptionPane.QUESTION_MESSAGE, null, paths, paths[0]);
+      }
     }
     return null;
   }
