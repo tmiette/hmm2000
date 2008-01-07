@@ -101,11 +101,11 @@ public class CharacterTranslator {
   }
 
   /**
-   * Translates a character to a profile.
+   * Translates a character to a warrior profile.
    * 
    * @param c
    *            the character.
-   * @return the profile.
+   * @return the warrior profile.
    */
   protected static WarriorProfile decodeWarriorProfile(char c) {
     switch (c) {
@@ -123,6 +123,32 @@ public class CharacterTranslator {
       return WarriorProfile.DEAMON;
     default:
       return WarriorProfile.GRUNT;
+    }
+  }
+
+  /**
+   * Translates a warrior profile to a character.
+   * 
+   * @param e
+   *            the warrior profile.
+   * @return the character.
+   */
+  protected static char encodeWarriorProfile(WarriorProfile e) {
+    switch (e) {
+    case GRUNT:
+      return 'G';
+    case WIZZARD:
+      return 'W';
+    case FLIGHT:
+      return 'F';
+    case PIRATE:
+      return 'P';
+    case VAMPIRE:
+      return 'V';
+    case DEAMON:
+      return 'D';
+    default:
+      return 'G';
     }
   }
 
@@ -147,6 +173,26 @@ public class CharacterTranslator {
   }
 
   /**
+   * Translates a spell to a character.
+   * 
+   * @param e
+   *            the spell.
+   * @return the character.
+   */
+  protected static char encodeSpell(Spell e) {
+    switch (e) {
+    case TELEPORTATION:
+      return 'T';
+    case OBSTACLE_DESTRUCTION:
+      return 'D';
+    case OBSTACLE_CONSTRUCTION:
+      return 'C';
+    default:
+      return 'T';
+    }
+  }
+
+  /**
    * Translates a character to a unit level.
    * 
    * @param c
@@ -163,6 +209,26 @@ public class CharacterTranslator {
       return Level.LEVEL_3;
     default:
       return Level.LEVEL_1;
+    }
+  }
+
+  /**
+   * Translates a level to a character.
+   * 
+   * @param e
+   *            the level.
+   * @return the character.
+   */
+  protected static char encodeLevel(Level e) {
+    switch (e) {
+    case LEVEL_1:
+      return '1';
+    case LEVEL_2:
+      return '2';
+    case LEVEL_3:
+      return '3';
+    default:
+      return '1';
     }
   }
 
@@ -187,6 +253,26 @@ public class CharacterTranslator {
   }
 
   /**
+   * Translates a monster profile to a character.
+   * 
+   * @param e
+   *            the monster profile.
+   * @return the character.
+   */
+  protected static char encodeMonsterProfile(MonsterProfile e) {
+    switch (e) {
+    case TROLL:
+      return 'T';
+    case MUMMY:
+      return 'M';
+    case ZOMBIE:
+      return 'Z';
+    default:
+      return 'T';
+    }
+  }
+
+  /**
    * Translates a character to a sales entity kind.
    * 
    * @param c
@@ -201,6 +287,24 @@ public class CharacterTranslator {
       return SalesEntityEnum.BARRACKS;
     default:
       return SalesEntityEnum.MERCHANT;
+    }
+  }
+
+  /**
+   * Translates a sales entity kind to a character.
+   * 
+   * @param e
+   *            the sales entity kind.
+   * @return the character.
+   */
+  protected static char encodeSalesEntity(SalesEntityEnum e) {
+    switch (e) {
+    case MERCHANT:
+      return 'M';
+    case BARRACKS:
+      return 'B';
+    default:
+      return 'M';
     }
   }
 
@@ -221,6 +325,26 @@ public class CharacterTranslator {
       return HeroProfile.SORCERER;
     default:
       return HeroProfile.LORD_OF_WAR;
+    }
+  }
+
+  /**
+   * Translates a hero profile to a character.
+   * 
+   * @param e
+   *            the hero profile.
+   * @return the character.
+   */
+  protected static char encodeHeroProfile(HeroProfile e) {
+    switch (e) {
+    case LORD_OF_WAR:
+      return 'L';
+    case ARCHER:
+      return 'A';
+    case SORCERER:
+      return 'S';
+    default:
+      return 'L';
     }
   }
 

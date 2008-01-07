@@ -95,4 +95,38 @@ public class UnitFactory {
     return m;
   }
 
+  /**
+   * Returns the warrior profile and warrior level of a warrior who don't know
+   * it.
+   * 
+   * @param w
+   *            the warrior.
+   * @return the warrior profile and warrior level.
+   */
+  public static Pair<WarriorProfile, Level> findWarriorProfile(Warrior w) {
+    return UnitFactory.warriorProfiles.get(w.getId());
+  }
+
+  /**
+   * Returns the hero profile of a warrior who don't know it.
+   * 
+   * @param h
+   *            the hero.
+   * @return the hero profile.
+   */
+  public static HeroProfile findHeroProfile(Hero h) {
+    return UnitFactory.heroProfiles.get(h.getId());
+  }
+
+  /**
+   * Returns the monster profile of a monster who don't know it.
+   * 
+   * @param m
+   *            the monster.
+   * @return the monster profile.
+   */
+  public static MonsterProfile findMonsterProfile(Monster m) {
+    return UnitFactory.monsterProfiles.get(m.getId());
+  }
+
 }
