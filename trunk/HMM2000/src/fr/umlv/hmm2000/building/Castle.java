@@ -20,6 +20,7 @@ import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
 import fr.umlv.hmm2000.map.battle.BattlePositionMap;
 import fr.umlv.hmm2000.map.battle.exception.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.map.battle.exception.NoPlaceAvailableException;
+import fr.umlv.hmm2000.map.builder.MapForegroundElementSaver;
 import fr.umlv.hmm2000.unit.Fightable;
 import fr.umlv.hmm2000.unit.FightableContainer;
 import fr.umlv.hmm2000.unit.Hero;
