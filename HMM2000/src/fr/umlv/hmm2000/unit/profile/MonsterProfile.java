@@ -7,7 +7,7 @@ import fr.umlv.hmm2000.unit.UnitFactory;
 
 /**
  * Represents default values for monster unit. A monster owns an icon and
- * warriors troop
+ * warriors troop.
  * 
  * @author MIETTE Tom
  * @author MOURET Sebastien
@@ -42,9 +42,9 @@ public enum MonsterProfile {
   }
 
   /**
-   * Gets icon representing monster
+   * Gets icon representing monster.
    * 
-   * @return sprite
+   * @return sprite.
    */
   public Sprite getSprite() {
 
@@ -52,9 +52,9 @@ public enum MonsterProfile {
   }
 
   /**
-   * Gets troop owned by monster
+   * Gets troop owned by monster.
    * 
-   * @return
+   * @return troop owned by monster.
    */
   public Fightable[] getUnits() {
 
@@ -62,9 +62,9 @@ public enum MonsterProfile {
   }
 
   /**
-   * Gets default attack priority
+   * Gets default attack priority.
    * 
-   * @return attack priority
+   * @return attack priority.
    */
   public int getAttackPriority() {
 

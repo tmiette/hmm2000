@@ -56,16 +56,16 @@ public interface FightableContainer extends MapForegroundElement {
   public void removeFightable(Fightable f);
 
   /**
-   * Gets the specific battle position map
+   * Gets the specific battle position map.
    * 
-   * @return
+   * @return the specific battle position map.
    */
   public BattlePositionMap getBattlePositionManager();
 
   /**
-   * Gets player owns the fightable container
+   * Gets player owns the fightable container.
    * 
-   * @return
+   * @return player owns the fightable container.
    */
   public Player getPlayer();
 

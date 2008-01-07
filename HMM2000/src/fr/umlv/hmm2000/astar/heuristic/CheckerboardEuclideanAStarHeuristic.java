@@ -17,13 +17,11 @@ public class CheckerboardEuclideanAStarHeuristic implements
    * Returns the value of the heuristic for the start vertex to reach the end
    * vertex.
    * 
-   * @param graph
-   *            the graph containing the two vertices.
    * @param vertex
    *            the vertex.
    * @param end
    *            the vertex to reach.
-   * @return the hauristic value.
+   * @return the heuristic value.
    */
   public double heuristicValue(CheckerboardVertex vertex, CheckerboardVertex end) {
 
