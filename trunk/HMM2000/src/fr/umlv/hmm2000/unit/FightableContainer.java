@@ -90,4 +90,5 @@ public interface FightableContainer extends MapForegroundElement {
    * @return the name of the container.
    */
   public String getName();
+
 }

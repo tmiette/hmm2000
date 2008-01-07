@@ -1,11 +1,14 @@
 package fr.umlv.hmm2000.unit;
 
+import java.util.HashMap;
+
 import fr.umlv.hmm2000.engine.Player;
 import fr.umlv.hmm2000.unit.exception.MaxNumberOfTroopsReachedException;
 import fr.umlv.hmm2000.unit.profile.HeroProfile;
 import fr.umlv.hmm2000.unit.profile.Level;
 import fr.umlv.hmm2000.unit.profile.MonsterProfile;
 import fr.umlv.hmm2000.unit.profile.WarriorProfile;
+import fr.umlv.hmm2000.util.Pair;
 
 /**
  * This class permits to create specifics units
@@ -15,6 +18,11 @@ import fr.umlv.hmm2000.unit.profile.WarriorProfile;
  * 
  */
 public class UnitFactory {
+
+  // Profile saver for save operation
+  private static HashMap<Integer, Pair<WarriorProfile, Level>> warriorProfiles = new HashMap<Integer, Pair<WarriorProfile, Level>>();
+  private static HashMap<Integer, HeroProfile> heroProfiles = new HashMap<Integer, HeroProfile>();
+  private static HashMap<Integer, MonsterProfile> monsterProfiles = new HashMap<Integer, MonsterProfile>();
 
   /**
    * Creates a warrior thanks to specific profile and level
@@ -29,12 +37,14 @@ public class UnitFactory {
 
     // applying ratio corresponding to level
     final double ratio = level.getRatio();
-    return new Warrior(profile.name(), profile.getSprite(), profile
+    Warrior w = new Warrior(profile.name(), profile.getSprite(), profile
         .getPhysicalAttackValue()
         * ratio, profile.getPhysicalDefenseValue() * ratio, profile.getHealth()
         * ratio, profile.getSpeed(), profile.getAbilities(), profile
         .getAttackBahaviour());
-
+    UnitFactory.warriorProfiles.put(w.getId(), new Pair<WarriorProfile, Level>(
+        profile, level));
+    return w;
   }
 
   /**
@@ -57,6 +67,7 @@ public class UnitFactory {
         // do nothing
       }
     }
+    UnitFactory.heroProfiles.put(h.getId(), profile);
     return h;
   }
 
@@ -80,6 +91,7 @@ public class UnitFactory {
         // do nothing
       }
     }
+    UnitFactory.monsterProfiles.put(m.getId(), profile);
     return m;
   }
 

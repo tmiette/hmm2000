@@ -29,6 +29,12 @@ import fr.umlv.hmm2000.unit.skill.Skill;
  */
 public class Hero extends MovableElement {
 
+  // Hero counter
+  private static int HEROES_COUNT = 0;
+
+  // Unique id
+  private final int id;
+
   // His army
   private final ArrayList<Fightable> troop;
 
@@ -54,8 +60,8 @@ public class Hero extends MovableElement {
 
   Hero(Player player, Sprite sprite, String name, Skill[] skills,
       int attackPriority) {
-
     super(player);
+    this.id = HEROES_COUNT++;
     this.name = name;
     this.battlePosition = new BattlePositionMap(
         FightableContainer.MAX_TROOP_SIZE / BattlePositionMap.LINE_NUMBER);
@@ -220,10 +226,19 @@ public class Hero extends MovableElement {
   public String toString() {
     return this.name;
   }
-  
+
   @Override
   public String getSaveString() {
     return MapForegroundElementSaver.save(this);
+  }
+
+  /**
+   * Returns unique id of the hero.
+   * 
+   * @return unique id of the hero.
+   */
+  public int getId() {
+    return this.id;
   }
 
 }
