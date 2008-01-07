@@ -28,7 +28,7 @@ public class PriceFactory {
     double gold = (int) profile.getHealth();
     gold = gold * (int) level.getRatio();
     gold = gold / 3;
-    price.addResource(Kind.GOLD, (int)gold);
+    price.addResource(Kind.GOLD, (int) gold);
     return price;
   }
 
@@ -54,8 +54,7 @@ public class PriceFactory {
    * 
    * @param profile
    *            the profile of the hero.
-   * @param level
-   *            the level of the hero.
+   *            
    * @return the price.
    */
   public static Price getHeroPrice(HeroProfile profile) {

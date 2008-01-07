@@ -614,8 +614,6 @@ public class CoreEngine {
   /**
    * Remove a player of the game.
    * 
-   * @param player
-   *            the player.
    */
   public static void renounce() {
     if (CoreEngine.roundManager.getPlayers().size() > 1) {
