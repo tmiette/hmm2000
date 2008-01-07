@@ -1,10 +1,8 @@
 package fr.umlv.hmm2000.gui.panel;
 
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import fr.umlv.hmm2000.building.Castle;
-import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.resource.Resource;
 import fr.umlv.hmm2000.salesentity.SalesEntity;
 import fr.umlv.hmm2000.unit.Hero;
@@ -19,17 +17,6 @@ import fr.umlv.hmm2000.unit.Warrior;
  * 
  */
 public class PanelFactory {
-
-  /**
-   * Returns the start panel.
-   * 
-   * @param ui
-   *            the user interface manager.
-   * @return the start panel.
-   */
-  public static JComponent getStartPanel(HMMUserInterface ui) {
-    return StartPanel.createStartPanel(ui);
-  }
 
   /**
    * Returns the hero panel.

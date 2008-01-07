@@ -7,6 +7,7 @@ import java.util.List;
 import fr.umlv.hmm2000.building.Castle;
 import fr.umlv.hmm2000.building.CastleItem;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
+import fr.umlv.hmm2000.engine.guiinterface.InvalidSavedMapFileException;
 import fr.umlv.hmm2000.engine.guiinterface.Sprite;
 import fr.umlv.hmm2000.engine.guiinterface.UIChoicesManager;
 import fr.umlv.hmm2000.engine.manager.BattleCoreManager;
@@ -157,8 +158,9 @@ public class CoreEngine {
    *            the foreground element
    */
   public static void displayMapForegroundElement(MapForegroundElement element) {
-    element.accept(CoreEngine.uiEngine.displayingVisitor());
-    element.accept(CoreEngine.uiEngine.displayingVisitor());
+    if (element != null) {
+      element.accept(CoreEngine.uiEngine.displayingVisitor());
+    }
   }
 
   /**
@@ -391,12 +393,14 @@ public class CoreEngine {
    * Go to the following day.
    */
   public static void nextDay() {
-    if (CoreEngine.currentConfiguration() != CoreEngine.WORLD_CONFIG) {
-      CoreEngine.backToWorldMap();
+    if (CoreEngine.roundManager.getPlayers().size() > 1) {
+      if (CoreEngine.currentConfiguration() != CoreEngine.WORLD_CONFIG) {
+        CoreEngine.backToWorldMap();
+      }
+      CoreEngine.roundManager.nextDay();
+      CoreEngine.displayMapForegroundElement(CoreEngine.selectionManager
+          .getSelectedElement());
     }
-    CoreEngine.roundManager.nextDay();
-    CoreEngine.displayMapForegroundElement(CoreEngine.selectionManager
-        .getSelectedElement());
   }
 
   /**
@@ -538,17 +542,28 @@ public class CoreEngine {
 
     CoreEngine.currentMap = worldMap;
     CoreEngine.uiEngine.drawMap(worldMap);
-    CoreEngine.selectionManager.perform(CoreEngine.currentMap
-        .getLocationForMapForegroundElement(CoreEngine.currentMap
-            .getMapForegroundElements().get(0)));
+    if (CoreEngine.currentMap.getMapForegroundElements().size() > 0) {
+      CoreEngine.selectionManager.perform(CoreEngine.currentMap
+          .getLocationForMapForegroundElement(CoreEngine.currentMap
+              .getMapForegroundElements().get(0)));
+    }
     CoreEngine.game = new Game(players);
   }
 
-  public static void startSavedCoreEngine(String fileName,
-      HMMUserInterface uiEngine) throws FileNotFoundException,
-      InvalidPlayersNumberException {
+  /**
+   * Start a new core engine from a saved game.
+   * 
+   * @param saveFile
+   *            the saved map file.
+   * @param uiEngine
+   *            the user interface manager.
+   * @throws InvalidSavedMapFileException
+   *             if a problem occurs during the loading of the map file.
+   */
+  public static void startSavedCoreEngine(String saveFile,
+      HMMUserInterface uiEngine) throws InvalidSavedMapFileException {
     try {
-      String[] strings = fileName.split("-");
+      String[] strings = saveFile.split("-");
       String levelString = strings[0];
       int numberOfPlayers = Integer.parseInt(strings[1]);
       MapLevel level = null;
@@ -561,11 +576,13 @@ public class CoreEngine {
       for (int i = 0; i < numberOfPlayers; i++) {
         players[i] = new Player(i);
       }
-      CoreEngine.startNewCoreEngine(level, fileName, uiEngine, players);
-
+      CoreEngine.startNewCoreEngine(level, "map/sav/" + saveFile + ".sav",
+          uiEngine, players);
     } catch (IOException e) {
+    } catch (InvalidPlayersNumberException e) {
     } catch (NumberFormatException e) {
-
+      throw new InvalidSavedMapFileException("The saved map file " + saveFile
+          + " is invalid. Unnable to load the game.");
     }
 
   }
@@ -592,7 +609,9 @@ public class CoreEngine {
    *            the player.
    */
   public static void renounce() {
-    CoreEngine.game.loose(CoreEngine.roundManager.currentPlayer());
+    if (CoreEngine.roundManager.getPlayers().size() > 1) {
+      CoreEngine.game.loose(CoreEngine.roundManager.currentPlayer());
+    }
   }
 
   /**
