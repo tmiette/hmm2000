@@ -37,6 +37,12 @@ public interface MapForegroundElement extends Spritable {
    *            the displaying visitor.
    */
   public void accept(UIDisplayingVisitor visitor);
-  
+
+  /**
+   * Returns a saved string representation for the foreground element to format
+   * the map saved file.
+   * 
+   * @return a saved string representation for the foreground element.
+   */
   public String getSaveString();
 }
