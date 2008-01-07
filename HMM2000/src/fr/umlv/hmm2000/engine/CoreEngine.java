@@ -576,7 +576,7 @@ public class CoreEngine {
       for (int i = 0; i < numberOfPlayers; i++) {
         players[i] = new Player(i);
       }
-      CoreEngine.startNewCoreEngine(level, "map/sav/" + saveFile + ".sav",
+      CoreEngine.startNewCoreEngine(level, "map/sav/" + saveFile,
           uiEngine, players);
     } catch (IOException e) {
     } catch (InvalidPlayersNumberException e) {

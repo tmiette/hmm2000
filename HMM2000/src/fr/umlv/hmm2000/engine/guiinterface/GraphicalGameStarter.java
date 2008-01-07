@@ -6,7 +6,9 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -16,6 +18,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
@@ -157,7 +160,10 @@ public class GraphicalGameStarter {
           @Override
           public void actionPerformed(ActionEvent e) {
             try {
-              CoreEngine.startSavedCoreEngine("MAP1-3", ui);
+              String s = loadSavedMapFile();
+              if (s != null) {
+                CoreEngine.startSavedCoreEngine(s, ui);
+              }
             } catch (InvalidSavedMapFileException e1) {
               System.err.println(e1.getMessage());
             }
@@ -178,4 +184,29 @@ public class GraphicalGameStarter {
     return pane;
   }
 
+  /**
+   * Asks the user for a saved map file.
+   * 
+   * @return the file path selected.
+   */
+  private static String loadSavedMapFile() {
+    File temp = new File("map/sav");
+    FilenameFilter filter = new FilenameFilter() {
+      @Override
+      public boolean accept(File f, String name) {
+        return name.endsWith(".sav");
+      }
+    };
+    File[] files = temp.listFiles(filter);
+    String[] paths = new String[files.length];
+    for (int i = 0; i < paths.length; i++) {
+      paths[i] = files[i].getName();
+    }
+    if (paths.length > 0) {
+      return (String) JOptionPane.showInputDialog(null,
+          "Which saved game do you want to load ?", "Use a skill",
+          JOptionPane.QUESTION_MESSAGE, null, paths, paths[0]);
+    }
+    return null;
+  }
 }
