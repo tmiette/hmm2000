@@ -1,4 +1,4 @@
-package fr.umlv.hmm2000.building;
+package fr.umlv.hmm2000.building.item;
 
 /**
  * This interface specify an available action when player select the castle.F
