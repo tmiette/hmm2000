@@ -32,7 +32,7 @@
 			</fileset>
 			<manifest>
 			 		<attribute name="MAIN-CLASS" value="fr.umlv.hmm2000.Main" />
-			 		<attribute name="CLASS-PATH" value="./lib/astar.jar ./lib/lawrence.jar"/>
+			 		<attribute name="CLASS-PATH" value="./lib/lawrence.jar ./lib/lawrence.jar"/>
 					<attribute name="IMPLEMENTATION_VENDOR" value="${authors}"/>
 					<attribute name="IMPLEMENTATION_VERSION" value="${version}"/>
 			 </manifest>
