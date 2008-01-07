@@ -75,7 +75,8 @@ public class MapSaver {
 
     // Write foreground informations
     for (MapForegroundElement element : map.getMapForegroundElements()) {
-
+      buff.write(element.getSaveString());
+      buff.write('\n');
     }
     buff.flush();
     buff.close();
