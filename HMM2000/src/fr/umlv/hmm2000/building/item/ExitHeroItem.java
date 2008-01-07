@@ -1,7 +1,8 @@
-package fr.umlv.hmm2000.building;
+package fr.umlv.hmm2000.building.item;
 
 import java.util.ArrayList;
 
+import fr.umlv.hmm2000.building.Castle;
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.map.Location;

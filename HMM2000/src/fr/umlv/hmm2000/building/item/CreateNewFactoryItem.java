@@ -1,30 +1,19 @@
-package fr.umlv.hmm2000.building;
+package fr.umlv.hmm2000.building.item;
 
 import java.util.ArrayList;
 
+import fr.umlv.hmm2000.building.Castle;
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
-import fr.umlv.hmm2000.engine.manager.MoveCoreManager;
-import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.salesentity.PriceFactory;
-import fr.umlv.hmm2000.unit.Fightable;
-import fr.umlv.hmm2000.unit.UnitFactory;
-import fr.umlv.hmm2000.unit.profile.Level;
 import fr.umlv.hmm2000.unit.profile.WarriorProfile;
 
-/**
- * This class enables player to buy a new warrior in castle.
- * 
- * @author MIETTE Tom
- * @author MOURET Sebastien
- * 
- */
-public class WarriorRecruitmentItem implements CastleItem {
+public class CreateNewFactoryItem implements CastleItem {
 
 	// Player's castle
 	private final Castle castle;
 
-	public WarriorRecruitmentItem(Castle castle) {
+	public CreateNewFactoryItem(Castle castle) {
 
 		this.castle = castle;
 	}
@@ -32,40 +21,36 @@ public class WarriorRecruitmentItem implements CastleItem {
 	@Override
 	public String getSuggestion() {
 
-		return "Buy new warrior";
+		return "Build new factory";
 	}
 
 	@Override
 	public void perform() {
 
+		// Choose list
 		ArrayList<CastleItem> items = new ArrayList<CastleItem>();
 		items.add(CastleItem.defaultItem);
+		// Avalaible factories
 		for (final WarriorProfile profile : WarriorProfile.values()) {
-			if (castle.canProduceWarrior(profile)) {
+			// Factories not yet built in castle
+			if (!castle.getFactoryBuilt().contains(profile)) {
 				items.add(new CastleItem() {
 
 					@Override
 					public String getSuggestion() {
 
-						Level level = castle.getFactoryLevel(profile);
-						return profile.toString() + ", level : " + level.toString()
-								+ ", price : "
-								+ PriceFactory.getWarriorPrice(profile, level).toString();
+						return profile.name() + " factory, price : " + PriceFactory
+						.getWarriorFactoryPrice(profile, Castle.defaultLevel);
 					}
 
 					@Override
 					public void perform() {
 
-						Level level = castle.getFactoryLevel(profile);
 						if (castle.getPlayer().spend(
-								PriceFactory.getWarriorPrice(profile, level))) {
-
-							Fightable warrior = UnitFactory.createWarrior(profile, level);
-							Location castleLocation = CoreEngine.map()
-									.getLocationForMapForegroundElement(castle);
-							// warrior is acquired by castle
-							warrior.acquire(new MoveCoreManager.Encounter(castleLocation,
-									castle, castleLocation));
+								PriceFactory
+										.getWarriorFactoryPrice(profile, Castle.defaultLevel))) {
+							// Build the factory specified
+							castle.buildFactory(profile);
 						}
 						else {
 							CoreEngine.fireMessage("You don't have enough resources.",
@@ -75,12 +60,14 @@ public class WarriorRecruitmentItem implements CastleItem {
 
 				});
 			}
+
 		}
 		// Adding items to choose manager
 		CastleItem item = CoreEngine.requestCastleItem(items);
 		if (item != null && item != CastleItem.defaultItem) {
 			item.perform();
 		}
+
 		// Refreshing the view
 		CoreEngine.selectionManager().perform(
 				CoreEngine.map().getLocationForMapForegroundElement(castle));
