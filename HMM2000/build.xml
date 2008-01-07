@@ -7,7 +7,9 @@
 
 	<property name="authors" value="MIETTE Tom ; MOURET Sebastien" />
 	<property name="version" value="1.0"/>
-	<property name="project-name" value="HMM2000" />
+	<property name="project-name" value="HMM" />
+	<property name="bin" value="${basedir}/bin" />
+	<property name="lib" value="${basedir}/lib" />
 	<property name="src" value="${basedir}/src" />
 	<property name="classes" value="${basedir}/classes" />
 	<property name="classpath" value="${classes}" />
@@ -19,20 +21,22 @@
 	
 	<target name="compile" depends="init">
 		<echo>Compiling sources...</echo>
+		<mkdir dir="${bin}" />
 		<mkdir dir="${classes}"/>
-		<javac classpath="./lib/lawrence.jar:./lib/batik-dep.jar:" srcdir="${src}" destdir="${classes}"/>
+		<javac classpath="${lib}/lawrence.jar:${lib}/batik-dep.jar:" srcdir="${src}" destdir="${classes}"/>
 	</target>
 	
 	<target name="jar" depends="compile">
-		<jar destfile="${project-name}.jar" >
+		<jar destfile="${bin}/${project-name}.jar" >
 			<fileset dir="${classes}"></fileset>
 			<fileset dir="${src}">
 				<include name="sprites/*"/>
 				<include name="icons/*"/>
+				<include name="map/*.map"/>
 			</fileset>
 			<manifest>
 			 		<attribute name="MAIN-CLASS" value="fr.umlv.hmm2000.Main" />
-			 		<attribute name="CLASS-PATH" value="./lib/lawrence.jar ./lib/batik-dep.jar"/>
+			 		<attribute name="CLASS-PATH" value="${lib}/lawrence.jar ${lib}/batik-dep.jar"/>
 					<attribute name="IMPLEMENTATION_VENDOR" value="${authors}"/>
 					<attribute name="IMPLEMENTATION_VERSION" value="${version}"/>
 			 </manifest>
@@ -51,7 +55,7 @@
 	</target>
 	
 	<target name="run">
-		<java jar="${project-name}.jar" fork="true"></java>
+		<java jar="${bin}/${project-name}.jar" fork="true"></java>
 	</target>
 	
 	<target name="clean" description="Cleans project">
@@ -59,6 +63,7 @@
 		<delete includeemptydirs="true" verbose="false">
 			<fileset dir="${javadocDirectory}" />
 			<fileset dir="${classes}" />
+			<fileset dir="${bin}" />
 		</delete>
 		<delete file="${project-name}.jar" />
 
