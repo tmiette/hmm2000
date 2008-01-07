@@ -39,18 +39,21 @@ public class CreateNewFactoryItem implements CastleItem {
 					@Override
 					public String getSuggestion() {
 
-						return profile.name() + " factory, price : " + PriceFactory
-						.getWarriorFactoryPrice(profile, Castle.defaultLevel);
+						return profile.name()
+								+ " factory, price : "
+								+ PriceFactory.getWarriorFactoryPrice(profile,
+										Castle.defaultLevel) +  ", time : "
+										+ Castle.defaultTimeToBuildFactory + " days.";
 					}
 
 					@Override
 					public void perform() {
 
 						if (castle.getPlayer().spend(
-								PriceFactory
-										.getWarriorFactoryPrice(profile, Castle.defaultLevel))) {
-							// Build the factory specified
-							castle.buildFactory(profile);
+								PriceFactory.getWarriorFactoryPrice(profile,
+										Castle.defaultLevel))) {
+							// Buy the factory specified
+							castle.buyFactory(profile);
 						}
 						else {
 							CoreEngine.fireMessage("You don't have enough resources.",
