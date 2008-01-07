@@ -163,9 +163,14 @@ public class GraphicalGameStarter {
               String s = loadSavedMapFile();
               if (s != null) {
                 CoreEngine.startSavedCoreEngine(s, ui);
+              } else {
+                JOptionPane.showMessageDialog(mainPanel,
+                    "There is no saved map file to load.", "No saved map file",
+                    JOptionPane.WARNING_MESSAGE);
               }
             } catch (InvalidSavedMapFileException e1) {
-              System.err.println(e1.getMessage());
+              JOptionPane.showMessageDialog(mainPanel, e1.getMessage(),
+                  "Saved map file error", JOptionPane.ERROR_MESSAGE);
             }
           }
         });
