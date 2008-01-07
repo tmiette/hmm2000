@@ -1,3 +1,4 @@
+package fr.umlv.hmm2000;
 
 import javax.swing.JFrame;
 
@@ -5,7 +6,7 @@ import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.engine.guiinterface.GraphicalGameStarter;
 import fr.umlv.hmm2000.gui.LawrenceUIEngine;
 
-public class Hmm2000Tom {
+public class Main {
 
   private static JFrame frame;
 
