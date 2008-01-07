@@ -22,7 +22,7 @@ public class HeroInitializer implements MapForegroundElementInitializer {
   public Hero initialize(LineNumberReader lnr, String[] data) {
     if (data.length >= 1) {
       try {
-        Hero h = UnitFactory.createHero(Player.AI, Translator
+        Hero h = UnitFactory.createHero(Player.AI, CharacterTranslator
             .decodeHeroProfile(data[0].charAt(0)));
         for (int i = 1; i < data.length; i++) {
           decodeFightable(h, data[i].split(","));
@@ -48,8 +48,8 @@ public class HeroInitializer implements MapForegroundElementInitializer {
   private void decodeFightable(FightableContainer c, String[] data) {
     if (data.length >= 2) {
       try {
-        Fightable f = UnitFactory.createWarrior(Translator
-            .decodeWarriorProfile(data[0].charAt(0)), Translator
+        Fightable f = UnitFactory.createWarrior(CharacterTranslator
+            .decodeWarriorProfile(data[0].charAt(0)), CharacterTranslator
             .decodeLevel(data[0].charAt(0)));
         c.addFightable(f);
       } catch (IndexOutOfBoundsException e) {

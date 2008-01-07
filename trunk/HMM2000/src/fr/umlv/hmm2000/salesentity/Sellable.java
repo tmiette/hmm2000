@@ -33,4 +33,26 @@ public interface Sellable {
    */
   public void acquire(Encounter encounter);
 
+  /**
+   * Default sellable item.
+   */
+  public static final Sellable defaultSellable = new Sellable() {
+
+    @Override
+    public String getLabel() {
+      return "Nothing";
+    }
+
+    @Override
+    public Price getPrice() {
+      return null;
+    }
+
+    @Override
+    public void acquire(Encounter encounter) {
+      throw new UnsupportedOperationException("This item cannot be bought.");
+    }
+
+  };
+  
 }

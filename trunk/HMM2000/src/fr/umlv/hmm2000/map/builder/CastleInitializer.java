@@ -23,13 +23,13 @@ public class CastleInitializer implements MapForegroundElementInitializer {
   public Castle initialize(LineNumberReader lnr, String[] data) {
     if (data.length >= 1) {
       try {
-        Castle c = new Castle(Player.AI, Translator
+        Castle c = new Castle(Player.AI, CharacterTranslator
             .decodeWarriorProfile(data[0].charAt(0)));
         if (data.length >= 2) {
           for (String s : data[1].split(",")) {
             String[] subData = s.split(":");
             if (subData.length >= 2) {
-              WarriorProfile p = Translator.decodeWarriorProfile(subData[0]
+              WarriorProfile p = CharacterTranslator.decodeWarriorProfile(subData[0]
                   .charAt(0));
               c.buildFactory(p);
               int level = Integer.parseInt(subData[1]);
@@ -65,8 +65,8 @@ public class CastleInitializer implements MapForegroundElementInitializer {
   private void decodeFightable(FightableContainer c, String[] data) {
     if (data.length >= 2) {
       try {
-        Fightable f = UnitFactory.createWarrior(Translator
-            .decodeWarriorProfile(data[0].charAt(0)), Translator
+        Fightable f = UnitFactory.createWarrior(CharacterTranslator
+            .decodeWarriorProfile(data[0].charAt(0)), CharacterTranslator
             .decodeLevel(data[0].charAt(0)));
         c.addFightable(f);
       } catch (IndexOutOfBoundsException e) {
