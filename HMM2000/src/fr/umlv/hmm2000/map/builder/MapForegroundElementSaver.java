@@ -225,6 +225,14 @@ public class MapForegroundElementSaver {
         appendSecondLevelSeparator(sb);
       }
     }
+    appendFirstLevelSeparator(sb);
+    for (Iterator<Hero> it = e.getHeroes().iterator(); it.hasNext();) {
+      sb.append(CharacterTranslator.encodeHeroProfile(UnitFactory
+          .findHeroProfile(it.next())));
+      if (it.hasNext()) {
+        appendSecondLevelSeparator(sb);
+      }
+    }
     return sb.toString();
   }
 
