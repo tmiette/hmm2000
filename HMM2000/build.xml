@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<project name="HMM 2000" default="all">
+    <description>
+            Remake of Heroes of Might and Magic game
+    </description>
+
+
+	<property name="authors" value="MIETTE Tom ; MOURET Sebastien" />
+	<property name="version" value="1.0"/>
+	<property name="project-name" value="HMM2000" />
+	<property name="src" value="${basedir}/src" />
+	<property name="classes" value="${basedir}/classes" />
+	<property name="classpath" value="${classes}" />
+	<property name="javadocDirectory" value="${basedir}/docs/api" />
+	
+	<target name="init" >
+		<echo>Building project...</echo>
+	</target>
+	
+	<target name="compile" depends="init">
+		<echo>Compiling sources...</echo>
+		<mkdir dir="${classes}"/>
+		<javac classpath="./lib/lawrence.jar:./lib/batik-dep.jar:" srcdir="${src}" destdir="${classes}"/>
+	</target>
+	
+	<target name="jar" depends="compile">
+		<jar destfile="${project-name}.jar" >
+			<fileset dir="${classes}"></fileset>
+			<fileset dir="${src}">
+				<include name="sprites/*"/>
+				<include name="icons/*"/>
+			</fileset>
+			<manifest>
+			 		<attribute name="MAIN-CLASS" value="fr.umlv.hmm2000.Main" />
+			 		<attribute name="CLASS-PATH" value="./lib/astar.jar ./lib/lawrence.jar"/>
+					<attribute name="IMPLEMENTATION_VENDOR" value="${authors}"/>
+					<attribute name="IMPLEMENTATION_VERSION" value="${version}"/>
+			 </manifest>
+		</jar>
+	</target>
+	
+	<target name="all" depends="javadoc" description="Building project HMM2000...">
+	</target>
+	
+	
+	<target name="javadoc" depends="jar">
+		<echo>Generating javadoc in ${javadocDirectory} ...</echo>
+		<mkdir dir="${javadocDirectory}" description="Generates javadoc"/>
+		<javadoc sourcepath="${src}" destdir="${javadocDirectory}">
+		</javadoc>
+	</target>
+	
+	<target name="run">
+		<java jar="${project-name}.jar" fork="true"></java>
+	</target>
+	
+	<target name="clean" description="Cleans project">
+		<echo>Cleaning files...</echo>
+		<delete includeemptydirs="true" verbose="false">
+			<fileset dir="${javadocDirectory}" />
+			<fileset dir="${classes}" />
+		</delete>
+		<delete file="${project-name}.jar" />
+
+	</target>
+
+</project>
