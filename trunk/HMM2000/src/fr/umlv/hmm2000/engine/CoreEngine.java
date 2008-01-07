@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import fr.umlv.hmm2000.building.Castle;
-import fr.umlv.hmm2000.building.CastleItem;
+import fr.umlv.hmm2000.building.item.CastleItem;
 import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.engine.guiinterface.InvalidSavedMapFileException;
 import fr.umlv.hmm2000.engine.guiinterface.Sprite;
