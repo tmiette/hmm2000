@@ -43,7 +43,7 @@ public class MapSaver {
       throws IOException {
 
     // Creates the save file
-    String savedFilePath = new Random().nextInt(999) + level.name() + "-"
+    String savedFilePath = new Random().nextInt(999) + "-" + level.name() + "-"
         + players.size() + ".sav";
     File f = new File("./map/sav/" + savedFilePath);
     f.createNewFile();
