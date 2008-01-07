@@ -1,6 +1,7 @@
 package fr.umlv.hmm2000.engine.manager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.Player;
@@ -108,5 +109,14 @@ public class DayCoreManager {
     } else {
       this.players.remove(player);
     }
+  }
+
+  /**
+   * Returns the list of remaining players.
+   * 
+   * @return the list of remaining players.
+   */
+  public List<Player> getPlayers() {
+    return this.players;
   }
 }

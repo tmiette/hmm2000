@@ -31,9 +31,13 @@ public class LawrenceChoicesManager implements UIChoicesManager {
   public Sellable submit(String message, List<Pair<Sellable, Integer>> items) {
     ArrayList<String> choices = new ArrayList<String>();
     for (Pair<Sellable, Integer> pair : items) {
-      choices.add(pair.getFirstElement().getLabel() + " - price : "
-          + pair.getFirstElement().getPrice() + " - quantity : "
-          + pair.getSecondElement());
+      if (pair.getFirstElement().getPrice() != null) {
+        choices.add(pair.getFirstElement().getLabel() + " - price : "
+            + pair.getFirstElement().getPrice() + " - quantity : "
+            + pair.getSecondElement());
+      } else {
+        choices.add(pair.getFirstElement().getLabel());
+      }
     }
 
     String purchaseString = (String) JOptionPane.showInputDialog(null, message,

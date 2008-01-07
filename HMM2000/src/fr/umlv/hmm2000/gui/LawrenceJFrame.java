@@ -102,7 +102,16 @@ public class LawrenceJFrame {
                 refreshNorthPanel();
               }
             });
+    final JButton saveButton = LawrenceComponentFactory.createLawrenceButton(
+        "S", "rewind20x20.png", "Save the game.", new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            CoreEngine.save();
+            refreshNorthPanel();
+          }
+        });
     northSouthPanel.add(quitButton);
+    northSouthPanel.add(saveButton);
     northSouthPanel.add(renounceButton);
     northSouthPanel.add(nextDayButton);
     northSouthPanel.add(backWorldMapButton);

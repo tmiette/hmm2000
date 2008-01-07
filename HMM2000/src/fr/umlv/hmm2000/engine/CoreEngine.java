@@ -23,6 +23,7 @@ import fr.umlv.hmm2000.map.WorldMap;
 import fr.umlv.hmm2000.map.battle.BattleMap;
 import fr.umlv.hmm2000.map.battle.BattlePositionMap;
 import fr.umlv.hmm2000.map.builder.MapBuilder;
+import fr.umlv.hmm2000.map.builder.MapSaver;
 import fr.umlv.hmm2000.map.element.MapForegroundElement;
 import fr.umlv.hmm2000.salesentity.Sellable;
 import fr.umlv.hmm2000.unit.FightableContainer;
@@ -501,6 +502,8 @@ public class CoreEngine {
    * 
    * @param level
    *            the map level.
+   * @param mapFile
+   *            the map file.
    * @param uiEngine
    *            the user interface manager.
    * @param players
@@ -512,7 +515,7 @@ public class CoreEngine {
    * @throws IOException
    *             if map file is corrupted.
    */
-  public static void startNewCoreEngine(MapLevel level,
+  public static void startNewCoreEngine(MapLevel level, String mapFile,
       HMMUserInterface uiEngine, Player... players)
       throws InvalidPlayersNumberException, FileNotFoundException, IOException {
 
@@ -521,7 +524,7 @@ public class CoreEngine {
       throw new InvalidPlayersNumberException(level, players.length);
     }
 
-    WorldMap worldMap = MapBuilder.createMap(level, players);
+    WorldMap worldMap = MapBuilder.createMap(level, mapFile, players);
 
     CoreEngine.currentMapLevel = level;
     CoreEngine.numberOfPlayers = players.length;
@@ -539,6 +542,32 @@ public class CoreEngine {
         .getLocationForMapForegroundElement(CoreEngine.currentMap
             .getMapForegroundElements().get(0)));
     CoreEngine.game = new Game(players);
+  }
+
+  public static void startSavedCoreEngine(String fileName,
+      HMMUserInterface uiEngine) throws FileNotFoundException,
+      InvalidPlayersNumberException {
+    try {
+      String[] strings = fileName.split("-");
+      String levelString = strings[0];
+      int numberOfPlayers = Integer.parseInt(strings[1]);
+      MapLevel level = null;
+      for (MapLevel l : MapLevel.values()) {
+        if (l.name().equals(levelString)) {
+          level = l;
+        }
+      }
+      Player[] players = new Player[numberOfPlayers];
+      for (int i = 0; i < numberOfPlayers; i++) {
+        players[i] = new Player(i);
+      }
+      CoreEngine.startNewCoreEngine(level, fileName, uiEngine, players);
+
+    } catch (IOException e) {
+    } catch (NumberFormatException e) {
+
+    }
+
   }
 
   /**
@@ -564,6 +593,18 @@ public class CoreEngine {
    */
   public static void renounce() {
     CoreEngine.game.loose(CoreEngine.roundManager.currentPlayer());
+  }
+
+  /**
+   * Saves the main map.
+   */
+  public static void save() {
+    try {
+      MapSaver.save(CoreEngine.mapLevel(), CoreEngine.worldMap,
+          CoreEngine.roundManager.getPlayers());
+    } catch (IOException e) {
+      CoreEngine.fireMessage("Save failed.", HMMUserInterface.ERROR_MESSAGE);
+    }
   }
 
   /**

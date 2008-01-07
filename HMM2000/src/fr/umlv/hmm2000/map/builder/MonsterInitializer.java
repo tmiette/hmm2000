@@ -22,7 +22,7 @@ public class MonsterInitializer implements MapForegroundElementInitializer {
   public Monster initialize(LineNumberReader lnr, String[] data) {
     if (data.length >= 1) {
       try {
-        Monster m = UnitFactory.createMonster(Player.AI, Translator
+        Monster m = UnitFactory.createMonster(Player.AI, CharacterTranslator
             .decodeMonsterProfile(data[0].charAt(0)));
         for (int i = 1; i < data.length; i++) {
           decodeFightable(m, data[i].split(","));
@@ -48,8 +48,8 @@ public class MonsterInitializer implements MapForegroundElementInitializer {
   private void decodeFightable(FightableContainer c, String[] data) {
     if (data.length >= 2) {
       try {
-        Fightable f = UnitFactory.createWarrior(Translator
-            .decodeWarriorProfile(data[0].charAt(0)), Translator
+        Fightable f = UnitFactory.createWarrior(CharacterTranslator
+            .decodeWarriorProfile(data[0].charAt(0)), CharacterTranslator
             .decodeLevel(data[0].charAt(0)));
         c.addFightable(f);
       } catch (IndexOutOfBoundsException e) {

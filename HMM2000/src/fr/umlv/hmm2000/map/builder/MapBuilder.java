@@ -39,20 +39,21 @@ public class MapBuilder {
    * 
    * @param level
    *            map level
+   * @param mapFile
+   *            the map file.
    * @param players
    *            players of the game.
    * @return the world map created
    * @throws FileNotFoundException
    *             exception thrown if map file is missing
    * @throws IOException
-   *             exception thrown if a probleme occurs during the file parsing
+   *             exception thrown if a problem occurs during the file parsing
    */
-  public static WorldMap createMap(MapLevel level, Player... players)
-      throws FileNotFoundException, IOException {
+  public static WorldMap createMap(MapLevel level, String mapFile,
+      Player... players) throws FileNotFoundException, IOException {
 
     MapBuilder.players = players;
-    LineNumberReader lnr = new LineNumberReader(new FileReader(level
-        .getMapFile()));
+    LineNumberReader lnr = new LineNumberReader(new FileReader(mapFile));
     String s;
 
     // Gets the width and the height of the map
@@ -127,31 +128,7 @@ public class MapBuilder {
    */
   private static void decodeBackgroundLine(String s, MapBackgroundEnum[] line) {
     for (int i = 0; i < s.length(); i++) {
-      line[i] = getMapBackgroundEnum(s.charAt(i));
-    }
-  }
-
-  /**
-   * Gets the map background element corresponding to a given character.
-   * 
-   * @param c
-   * @return
-   */
-  private static MapBackgroundEnum getMapBackgroundEnum(char c) {
-
-    switch (c) {
-    case 'M':
-      return MapBackgroundEnum.MOUNTAIN;
-    case 'P':
-      return MapBackgroundEnum.PATH;
-    case 'L':
-      return MapBackgroundEnum.PLAIN;
-    case 'T':
-      return MapBackgroundEnum.TREE;
-    case 'W':
-      return MapBackgroundEnum.WATER;
-    default:
-      return MapBackgroundEnum.PLAIN;
+      line[i] = CharacterTranslator.decodeMapBackgroundEnum(s.charAt(i));
     }
   }
 
@@ -209,7 +186,7 @@ public class MapBuilder {
               for (int i = 0; i < data.length; i++) {
                 String[] subData = data[i].split(",");
                 if (subData.length >= 2) {
-                  players[p].addResource(Translator
+                  players[p].addResource(CharacterTranslator
                       .decodeResourceKind(subData[0].charAt(0)), Integer
                       .parseInt(subData[1]));
                 }

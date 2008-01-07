@@ -32,13 +32,13 @@ public interface Skill {
 		@Override
 		public String getName() {
 
-			return "Aucun skill.";
+			return "None.";
 		}
 
 		@Override
 		public String getToolTipText() {
 
-			return null;
+			return "";
 		}
 
 		@Override

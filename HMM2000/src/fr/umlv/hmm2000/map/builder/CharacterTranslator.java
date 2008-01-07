@@ -1,5 +1,6 @@
 package fr.umlv.hmm2000.map.builder;
 
+import fr.umlv.hmm2000.map.element.MapBackgroundEnum;
 import fr.umlv.hmm2000.resource.Resource.Kind;
 import fr.umlv.hmm2000.salesentity.SalesEntity.SalesEntityEnum;
 import fr.umlv.hmm2000.salesentity.spell.Spell;
@@ -16,7 +17,56 @@ import fr.umlv.hmm2000.unit.profile.WarriorProfile;
  * @author MOURET Sebastien
  * 
  */
-public class Translator {
+public class CharacterTranslator {
+
+  /**
+   * Translates a character to a map background element.
+   * 
+   * @param c
+   *            the character.
+   * @return the map background element.
+   */
+  protected static MapBackgroundEnum decodeMapBackgroundEnum(char c) {
+
+    switch (c) {
+    case 'M':
+      return MapBackgroundEnum.MOUNTAIN;
+    case 'P':
+      return MapBackgroundEnum.PATH;
+    case 'L':
+      return MapBackgroundEnum.PLAIN;
+    case 'T':
+      return MapBackgroundEnum.TREE;
+    case 'W':
+      return MapBackgroundEnum.WATER;
+    default:
+      return MapBackgroundEnum.PLAIN;
+    }
+  }
+
+  /**
+   * Translates a map background element to a character.
+   * 
+   * @param e
+   *            the map background element.
+   * @return the character.
+   */
+  protected static char encodeMapBackgroundEnum(MapBackgroundEnum e) {
+    switch (e) {
+    case MOUNTAIN:
+      return 'M';
+    case PATH:
+      return 'P';
+    case PLAIN:
+      return 'L';
+    case TREE:
+      return 'T';
+    case WATER:
+      return 'W';
+    default:
+      return 'P';
+    }
+  }
 
   /**
    * Translates a character to a resource kind.
@@ -31,6 +81,22 @@ public class Translator {
       return Kind.GOLD;
     default:
       return Kind.GOLD;
+    }
+  }
+
+  /**
+   * Translates a resource kind to a character.
+   * 
+   * @param e
+   *            the resource kind.
+   * @return the character.
+   */
+  protected static char encodeResourceKind(Kind e) {
+    switch (e) {
+    case GOLD:
+      return 'G';
+    default:
+      return 'G';
     }
   }
 
@@ -127,7 +193,7 @@ public class Translator {
    *            the character.
    * @return the sales entity kind.
    */
-  public static SalesEntityEnum decodeSalesEntity(char c) {
+  protected static SalesEntityEnum decodeSalesEntity(char c) {
     switch (c) {
     case 'M':
       return SalesEntityEnum.MERCHANT;

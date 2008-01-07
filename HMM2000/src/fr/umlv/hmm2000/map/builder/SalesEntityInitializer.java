@@ -19,7 +19,7 @@ public class SalesEntityInitializer implements MapForegroundElementInitializer {
   public SalesEntity initialize(LineNumberReader lnr, String[] data) {
     if (data.length >= 1) {
       try {
-        SalesEntity sales = new SalesEntity(Translator.decodeSalesEntity(data[0]
+        SalesEntity sales = new SalesEntity(CharacterTranslator.decodeSalesEntity(data[0]
             .charAt(0)));
         for (int i = 1; i < data.length; i++) {
           decodeSellable(sales, data[i].split(","));
@@ -67,7 +67,7 @@ public class SalesEntityInitializer implements MapForegroundElementInitializer {
     if (data.length >= 2) {
       try {
         int q = Integer.parseInt(data[1]);
-        sales.addProduct(Translator.decodeSpell(data[0].charAt(0)), q);
+        sales.addProduct(CharacterTranslator.decodeSpell(data[0].charAt(0)), q);
       } catch (NumberFormatException e) {
       } catch (IndexOutOfBoundsException e) {
         // do nothing
@@ -87,8 +87,8 @@ public class SalesEntityInitializer implements MapForegroundElementInitializer {
     if (data.length >= 3) {
       try {
         int q = Integer.parseInt(data[2]);
-        Fightable w = UnitFactory.createWarrior(Translator
-            .decodeWarriorProfile(data[0].charAt(0)), Translator
+        Fightable w = UnitFactory.createWarrior(CharacterTranslator
+            .decodeWarriorProfile(data[0].charAt(0)), CharacterTranslator
             .decodeLevel(data[1].charAt(0)));
         sales.addProduct(w, q);
       } catch (NumberFormatException e) {

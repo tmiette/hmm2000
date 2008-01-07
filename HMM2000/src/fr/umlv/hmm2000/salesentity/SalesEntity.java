@@ -78,28 +78,6 @@ public class SalesEntity implements MapForegroundElement {
   }
 
   /**
-   * Default sellable item.
-   */
-  private static final Sellable defaultSellable = new Sellable() {
-
-    @Override
-    public String getLabel() {
-      return "Nothing";
-    }
-
-    @Override
-    public Price getPrice() {
-      return null;
-    }
-
-    @Override
-    public void acquire(Encounter encounter) {
-      throw new UnsupportedOperationException("This item cannot be bought");
-    }
-
-  };
-
-  /**
    * Returns the list of the items that the sale entity sales corresponding to
    * the hash map.
    * 
@@ -112,7 +90,7 @@ public class SalesEntity implements MapForegroundElement {
 
     ArrayList<Pair<Sellable, Integer>> itemsList = new ArrayList<Pair<Sellable, Integer>>();
 
-    itemsList.add(new Pair<Sellable, Integer>(SalesEntity.defaultSellable, 0));
+    itemsList.add(new Pair<Sellable, Integer>(Sellable.defaultSellable, 0));
     for (Entry<Sellable, Integer> entry : itemsMap.entrySet()) {
       Sellable item = entry.getKey();
       int quantity = entry.getValue();
@@ -162,7 +140,7 @@ public class SalesEntity implements MapForegroundElement {
         .createItemsList(this.items);
     Sellable item = CoreEngine.requestPurchase(purchases);
 
-    if (item != null && item != SalesEntity.defaultSellable) {
+    if (item != null && item != Sellable.defaultSellable) {
       if (encounter.getSender().getPlayer().spend(item.getPrice())) {
         int quantity = this.items.get(item);
         quantity--;

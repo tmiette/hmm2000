@@ -137,7 +137,8 @@ public class StartPanel {
                 players[i] = new Player(i);
               }
               final MapLevel level = (MapLevel) list.getSelectedValue();
-              CoreEngine.startNewCoreEngine(level, ui, players);
+              CoreEngine.startNewCoreEngine(level, level.getMapFile(), ui,
+                  players);
             } catch (FileNotFoundException e1) {
               // the map file does not exist
               throw new AssertionError(e1);
@@ -151,8 +152,23 @@ public class StartPanel {
           }
         });
 
+    final JButton saveButton = LawrenceComponentFactory.createLawrenceButton(
+        "Saved", "aura20x20.png", "Start a saved game.", new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            try {
+              CoreEngine.startSavedCoreEngine("MAP1-2", ui);
+            } catch (FileNotFoundException e1) {
+              throw new AssertionError(e1);
+            } catch (InvalidPlayersNumberException e1) {
+              throw new AssertionError(e1);
+            }
+          }
+        });
+
     buttonsPanel.add(quitButton);
     buttonsPanel.add(startButton);
+    buttonsPanel.add(saveButton);
     mainPanel.add(buttonsPanel, BorderLayout.SOUTH);
 
     // set up the background icon and main panel
