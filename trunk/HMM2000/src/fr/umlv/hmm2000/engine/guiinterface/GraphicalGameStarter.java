@@ -126,7 +126,7 @@ public class GraphicalGameStarter {
         });
 
     final JButton startButton = LawrenceComponentFactory.createLawrenceButton(
-        "Start", "aura20x20.png", "Start the game.", new ActionListener() {
+        "Start game", "aura20x20.png", "Start the game.", new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
             try {
@@ -152,11 +152,12 @@ public class GraphicalGameStarter {
         });
 
     final JButton saveButton = LawrenceComponentFactory.createLawrenceButton(
-        "Saved", "aura20x20.png", "Start a saved game.", new ActionListener() {
+        "Saved game", "floppy20x20.png", "Start a saved game.",
+        new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
             try {
-              CoreEngine.startSavedCoreEngine("MAP1-2", ui);
+              CoreEngine.startSavedCoreEngine("MAP1-3", ui);
             } catch (InvalidSavedMapFileException e1) {
               System.err.println(e1.getMessage());
             }
@@ -164,8 +165,8 @@ public class GraphicalGameStarter {
         });
 
     buttonsPanel.add(quitButton);
-    buttonsPanel.add(startButton);
     buttonsPanel.add(saveButton);
+    buttonsPanel.add(startButton);
     mainPanel.add(buttonsPanel, BorderLayout.SOUTH);
 
     // set up the background icon and main panel

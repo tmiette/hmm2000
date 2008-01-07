@@ -69,14 +69,14 @@ public class LawrenceJFrame {
     final JPanel northSouthPanel = new JPanel();
 
     final JButton quitButton = LawrenceComponentFactory.createLawrenceButton(
-        "Q", "quit20x20.png", "Quit the game.", new ActionListener() {
+        "", "quit20x20.png", "Quit the game.", new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
             System.exit(0);
           }
         });
     final JButton renounceButton = LawrenceComponentFactory
-        .createLawrenceButton("R", "aura_red20x20.png",
+        .createLawrenceButton("", "aura_red20x20.png",
             "Current player renounces.", new ActionListener() {
               @Override
               public void actionPerformed(ActionEvent e) {
@@ -85,7 +85,7 @@ public class LawrenceJFrame {
               }
             });
     final JButton nextDayButton = LawrenceComponentFactory
-        .createLawrenceButton("N", "forward20x20.png",
+        .createLawrenceButton("", "forward20x20.png",
             "Go to the following day.", new ActionListener() {
               @Override
               public void actionPerformed(ActionEvent e) {
@@ -94,7 +94,7 @@ public class LawrenceJFrame {
               }
             });
     final JButton backWorldMapButton = LawrenceComponentFactory
-        .createLawrenceButton("W", "rewind20x20.png", "Back to the main map.",
+        .createLawrenceButton("", "rewind20x20.png", "Back to the main map.",
             new ActionListener() {
               @Override
               public void actionPerformed(ActionEvent e) {
@@ -103,7 +103,7 @@ public class LawrenceJFrame {
               }
             });
     final JButton saveButton = LawrenceComponentFactory.createLawrenceButton(
-        "S", "rewind20x20.png", "Save the game.", new ActionListener() {
+        "", "floppy20x20.png", "Save the game.", new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
             CoreEngine.save();

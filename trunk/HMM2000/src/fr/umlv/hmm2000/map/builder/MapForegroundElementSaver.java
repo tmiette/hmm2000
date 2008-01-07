@@ -213,7 +213,7 @@ public class MapForegroundElementSaver {
         appendSecondLevelSeparator(sb);
       }
     }
-
+    appendFirstLevelSeparator(sb);
     for (Iterator<Fightable> it = e.getTroop().iterator(); it.hasNext();) {
       Warrior w = (Warrior) it.next();
       Pair<WarriorProfile, Level> pair = UnitFactory.findWarriorProfile(w);
