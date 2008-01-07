@@ -1,4 +1,4 @@
-package fr.umlv.hmm2000.gui.panel;
+package fr.umlv.hmm2000.engine.guiinterface;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -23,7 +23,6 @@ import javax.swing.event.ListSelectionListener;
 
 import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.Player;
-import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.gui.LawrenceComponentFactory;
 import fr.umlv.hmm2000.map.InvalidPlayersNumberException;
 import fr.umlv.hmm2000.map.MapLevel;
@@ -35,7 +34,7 @@ import fr.umlv.hmm2000.map.MapLevel;
  * @author MOURET Sebastien
  * 
  */
-public class StartPanel {
+public class GraphicalGameStarter {
 
   public static JComponent createStartPanel(final HMMUserInterface ui) {
 
@@ -158,10 +157,8 @@ public class StartPanel {
           public void actionPerformed(ActionEvent e) {
             try {
               CoreEngine.startSavedCoreEngine("MAP1-2", ui);
-            } catch (FileNotFoundException e1) {
-              throw new AssertionError(e1);
-            } catch (InvalidPlayersNumberException e1) {
-              throw new AssertionError(e1);
+            } catch (InvalidSavedMapFileException e1) {
+              System.err.println(e1.getMessage());
             }
           }
         });
