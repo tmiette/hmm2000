@@ -32,7 +32,7 @@
 			<fileset dir="${src}">
 				<include name="sprites/*"/>
 				<include name="icons/*"/>
-				<include name="map/*.map"/>
+				<include name="map/**.map"/>
 			</fileset>
 			<manifest>
 			 		<attribute name="MAIN-CLASS" value="fr.umlv.hmm2000.Main" />
