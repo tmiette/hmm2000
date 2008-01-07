@@ -5,6 +5,7 @@ import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.engine.guiinterface.Sprite;
 import fr.umlv.hmm2000.engine.guiinterface.UIDisplayingVisitor;
 import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
+import fr.umlv.hmm2000.map.builder.MapForegroundElementSaver;
 import fr.umlv.hmm2000.resource.Resource.Kind;
 import fr.umlv.hmm2000.salesentity.Price;
 import fr.umlv.hmm2000.unit.exception.MaxNumberOfTroopsReachedException;
@@ -249,6 +250,11 @@ public class Warrior implements Fightable {
   public ElementAbility getAbilities() {
 
     return this.abilities;
+  }
+  
+  @Override
+  public String getSaveString() {
+    return MapForegroundElementSaver.save(this);
   }
 
 }

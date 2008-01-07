@@ -13,6 +13,7 @@ import fr.umlv.hmm2000.engine.manager.MoveCoreManager.Encounter;
 import fr.umlv.hmm2000.map.battle.BattlePositionMap;
 import fr.umlv.hmm2000.map.battle.exception.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.map.battle.exception.NoPlaceAvailableException;
+import fr.umlv.hmm2000.map.builder.MapForegroundElementSaver;
 import fr.umlv.hmm2000.unit.Fightable;
 import fr.umlv.hmm2000.unit.FightableContainer;
 import fr.umlv.hmm2000.unit.Hero;
@@ -398,7 +399,7 @@ public class Castle implements FightableContainer {
   /**
    * Gets default factory containing in castle.
    * 
-   * @return default factoril
+   * @return default factory
    */
   public WarriorProfile getDefaultFactory() {
 
@@ -408,5 +409,10 @@ public class Castle implements FightableContainer {
   @Override
   public String getName() {
     return "CASTLE";
+  }
+
+  @Override
+  public String getSaveString() {
+    return MapForegroundElementSaver.save(this);
   }
 }
