@@ -564,8 +564,8 @@ public class CoreEngine {
       HMMUserInterface uiEngine) throws InvalidSavedMapFileException {
     try {
       String[] strings = saveFile.split("-");
-      String levelString = strings[0];
-      int numberOfPlayers = Integer.parseInt(strings[1]);
+      String levelString = strings[1];
+      int numberOfPlayers = Integer.parseInt(strings[2].split("\\.")[0]);
       MapLevel level = null;
       for (MapLevel l : MapLevel.values()) {
         if (l.name().equals(levelString)) {
@@ -576,12 +576,20 @@ public class CoreEngine {
       for (int i = 0; i < numberOfPlayers; i++) {
         players[i] = new Player(i);
       }
-      CoreEngine.startNewCoreEngine(level, "map/sav/" + saveFile,
-          uiEngine, players);
+      CoreEngine.startNewCoreEngine(level, "map/sav/" + saveFile, uiEngine,
+          players);
     } catch (IOException e) {
+      throw new InvalidSavedMapFileException("The saved map file " + saveFile
+          + " is invalid. Unnable to load the game.");
     } catch (InvalidPlayersNumberException e) {
+      throw new InvalidSavedMapFileException("The saved map file " + saveFile
+          + " is invalid. Unnable to load the game.");
     } catch (IndexOutOfBoundsException e) {
+      throw new InvalidSavedMapFileException("The saved map file " + saveFile
+          + " is invalid. Unnable to load the game.");
     } catch (NullPointerException e) {
+      throw new InvalidSavedMapFileException("The saved map file " + saveFile
+          + " is invalid. Unnable to load the game.");
     } catch (NumberFormatException e) {
       throw new InvalidSavedMapFileException("The saved map file " + saveFile
           + " is invalid. Unnable to load the game.");
