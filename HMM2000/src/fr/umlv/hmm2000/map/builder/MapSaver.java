@@ -5,8 +5,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
+import fr.umlv.hmm2000.engine.CoreEngine;
 import fr.umlv.hmm2000.engine.Player;
+import fr.umlv.hmm2000.engine.guiinterface.HMMUserInterface;
 import fr.umlv.hmm2000.map.Location;
 import fr.umlv.hmm2000.map.Map;
 import fr.umlv.hmm2000.map.MapLevel;
@@ -40,8 +43,9 @@ public class MapSaver {
       throws IOException {
 
     // Creates the save file
-    File f = new File("./map/sav/" + level.name() + "-" + players.size()
-        + ".sav");
+    String savedFilePath = new Random().nextInt(999) + level.name() + "-"
+        + players.size() + ".sav";
+    File f = new File("./map/sav/" + savedFilePath);
     f.createNewFile();
     BufferedWriter buff = new BufferedWriter(new FileWriter(f));
 
@@ -80,5 +84,9 @@ public class MapSaver {
     }
     buff.flush();
     buff.close();
+
+    // Inform the user
+    CoreEngine.fireMessage("The game was correctly saved in the file "
+        + savedFilePath + ".", HMMUserInterface.INFO_MESSAGE);
   }
 }
