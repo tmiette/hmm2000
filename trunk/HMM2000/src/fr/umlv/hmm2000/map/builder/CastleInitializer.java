@@ -6,6 +6,7 @@ import fr.umlv.hmm2000.building.Castle;
 import fr.umlv.hmm2000.engine.Player;
 import fr.umlv.hmm2000.unit.Fightable;
 import fr.umlv.hmm2000.unit.FightableContainer;
+import fr.umlv.hmm2000.unit.Hero;
 import fr.umlv.hmm2000.unit.UnitFactory;
 import fr.umlv.hmm2000.unit.exception.MaxNumberOfTroopsReachedException;
 import fr.umlv.hmm2000.unit.profile.WarriorProfile;
@@ -29,8 +30,8 @@ public class CastleInitializer implements MapForegroundElementInitializer {
           for (String s : data[1].split(",")) {
             String[] subData = s.split(":");
             if (subData.length >= 2) {
-              WarriorProfile p = CharacterTranslator.decodeWarriorProfile(subData[0]
-                  .charAt(0));
+              WarriorProfile p = CharacterTranslator
+                  .decodeWarriorProfile(subData[0].charAt(0));
               c.buildFactory(p);
               int level = Integer.parseInt(subData[1]);
               for (int i = 1; i < level; i++) {
@@ -42,6 +43,11 @@ public class CastleInitializer implements MapForegroundElementInitializer {
         if (data.length >= 3) {
           for (String s : data[2].split(",")) {
             decodeFightable(c, s.split(":"));
+          }
+        }
+        if (data.length >= 4) {
+          for (String s : data[3].split(",")) {
+            decodeHero(c, s.split(":"));
           }
         }
         return c;
@@ -77,4 +83,24 @@ public class CastleInitializer implements MapForegroundElementInitializer {
     }
   }
 
+  /**
+   * Decodes and add heroes to the castle.
+   * 
+   * @param m
+   *            the castle.
+   * @param data
+   *            the data array.
+   */
+  private void decodeHero(Castle c, String[] data) {
+    if (data.length >= 1) {
+      try {
+        Hero h = UnitFactory.createHero(c.getPlayer(), CharacterTranslator
+            .decodeHeroProfile(data[0].charAt(0)));
+        c.addHero(h);
+      } catch (IndexOutOfBoundsException e) {
+      } catch (NumberFormatException e) {
+        // do nothing
+      }
+    }
+  }
 }
