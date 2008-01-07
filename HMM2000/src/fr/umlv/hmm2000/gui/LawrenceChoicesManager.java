@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import fr.umlv.hmm2000.building.CastleItem;
+import fr.umlv.hmm2000.building.item.CastleItem;
 import fr.umlv.hmm2000.engine.guiinterface.UIChoicesManager;
 import fr.umlv.hmm2000.salesentity.Sellable;
 import fr.umlv.hmm2000.unit.skill.Skill;
