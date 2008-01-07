@@ -22,6 +22,12 @@ import fr.umlv.hmm2000.unit.exception.MaxNumberOfTroopsReachedException;
  */
 public class Monster implements FightableContainer {
 
+  // Monster counter
+  private static int MONSTERS_COUNT = 0;
+
+  // Unique id
+  private final int id;
+
   // icon to display on map
   private final Sprite sprite;
 
@@ -41,7 +47,7 @@ public class Monster implements FightableContainer {
   private final String name;
 
   public Monster(Player player, Sprite sprite, String name, int attackPriority) {
-
+    this.id = MONSTERS_COUNT++;
     this.player = player;
     this.sprite = sprite;
     this.name = name;
@@ -152,10 +158,18 @@ public class Monster implements FightableContainer {
   public String toString() {
     return this.name;
   }
-  
+
   @Override
   public String getSaveString() {
     return MapForegroundElementSaver.save(this);
   }
 
+  /**
+   * Returns unique id of the hero.
+   * 
+   * @return unique id of the hero.
+   */
+  public int getId() {
+    return this.id;
+  }
 }

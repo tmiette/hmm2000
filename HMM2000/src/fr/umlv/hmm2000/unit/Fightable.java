@@ -101,7 +101,7 @@ public interface Fightable extends Sellable, MapForegroundElement {
 	 * 
 	 * @return id value
 	 */
-	public double getId();
+	public int getId();
 
 	/**
 	 * Gets fightable speed on world map

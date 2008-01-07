@@ -26,10 +26,10 @@ import fr.umlv.hmm2000.util.Pair;
 public class Warrior implements Fightable {
 
   // Warrior counter
-  private static double WARRIORS_COUNT = 0;
+  private static int WARRIORS_COUNT = 0;
 
   // Identify warrior
-  private final double id;
+  private final int id;
 
   // His container (hero, castle, monster)
   private FightableContainer container;
@@ -148,7 +148,7 @@ public class Warrior implements Fightable {
   }
 
   @Override
-  public double getId() {
+  public int getId() {
 
     return this.id;
   }
@@ -161,9 +161,7 @@ public class Warrior implements Fightable {
 
   @Override
   public Price getPrice() {
-
     Price price = new Price();
-    // TODO trouver une methode de calcul du prix
     int gold = (2 * (int) this.health + 3 * (int) this.physicalDefenseValue) / 10;
     price.addResource(Kind.GOLD, gold);
     return price;
@@ -251,7 +249,7 @@ public class Warrior implements Fightable {
 
     return this.abilities;
   }
-  
+
   @Override
   public String getSaveString() {
     return MapForegroundElementSaver.save(this);
