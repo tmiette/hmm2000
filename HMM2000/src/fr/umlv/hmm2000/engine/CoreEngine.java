@@ -580,11 +580,12 @@ public class CoreEngine {
           uiEngine, players);
     } catch (IOException e) {
     } catch (InvalidPlayersNumberException e) {
+    } catch (IndexOutOfBoundsException e) {
+    } catch (NullPointerException e) {
     } catch (NumberFormatException e) {
       throw new InvalidSavedMapFileException("The saved map file " + saveFile
           + " is invalid. Unnable to load the game.");
     }
-
   }
 
   /**
