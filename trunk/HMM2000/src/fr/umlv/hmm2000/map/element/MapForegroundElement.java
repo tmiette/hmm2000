@@ -37,4 +37,6 @@ public interface MapForegroundElement extends Spritable {
    *            the displaying visitor.
    */
   public void accept(UIDisplayingVisitor visitor);
+  
+  public String getSaveString();
 }

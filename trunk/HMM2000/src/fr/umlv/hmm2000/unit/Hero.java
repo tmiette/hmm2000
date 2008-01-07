@@ -14,6 +14,7 @@ import fr.umlv.hmm2000.map.MovableElement;
 import fr.umlv.hmm2000.map.battle.BattlePositionMap;
 import fr.umlv.hmm2000.map.battle.exception.LocationAlreadyOccupedException;
 import fr.umlv.hmm2000.map.battle.exception.NoPlaceAvailableException;
+import fr.umlv.hmm2000.map.builder.MapForegroundElementSaver;
 import fr.umlv.hmm2000.resource.Resource.Kind;
 import fr.umlv.hmm2000.salesentity.Price;
 import fr.umlv.hmm2000.unit.exception.MaxNumberOfTroopsReachedException;
@@ -218,6 +219,11 @@ public class Hero extends MovableElement {
   @Override
   public String toString() {
     return this.name;
+  }
+  
+  @Override
+  public String getSaveString() {
+    return MapForegroundElementSaver.save(this);
   }
 
 }
