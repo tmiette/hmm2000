@@ -280,7 +280,9 @@ public class Castle implements FightableContainer {
       items.add(CastleItem.defaultItem);
       items.add(new HeroRecruitmentItem(this));
       items.add(new WarriorRecruitmentItem(this));
-      items.add(new UpgradeCastleItem(this));
+      if (this.getNextFactoryLevel(this.getDefaultFactory()) != null) {
+      	items.add(new UpgradeCastleItem(this));
+			}
       items.add(new UpgradeFactoryItem(this));
       items.add(new ExitHeroItem(this));
       items.add(new CreateNewFactoryItem(this));
