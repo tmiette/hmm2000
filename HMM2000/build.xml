@@ -13,7 +13,7 @@
 	<property name="src" value="${basedir}/src" />
 	<property name="classes" value="${basedir}/classes" />
 	<property name="classpath" value="${classes}" />
-	<property name="javadocDirectory" value="${basedir}/docs/api" />
+	<property name="javadocDirectory" value="${basedir}/docs/doc" />
 	
 	<target name="init" >
 		<echo>Building project...</echo>
