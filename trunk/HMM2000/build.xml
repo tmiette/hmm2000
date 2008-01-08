@@ -53,7 +53,7 @@
 		</javadoc>
 	</target>
 	
-	<target name="run">
+	<target name="run" depends="jar">
 		<java jar="${bin}/${project-name}.jar" fork="true"></java>
 	</target>
 	
