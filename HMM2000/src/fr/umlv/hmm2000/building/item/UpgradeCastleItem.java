@@ -28,9 +28,12 @@ public class UpgradeCastleItem implements CastleItem {
 
 		// Next level possible for default castle factory
 		Level level = castle.getNextFactoryLevel(castle.getDefaultFactory());
-		return "Upgrade castle, price : "
-				+ PriceFactory
-						.getWarriorFactoryPrice(castle.getDefaultFactory(), level);
+		if (level != null) {
+			return "Upgrade castle, price : "
+			+ PriceFactory
+					.getWarriorFactoryPrice(castle.getDefaultFactory(), level);
+		}
+		return null;
 	}
 
 	@Override
