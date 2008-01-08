@@ -59,7 +59,7 @@
 	
 	<target name="clean" description="Cleans project">
 		<echo>Cleaning files...</echo>
-		<delete includeemptydirs="true" verbose="false">
+		<delete includeemptydirs="true" verbose="false" failonerror="false">
 			<fileset dir="${javadocDirectory}" />
 			<fileset dir="${classes}" />
 			<fileset dir="${bin}" />
