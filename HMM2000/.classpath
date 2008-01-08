@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/lawrence.jar" sourcepath="lib/lawrence.jar"/>
 	<classpathentry kind="lib" path="lib/batik-dep.jar"/>
+	<classpathentry kind="lib" path="lib/lawrence.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>
